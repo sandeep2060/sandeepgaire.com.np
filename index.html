@@ -20,6 +20,19 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 .w3-large, w3-margin-right{color: white;}
+  
+  
+    .button {
+  border: none;
+  color: black;
+  padding: 40px 150px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 40px;
+  margin: 40px 2px;
+  cursor: pointer;
+background-color: lightgreen;}
 </style>
 </head>
 <body class="w3-black">
@@ -216,7 +229,8 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </center>
     <p class="w3-medium" id="demo">Web Design By: <a href="https://sandeepgaire.com.np/" target="_blank" class="w3-hover-text-green">Sandeep_Gaire</a><br>
      
-     
+     <button class="button" onclick="volt()">Log in</button>
+<h2 id="demovolt"></h2>
 
     </p>
   <!-- End footer -->
@@ -239,6 +253,21 @@ document.getElementById("demo").innerHTML = d;
     text = "Hello " + person + "! Welcome to my website";
   }
   document.getElementById("demo").innerHTML = text;
+}
+  
+  function volt() {
+  let num;
+  let username = prompt("Please enter your username:", "");
+  let password = prompt("Please enter your password:", "");
+  if (username == 9861639050 && password=="Sandeep2060" || username == "sandeepgaire8@gmail.com" && password=="Sandeep2060" || username == 2060 && password=="2060"  ) 
+
+  {
+   document.getElementById("demo").innerHTML = '<a href="https://sandeepgaire.com.np/">Log in Successful. Click me</a>';
+  } else {
+    text = "Wrong Username or Password!!! <br> Try again";
+  }
+  
+  document.getElementById("demovolt").innerHTML = text;
 }
 </script>
 </body>
