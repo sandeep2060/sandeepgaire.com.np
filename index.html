@@ -26,13 +26,13 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
-  <img src="1.png" style="width:100%">
+  <!-- Avatar image in top left corner --> 
+  <img src="1.png" style="width:100%" onclick="myFunction()">
   <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
   </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black" onclick="myFunction()">
     <i class="fa fa-user w3-xxlarge"></i>
     <p>ABOUT</p>
   </a>
@@ -216,8 +216,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </center>
     <p class="w3-medium" id="demo">Web Design By: <a href="https://sandeepgaire.com.np/" target="_blank" class="w3-hover-text-green">Sandeep_Gaire</a><br>
      
-      <button onclick="myFunction()">Try it</button>
-<p id="demo"></p>
+     
 
     </p>
   <!-- End footer -->
@@ -233,11 +232,11 @@ document.getElementById("demo").innerHTML = d;
   
   function myFunction() {
   let text;
-  let person = prompt("Please enter your name:", "Harry Potter");
+  let person = prompt("Please enter Full your name:", "Eg: Sandeep Gaire");
   if (person == null || person == "") {
     text = "User cancelled the prompt.";
   } else {
-    text = "Hello " + person + "! How are you today?";
+    text = "Hello " + person + "! Welcome to my website";
   }
   document.getElementById("demo").innerHTML = text;
 }
