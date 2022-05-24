@@ -1,281 +1,194 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
-     crossorigin="anonymous"></script>
-  
-<title>Sandeep Gaire</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {width: 120px;background: #222;}
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
-#main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-.w3-large, w3-margin-right{color: white;}
-  
-  
-    .button {
-  border: none;
-  color: black;
-  padding: 40px 150px;
-  text-align: center;
+body {
+  margin: 0;
+  background-color: orange;
+}
+
+.ve ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 30%;
+  background-color: black ;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.ve li a {
+  display: block;
+  color: white;
+  padding: 10px 30px;
   text-decoration: none;
-  display: inline-block;
-  font-size: 40px;
-  margin: 40px 2px;
-  cursor: pointer;
-background-color: lightgreen;}
+  font-size: 15px;
+}
+.ve li h1.logo {
+  background-color: dark;
+  color: orange;
+  font-size: 30px;
+  padding: 0px 12px;
+  font-family: cursive;
+}
+
+.ve li a.active {
+  background-color: orange;
+  color: black;
+  font-size: 20px;
+  border-radius: 50px;
+}
+
+.ve li a:hover:not(.active) {
+  background-color: black;
+  color: orange;
+  font-size: 25px;
+  padding: 10px 60px;
+
+}
+
+
+.hr ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 70%;
+  background-color: black ;
+  position: fixed;
+  height: 10%;
+  overflow: auto;
+  
+}
+
+.hr li {
+  float: left;
+}
+.hr li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 15px;
+  text-decoration: none;
+
+}
+.hr li a:hover:not(.active) {
+  background-color: black;
+  color: orange;
+  font-size: 25px;
+  padding: 10px 00px;
+
+}
+.hr.active {
+  background-color: #04AA6D;
+}
+li a.logo{
+  font-family: monospace;
+  font-size: 12px;
+  color: lightgreen;
+}
+li a.logo:not(.active) {
+  background-color: lightgreen;
+  border-radius: 30px;
+  color: black;
+}
+.hr li a.active {
+  background-color: orange;
+  color: black;
+  font-size: 20px;
+  border-radius: 50px;
+ }
+.BODY{
+  background-color: orange;
+}
+h1{
+  border-top-left-radius: 10px;
+  border-color: black;
+}
+.hr center{
+  background-color: dark;
+  color: orange;
+  font-size: 30px;
+  padding: 0px 12px;
+  font-family: cursive;
+
+}
+article{
+  font-family: cursive;
+  font-size: 120%;
+}
+i{
+  font-size: 200%;
+  font-family: monospace;
+}
 </style>
 </head>
-<body class="w3-black">
+<body onload="startTime()">
+<div class="ve">
+<ul><li><a class="dateandtime" ><b class="D" id="D"></b> <b class="T" id="T" style="float:right"></b></a></li>
+  <li><h1 class="logo" href="#home"><b>Sandeep Gaire</b></h1></li>
+  
+  <hr><br>
+  <li><a class="active" href="index.html">Home</a></li>
+  <li><a href="#news">News</a></li>
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner --> 
-  <img src="1.png" style="width:100%" onclick="myFunction()">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black"onclick="myFunction()">
-    <i class="fa fa-home w3-xxlarge"onclick="myFunction()"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PHOTOS</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-</nav>
-
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important"onclick="myFunction()">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="social home.html">Social Media</a></li>
+</ul>
 </div>
-
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home"><p id="demo"></p>
-    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Sandeep Gaire</h1>
-    <p><h3> Web and Lo-go Designer</h3></p>
-    <img src="2.png" alt="Sandeep Gaire" class="w3-image" width="350" height="408">
-  <br><audio controls loop ><center>
-  <a href="Election.html">ELECTION UPDATE</a></center>
-</audio>
-  </header>
-
-  <!-- About Section -->
-  <div class="w3-content w3-justify w3-text-grey w3-padding-64" id="about">
-    <h2 class="w3-text-light-grey">Mr.Sandeep</h2>
-    <hr style="width:200px" class="w3-opacity">
-    <p><!-- Some text about me. Some text about me. I am lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-      ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
-      adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.-->
-
-    </p><div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">Date of Birth</span><br>
-        2003-september-12
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">  </span><br>
-        
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">  </span><br>
-       
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">Blood Group</span><br>
-        B+
-      </div>
-    </div>
-
-    <h3 class="w3-padding-16 w3-text-light-grey">My Skills</h3>
-    <p class="w3-wide">Web Design</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:95%"></div>
-    </div>
-    <p class="w3-wide">Photography</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
-    </div>
-    <p class="w3-wide">Photoshop</p>
-    <div class="w3-white">
-      <div class="w3-dark-grey" style="height:28px;width:80%"></div>
-    </div><br>
-    
-    
-
-  
-    
-    <!-- Grid for pricing tables -->
-   <h3 class="w3-padding-16 w3-text-light-grey">      </h3>
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half w3-margin-bottom"> <!--
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Basic</li>
-          <li class="w3-padding-16">Web Design</li>
-          <li class="w3-padding-16">Photography</li>
-          <li class="w3-padding-16">5GB Storage</li>
-          <li class="w3-padding-16">Mail Support</li>
-          <li class="w3-padding-16">
-            <h2>$ 10</h2>
-            <span class="w3-opacity">per month</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-
-      <div class="w3-half">
-        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-grey w3-xlarge w3-padding-32">Pro</li>
-          <li class="w3-padding-16">Web Design</li>
-          <li class="w3-padding-16">Photography</li>
-          <li class="w3-padding-16">50GB Storage</li>
-          <li class="w3-padding-16">Endless Support</li>
-          <li class="w3-padding-16">
-            <h2>$ 25</h2>
-            <span class="w3-opacity">per month</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-white w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-    <!-- End Grid/Pricing tables -->
-    </div>
-    
-    <!-- Testimonials -->
-    <h3 class="w3-padding-24 w3-text-light-grey">Quates</h3>  
-    
-    <p><span class="w3-large w3-margin-right">
-* I am indeed a king, because I know how to rule myself.<br>
-* Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.<br>
-* It’s not your job to like me. It’s mine.<br>
-* My life. My rules. My attitude. My mistakes. Who the hell are you to judge me?<br>
-* You are who you are when nobody’s watching.<br>
-* My style is unique, please don’t copy it!<br>
-* Not everyone likes me but not everyone matters.<br>
-* Living my life in my style.<br>
-* I will find new habits, new thoughts, new rules. I will become something else.<br>
-* I like to reinvent myself – it’s part of my job.<br>
-* I’ve learned so much from my mistakes, I think I’ll make some more!<br>
-* Someday, there’s going to be an updated version of me.<br>
-* Being male is a matter of birth. Being a man is a matter of age. But being a gentleman is a matter of choice.<br>
-* Behind My Smile is everything you’ll never understand.
-    
-  <!-- End About quats -->
-  </div>  
-      
-  <!-- Portfolio Section -->
-  <div class="w3-padding-64 w3-content" id="photos">
-    <h2 class="w3-text-light-grey">My Photos</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <!-- Grid for photos -->
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half">
-        <img src="bg2.png" style="width:100%">
-       
-      </div>
-
-      <div class="w3-half">
-        <img src="bg11.png" style="width:100%">
-        
-      </div> <img src="bgg.png" style="width:100%">
-    <!-- End photo grid -->
-    </div>
-  <!-- End Portfolio Section -->
-  </div>
-
-  <!-- Contact Section -->
-  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-    <h2 class="w3-text-light-grey">Contact Me</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> <b>Permanent: </b>Chandrakot-7,Damuka,Gulmi,Nepal</p>
-      <p><i class="fa fa-map-marker fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> <b>Temporary: </b>Butwal-11,Kalikanagar,Rupendehi,Nepal</p>
-      <p><i class="fa fa-phone fa-fw w3-text-white w3-xxlarge w3-margin-right"></i> <b>Phone: </b> +977 9861639050</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i><b> Email: </b>sandeepgaire8@gmail.com</p>
-    </div>
-    
-  
-    <!-- Footer -->
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge"><center><h2><u>SOCIAL  MEDIA'S</u></h2>
-    <i style='font-size:50px'><a href="https://www.facebook.com/sandeep.2060" class="fa fa-facebook-official w3-hover-opacity"></a> </i>
-    <i style='font-size:50px'><a href="https://www.instagram.com/7sandeep_gaire" class="fa fa-instagram w3-hover-opacity"></a> </i>
-    <i style='font-size:50px'><a href="https://www.twitter.com/@Sandeep_Gaire7" class="fa fa-twitter w3-hover-opacity"></a> </i>
-    <i style='font-size:50px'><a href="https://www.snapchat.com/add/sandeepgaire26?share_id=ODMzNjkwMjYtREYwQy00ODIyLUE4MDgtRTA3MTlDMjhBNjY4&locale=en_US" class="fa fa-snapchat w3-hover-opacity"></a> </i>     <br>
-    <i style='font-size:50px'><a href="https://vt.tiktok.com/ZSdAXNEa9/" class="fa fa- w3-hover-opacity"> TikTok </a> </i> 
-    <i style='font-size:50px'><a href="https://youtube.com/channel/UCM-wESg3YSvM8fqNLoZ2GIg" class="fa fa- w3-hover-opacity"> YouTube </a> </i> 
-</center>
-    <p class="w3-medium" id="demo">Web Design By: <a href="https://sandeepgaire.com.np/" target="_blank" class="w3-hover-text-green">Sandeep_Gaire</a><br>
-    <center> 
-     <button class="button" onclick="volt()">Log in</button>
-<h2 id="demovolt"></h2>
-      </center>
-    </p>
-  <!-- End footer -->
-  </footer>
-
-<!-- END PAGE CONTENT -->
+<div style="margin-left:30%;padding:0px 0px;height:10px;">
+ <div class="hr"><ul>
+  <center><u>sandee</u>pg<u>aire.com.n</u>p</center>
+</ul>
+</div></div>
+<div class="BODY" style="margin-left:31%;padding:55px 0px;height:100%; width: 68.5%;">
+<a><h1>WELCOME TO 21ST CENTURY :</h1></a>
+<article>
+  <img src="img1.jpg" width="240px">
+<i>W</i>here sex is free & love is costly.
+<i>W</i>here loosing a phone is more painful than loosing your virginity.
+<i>W</i>here modernization means nudity. 
+<i>W</i>here if you don't drink/smoke you're old fashioned.
+<i>W</i>here boys flirt & passing bad comments to other girls.
+<i>W</i>here you cheat on your partner, because you are sharp.
+<i>W</i>here temples are turned into dating points.
+<i>W</i>here worshipping God is difficult.
+<i>W</i>here lies turned into realities.
+<i>W</i>here ladies fear pregnancy than <b>H.I.V.</b>
+<i>W</i>here pizza delivery is faster than emergency response.
+<i>W</i>here people fear thieves, robbers, terrorists than they fear God.
+<i>W</i>here outlook & clothes decide the value of a person.
+<i>W</i>here money is more important than family, friends.
+<i>W</i>here children are ready to leave their families for their love.
+<i>W</i>here guys are scared of marriage, but love to have sex.
+<i>W</i>here love is a game. <i>T</i>he one who play it with mind always get happiness & whoever plays with heart always get hurt.
+</article>
 </div>
 <script>
-const d = new Date();
-document.getElementById("demo").innerHTML = d;
-  
-  
-  
-  function myFunction() {
-  let text;
-  let person = prompt("Please enter Full your name:", "Eg: Sandeep Gaire");
-  if (person == null || person == "") {
-    text = "User cancelled the prompt.";
-  } else {
-    text = "Hello " + person + "! Welcome to my website";
-  }
-  document.getElementById("demo").innerHTML = text;
+function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('T').innerHTML =  h + ":" + m + ":" + s;
+  setTimeout(startTime, 1000);
 }
-  
-  function volt() {
-  let num;
-  let username = prompt("Please enter your username:", "");
-  let password = prompt("Please enter your password:", "");
-  if (username == "Brinda" && password=="2077.03.16" ) 
 
-  {
-   document.getElementById("demovolt").innerHTML = '<a href="voult.html">Log in Successful. Click Me...</a>';
-  } else if(username == "Prabina" && password=="i love you")
-    {
-   document.getElementById("demovolt").innerHTML = '<a href="pb.html">Log in Successful. Click Me !!!</a>';
-  }
-    else {
-    text = "Wrong Username or Password!!! <br> Try again";
-  }
-  
-  document.getElementById("demovolt").innerHTML = text;
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
 }
+
+const d = new Date();
+let day = d.getDate();
+let m = d.getMonth()+1;
+let y = d.getFullYear();
+document.getElementById("D").innerHTML = y+"-"+ m+ "-"+ day;
 </script>
 </body>
 </html>
+
+
