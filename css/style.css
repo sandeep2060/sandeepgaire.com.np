@@ -383,7 +383,7 @@ ul.email li a {
 
 #myCarousel a.carousel-control-next,
 #myCarousel a.carousel-control-prev {
-     background: #26cc35;
+     background: ;
      width: 80px;
      height: 80px;
      top: 49%;
@@ -421,7 +421,7 @@ ul.email li a {
 }
 
 .foot_img {
-     background: #26cc35;
+     background: ;
      max-width: 350px;
      margin: 0 auto;
      padding: 65px 0 58px 0;
