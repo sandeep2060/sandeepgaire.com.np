@@ -74,11 +74,12 @@
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 py-6 pb-0 pt-lg-0">
-                    <h3 class="text-primary mb-3"><b>It's me</b></h3>
-                    <h1 class="display-3 mb-3"><b>Sandeep Gaire</b></h1>
+                    
+                    <h3 class="text-primary mb-3"><b id="greetings" style=" webkit-text-stroke: 1px #282828;    text-shadow: 0px 2px 3px #282828;"></b> It's me</h3>
+                    <h1 class="display-3 mb-3"><b style=" webkit-text-stroke: 6px #282828;    text-shadow: 2px 2px 8px #282828;">Sandeep Gaire</b></h1>
                     <h2 class="typed-text-output d-inline"></h2>
                     <div class="typed-text d-none"> Loading..., Web Designer, Web Developer, Front End Developer, Youtuber</div><hr>
-                    <h4 class="text-primary mb-3">Its me IT aspirant who loves to learn new technology.</h4><hr>
+                    <h4 class="text-primary mb-3" >Its me IT aspirant who loves to learn new technology.</h4><hr>
                     <div class="d-flex align-items-center pt-5">
                        <a href="https://appdata.freewebsitetoapp.com/app-data/free-apps/17232/2HY55SPEQd/app-debug.apk" class="btn btn-primary py-3 px-4 me-5" >Download App</a>
                         <button type="button" class="btn-play" data-bs-toggle="modal" 
@@ -424,6 +425,21 @@ In essence, the front end is the user-facing side of a website, where users navi
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script>
+        var myDate = new Date();
+var hrs = myDate.getHours();
+
+var greet;
+
+if (hrs < 12)
+  greet = ' GOOD MORNING  ';
+else if (hrs >= 12 && hrs <= 17)
+  greet = ' GOOD AFTERNOON ';
+else if (hrs >= 17 && hrs <= 24)
+  greet = ' GOOD EVENING  ';
+
+document.getElementById('greetings').innerHTML ='<b>' + greet + '</b>';
+    </script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
