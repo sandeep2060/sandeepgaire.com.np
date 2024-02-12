@@ -37,9 +37,29 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <!--notice---------------------------------------------------------->
+  <link rel="stylesheet" href="notice/style.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+  <!--notice---------------------------------------------------------->
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
+    <!--Start notice---------------------------------------------------------->
+  <div class="wrapper">
+    <div class="toast">
+      <div class="content">
+        <div class="icon"><i class="uil uil-wifi"></i></div>
+        <div class="details">
+          <span>You're online now</span>
+          <p>Hurray! Internet is connected.</p>
+        </div>
+      </div>
+      <div class="close-icon"><i class="uil uil-times"></i></div>
+    </div>
+  </div>
+  <script src="notice/script.js"></script>
+<!--End notice---------------------------------------------------------->
+    
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
