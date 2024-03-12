@@ -1,0 +1,109 @@
+
+body{
+    
+    background-color: rgb(214, 213, 213);
+   
+}
+.main{
+   
+    
+    align-items: center;
+    text-align: center;
+    height: 25rem;
+    margin-top: 3rem;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    margin: 5rem 12rem 1rem 12rem;
+    box-shadow: rgb(164, 76, 241) 5px 5px 10px;
+    justify-content: center;
+    width: 55rem;
+    min-width:55rem ;
+   
+}
+
+.right{
+    
+    width: 50rem;
+    text-align: center;
+   
+}
+.img{
+    margin-top: 4px;
+    width: 20rem;
+    border-radius: 10px 0px 0px 10px;
+    padding-right: 4px;
+    border-right: solid 5px rgb(203, 177, 226);
+    
+}
+.logo{
+    font-size: 30px;
+   align-items: center;
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   color: rgb(164, 76, 241);
+}
+hr{
+    color: rgb(164, 76, 241);
+    width: 200px;
+    margin-top: -5px;
+    height: 3px;
+    background-color: rgb(164, 76, 241);
+   
+    
+}
+.login{
+    display: flex;
+    flex-direction: column;
+}
+.lname{
+    text-align: left;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 2px 50px;
+    align-items: center;
+    justify-content: center;
+    color: rgb(164, 76, 241);
+    font-weight: 540;
+
+}
+.type{
+ width: 25rem;
+ height: 1.6rem;
+ padding: 0.3rem 0.9rem;
+ outline: none;
+ border: none;
+ background-color: rgb(214, 213, 213);
+ color: rgb(164, 76, 241);
+ font-size: 18px;
+ margin: 5px 50px;
+ align-items: center;
+ border-radius: 4px;
+}
+.btn{
+ width: 26.8rem;
+ height: 2.5rem;
+ padding: 0.3rem 0.9rem;
+ outline: none;
+ border: none;
+ background-color: rgb(78, 94, 198);
+ color: white;
+ font-size: 22px;
+ margin: 5px 50px;
+ align-items: center;
+ border-radius: 4px; 
+ font-weight: 800;
+ text-align: center;
+ 
+}
+.btn:hover{
+    color: rgb(78, 94, 198);
+    box-shadow: rgb(164, 76, 241) 5px 5px 5px;
+    transform: 13s;
+    background-color: rgb(214, 213, 213) ;
+}
+.show{
+    display: inline;
+    margin-right: 310px;
+    font-weight: 550;
+    font-family: sans-serif;
+}
