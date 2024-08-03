@@ -16,7 +16,7 @@ const questions = [
     }
 
 {
-        question: "The passive voice of "Who did it? " is: ",
+        question: "The passive voice of 'Who did it?' is: ",
         options: ["Who was it done?", "Who was it done by?", "Who was done it?", "Who had it done by?"],
         answer: "Who was it done by?"
     }
