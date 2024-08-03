@@ -9,11 +9,7 @@ const questions = [
         options: ["in", "at", "by", "on"],
         answer: "at"
     },
-    {
-        question: "Laxmi is ..... honest and diligent student.",
-        options: ["a", "an", "the", "No article"],
-        answer: "an"
-    }
+    
 
 {
         question: "The passive voice of 'Who did it?' is: ",
