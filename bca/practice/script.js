@@ -1,18 +1,24 @@
 const questions = [
     {
-        question: "What is the capital of France?",
-        options: ["Berlin", "Madrid", "Paris", "Rome"],
-        answer: "Paris"
+        question: "She is very good ....... swimming. ",
+        options: ["at", "on", "of", "for"],
+        answer: "at"
     },
     {
-        question: "What is 2 + 2?",
-        options: ["3", "4", "5", "6"],
-        answer: "4"
+        question: "Sandeep will have arrived home ..... 7pm tomorrow. ",
+        options: ["in", "at", "by", "on"],
+        answer: "at"
     },
     {
-        question: "What is the largest planet in our solar system?",
-        options: ["Earth", "Jupiter", "Mars", "Saturn"],
-        answer: "Jupiter"
+        question: "Laxmi is ..... honest and diligent student.",
+        options: ["a", "an", "the", "No article"],
+        answer: "an"
+    }
+
+{
+        question: "The passive voice of "Who did it? " is: ",
+        options: ["Who was it done?", "Who was it done by?", "Who was done it?", "Who had it done by?"],
+        answer: "Who was it done by?"
     }
 ];
 
