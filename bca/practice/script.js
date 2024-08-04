@@ -62,7 +62,7 @@ function calculateResults() {
     });
 
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = `<h2>You scored ${score} out of ${questions.length}</h2>`;
+    resultDiv.innerHTML = `<h2>You scored<h1> ${score} </h1>out of ${questions.length}</h2>`;
     
     // Display answers and correct answers
     let answersHTML = '<h3>Answer Sheet:</h3>';
