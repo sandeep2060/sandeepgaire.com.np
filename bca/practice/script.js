@@ -21,6 +21,27 @@ const questions = [
         question: "The passive voice of 'Who did it?' is: ",
         options: ["Who was it done?", "Who was it done by?", "Who was done it?", "Who had it done by?"],
         answer: "Who was it done by?"
+    },
+
+    {
+        question: "We had to stop____the entrance for the security check.",
+        options: ["in", "on ","at ","for"],
+        answer: "at"
+    },
+    {
+        question: "Using a____ cleaner is the best way for avoiding the dust pollution.",
+        options: ["vaccum", "vacume","vacuum", "vacuume"],
+        answer: "vacuum"
+    },
+    {
+        question: "The plural form of'OX'is:",
+        options: ["oxen", "oxes","oxez", "none"],
+        answer: "oxen"
+    },
+     {
+        question: "The feminine form of'DEER'is:",
+        options: ["deeress", "doe","stag", "none"],
+        answer: "doe"
     }
 ];
 
