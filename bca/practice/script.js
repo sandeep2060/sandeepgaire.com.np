@@ -9,6 +9,12 @@ const questions = [
         options: ["in", "at", "by", "on"],
         answer: "at"
     },
+
+{
+        question: "Sandeep is_____honest and diligent student",
+        options: ["a", "an", "the", "No article"],
+        answer: "an"
+    },
     
 
 {
