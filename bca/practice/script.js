@@ -5,7 +5,7 @@ const questions = [
         answer: "at"
     },
     {
-        question: "Sandeep will have arrived home ..... 7pm tomorrow. ",
+        question: "Laxmi will have arrived home ..... 7pm tomorrow. ",
         options: ["in", "at", "by", "on"],
         answer: "at"
     },
