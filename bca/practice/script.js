@@ -11,13 +11,13 @@ const questions = [
     },
 
 {
-        question: "Sandeep is_____honest and diligent student",
+        question: "Sandeep is_____honest and diligent student.",
         options: ["a", "an", "the", "No article"],
         answer: "an"
     },
     
 
-{
+   {
         question: "The passive voice of 'Who did it?' is: ",
         options: ["Who was it done?", "Who was it done by?", "Who was done it?", "Who had it done by?"],
         answer: "Who was it done by?"
