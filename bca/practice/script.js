@@ -25,7 +25,7 @@ const questions = [
 
     {
         question: "We had to stop____the entrance for the security check.",
-        options: ["in", "on ","at ","for"],
+        options: ["in", "on ","at","for"],
         answer: "at"
     },
     {
