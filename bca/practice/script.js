@@ -39,7 +39,7 @@ const questions = [
         answer: "oxen"
     },
      {
-        question: "The feminine form of'DEER'is:",
+        question: "The feminine form of 'DEER' is:",
         options: ["deeress", "doe","stag", "none"],
         answer: "doe"
     }
