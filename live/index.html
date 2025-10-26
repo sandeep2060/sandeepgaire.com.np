@@ -1,134 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
      crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-1662750642698861">
 
-    
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Cricket Streaming | Cricket Live Stream Free</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Fontawesome Link for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-  </head>
-  <body>
+    <title>Live Cricket Match | CricketStream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            margin: 20px 0;
+            gap: 20px;
+        }
+        
+        /* Video Player Section */
+        .video-section {
+            flex: 3;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .match-info {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .match-info h2 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .team {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .vs {
+            font-weight: bold;
+            color: #ff6b6b;
+            margin: 0 10px;
+        }
+        
+        .score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .match-status {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+        }
+        
+        .sidebar-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .commentary-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .commentary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .commentary-over {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .upcoming-match {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .upcoming-match:last-child {
+            border-bottom: none;
+        }
+        
+        .match-teams {
+            flex: 1;
+        }
+        
+        .match-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #1e3c72;
+            color: white;
+            padding: 30px 0;
+            margin-top: 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .video-section, .sidebar {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .teams {
+                flex-direction: column;
+            }
+            
+            .vs {
+                margin: 10px 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .match-info h2 {
+                font-size: 1.2rem;
+            }
+            
+            .team-logo {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
     <header>
-      <nav class="navbar">
-        <h2 class="logo"><a href="#">Enjoy The Match Here </a></h2>
-        <input type="checkbox" id="menu-toggler">
-        <label for="menu-toggler" id="hamburger-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
-          </svg>
-        </label>
-        <ul class="all-links">
-          <li><a href="#home">Home</a></li>
-          
-        </ul>
-      </nav>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🏏</div>
+                    <h1>CricketStream</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Live Matches</a></li>
+                        <li><a href="#">Highlights</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Schedule</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </header>
 
-    <section class="homepage" id="home">
-      <div class="content">
-        <div class="text"><br><br><br><br>
-          <h1>Live Cricket Streaming</h1>
-          <p>
-            Stay tuned with us to watch every live match with us !! <br> Watch the live match in HD Quality, Scroll down, check out every links for Smooth Live Stream.</p>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Video Player Section -->
+            <section class="video-section">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/YSPV1YUvn6s" 
+                            title="Live Cricket Match" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <div class="match-info">
+                    <h2>ICC World Cup 2023 - Live Match</h2>
+                    <div class="teams">
+                        <div class="team">
+                            <div class="team-logo">IND</div>
+                            <div class="team-name">India</div>
+                            <div class="score">245/3 (40.2)</div>
+                        </div>
+                        <div class="vs">VS</div>
+                        <div class="team">
+                            <div class="team-logo">AUS</div>
+                            <div class="team-name">Australia</div>
+                            <div class="score">289/7 (50.0)</div>
+                        </div>
+                    </div>
+                    <div class="match-details">
+                        <p><strong>Venue:</strong> Melbourne Cricket Ground</p>
+                        <p><strong>Toss:</strong> Australia won the toss and elected to bat</p>
+                        <p><strong>Status:</strong> <span class="match-status">Live - India requires 45 runs in 58 balls</span></p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-card">
+                    <h3>Live Commentary</h3>
+                    <div class="commentary-item">
+                        <span class="commentary-over">40.2</span> - FOUR! Beautiful cover drive by Kohli, races to the boundary.
+                    </div>
+                    <div class="commentary-item">
+                        <span class="commentary-over">40.1</span> - Good length delivery outside off, defended to point.
+                    </div>
+                    <div class="commentary-item">
+                        <span class="commentary-over">39.6</span> - SIX! Massive hit by Sharma over long-on!
+                    </div>
+                    <div class="commentary-item">
+                        <span class="commentary-over">39.5</span> - Single taken, easy run to mid-wicket.
+                    </div>
+                    <div class="commentary-item">
+                        <span class="commentary-over">39.4</span> - Dot ball, excellent yorker from Starc.
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Upcoming Matches</h3>
+                    <div class="upcoming-match">
+                        <div class="match-teams">
+                            <div>England vs New Zealand</div>
+                            <div class="match-date">Tomorrow, 10:30 AM</div>
+                        </div>
+                    </div>
+                    <div class="upcoming-match">
+                        <div class="match-teams">
+                            <div>Pakistan vs South Africa</div>
+                            <div class="match-date">Oct 28, 2:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="upcoming-match">
+                        <div class="match-teams">
+                            <div>West Indies vs Sri Lanka</div>
+                            <div class="match-date">Oct 29, 9:30 AM</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Scorecard</h3>
+                    <p><strong>India:</strong> 245/3 (40.2 overs)</p>
+                    <p>Kohli: 98* (112)</p>
+                    <p>Sharma: 76 (89)</p>
+                    <p><strong>Australia:</strong> 289/7 (50.0 overs)</p>
+                    <p>Smith: 85 (102)</p>
+                    <p>Warner: 64 (71)</p>
+                </div>
+            </aside>
         </div>
-        <a href="#portfolio"><b>LIVE MATCH LINK'S</b></a>
-      </div>
-    </section>
+    </div>
 
-    
-
-    <section class="portfolio" id="portfolio">
-      <h2>Live Match's Links</h2>
-      <p><u>Stay tuned with us to watch every live match with us </u>!!</p>
-      <ul class="cards">
-        <!--<li class="card">
-          <img src="images/camping-1.jpg" alt="img">
-          <h3>Mountain Hiking</h3>
-          <p>Embark on an exhilarating hiking adventure in the breathtaking mountain ranges.</p>
-        </li>-->
-        <center>
-        <li class="card">
-          <img src="images/nvsn.png" alt="img" >
-          <h3>Nepal Vs Netherlands</h3>
-          <a href="np.html" style=" Click me" ><b>GET LINK > </b></a>
-          <p></p>
-        </li></center>
-        <!--<li class="card">
-          <img src="images/camping-3.jpg" alt="img">
-          <h3>Beach Camping</h3>
-          <p>Escape to sandy beaches and camp under the starry sky by the crashing waves.</p>
-        </li>-->
-        
-      </ul>
-    </section>
-<!--
-    <section class="about" id="about">
-      <h2>About Us</h2>
-      <p>Discover our story in providing camping services.</p>
-      <div class="row company-info">
-        <h3>Our Story</h3>
-        <p>Experience the excellence of our camping gear and services, where we have been offering high-quality camping essentials and gear for outdoor enthusiasts for over a decade. Our commitment to quality and customer satisfaction ensures that every adventurer can rely on us for their camping needs.</p>
-      </div>
-      <div class="row mission-vision">
-        <h3>Our Mission</h3>
-        <p>At Camping Gear Experts, our mission is to equip outdoor enthusiasts with top-notch camping gear and essentials that enhance their outdoor experiences. We strive to provide reliable, durable, and innovative products that contribute to memorable adventures and lasting memories.</p>
-        <h3>Our Vision</h3>
-        <p>Our vision is to become the go-to destination for camping enthusiasts, known for our extensive selection of premium camping gear and exceptional customer service. We aspire to inspire and enable people to embrace the beauty of nature and create unforgettable camping experiences.</p>
-      </div>
-      <div class="row team">
-        <h3>Our Team</h3>
-        <ul>
-          <li>John Doe - Founder and CEO</li>
-          <li>Jane Smith - Gear Specialist</li>
-          <li>Mark Johnson - Customer Representative</li>
-          <li>Sarah Brown - Operations Manager</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="contact" id="contact">
-      <h2>Contact Us</h2>
-      <p>Reach out to us for any inquiries or feedback.</p>
-      <div class="row">
-        <div class="col information">
-          <div class="contact-details">
-            <p><i class="fas fa-map-marker-alt"></i> 123 Campsite Avenue, Wilderness, CA 98765</p>
-            <p><i class="fas fa-envelope"></i> info@campinggearexperts.com</p>
-            <p><i class="fas fa-phone"></i> (123) 456-7890</p>
-            <p><i class="fas fa-clock"></i> Monday - Friday: 9:00 AM - 5:00 PM</p>
-            <p><i class="fas fa-clock"></i> Saturday: 10:00 AM - 3:00 PM</p>
-            <p><i class="fas fa-clock"></i> Sunday: Closed</p>
-            <p><i class="fas fa-globe"></i> www.codingenpalweb.com</p>
-          </div>          
-        </div>
-        <div class="col form">
-          <form>
-            <input type="text" placeholder="Name*" required>
-            <input type="email" placeholder="Email*" required>
-            <textarea placeholder="Message*" required></textarea>
-            <button id="submit" type="submit">Send Message</button>
-          </form>
-        </div>
-      </div>
-    </section>
-    -->
-
+    <!-- Footer -->
     <footer>
-      <div>
-        <span>Copyright © 2023 All Rights Reserved</span>
-        <span class="link">
-            <a href="#">Home</a>
-            <a href="#contact">Contact</a>
-        </span>
-      </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CricketStream</h3>
+                    <p>Your premier destination for live cricket streaming and match updates from around the world.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">FB</a>
+                        <a href="#" class="social-icon">TW</a>
+                        <a href="#" class="social-icon">IG</a>
+                        <a href="#" class="social-icon">YT</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Live Matches</a></li>
+                        <li><a href="#">Highlights</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Schedule</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: info@cricketstream.com</li>
+                        <li>Phone: +1 234 567 8900</li>
+                        <li>Address: 123 Sports Avenue, Cricket City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 CricketStream. All rights reserved.
+            </div>
+        </div>
     </footer>
-
-  </body>
+</body>
 </html>
