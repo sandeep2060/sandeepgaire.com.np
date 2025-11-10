@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google Adsense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
@@ -429,36 +430,32 @@
 
     <!-- YouTube Subscriber Counter -->
     <script>
-        // Function to get YouTube subscriber count
         async function getYouTubeSubs() {
-            const channelId = 'UCM-wESg3YSvM8fqNLoZ2GIg'; 
-            const apiKey = 'AIzaSyC1eoTPRy-94AVt5HEhouuMbARhKzRpNCo'; 
-            
-            // For now, using a static update since YouTube API requires key
-            // You can implement the actual API call when you have an API key
-            updateSubscriberCount(1); // Current count as fallback
-            
-            // Uncomment and implement when you have YouTube API key:
-            /*
             try {
-                const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=@Sandeep_Gaire&key=${apiKey}`);
+                const response = await fetch('/youtube-stats.php');
                 const data = await response.json();
+                
                 if (data.items && data.items[0]) {
-                    const subs = data.items[0].statistics.subscriberCount;
+                    const subs = parseInt(data.items[0].statistics.subscriberCount);
                     updateSubscriberCount(subs);
+                } else {
+                    updateSubscriberCount(1652); // Fallback
                 }
             } catch (error) {
                 console.log('Error fetching YouTube data:', error);
-                // Fallback to current count
-                updateSubscriberCount(1652);
+                updateSubscriberCount(1652); // Fallback
             }
-            */
         }
 
         function updateSubscriberCount(count) {
             const subsElement = document.getElementById('youtubeSubs');
             if (subsElement) {
                 subsElement.textContent = count.toLocaleString();
+                // Add animation
+                subsElement.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    subsElement.style.transform = 'scale(1)';
+                }, 300);
             }
         }
 
@@ -479,6 +476,9 @@
                 greet = 'GOOD EVENING';
 
             document.getElementById('greetings').innerHTML = '<b>' + greet + '</b>';
+            
+            // Update subscriber count every 10 minutes
+            setInterval(getYouTubeSubs, 300000);
         });
     </script>
 
