@@ -64,11 +64,11 @@ const Hero = () => {
                     <h1 className="hero-name fade-in-up">
                         Hi, I'm <span className="gradient-text">Sandeep Gaire</span>
                         <br />
-                        <span className="hero-title-subtitle"> Its me IT aspirant who loves to learn <span className="highlight"> new technology </span> </span>
+                        <span className="hero-title-subtitle"> Its me IT aspirant who loves to learn <span className="highlight"> new technology.</span></span>
                     </h1>
 
                     <div className="hero-role">
-                        <span className="role-prefix">Expert in </span>
+                        <span className="role-prefix">Expert in :</span>
                         <span className="typed-text">{typedText}</span>
                         <span className="cursor">|</span>
                     </div>
