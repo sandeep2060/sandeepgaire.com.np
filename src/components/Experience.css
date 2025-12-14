@@ -1,0 +1,55 @@
+.experience {
+    background: var(--color-bg-secondary);
+}
+
+.experience-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.experience-card {
+    background: var(--color-bg-card);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-light);
+}
+
+.experience-period {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-primary);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.experience-title {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+    color: var(--color-text-primary);
+}
+
+.experience-org {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.experience-desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}

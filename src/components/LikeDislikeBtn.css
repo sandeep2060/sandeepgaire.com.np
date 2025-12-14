@@ -1,0 +1,41 @@
+.interaction-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.interaction-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.interaction-btn:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-primary-light);
+}
+
+.interaction-btn.active {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.interaction-btn.dislike.active {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.icon {
+    font-size: 1rem;
+}
