@@ -48,8 +48,8 @@ const Contact = () => {
         {
             icon: '📧',
             label: 'Email',
-            value: 'sandeepgaire@example.com',
-            link: 'mailto:sandeepgaire@example.com'
+            value: 'sandeepgaire8@gmail.com',
+            link: 'mailto:sandeepgaire8@gmail.com'
         },
         {
             icon: '🌐',
