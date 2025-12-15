@@ -183,10 +183,24 @@ export const getAdminStats = async () => {
 };
 
 // Simple fingerprint for demo (using IP or user agent hash ideally, but here just localstorage ID)
+// Simple fingerprint using UUID to match Supabase schema
 const getFingerprint = async () => {
     let fp = localStorage.getItem('site_fingerprint');
-    if (!fp) {
-        fp = Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+    // Check if existing fingerprint is a valid UUID
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(fp || '');
+
+    if (!fp || !isUUID) {
+        // Generate new UUID
+        if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+            fp = crypto.randomUUID();
+        } else {
+            // Fallback UUID generator
+            fp = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
         localStorage.setItem('site_fingerprint', fp);
     }
     return fp;
