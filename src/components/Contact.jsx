@@ -34,7 +34,7 @@ const Contact = () => {
 
     const contactInfo = [
         {
-            icon: '📍',
+            icon: '📍 ',
             label: 'Location',
             value: 'Rupakot-7, Damuka, Gulmi',
             link: null
@@ -60,8 +60,8 @@ const Contact = () => {
     ];
 
     const socialLinks = [
-        { icon: '📘', name: 'Facebook', url: '#' },
-        { icon: '📷', name: 'Instagram', url: '#' },
+        { icon: '📘', name: 'Facebook', url: 'https://www.facebook.com/share/1HAjLZ4yM8/' },
+        { icon: '📷', name: 'Instagram', url: 'https://www.instagram.com/7sandeep_gaire?igsh=Znh2eWp4YnNqNXF0' },
         { icon: '🎥', name: 'YouTube', url: '#' },
         { icon: '💼', name: 'LinkedIn', url: '#' },
         { icon: '📦', name: 'GitHub', url: '#' }
