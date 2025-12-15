@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
-    getProjects, addProject, deleteProject,
-    getBlogs, addBlog, deleteBlog, getInteractions
-} from '../../services/storage';
+    getProjects, addProject, updateProject, deleteProject,
+    getBlogs, addBlog, updateBlog, deleteBlog, getAdminStats
+} from '../../services/api';
 import './Admin.css';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('projects');
+    const [isLoading, setIsLoading] = useState(false);
 
     // Data State
     const [projects, setProjects] = useState([]);
@@ -32,24 +33,23 @@ const AdminDashboard = () => {
         loadData();
     }, [navigate]);
 
-    const loadData = () => {
-        const p = getProjects();
-        const b = getBlogs();
-        setProjects(p);
-        setBlogs(b);
-
-        // Calculate Stats
-        let totalLikes = 0;
-        let totalDislikes = 0;
-
-        const allInteractions = JSON.parse(localStorage.getItem('portfolio_likes') || '{}');
-        Object.values(allInteractions).forEach(val => {
-            totalLikes += val.likes || 0;
-            totalDislikes += val.dislikes || 0;
-        });
-
-        const totalViews = b.reduce((acc, curr) => acc + (curr.views || 0), 0);
-        setStats({ likes: totalLikes, dislikes: totalDislikes, views: totalViews });
+    const loadData = async () => {
+        setIsLoading(true);
+        try {
+            const [p, b, s] = await Promise.all([
+                getProjects(),
+                getBlogs(),
+                getAdminStats()
+            ]);
+            setProjects(p || []);
+            setBlogs(b || []);
+            setStats(s || { views: 0, likes: 0, dislikes: 0 });
+        } catch (error) {
+            console.error(error);
+            toast.error('Failed to load data');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const logout = () => {
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
     };
 
     // --- Project Handlers ---
-    const handleProjectSubmit = (e) => {
+    const handleProjectSubmit = async (e) => {
         e.preventDefault();
         if (!projectForm.title || !projectForm.description) return toast.error('Fill required fields');
 
@@ -67,26 +67,38 @@ const AdminDashboard = () => {
             ? projectForm.tags
             : projectForm.tags.split(',').map(t => t.trim());
 
+        // Map form fields to DB columns
+        // Note: DB expects camelCase or snake_case depending entirely on Supabase columns.
+        // Based on api.js seeding, it seems we use: title, description, thumbnail, category, tags, live_url, github_url
+        // Adjusted to match potential DB schema (using snake_case for Supabase usually)
         const projectData = {
-            ...projectForm,
-            tags: tagsArray
+            title: projectForm.title,
+            category: projectForm.category,
+            description: projectForm.description,
+            tags: tagsArray,
+            live_url: projectForm.liveUrl, // api.js map suggests live_url
+            // github_url not in form? Assuming not needed or mapped from liveUrl for now? 
+            // Let's assume the form state liveUrl maps to live_url column
+            thumbnail: projectForm.thumbnail
         };
 
-        if (isEditing) {
-            // Update existing project
-            // Since our storage helper is simple (just add/delete), we'll implement update here
-            // manually by replacing the item in the list
-            const updatedProjects = projects.map(p => p.id === editId ? { ...projectData, id: editId } : p);
-            localStorage.setItem('portfolio_projects', JSON.stringify(updatedProjects));
-            toast.success('Project Updated');
+        setIsLoading(true);
+        try {
+            if (isEditing) {
+                await updateProject(editId, projectData);
+                toast.success('Project Updated');
+            } else {
+                await addProject(projectData);
+                toast.success('Project Added');
+            }
             exitEditMode();
-        } else {
-            addProject(projectData);
-            toast.success('Project Added');
-            setProjectForm({ title: '', category: '', description: '', tags: '', liveUrl: '', thumbnail: '' });
+            loadData();
+        } catch (error) {
+            console.error(error);
+            toast.error('Operation failed');
+        } finally {
+            setIsLoading(false);
         }
-
-        loadData();
     };
 
     const handleEditProject = (project) => {
@@ -97,30 +109,35 @@ const AdminDashboard = () => {
             title: project.title,
             category: project.category,
             description: project.description,
-            tags: project.tags.join(', '),
-            liveUrl: project.liveUrl,
+            tags: project.tags ? project.tags.join(', ') : '',
+            liveUrl: project.live_url || '', // Handle DB column name
             thumbnail: project.thumbnail || ''
         });
         window.scrollTo(0, 0);
     };
 
     // --- Blog Handlers ---
-    const handleBlogSubmit = (e) => {
+    const handleBlogSubmit = async (e) => {
         e.preventDefault();
         if (!blogForm.title || !blogForm.content) return toast.error('Fill required fields');
 
-        if (isEditing) {
-            const updatedBlogs = blogs.map(b => b.id === editId ? { ...b, ...blogForm } : b);
-            localStorage.setItem('portfolio_blogs', JSON.stringify(updatedBlogs));
-            toast.success('Blog Updated');
+        setIsLoading(true);
+        try {
+            if (isEditing) {
+                await updateBlog(editId, blogForm);
+                toast.success('Blog Updated');
+            } else {
+                await addBlog(blogForm);
+                toast.success('Blog Published');
+            }
             exitEditMode();
-        } else {
-            addBlog(blogForm);
-            toast.success('Blog Published');
-            setBlogForm({ title: '', author: '', content: '' });
+            loadData();
+        } catch (error) {
+            console.error(error);
+            toast.error('Operation failed');
+        } finally {
+            setIsLoading(false);
         }
-
-        loadData();
     };
 
     const handleEditBlog = (blog) => {
@@ -142,22 +159,39 @@ const AdminDashboard = () => {
         setBlogForm({ title: '', author: '', content: '' });
     };
 
-    const handleDelete = (id, type) => {
-        if (window.confirm('Are you sure?')) {
-            if (type === 'project') deleteProject(id);
-            if (type === 'blog') deleteBlog(id);
-            loadData();
-            toast.success('Deleted successfully');
-            if (isEditing && editId === id) exitEditMode();
+    const handleDelete = async (id, type) => {
+        if (window.confirm('Are you sure? This cannot be undone.')) {
+            setIsLoading(true);
+            try {
+                if (type === 'project') await deleteProject(id);
+                if (type === 'blog') await deleteBlog(id);
+                toast.success('Deleted successfully');
+                loadData();
+                if (isEditing && editId === id) exitEditMode();
+            } catch (error) {
+                console.error(error);
+                toast.error('Delete failed');
+            } finally {
+                setIsLoading(false);
+            }
         }
     };
+
+    if (isLoading && projects.length === 0 && blogs.length === 0) {
+        return <div className="loading-screen">Loading Admin Dashboard...</div>;
+    }
 
     return (
         <div className="dashboard-page section">
             <div className="container">
                 <div className="dashboard-header">
                     <h2>Admin Dashboard</h2>
-                    <button className="btn btn-outline" onClick={logout}>Logout</button>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <button className="btn btn-sm btn-outline" onClick={loadData} disabled={isLoading}>
+                            {isLoading ? '...' : 'Refresh'}
+                        </button>
+                        <button className="btn btn-outline" onClick={logout}>Logout</button>
+                    </div>
                 </div>
 
                 {/* Analytics Cards */}
@@ -203,39 +237,44 @@ const AdminDashboard = () => {
                                 <form onSubmit={handleProjectSubmit}>
                                     <div className="form-group">
                                         <label>Title</label>
-                                        <input value={projectForm.title} onChange={e => setProjectForm({ ...projectForm, title: e.target.value })} />
+                                        <input value={projectForm.title} onChange={e => setProjectForm({ ...projectForm, title: e.target.value })} disabled={isLoading} />
                                     </div>
                                     <div className="form-group">
                                         <label>Category</label>
-                                        <input value={projectForm.category} onChange={e => setProjectForm({ ...projectForm, category: e.target.value })} />
+                                        <input value={projectForm.category} onChange={e => setProjectForm({ ...projectForm, category: e.target.value })} disabled={isLoading} />
                                     </div>
                                     <div className="form-group">
                                         <label>Thumbnail URL (Image Link)</label>
-                                        <input value={projectForm.thumbnail} onChange={e => setProjectForm({ ...projectForm, thumbnail: e.target.value })} placeholder="https://example.com/image.jpg" />
+                                        <input value={projectForm.thumbnail} onChange={e => setProjectForm({ ...projectForm, thumbnail: e.target.value })} placeholder="https://example.com/image.jpg" disabled={isLoading} />
                                     </div>
                                     <div className="form-group">
                                         <label>Description</label>
-                                        <textarea value={projectForm.description} onChange={e => setProjectForm({ ...projectForm, description: e.target.value })} />
+                                        <textarea value={projectForm.description} onChange={e => setProjectForm({ ...projectForm, description: e.target.value })} disabled={isLoading} />
                                     </div>
                                     <div className="form-group">
                                         <label>Tags (comma separated)</label>
-                                        <input value={projectForm.tags} onChange={e => setProjectForm({ ...projectForm, tags: e.target.value })} />
+                                        <input value={projectForm.tags} onChange={e => setProjectForm({ ...projectForm, tags: e.target.value })} disabled={isLoading} />
                                     </div>
                                     <div className="form-group">
                                         <label>Live URL</label>
-                                        <input value={projectForm.liveUrl} onChange={e => setProjectForm({ ...projectForm, liveUrl: e.target.value })} />
+                                        <input value={projectForm.liveUrl} onChange={e => setProjectForm({ ...projectForm, liveUrl: e.target.value })} disabled={isLoading} />
                                     </div>
-                                    <button type="submit" className="btn btn-primary">{isEditing ? 'Update Project' : 'Add Project'}</button>
+                                    <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                                        {isLoading ? 'Processing...' : (isEditing ? 'Update Project' : 'Add Project')}
+                                    </button>
                                 </form>
                             </div>
 
                             <div className="preview-grid">
-                                <h3>Existing Projects</h3>
+                                <h3>Existing Projects ({projects.length})</h3>
                                 {projects.map(p => (
                                     <div key={p.id} className="preview-item">
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                             {p.thumbnail && <img src={p.thumbnail} alt="" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />}
-                                            <span>{p.title}</span>
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <span style={{ fontWeight: '500' }}>{p.title}</span>
+                                                <span style={{ fontSize: '0.8em', opacity: 0.7 }}>{p.views || 0} views</span>
+                                            </div>
                                         </div>
                                         <div style={{ display: 'flex', gap: '10px' }}>
                                             <button className="edit-btn" onClick={() => handleEditProject(p)}>Edit</button>
@@ -255,25 +294,30 @@ const AdminDashboard = () => {
                                 <form onSubmit={handleBlogSubmit}>
                                     <div className="form-group">
                                         <label>Blog Title</label>
-                                        <input value={blogForm.title} onChange={e => setBlogForm({ ...blogForm, title: e.target.value })} />
+                                        <input value={blogForm.title} onChange={e => setBlogForm({ ...blogForm, title: e.target.value })} disabled={isLoading} />
                                     </div>
                                     <div className="form-group">
                                         <label>Author</label>
-                                        <input value={blogForm.author} onChange={e => setBlogForm({ ...blogForm, author: e.target.value })} />
+                                        <input value={blogForm.author} onChange={e => setBlogForm({ ...blogForm, author: e.target.value })} disabled={isLoading} />
                                     </div>
                                     <div className="form-group">
                                         <label>Content (HTML supported)</label>
-                                        <textarea rows="10" value={blogForm.content} onChange={e => setBlogForm({ ...blogForm, content: e.target.value })} />
+                                        <textarea rows="10" value={blogForm.content} onChange={e => setBlogForm({ ...blogForm, content: e.target.value })} disabled={isLoading} />
                                     </div>
-                                    <button type="submit" className="btn btn-primary">{isEditing ? 'Update Blog' : 'Publish Blog'}</button>
+                                    <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                                        {isLoading ? 'Processing...' : (isEditing ? 'Update Blog' : 'Publish Blog')}
+                                    </button>
                                 </form>
                             </div>
 
                             <div className="preview-grid">
-                                <h3>Recent Blogs</h3>
+                                <h3>Recent Blogs ({blogs.length})</h3>
                                 {blogs.map(b => (
                                     <div key={b.id} className="preview-item">
-                                        <span>{b.title}</span>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <span style={{ fontWeight: '500' }}>{b.title}</span>
+                                            <span style={{ fontSize: '0.8em', opacity: 0.7 }}>{b.views || 0} views</span>
+                                        </div>
                                         <div style={{ display: 'flex', gap: '10px' }}>
                                             <button className="edit-btn" onClick={() => handleEditBlog(b)}>Edit</button>
                                             <button className="delete-btn" onClick={() => handleDelete(b.id, 'blog')}>Delete</button>

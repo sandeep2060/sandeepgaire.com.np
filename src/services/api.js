@@ -173,13 +173,30 @@ export const incrementView = async (table, id) => {
 
 // --- Stats for Admin ---
 export const getAdminStats = async () => {
-    // This is expensive if lots of data, but fine for portfolio
-    const { count: totalProjects } = await supabase.from('projects').select('*', { count: 'exact', head: true });
-    const { count: totalBlogs } = await supabase.from('blogs').select('*', { count: 'exact', head: true });
+    // Calculate total views from Projects and Blogs
+    // Note: Ideally use a Database Function (RPC) for this, but client-side sum is okay for small portfolio
+    const { data: projects } = await supabase.from('projects').select('views');
+    const projectViews = projects ? projects.reduce((acc, curr) => acc + (curr.views || 0), 0) : 0;
 
-    // Summing views/likes would require aggregation query or RPC
-    // For now we return counts
-    return { projects: totalProjects, blogs: totalBlogs };
+    const { data: blogs } = await supabase.from('blogs').select('views');
+    const blogViews = blogs ? blogs.reduce((acc, curr) => acc + (curr.views || 0), 0) : 0;
+
+    // Count Likes/Dislikes
+    const { count: likes } = await supabase
+        .from('interactions')
+        .select('*', { count: 'exact', head: true })
+        .eq('action', 'like');
+
+    const { count: dislikes } = await supabase
+        .from('interactions')
+        .select('*', { count: 'exact', head: true })
+        .eq('action', 'dislike');
+
+    return {
+        views: projectViews + blogViews,
+        likes: likes || 0,
+        dislikes: dislikes || 0
+    };
 };
 
 // Simple fingerprint for demo (using IP or user agent hash ideally, but here just localstorage ID)
