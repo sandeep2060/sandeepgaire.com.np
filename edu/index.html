@@ -132,8 +132,8 @@
         .hero {
             padding: 80px 0;
             background-image: url("bg.jpg");
-          background-attachment: fixed;
-background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             background-size: 100% auto;
             background-position: center;
             color: white;
@@ -799,6 +799,52 @@ background-repeat: no-repeat;
             </div>
         </div>
     </section>
+    
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <h2 class="section-title">Upload Notes</h2>
+            <form class="upload-form" id="uploadForm">
+                <div class="form-group">
+                    <label for="noteTitle">Note Title *</label>
+                    <input type="text" id="noteTitle" class="form-control" placeholder="Enter note title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="noteSubject">Class *</label>
+                    <select id="noteSubject" class="form-control" required>
+                        <option value="">Select Class</option>
+                        <option value="Class 6">Class 6</option>
+                        <option value="Class 7">Class 7</option>
+                        <option value="Class 8">Class 8</option>
+                        <option value="Class 9">Class 9</option>
+                        <option value="Class 10">Class 10</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="noteDescription">Description</label>
+                    <textarea id="noteDescription" class="form-control" rows="4" placeholder="Enter note description"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Upload File *</label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h4>Drag & Drop or Click to Upload</h4>
+                        <p>Supported formats: PDF, DOC, DOCX, PPT, TXT</p>
+                        <input type="file" id="fileInput" style="display: none;" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt">
+                        <p id="fileName">No file chosen</p>
+                    </div>
+                </div>
+                
+                <button type="submit" class="upload-button">
+                    <i class="fas fa-upload"></i> Upload Note
+                </button>
+            </form>
+        </div>
+    </section>
+
 <!-- Adsence -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
      crossorigin="anonymous"></script>
@@ -917,6 +963,7 @@ background-repeat: no-repeat;
     </div>
 
     <script>
+        // Sample notes data
         const notesData = [
             {
                 id: 1,
@@ -1009,34 +1056,44 @@ background-repeat: no-repeat;
         const filterButtons = document.querySelectorAll('.filter-btn');
 
         // Mobile menu toggle
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+        }
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
             });
         });
 
         // Login modal
-        loginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'flex';
-        });
+        if (loginBtn) {
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+        }
 
-        closeLoginModal.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
+        if (closeLoginModal) {
+            closeLoginModal.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+            });
+        }
 
-        closeSuccessModal.addEventListener('click', () => {
-            successModal.style.display = 'none';
-        });
+        if (closeSuccessModal) {
+            closeSuccessModal.addEventListener('click', () => {
+                successModal.style.display = 'none';
+            });
+        }
 
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
@@ -1049,90 +1106,105 @@ background-repeat: no-repeat;
         });
 
         // File upload area interaction
-        fileUploadArea.addEventListener('click', () => {
-            fileInput.click();
-        });
+        if (fileUploadArea) {
+            fileUploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+        }
 
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length > 0) {
-                fileName.textContent = `Selected file: ${fileInput.files[0].name}`;
-                fileUploadArea.style.borderColor = 'var(--success-color)';
-                fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
-            }
-        });
+        if (fileInput) {
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    fileName.textContent = `Selected file: ${fileInput.files[0].name}`;
+                    fileUploadArea.style.borderColor = 'var(--success-color)';
+                    fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
+                }
+            });
+        }
 
         // Drag and drop for file upload
-        fileUploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            fileUploadArea.style.borderColor = 'var(--primary-color)';
-            fileUploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
-        });
+        if (fileUploadArea) {
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = 'var(--primary-color)';
+                fileUploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
+            });
 
-        fileUploadArea.addEventListener('dragleave', () => {
-            fileUploadArea.style.borderColor = '#ddd';
-            fileUploadArea.style.backgroundColor = 'transparent';
-        });
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.style.borderColor = '#ddd';
+                fileUploadArea.style.backgroundColor = 'transparent';
+            });
 
-        fileUploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            fileUploadArea.style.borderColor = '#ddd';
-            fileUploadArea.style.backgroundColor = 'transparent';
-            
-            if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
-                fileName.textContent = `Selected file: ${e.dataTransfer.files[0].name}`;
-                fileUploadArea.style.borderColor = 'var(--success-color)';
-                fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
-            }
-        });
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = '#ddd';
+                fileUploadArea.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    fileName.textContent = `Selected file: ${e.dataTransfer.files[0].name}`;
+                    fileUploadArea.style.borderColor = 'var(--success-color)';
+                    fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
+                }
+            });
+        }
 
         // Upload form submission
-        uploadForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const title = document.getElementById('noteTitle').value;
-            const subject = document.getElementById('noteSubject').value;
-            const description = document.getElementById('noteDescription').value;
-            
-            if (!title || !subject) {
-                alert('Please fill in all required fields');
-                return;
-            }
-            
-            // In a real application, here you would upload the file to a server
-            // For this demo, we'll just show a success message
-            successModal.style.display = 'flex';
-            
-            // Reset the form
-            uploadForm.reset();
-            fileName.textContent = '';
-            fileUploadArea.style.borderColor = '#ddd';
-            fileUploadArea.style.backgroundColor = 'transparent';
-            
-            // Add the new note to the notes grid
-            const newNote = {
-                id: notesData.length + 1,
-                title: title,
-                category: subject,
-                description: description || "No description provided.",
-                date: new Date().toISOString().split('T')[0],
-                downloads: 0,
-                fileSize: fileInput.files.length ? `${(fileInput.files[0].size / 1024 / 1024).toFixed(1)} MB` : "N/A"
-            };
-            
-            notesData.unshift(newNote);
-            renderNotes(notesData);
-        });
+        if (uploadForm) {
+            uploadForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const title = document.getElementById('noteTitle').value;
+                const subject = document.getElementById('noteSubject').value;
+                const description = document.getElementById('noteDescription').value;
+                
+                if (!title || !subject) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                // In a real application, here you would upload the file to a server
+                // For this demo, we'll just show a success message
+                successModal.style.display = 'flex';
+                
+                // Reset the form
+                uploadForm.reset();
+                fileName.textContent = '';
+                if (fileUploadArea) {
+                    fileUploadArea.style.borderColor = '#ddd';
+                    fileUploadArea.style.backgroundColor = 'transparent';
+                }
+                
+                // Add the new note to the notes grid
+                const newNote = {
+                    id: notesData.length + 1,
+                    title: title,
+                    category: subject,
+                    description: description || "No description provided.",
+                    date: new Date().toISOString().split('T')[0],
+                    downloads: 0,
+                    fileSize: fileInput.files.length ? `${(fileInput.files[0].size / 1024 / 1024).toFixed(1)} MB` : "N/A"
+                };
+                
+                notesData.unshift(newNote);
+                renderNotes(notesData);
+            });
+        }
 
         // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Login functionality would connect to a backend in a real application.');
-            loginModal.style.display = 'none';
-        });
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Login functionality would connect to a backend in a real application.');
+                loginModal.style.display = 'none';
+            });
+        }
 
         // Render notes function
         function renderNotes(notes) {
+            if (!notesGrid) return;
+            
             notesGrid.innerHTML = '';
             
             if (notes.length === 0) {
@@ -1210,26 +1282,28 @@ background-repeat: no-repeat;
         });
 
         // Search functionality
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            
-            if (searchTerm === '') {
-                // If search is empty, show filtered notes based on active filter
-                const filteredNotes = activeFilter === 'all' 
-                    ? notesData 
-                    : notesData.filter(note => note.category === activeFilter);
+        if (searchInput) {
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (searchTerm === '') {
+                    // If search is empty, show filtered notes based on active filter
+                    const filteredNotes = activeFilter === 'all' 
+                        ? notesData 
+                        : notesData.filter(note => note.category === activeFilter);
+                    renderNotes(filteredNotes);
+                    return;
+                }
+                
+                const filteredNotes = notesData.filter(note => 
+                    note.title.toLowerCase().includes(searchTerm) ||
+                    note.description.toLowerCase().includes(searchTerm) ||
+                    note.category.toLowerCase().includes(searchTerm)
+                );
+                
                 renderNotes(filteredNotes);
-                return;
-            }
-            
-            const filteredNotes = notesData.filter(note => 
-                note.title.toLowerCase().includes(searchTerm) ||
-                note.description.toLowerCase().includes(searchTerm) ||
-                note.category.toLowerCase().includes(searchTerm)
-            );
-            
-            renderNotes(filteredNotes);
-        });
+            });
+        }
 
         // Class short button search functionality
         function searchByClass(className) {
@@ -1252,43 +1326,48 @@ background-repeat: no-repeat;
             renderNotes(filteredNotes);
             
             // Clear search input
-            searchInput.value = '';
+            if (searchInput) searchInput.value = '';
             
             // Scroll to notes section
-            document.querySelector('#notes').scrollIntoView({
-                behavior: 'smooth'
-            });
+            const notesSection = document.querySelector('#notes');
+            if (notesSection) {
+                notesSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         }
 
         // Add class search buttons to features section
         document.addEventListener('DOMContentLoaded', function() {
             // Add class search buttons to hero section
             const heroSection = document.querySelector('.hero .container');
-            const searchButtonsContainer = document.createElement('div');
-            searchButtonsContainer.className = 'class-search-buttons';
-            searchButtonsContainer.style.marginTop = '30px';
-            searchButtonsContainer.style.display = 'flex';
-            searchButtonsContainer.style.flexWrap = 'wrap';
-            searchButtonsContainer.style.gap = '10px';
-            searchButtonsContainer.style.justifyContent = 'center';
-            
-            const classes = ['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
-            
-            classes.forEach(className => {
-                const button = document.createElement('button');
-                button.className = 'cta-button';
-                button.style.padding = '8px 20px';
-                button.style.fontSize = '0.9rem';
-                button.style.margin = '5px';
-                button.textContent = className + ' Notes';
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    searchByClass(className);
+            if (heroSection) {
+                const searchButtonsContainer = document.createElement('div');
+                searchButtonsContainer.className = 'class-search-buttons';
+                searchButtonsContainer.style.marginTop = '30px';
+                searchButtonsContainer.style.display = 'flex';
+                searchButtonsContainer.style.flexWrap = 'wrap';
+                searchButtonsContainer.style.gap = '10px';
+                searchButtonsContainer.style.justifyContent = 'center';
+                
+                const classes = ['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
+                
+                classes.forEach(className => {
+                    const button = document.createElement('button');
+                    button.className = 'cta-button';
+                    button.style.padding = '8px 20px';
+                    button.style.fontSize = '0.9rem';
+                    button.style.margin = '5px';
+                    button.textContent = className + ' Notes';
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        searchByClass(className);
+                    });
+                    searchButtonsContainer.appendChild(button);
                 });
-                searchButtonsContainer.appendChild(button);
-            });
-            
-            heroSection.appendChild(searchButtonsContainer);
+                
+                heroSection.appendChild(searchButtonsContainer);
+            }
         });
 
         // Smooth scrolling for anchor links
@@ -1310,7 +1389,9 @@ background-repeat: no-repeat;
         });
 
         // Initialize the page with all notes
-        renderNotes(notesData);
+        document.addEventListener('DOMContentLoaded', function() {
+            renderNotes(notesData);
+        });
     </script>
 </body>
-</html>
+    </html>
