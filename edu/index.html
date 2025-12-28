@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechTeach - Computer Education Portal with Database</title>
+    <title>TechTeach - Computer Education Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -623,47 +623,6 @@
             cursor: pointer;
         }
 
-        /* Database Status */
-        .db-status {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: white;
-            padding: 10px 15px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
-            font-size: 0.9rem;
-        }
-
-        .db-status.connected {
-            color: var(--success-color);
-            border-left: 4px solid var(--success-color);
-        }
-
-        .db-status.disconnected {
-            color: var(--danger-color);
-            border-left: 4px solid var(--danger-color);
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero h1 {
@@ -708,12 +667,6 @@
             .upload-form {
                 padding: 25px;
             }
-            
-            .db-status {
-                bottom: 10px;
-                right: 10px;
-                font-size: 0.8rem;
-            }
         }
 
         @media (max-width: 576px) {
@@ -744,12 +697,6 @@
     </style>
 </head>
 <body>
-    <!-- Database Status Indicator -->
-    <div class="db-status" id="dbStatus">
-        <i class="fas fa-database"></i>
-        <span>Connecting to database...</span>
-    </div>
-
     <!-- Header -->
     <header>
         <div class="container header-container">
@@ -766,7 +713,7 @@
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#notes">Notes</a></li>
                 <li><a href="#upload">Upload</a></li>
-                <li><a href="#students">Students</a></li>
+                <li><a href="#contact">Contact</a></li>
                 <li><a href="#" id="loginBtn">Login</a></li>
             </ul>
         </div>
@@ -790,8 +737,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-upload"></i>
                     </div>
-                    <h3>Database Integration</h3>
-                    <p>All notes are stored securely in Supabase cloud database. Real-time updates and persistent storage.</p>
+                    <h3>Easy Upload</h3>
+                    <p>Upload notes in various formats (PDF, DOC, PPT) with just a few clicks. Organize by subject and topic.</p>
                 </div>
                 
                 <div class="feature-card">
@@ -814,8 +761,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Student Analytics</h3>
-                    <p>Track which students have accessed materials and monitor their engagement with your content.</p>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor which students have accessed materials and track their engagement with your content.</p>
                 </div>
             </div>
         </div>
@@ -842,11 +789,7 @@
             </div>
             
             <div class="notes-grid" id="notesGrid">
-                <!-- Notes will be dynamically loaded from Supabase -->
-                <div id="loadingNotes" style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                    <div class="spinner" style="width: 40px; height: 40px; margin-bottom: 15px;"></div>
-                    <p>Loading notes from database...</p>
-                </div>
+                <!-- Notes will be dynamically added here -->
             </div>
         </div>
     </section>
@@ -858,12 +801,12 @@
             
             <form class="upload-form" id="uploadForm">
                 <div class="form-group">
-                    <label for="noteTitle">Note Title *</label>
+                    <label for="noteTitle">Note Title</label>
                     <input type="text" id="noteTitle" class="form-control" placeholder="Enter note title" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="noteSubject">Subject/Category *</label>
+                    <label for="noteSubject">Subject/Category</label>
                     <select id="noteSubject" class="form-control" required>
                         <option value="">Select a subject</option>
                         <option value="programming">Programming</option>
@@ -881,55 +824,20 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="fileUrl">File URL *</label>
-                    <input type="url" id="fileUrl" class="form-control" placeholder="https://drive.google.com/file/... or direct file link" required>
-                    <small style="color: #666; margin-top: 5px; display: block;">
-                        You can upload files to Google Drive, Dropbox, or any file hosting service and paste the link here.
-                    </small>
+                    <label>Upload File</label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drag & Drop your file here</h3>
+                        <p>or click to browse (PDF, DOC, PPT, TXT, ZIP)</p>
+                        <input type="file" id="fileInput" style="display: none;">
+                    </div>
+                    <div id="fileName" style="margin-top: 10px; font-style: italic;"></div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="fileFormat">File Format</label>
-                    <select id="fileFormat" class="form-control">
-                        <option value="pdf">PDF</option>
-                        <option value="doc">DOC/DOCX</option>
-                        <option value="ppt">PPT/PPTX</option>
-                        <option value="txt">TXT</option>
-                        <option value="zip">ZIP/RAR</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <button type="submit" class="upload-button" id="submitBtn">
-                    <i class="fas fa-upload"></i> Upload Note to Database
+                <button type="submit" class="upload-button">
+                    <i class="fas fa-upload"></i> Upload Note
                 </button>
             </form>
-        </div>
-    </section>
-
-    <!-- Students Section -->
-    <section class="notes-section" id="students" style="background-color: #f8f9fa;">
-        <div class="container">
-            <h2 class="section-title">Student Management</h2>
-            
-            <div class="notes-controls">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="studentSearch" placeholder="Search students by name or email...">
-                </div>
-                
-                <button class="cta-button" id="addStudentBtn">
-                    <i class="fas fa-user-plus"></i> Add Student
-                </button>
-            </div>
-            
-            <div class="notes-grid" id="studentsGrid">
-                <!-- Students will be dynamically loaded from Supabase -->
-                <div id="loadingStudents" style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                    <div class="spinner" style="width: 40px; height: 40px; margin-bottom: 15px;"></div>
-                    <p>Loading student data...</p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -957,7 +865,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#notes">Browse Notes</a></li>
                         <li><a href="#upload">Upload Notes</a></li>
-                        <li><a href="#students">Student Management</a></li>
+                        <li><a href="#">Student Dashboard</a></li>
                         <li><a href="#">Teacher Resources</a></li>
                     </ul>
                 </div>
@@ -973,7 +881,7 @@
             
             <div class="copyright">
                 <p>&copy; 2023 TechTeach - Computer Education Portal. All rights reserved.</p>
-                <p>Powered by Supabase Database | Designed specifically for computer teachers</p>
+                <p>Designed specifically for computer teachers to share knowledge effectively.</p>
             </div>
         </div>
     </footer>
@@ -1017,41 +925,6 @@
         </div>
     </div>
 
-    <!-- Add Student Modal -->
-    <div class="modal" id="addStudentModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New Student</h3>
-                <button class="close-modal" id="closeStudentModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="addStudentForm">
-                    <div class="form-group">
-                        <label for="studentName">Student Name *</label>
-                        <input type="text" id="studentName" class="form-control" placeholder="Enter student full name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="studentEmail">Email Address *</label>
-                        <input type="email" id="studentEmail" class="form-control" placeholder="student@school.edu" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="studentClass">Class/Group</label>
-                        <input type="text" id="studentClass" class="form-control" placeholder="e.g., Computer Science 2023">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="studentPhone">Phone Number</label>
-                        <input type="tel" id="studentPhone" class="form-control" placeholder="+1 (555) 123-4567">
-                    </div>
-                    
-                    <button type="submit" class="upload-button">Add Student to Database</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
@@ -1062,27 +935,72 @@
             <div class="modal-body">
                 <div style="text-align: center; padding: 20px 0;">
                     <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success-color); margin-bottom: 20px;"></i>
-                    <h3 id="successTitle">Operation Successful</h3>
-                    <p id="successMessage">Your action has been completed successfully.</p>
+                    <h3>Note Uploaded Successfully</h3>
+                    <p>Your educational note has been uploaded and is now available to students.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Supabase Client Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script>
-        // ============================================
-        // STEP 2: CONFIGURE YOUR SUPABASE CREDENTIALS
-        // ============================================
-        // Replace these with your actual Supabase project credentials
-        const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';  // Replace with your Supabase URL
-        const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';  // Replace with your Supabase anon key
-        
-        // Initialize Supabase client
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
+        // Sample notes data
+        const notesData = [
+            {
+                id: 1,
+                title: "Introduction to Python Programming",
+                category: "programming",
+                description: "Basics of Python syntax, variables, data types, and control structures.",
+                date: "2023-10-15",
+                downloads: 142,
+                fileSize: "2.4 MB"
+            },
+            {
+                id: 2,
+                title: "Computer Networking Fundamentals",
+                category: "networking",
+                description: "OSI model, TCP/IP, network topologies, and basic networking concepts.",
+                date: "2023-10-10",
+                downloads: 98,
+                fileSize: "3.1 MB"
+            },
+            {
+                id: 3,
+                title: "Database Design with MySQL",
+                category: "database",
+                description: "ER diagrams, normalization, SQL queries, and database management.",
+                date: "2023-10-05",
+                downloads: 76,
+                fileSize: "1.8 MB"
+            },
+            {
+                id: 4,
+                title: "HTML5 & CSS3 Basics",
+                category: "web",
+                description: "Modern web development with HTML5 semantics and CSS3 styling.",
+                date: "2023-09-28",
+                downloads: 210,
+                fileSize: "4.2 MB"
+            },
+            {
+                id: 5,
+                title: "Object-Oriented Programming in Java",
+                category: "programming",
+                description: "Classes, objects, inheritance, polymorphism, and encapsulation.",
+                date: "2023-09-20",
+                downloads: 118,
+                fileSize: "2.9 MB"
+            },
+            {
+                id: 6,
+                title: "Network Security Principles",
+                category: "networking",
+                description: "Encryption, firewalls, VPNs, and security best practices.",
+                date: "2023-09-15",
+                downloads: 65,
+                fileSize: "3.7 MB"
+            }
+        ];
+
         // DOM Elements
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -1091,20 +1009,13 @@
         const closeLoginModal = document.getElementById('closeLoginModal');
         const closeSuccessModal = document.getElementById('closeSuccessModal');
         const successModal = document.getElementById('successModal');
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
         const uploadForm = document.getElementById('uploadForm');
         const notesGrid = document.getElementById('notesGrid');
-        const studentsGrid = document.getElementById('studentsGrid');
         const searchInput = document.getElementById('searchInput');
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const dbStatus = document.getElementById('dbStatus');
-        const addStudentBtn = document.getElementById('addStudentBtn');
-        const addStudentModal = document.getElementById('addStudentModal');
-        const closeStudentModal = document.getElementById('closeStudentModal');
-        const addStudentForm = document.getElementById('addStudentForm');
-        const studentSearch = document.getElementById('studentSearch');
-
-        // Check database connection on page load
-        checkDatabaseConnection();
 
         // Mobile menu toggle
         mobileMenuBtn.addEventListener('click', () => {
@@ -1136,16 +1047,6 @@
             successModal.style.display = 'none';
         });
 
-        // Add student modal
-        addStudentBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            addStudentModal.style.display = 'flex';
-        });
-
-        closeStudentModal.addEventListener('click', () => {
-            addStudentModal.style.display = 'none';
-        });
-
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
@@ -1154,236 +1055,92 @@
             if (e.target === successModal) {
                 successModal.style.display = 'none';
             }
-            if (e.target === addStudentModal) {
-                addStudentModal.style.display = 'none';
+        });
+
+        // File upload area interaction
+        fileUploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = `Selected file: ${fileInput.files[0].name}`;
+                fileUploadArea.style.borderColor = 'var(--success-color)';
+                fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
             }
         });
 
-        // ============================================
-        // STEP 3: CHECK DATABASE CONNECTION
-        // ============================================
-        async function checkDatabaseConnection() {
-            try {
-                dbStatus.innerHTML = '<div class="spinner"></div><span>Connecting to database...</span>';
-                
-                // Try to fetch a simple query to check connection
-                const { data, error } = await supabase
-                    .from('notes')
-                    .select('count')
-                    .limit(1);
-                
-                if (error) throw error;
-                
-                // Connection successful
-                dbStatus.className = 'db-status connected';
-                dbStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Connected to Supabase Database</span>';
-                
-                console.log('✅ Supabase connection successful');
-                
-                // Load data from database
-                loadNotesFromDatabase();
-                loadStudentsFromDatabase();
-                
-            } catch (error) {
-                console.error('❌ Database connection error:', error);
-                dbStatus.className = 'db-status disconnected';
-                dbStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Database connection failed. Using demo data.</span>';
-                
-                // Load demo data if connection fails
-                loadDemoData();
-            }
-        }
+        // Drag and drop for file upload
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = 'var(--primary-color)';
+            fileUploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
+        });
 
-        // ============================================
-        // STEP 4: LOAD NOTES FROM SUPABASE DATABASE
-        // ============================================
-        async function loadNotesFromDatabase() {
-            try {
-                const { data: notes, error } = await supabase
-                    .from('notes')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-                
-                if (error) throw error;
-                
-                // Remove loading indicator
-                document.getElementById('loadingNotes').style.display = 'none';
-                
-                if (notes && notes.length > 0) {
-                    renderNotes(notes);
-                } else {
-                    // If no notes in database, show message
-                    notesGrid.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                            <i class="fas fa-inbox" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
-                            <h3>No Notes Found</h3>
-                            <p>Upload your first note to get started!</p>
-                        </div>
-                    `;
-                }
-                
-            } catch (error) {
-                console.error('Error loading notes:', error);
-                document.getElementById('loadingNotes').innerHTML = `
-                    <div style="color: var(--danger-color);">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Error loading notes from database</p>
-                    </div>
-                `;
-            }
-        }
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.style.borderColor = '#ddd';
+            fileUploadArea.style.backgroundColor = 'transparent';
+        });
 
-        // ============================================
-        // STEP 5: UPLOAD NOTES TO SUPABASE DATABASE
-        // ============================================
-        uploadForm.addEventListener('submit', async (e) => {
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = '#ddd';
+            fileUploadArea.style.backgroundColor = 'transparent';
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                fileName.textContent = `Selected file: ${e.dataTransfer.files[0].name}`;
+                fileUploadArea.style.borderColor = 'var(--success-color)';
+                fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
+            }
+        });
+
+        // Upload form submission
+        uploadForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
             const title = document.getElementById('noteTitle').value;
             const subject = document.getElementById('noteSubject').value;
             const description = document.getElementById('noteDescription').value;
-            const fileUrl = document.getElementById('fileUrl').value;
-            const fileFormat = document.getElementById('fileFormat').value;
             
-            if (!title || !subject || !fileUrl) {
-                showSuccessModal('Error', 'Please fill in all required fields', 'danger');
+            if (!title || !subject) {
+                alert('Please fill in all required fields');
                 return;
             }
             
-            // Disable submit button and show loading
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<div class="spinner"></div> Uploading...';
-            submitBtn.disabled = true;
+            // In a real application, here you would upload the file to a server
+            // For this demo, we'll just show a success message
+            successModal.style.display = 'flex';
             
-            try {
-                // Insert note into Supabase database
-                const { data, error } = await supabase
-                    .from('notes')
-                    .insert([
-                        {
-                            title: title,
-                            category: subject,
-                            description: description || "No description provided.",
-                            file_url: fileUrl,
-                            file_format: fileFormat,
-                            downloads: 0,
-                            created_at: new Date().toISOString()
-                        }
-                    ]);
-                
-                if (error) throw error;
-                
-                // Show success message
-                showSuccessModal('Success!', 'Note uploaded to database successfully. Students can now access it.', 'success');
-                
-                // Reset the form
-                uploadForm.reset();
-                
-                // Reload notes from database
-                loadNotesFromDatabase();
-                
-            } catch (error) {
-                console.error('Error uploading note:', error);
-                showSuccessModal('Error', 'Failed to upload note to database. Please try again.', 'danger');
-            } finally {
-                // Re-enable submit button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
+            // Reset the form
+            uploadForm.reset();
+            fileName.textContent = '';
+            fileUploadArea.style.borderColor = '#ddd';
+            fileUploadArea.style.backgroundColor = 'transparent';
+            
+            // Add the new note to the notes grid
+            const newNote = {
+                id: notesData.length + 1,
+                title: title,
+                category: subject,
+                description: description || "No description provided.",
+                date: new Date().toISOString().split('T')[0],
+                downloads: 0,
+                fileSize: fileInput.files.length ? `${(fileInput.files[0].size / 1024 / 1024).toFixed(1)} MB` : "N/A"
+            };
+            
+            notesData.unshift(newNote);
+            renderNotes(notesData);
         });
 
-        // ============================================
-        // STEP 6: LOAD STUDENTS FROM SUPABASE DATABASE
-        // ============================================
-        async function loadStudentsFromDatabase() {
-            try {
-                const { data: students, error } = await supabase
-                    .from('students')
-                    .select('*')
-                    .order('name', { ascending: true });
-                
-                if (error) throw error;
-                
-                // Remove loading indicator
-                document.getElementById('loadingStudents').style.display = 'none';
-                
-                if (students && students.length > 0) {
-                    renderStudents(students);
-                } else {
-                    // If no students in database, show message
-                    studentsGrid.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                            <i class="fas fa-users" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
-                            <h3>No Students Added Yet</h3>
-                            <p>Add your first student to get started!</p>
-                        </div>
-                    `;
-                }
-                
-            } catch (error) {
-                console.error('Error loading students:', error);
-                document.getElementById('loadingStudents').innerHTML = `
-                    <div style="color: var(--danger-color);">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Error loading students from database</p>
-                    </div>
-                `;
-            }
-        }
-
-        // ============================================
-        // STEP 7: ADD STUDENT TO SUPABASE DATABASE
-        // ============================================
-        addStudentForm.addEventListener('submit', async (e) => {
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            const name = document.getElementById('studentName').value;
-            const email = document.getElementById('studentEmail').value;
-            const studentClass = document.getElementById('studentClass').value;
-            const phone = document.getElementById('studentPhone').value;
-            
-            if (!name || !email) {
-                showSuccessModal('Error', 'Please fill in all required fields', 'danger');
-                return;
-            }
-            
-            try {
-                // Insert student into Supabase database
-                const { data, error } = await supabase
-                    .from('students')
-                    .insert([
-                        {
-                            name: name,
-                            email: email,
-                            class: studentClass || "Not specified",
-                            phone: phone || "Not provided",
-                            enrolled_date: new Date().toISOString().split('T')[0],
-                            notes_accessed: 0
-                        }
-                    ]);
-                
-                if (error) throw error;
-                
-                // Show success message
-                showSuccessModal('Success!', 'Student added to database successfully.', 'success');
-                
-                // Close modal and reset form
-                addStudentModal.style.display = 'none';
-                addStudentForm.reset();
-                
-                // Reload students from database
-                loadStudentsFromDatabase();
-                
-            } catch (error) {
-                console.error('Error adding student:', error);
-                showSuccessModal('Error', 'Failed to add student to database. Please try again.', 'danger');
-            }
+            alert('Login functionality would connect to a backend in a real application.');
+            loginModal.style.display = 'none';
         });
 
-        // ============================================
-        // STEP 8: RENDER NOTES FROM DATABASE
-        // ============================================
+        // Render notes function
         function renderNotes(notes) {
             notesGrid.innerHTML = '';
             
@@ -1391,13 +1148,6 @@
                 const noteCard = document.createElement('div');
                 noteCard.className = 'note-card';
                 noteCard.setAttribute('data-category', note.category);
-                
-                // Format date
-                const noteDate = new Date(note.created_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
                 
                 // Category display name
                 const categoryNames = {
@@ -1412,14 +1162,14 @@
                 noteCard.innerHTML = `
                     <div class="note-header">
                         <h4>${categoryNames[note.category] || note.category}</h4>
-                        <span class="note-category">${note.file_format ? note.file_format.toUpperCase() : 'FILE'}</span>
+                        <span class="note-category">${note.fileSize}</span>
                     </div>
                     <div class="note-body">
                         <h3 class="note-title">${note.title}</h3>
                         <p>${note.description}</p>
                         <div class="note-meta">
-                            <span><i class="far fa-calendar-alt"></i> ${noteDate}</span>
-                            <span><i class="fas fa-download"></i> ${note.downloads || 0} downloads</span>
+                            <span><i class="far fa-calendar-alt"></i> ${note.date}</span>
+                            <span><i class="fas fa-download"></i> ${note.downloads} downloads</span>
                         </div>
                         <div class="note-actions">
                             <button class="action-btn download-btn" data-id="${note.id}">
@@ -1435,85 +1185,19 @@
                 notesGrid.appendChild(noteCard);
                 
                 // Add event listeners to the buttons
-                noteCard.querySelector('.download-btn').addEventListener('click', async () => {
-                    // Increment download count in database
-                    const newDownloadCount = (note.downloads || 0) + 1;
-                    
-                    try {
-                        const { error } = await supabase
-                            .from('notes')
-                            .update({ downloads: newDownloadCount })
-                            .eq('id', note.id);
-                        
-                        if (error) throw error;
-                        
-                        // Update the note object locally
-                        note.downloads = newDownloadCount;
-                        noteCard.querySelector('.note-meta span:nth-child(2)').innerHTML = 
-                            `<i class="fas fa-download"></i> ${newDownloadCount} downloads`;
-                        
-                    } catch (error) {
-                        console.error('Error updating download count:', error);
-                    }
-                    
-                    // Open file URL in new tab
-                    window.open(note.file_url, '_blank');
+                noteCard.querySelector('.download-btn').addEventListener('click', () => {
+                    alert(`Downloading: ${note.title}\n\nIn a real application, this would download the file.`);
+                    // Increment download count in the data
+                    note.downloads++;
+                    renderNotes(notesData.filter(n => n.category === activeFilter || activeFilter === 'all'));
                 });
                 
                 noteCard.querySelector('.view-btn').addEventListener('click', () => {
-                    // For PDFs, we can use Google Docs viewer
-                    if (note.file_format === 'pdf') {
-                        const pdfViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(note.file_url)}&embedded=true`;
-                        window.open(pdfViewerUrl, '_blank');
-                    } else {
-                        // For other files, just open the URL
-                        window.open(note.file_url, '_blank');
-                    }
+                    alert(`Previewing: ${note.title}\n\nIn a real application, this would show a preview of the file.`);
                 });
             });
         }
 
-        // ============================================
-        // STEP 9: RENDER STUDENTS FROM DATABASE
-        // ============================================
-        function renderStudents(students) {
-            studentsGrid.innerHTML = '';
-            
-            students.forEach(student => {
-                const studentCard = document.createElement('div');
-                studentCard.className = 'note-card';
-                
-                studentCard.innerHTML = `
-                    <div class="note-header">
-                        <h4>${student.class || "Not specified"}</h4>
-                        <span class="note-category">Student</span>
-                    </div>
-                    <div class="note-body">
-                        <h3 class="note-title">${student.name}</h3>
-                        <p><i class="fas fa-envelope"></i> ${student.email}</p>
-                        <p><i class="fas fa-phone"></i> ${student.phone || "Not provided"}</p>
-                        <div class="note-meta">
-                            <span><i class="far fa-calendar-alt"></i> Enrolled: ${student.enrolled_date}</span>
-                            <span><i class="fas fa-book"></i> ${student.notes_accessed || 0} notes accessed</span>
-                        </div>
-                        <div class="note-actions">
-                            <button class="action-btn view-btn" data-id="${student.id}" style="flex-grow: 1;">
-                                <i class="fas fa-user-edit"></i> Edit
-                            </button>
-                            <button class="action-btn download-btn" data-id="${student.id}" style="background-color: var(--warning-color);">
-                                <i class="fas fa-chart-line"></i> Stats
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                studentsGrid.appendChild(studentCard);
-            });
-        }
-
-        // ============================================
-        // STEP 10: SEARCH AND FILTER FUNCTIONALITY
-        // ============================================
         // Filter notes by category
         let activeFilter = 'all';
         
@@ -1525,145 +1209,26 @@
                 
                 // Filter notes
                 activeFilter = button.getAttribute('data-filter');
+                const filteredNotes = activeFilter === 'all' 
+                    ? notesData 
+                    : notesData.filter(note => note.category === activeFilter);
                 
-                // Reload notes from database with filter
-                loadFilteredNotes(activeFilter, searchInput.value);
+                renderNotes(filteredNotes);
             });
         });
 
         // Search functionality
         searchInput.addEventListener('input', () => {
             const searchTerm = searchInput.value.toLowerCase();
-            loadFilteredNotes(activeFilter, searchTerm);
+            
+            const filteredNotes = notesData.filter(note => 
+                note.title.toLowerCase().includes(searchTerm) ||
+                note.description.toLowerCase().includes(searchTerm) ||
+                note.category.toLowerCase().includes(searchTerm)
+            );
+            
+            renderNotes(filteredNotes);
         });
-
-        // Student search functionality
-        studentSearch.addEventListener('input', () => {
-            const searchTerm = studentSearch.value.toLowerCase();
-            // In a real implementation, you would query the database with search term
-            // For now, we'll filter the existing students
-            const studentCards = document.querySelectorAll('#studentsGrid .note-card');
-            
-            studentCards.forEach(card => {
-                const studentName = card.querySelector('.note-title').textContent.toLowerCase();
-                const studentEmail = card.querySelector('p:nth-child(2)').textContent.toLowerCase();
-                
-                if (studentName.includes(searchTerm) || studentEmail.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-
-        // Load filtered notes from database
-        async function loadFilteredNotes(filter, searchTerm = '') {
-            try {
-                let query = supabase
-                    .from('notes')
-                    .select('*');
-                
-                // Apply category filter
-                if (filter !== 'all') {
-                    query = query.eq('category', filter);
-                }
-                
-                // Apply search filter
-                if (searchTerm) {
-                    query = query.or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%,category.ilike.%${searchTerm}%`);
-                }
-                
-                // Order by creation date
-                query = query.order('created_at', { ascending: false });
-                
-                const { data: notes, error } = await query;
-                
-                if (error) throw error;
-                
-                renderNotes(notes || []);
-                
-            } catch (error) {
-                console.error('Error filtering notes:', error);
-            }
-        }
-
-        // ============================================
-        // STEP 11: HELPER FUNCTIONS
-        // ============================================
-        function showSuccessModal(title, message, type = 'success') {
-            const successTitle = document.getElementById('successTitle');
-            const successMessage = document.getElementById('successMessage');
-            const modalHeader = successModal.querySelector('.modal-header');
-            
-            successTitle.textContent = title;
-            successMessage.textContent = message;
-            
-            // Change color based on type
-            if (type === 'success') {
-                modalHeader.style.backgroundColor = 'var(--success-color)';
-            } else if (type === 'danger') {
-                modalHeader.style.backgroundColor = 'var(--danger-color)';
-            } else if (type === 'warning') {
-                modalHeader.style.backgroundColor = 'var(--warning-color)';
-            }
-            
-            successModal.style.display = 'flex';
-        }
-
-        // Demo data for when database is not connected
-        function loadDemoData() {
-            const demoNotes = [
-                {
-                    id: 1,
-                    title: "Introduction to Python Programming",
-                    category: "programming",
-                    description: "Basics of Python syntax, variables, data types, and control structures.",
-                    created_at: "2023-10-15T10:30:00Z",
-                    downloads: 142,
-                    file_url: "https://example.com/python-intro.pdf",
-                    file_format: "pdf"
-                },
-                {
-                    id: 2,
-                    title: "Computer Networking Fundamentals",
-                    category: "networking",
-                    description: "OSI model, TCP/IP, network topologies, and basic networking concepts.",
-                    created_at: "2023-10-10T14:20:00Z",
-                    downloads: 98,
-                    file_url: "https://example.com/networking-fundamentals.pdf",
-                    file_format: "pdf"
-                }
-            ];
-            
-            const demoStudents = [
-                {
-                    id: 1,
-                    name: "John Smith",
-                    email: "john@school.edu",
-                    class: "Computer Science 2023",
-                    phone: "+1 (555) 123-4567",
-                    enrolled_date: "2023-09-01",
-                    notes_accessed: 12
-                },
-                {
-                    id: 2,
-                    name: "Sarah Johnson",
-                    email: "sarah@school.edu",
-                    class: "Computer Science 2023",
-                    phone: "+1 (555) 987-6543",
-                    enrolled_date: "2023-09-05",
-                    notes_accessed: 8
-                }
-            ];
-            
-            // Remove loading indicators
-            document.getElementById('loadingNotes').style.display = 'none';
-            document.getElementById('loadingStudents').style.display = 'none';
-            
-            // Render demo data
-            renderNotes(demoNotes);
-            renderStudents(demoStudents);
-        }
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1683,12 +1248,8 @@
             });
         });
 
-        // Login form submission
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            showSuccessModal('Login Feature', 'In a full implementation, this would connect to Supabase Authentication.', 'warning');
-            loginModal.style.display = 'none';
-        });
+        // Initialize the page with all notes
+        renderNotes(notesData);
     </script>
 </body>
 </html>
