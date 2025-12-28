@@ -1,6 +1,6 @@
 const notes = [
   {
-    title: "HTML Basics",
+    title: "Class 6",
     subject: "Web Development",
     file: "#"
   },
