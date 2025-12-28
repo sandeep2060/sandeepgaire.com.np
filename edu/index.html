@@ -783,9 +783,9 @@
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="Class 6">Class 6</button>
-                    <button class="filter-btn" data-filter="networking">Class 7</button>
-                    <button class="filter-btn" data-filter="database">Class 8</button>
-                    <button class="filter-btn" data-filter="web">Class 9</button>
+                    <button class="filter-btn" data-filter="Class 7">Class 7</button>
+                    <button class="filter-btn" data-filter="Class 8">Class 8</button>
+                    <button class="filter-btn" data-filter="Class 9">Class 9</button>
                     <button class="filter-btn" data-filter="Class 10">Class 10</button>
                 </div>
             </div>
@@ -916,12 +916,12 @@
         const notesData = [
             {
                 id: 1,
-                title: "Class 6",
-                category: "programming",
+                title: "Introduction to Python Programming",
+                category: "Class 6",
                 description: "Basics of Python syntax, variables, data types, and control structures.",
                 date: "2023-10-15",
                 downloads: 142,
-                fileSize: "Unit 1"
+                fileSize: "2.5 MB"
             },
             {
                 id: 2,
@@ -935,7 +935,7 @@
             {
                 id: 3,
                 title: "Database Design with MySQL",
-                category: "Class 6",
+                category: "Class 8",
                 description: "ER diagrams, normalization, SQL queries, and database management.",
                 date: "2023-10-05",
                 downloads: 76,
@@ -944,7 +944,7 @@
             {
                 id: 4,
                 title: "HTML5 & CSS3 Basics",
-                category: "web",
+                category: "Class 9",
                 description: "Modern web development with HTML5 semantics and CSS3 styling.",
                 date: "2023-09-28",
                 downloads: 210,
@@ -953,7 +953,7 @@
             {
                 id: 5,
                 title: "Object-Oriented Programming in Java",
-                category: "programming",
+                category: "Class 10",
                 description: "Classes, objects, inheritance, polymorphism, and encapsulation.",
                 date: "2023-09-20",
                 downloads: 118,
@@ -962,11 +962,29 @@
             {
                 id: 6,
                 title: "Network Security Principles",
-                category: "networking",
+                category: "Class 8",
                 description: "Encryption, firewalls, VPNs, and security best practices.",
                 date: "2023-09-15",
                 downloads: 65,
                 fileSize: "3.7 MB"
+            },
+            {
+                id: 7,
+                title: "Computer Hardware Basics",
+                category: "Class 6",
+                description: "Introduction to computer components, CPU, RAM, storage devices.",
+                date: "2023-09-10",
+                downloads: 89,
+                fileSize: "2.1 MB"
+            },
+            {
+                id: 8,
+                title: "Web Development Project",
+                category: "Class 9",
+                description: "Building a complete website using HTML, CSS and JavaScript.",
+                date: "2023-09-05",
+                downloads: 134,
+                fileSize: "5.3 MB"
             }
         ];
 
@@ -1113,24 +1131,25 @@
         function renderNotes(notes) {
             notesGrid.innerHTML = '';
             
+            if (notes.length === 0) {
+                notesGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
+                        <h3 style="color: #666;">No notes found</h3>
+                        <p>Try adjusting your search or filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+            
             notes.forEach(note => {
                 const noteCard = document.createElement('div');
                 noteCard.className = 'note-card';
                 noteCard.setAttribute('data-category', note.category);
                 
-                // Category display name
-                const categoryNames = {
-                    programming: "Class 6",
-                    networking: "Networking",
-                    database: "Database",
-                    web: "Web Development",
-                    hardware: "Hardware",
-                    software: "Software"
-                };
-                
                 noteCard.innerHTML = `
                     <div class="note-header">
-                        <h4>${categoryNames[note.category] || note.category}</h4>
+                        <h4>${note.category}</h4>
                         <span class="note-category">${note.fileSize}</span>
                     </div>
                     <div class="note-body">
@@ -1188,7 +1207,16 @@
 
         // Search functionality
         searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase();
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // If search is empty, show filtered notes based on active filter
+                const filteredNotes = activeFilter === 'all' 
+                    ? notesData 
+                    : notesData.filter(note => note.category === activeFilter);
+                renderNotes(filteredNotes);
+                return;
+            }
             
             const filteredNotes = notesData.filter(note => 
                 note.title.toLowerCase().includes(searchTerm) ||
@@ -1197,6 +1225,66 @@
             );
             
             renderNotes(filteredNotes);
+        });
+
+        // Class short button search functionality
+        function searchByClass(className) {
+            // Set the active filter button
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-filter') === className) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Set the active filter
+            activeFilter = className;
+            
+            // Filter notes by class
+            const filteredNotes = className === 'all' 
+                ? notesData 
+                : notesData.filter(note => note.category === className);
+            
+            renderNotes(filteredNotes);
+            
+            // Clear search input
+            searchInput.value = '';
+            
+            // Scroll to notes section
+            document.querySelector('#notes').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Add class search buttons to features section
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add class search buttons to hero section
+            const heroSection = document.querySelector('.hero .container');
+            const searchButtonsContainer = document.createElement('div');
+            searchButtonsContainer.className = 'class-search-buttons';
+            searchButtonsContainer.style.marginTop = '30px';
+            searchButtonsContainer.style.display = 'flex';
+            searchButtonsContainer.style.flexWrap = 'wrap';
+            searchButtonsContainer.style.gap = '10px';
+            searchButtonsContainer.style.justifyContent = 'center';
+            
+            const classes = ['Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
+            
+            classes.forEach(className => {
+                const button = document.createElement('button');
+                button.className = 'cta-button';
+                button.style.padding = '8px 20px';
+                button.style.fontSize = '0.9rem';
+                button.style.margin = '5px';
+                button.textContent = className + ' Notes';
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    searchByClass(className);
+                });
+                searchButtonsContainer.appendChild(button);
+            });
+            
+            heroSection.appendChild(searchButtonsContainer);
         });
 
         // Smooth scrolling for anchor links
