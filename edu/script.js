@@ -21,7 +21,7 @@
             {
                 id: 3,
                 title: "Database Design with MySQL",
-                category: "database",
+                category: "Class 6",
                 description: "ER diagrams, normalization, SQL queries, and database management.",
                 date: "2023-10-05",
                 downloads: 76,
