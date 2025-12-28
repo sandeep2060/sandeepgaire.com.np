@@ -12,7 +12,7 @@
             {
                 id: 2,
                 title: "Computer Networking Fundamentals",
-                category: "networking",
+                category: "Class 7",
                 description: "OSI model, TCP/IP, network topologies, and basic networking concepts.",
                 date: "2023-10-10",
                 downloads: 98,
