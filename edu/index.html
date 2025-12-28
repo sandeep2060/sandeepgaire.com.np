@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Teacher Notes Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Notes Portal</title>
 
-  <!-- Font & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1><i class="fas fa-book-open"></i> Notes Portal</h1>
-  <p>Access study materials anytime</p>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <h1>📘 Smart Notes Portal</h1>
+    <p>Learn • Revise • Download</p>
+  </div>
 </header>
 
-<section class="search-box">
-  <input type="text" id="search" placeholder="Search notes...">
+<!-- SEARCH -->
+<section class="search-area">
+  <input type="text" id="search" placeholder="Search notes by topic...">
 </section>
 
-<section class="notes-container" id="notesContainer">
-  <!-- Notes injected by JS -->
-</section>
+<!-- NOTES -->
+<section class="notes" id="notesContainer"></section>
 
+<!-- FOOTER -->
 <footer>
-  <p>© 2025 | Teacher Notes Portal</p>
+  <p>© 2025 | Designed for Students</p>
 </footer>
 
 <script src="script.js"></script>
