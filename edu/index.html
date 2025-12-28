@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandeep Gaire - Computer Education Portal</title>
+    <title>TechTeach - Computer Education Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -27,6 +27,9 @@
             --transition: all 0.3s ease;
             --sun-color: #FFD700;
             --moon-color: #F0F0F0;
+            --day-sky: linear-gradient(135deg, #87CEEB 0%, #B0E2FF 100%);
+            --evening-sky: linear-gradient(135deg, #FF7E5F 0%, #FEB47B 100%);
+            --night-sky: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
         }
 
         body {
@@ -42,15 +45,17 @@
             padding: 0 15px;
         }
 
-        /* Header & Navigation with Sun/Moon Animation */
+        /* Header & Navigation with Environment */
         header {
-            background-color: white;
+            background: var(--day-sky);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
             animation: slideDown 0.5s ease;
             overflow: hidden;
+            height: 120px;
+            transition: background 2s ease;
         }
 
         @keyframes slideDown {
@@ -64,6 +69,8 @@
             align-items: center;
             padding: 15px 0;
             position: relative;
+            z-index: 100;
+            height: 70px;
         }
 
         .logo {
@@ -74,6 +81,9 @@
             font-size: 1.8rem;
             font-weight: 700;
             text-decoration: none;
+            position: relative;
+            z-index: 101;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         .logo i {
@@ -92,6 +102,8 @@
             display: flex;
             list-style: none;
             gap: 25px;
+            position: relative;
+            z-index: 101;
         }
 
         .nav-links a {
@@ -101,6 +113,7 @@
             padding: 8px 0;
             position: relative;
             transition: var(--transition);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         .nav-links a:hover {
@@ -122,24 +135,129 @@
             border-radius: 3px;
         }
 
-        /* Celestial Body Animation */
+        /* Environment Elements */
+        .environment {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Mountains */
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to right, 
+                #2E8B57 0%, 
+                #228B22 20%, 
+                #006400 40%, 
+                #228B22 60%, 
+                #2E8B57 80%, 
+                #228B22 100%);
+            transition: all 2s ease;
+        }
+
+        .mountain-peak {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 40px solid #2E8B57;
+        }
+
+        .mountain-peak:nth-child(1) {
+            left: 10%;
+        }
+
+        .mountain-peak:nth-child(2) {
+            left: 30%;
+            border-bottom-color: #228B22;
+            height: 50px;
+        }
+
+        .mountain-peak:nth-child(3) {
+            left: 50%;
+            border-bottom-color: #006400;
+        }
+
+        .mountain-peak:nth-child(4) {
+            left: 70%;
+            border-bottom-color: #228B22;
+            height: 45px;
+        }
+
+        .mountain-peak:nth-child(5) {
+            left: 90%;
+        }
+
+        /* Celestial Body */
         .celestial-body {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            z-index: 1;
+            z-index: 2;
             transition: all 2s ease-in-out;
         }
 
         .sun {
             background-color: var(--sun-color);
-            box-shadow: 0 0 20px var(--sun-color), 0 0 40px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 40px var(--sun-color), 0 0 80px rgba(255, 215, 0, 0.5);
         }
 
         .moon {
             background-color: var(--moon-color);
-            box-shadow: 0 0 15px rgba(240, 240, 240, 0.7);
+            box-shadow: 0 0 20px rgba(240, 240, 240, 0.8);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        /* Stars */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Clouds */
+        .clouds {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            height: 30px;
+            opacity: 0.7;
+            transition: opacity 2s ease;
+        }
+
+        .cloud {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
         .mobile-menu-btn {
@@ -149,7 +267,8 @@
             font-size: 1.5rem;
             color: var(--primary-color);
             cursor: pointer;
-            z-index: 1001;
+            z-index: 101;
+            position: relative;
         }
 
         /* Hero Section */
@@ -656,12 +775,16 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                height: 100px;
+            }
+            
             .nav-links {
                 position: fixed;
                 top: 70px;
                 left: 0;
                 width: 100%;
-                background-color: white;
+                background-color: rgba(255, 255, 255, 0.95);
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -670,6 +793,7 @@
                 z-index: 999;
                 height: calc(100vh - 70px);
                 overflow-y: auto;
+                backdrop-filter: blur(10px);
             }
 
             .nav-links.active {
@@ -691,6 +815,10 @@
 
             .upload-form {
                 padding: 25px;
+            }
+            
+            .mountains {
+                height: 40px;
             }
         }
 
@@ -724,10 +852,30 @@
 <body>
     <!-- Header -->
     <header>
+        <div class="environment">
+            <!-- Mountains -->
+            <div class="mountains" id="mountains">
+                <div class="mountain-peak"></div>
+                <div class="mountain-peak"></div>
+                <div class="mountain-peak"></div>
+                <div class="mountain-peak"></div>
+                <div class="mountain-peak"></div>
+            </div>
+            
+            <!-- Clouds -->
+            <div class="clouds" id="clouds"></div>
+            
+            <!-- Celestial Body (Sun/Moon) -->
+            <div class="celestial-body" id="celestialBody"></div>
+            
+            <!-- Stars -->
+            <div class="stars" id="stars"></div>
+        </div>
+        
         <div class="container header-container">
             <a href="#" class="logo">
                 <i class="fas fa-laptop-code"></i>
-                Sandeep Gaire
+                TechTeach
             </a>
             
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -968,7 +1116,7 @@
     </div>
 
     <script>
-        // Sample notes data
+        // Sample notes data with file locations
         const notesData = [
             {
                 id: 1,
@@ -977,7 +1125,8 @@
                 description: "Basics of Python syntax, variables, data types, and control structures.",
                 date: "2023-10-15",
                 downloads: 142,
-                fileSize: "2.4 MB"
+                fileSize: "2.4 MB",
+                fileLocation: "/files/programming/python-intro.pdf"
             },
             {
                 id: 2,
@@ -986,7 +1135,8 @@
                 description: "OSI model, TCP/IP, network topologies, and basic networking concepts.",
                 date: "2023-10-10",
                 downloads: 98,
-                fileSize: "3.1 MB"
+                fileSize: "3.1 MB",
+                fileLocation: "/files/networking/networking-fundamentals.pdf"
             },
             {
                 id: 3,
@@ -995,7 +1145,8 @@
                 description: "ER diagrams, normalization, SQL queries, and database management.",
                 date: "2023-10-05",
                 downloads: 76,
-                fileSize: "1.8 MB"
+                fileSize: "1.8 MB",
+                fileLocation: "/files/database/mysql-database-design.zip"
             },
             {
                 id: 4,
@@ -1004,7 +1155,8 @@
                 description: "Modern web development with HTML5 semantics and CSS3 styling.",
                 date: "2023-09-28",
                 downloads: 210,
-                fileSize: "4.2 MB"
+                fileSize: "4.2 MB",
+                fileLocation: "/files/web/html5-css3-basics.pptx"
             },
             {
                 id: 5,
@@ -1013,7 +1165,8 @@
                 description: "Classes, objects, inheritance, polymorphism, and encapsulation.",
                 date: "2023-09-20",
                 downloads: 118,
-                fileSize: "2.9 MB"
+                fileSize: "2.9 MB",
+                fileLocation: "/files/programming/java-oop.pdf"
             },
             {
                 id: 6,
@@ -1022,7 +1175,8 @@
                 description: "Encryption, firewalls, VPNs, and security best practices.",
                 date: "2023-09-15",
                 downloads: 65,
-                fileSize: "3.7 MB"
+                fileSize: "3.7 MB",
+                fileLocation: "/files/networking/network-security.docx"
             }
         ];
 
@@ -1042,79 +1196,180 @@
         const searchInput = document.getElementById('searchInput');
         const filterButtons = document.querySelectorAll('.filter-btn');
 
-        // Create celestial body (sun/moon)
-        function createCelestialBody() {
-            const header = document.querySelector('header');
-            const celestialBody = document.createElement('div');
-            celestialBody.className = 'celestial-body';
-            header.appendChild(celestialBody);
-            return celestialBody;
+        // Environment elements
+        const mountains = document.getElementById('mountains');
+        const celestialBody = document.getElementById('celestialBody');
+        const stars = document.getElementById('stars');
+        const clouds = document.getElementById('clouds');
+        const header = document.querySelector('header');
+
+        // Create stars
+        function createStars() {
+            stars.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 70}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                stars.appendChild(star);
+            }
         }
 
-        // Update celestial body position based on time
-        function updateCelestialBody() {
+        // Create clouds
+        function createClouds() {
+            clouds.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cloud';
+                cloud.style.width = `${Math.random() * 60 + 40}px`;
+                cloud.style.height = `${Math.random() * 20 + 15}px`;
+                cloud.style.left = `${Math.random() * 100}%`;
+                cloud.style.top = `${Math.random() * 30}%`;
+                cloud.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+                
+                // Create cloud shape with multiple circles
+                for (let j = 0; j < 3; j++) {
+                    const cloudPart = document.createElement('div');
+                    cloudPart.style.position = 'absolute';
+                    cloudPart.style.backgroundColor = 'white';
+                    cloudPart.style.borderRadius = '50%';
+                    cloudPart.style.width = `${Math.random() * 30 + 20}px`;
+                    cloudPart.style.height = cloudPart.style.width;
+                    cloudPart.style.left = `${j * 20}px`;
+                    cloudPart.style.top = '0px';
+                    cloud.appendChild(cloudPart);
+                }
+                clouds.appendChild(cloud);
+            }
+        }
+
+        // Update environment based on time
+        function updateEnvironment() {
             const now = new Date();
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const totalMinutes = hours * 60 + minutes;
             
-            // Day is from 6 AM to 6 PM (360 to 1080 minutes)
-            const isDay = totalMinutes >= 360 && totalMinutes < 1080;
+            // Time periods
+            const isNight = hours >= 20 || hours < 6; // 8 PM to 6 AM
+            const isEvening = hours >= 17 && hours < 20; // 5 PM to 8 PM
+            const isDay = hours >= 6 && hours < 17; // 6 AM to 5 PM
             
-            // Get or create celestial body
-            let celestialBody = document.querySelector('.celestial-body');
-            if (!celestialBody) {
-                celestialBody = createCelestialBody();
-            }
-            
-            // Remove previous classes
-            celestialBody.classList.remove('sun', 'moon');
-            
-            // Add appropriate class
-            if (isDay) {
-                celestialBody.classList.add('sun');
+            // Update sky background
+            if (isNight) {
+                header.style.background = 'var(--night-sky)';
+                stars.style.opacity = '1';
+                clouds.style.opacity = '0';
+                
+                // Darken mountains at night
+                mountains.style.background = 'linear-gradient(to right, #1E4D2B 0%, #1A3F1A 20%, #0D2C0D 40%, #1A3F1A 60%, #1E4D2B 80%, #1A3F1A 100%)';
+                
+                // Update mountain peaks color
+                document.querySelectorAll('.mountain-peak').forEach((peak, index) => {
+                    const colors = ['#1E4D2B', '#1A3F1A', '#0D2C0D', '#1A3F1A', '#1E4D2B'];
+                    peak.style.borderBottomColor = colors[index] || colors[0];
+                });
+            } else if (isEvening) {
+                header.style.background = 'var(--evening-sky)';
+                stars.style.opacity = '0.3';
+                clouds.style.opacity = '0.5';
+                
+                // Evening mountains
+                mountains.style.background = 'linear-gradient(to right, #3C6B47 0%, #2E8B57 20%, #228B22 40%, #2E8B57 60%, #3C6B47 80%, #2E8B57 100%)';
             } else {
-                celestialBody.classList.add('moon');
+                header.style.background = 'var(--day-sky)';
+                stars.style.opacity = '0';
+                clouds.style.opacity = '0.7';
+                
+                // Day mountains
+                mountains.style.background = 'linear-gradient(to right, #2E8B57 0%, #228B22 20%, #006400 40%, #228B22 60%, #2E8B57 80%, #228B22 100%)';
             }
             
-            // Calculate position based on time
+            // Calculate celestial body position
             let position;
             if (isDay) {
-                // Sun movement: 6 AM (left) to 6 PM (right)
-                // 6 AM = 360 minutes, 6 PM = 1080 minutes
-                const dayMinutes = totalMinutes - 360;
-                const dayDuration = 720; // 12 hours in minutes
-                position = (dayMinutes / dayDuration) * 100; // 0% to 100%
+                // Sun movement: 6 AM (left) to 5 PM (right)
+                const dayStart = 6 * 60; // 6 AM
+                const dayEnd = 17 * 60; // 5 PM
+                const dayDuration = dayEnd - dayStart;
+                const dayMinutes = Math.max(0, Math.min(totalMinutes - dayStart, dayDuration));
+                position = (dayMinutes / dayDuration) * 100;
+                
+                // Update celestial body to sun
+                celestialBody.className = 'celestial-body sun';
+            } else if (isEvening) {
+                // Evening: sun setting
+                const eveningStart = 17 * 60; // 5 PM
+                const eveningEnd = 20 * 60; // 8 PM
+                const eveningDuration = eveningEnd - eveningStart;
+                const eveningMinutes = Math.max(0, Math.min(totalMinutes - eveningStart, eveningDuration));
+                position = 100 + (eveningMinutes / eveningDuration) * 20; // Move beyond 100% for sunset effect
+                
+                // Update celestial body to sun (setting)
+                celestialBody.className = 'celestial-body sun';
+                celestialBody.style.opacity = 1 - (eveningMinutes / eveningDuration) * 0.8; // Fade out
             } else {
-                // Moon movement: 6 PM to 6 AM
-                // Handle overnight calculation
+                // Night: moon movement
+                const nightStart = 20 * 60; // 8 PM
+                const nightEnd = 6 * 60 + 24 * 60; // 6 AM next day
                 let nightMinutes;
-                if (totalMinutes >= 1080) {
-                    // After 6 PM
-                    nightMinutes = totalMinutes - 1080;
+                
+                if (totalMinutes >= nightStart) {
+                    nightMinutes = totalMinutes - nightStart;
                 } else {
-                    // Before 6 AM
-                    nightMinutes = totalMinutes + (1440 - 1080); // Add minutes from previous day
+                    nightMinutes = totalMinutes + (24 * 60 - nightStart);
                 }
-                const nightDuration = 720; // 12 hours in minutes
-                position = (nightMinutes / nightDuration) * 100; // 0% to 100%
+                
+                const nightDuration = nightEnd - nightStart;
+                position = (nightMinutes / nightDuration) * 100;
+                
+                // Update celestial body to moon
+                celestialBody.className = 'celestial-body moon';
+                celestialBody.style.opacity = '1';
             }
             
-            // Set position (with some vertical variation for sunrise/sunset effect)
-            const headerHeight = 70; // Approximate header height
-            const verticalPosition = Math.sin((position / 100) * Math.PI) * 30; // Arc motion
-            
+            // Set celestial body position (with vertical arc)
+            const verticalPosition = Math.sin((position / 100) * Math.PI) * 40;
             celestialBody.style.left = `${position}%`;
-            celestialBody.style.top = `${50 - verticalPosition}px`; // Center vertically with arc
+            celestialBody.style.top = `${30 + verticalPosition}px`;
             
-            // Update every minute
-            setTimeout(updateCelestialBody, 60000);
+            // Update text colors for better visibility
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const logo = document.querySelector('.logo');
+            
+            if (isNight) {
+                // Light text for dark background
+                navLinks.forEach(link => {
+                    link.style.color = 'white';
+                    link.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.7)';
+                });
+                logo.style.color = 'white';
+                logo.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.7)';
+            } else {
+                // Dark text for light background
+                navLinks.forEach(link => {
+                    link.style.color = 'var(--dark-color)';
+                    link.style.textShadow = '0 1px 2px rgba(255, 255, 255, 0.8)';
+                });
+                logo.style.color = 'var(--primary-color)';
+                logo.style.textShadow = '0 1px 2px rgba(255, 255, 255, 0.8)';
+            }
+            
+            // Update every 30 seconds
+            setTimeout(updateEnvironment, 30000);
         }
 
-        // Initialize celestial body
-        updateCelestialBody();
+        // Initialize environment
+        function initEnvironment() {
+            createStars();
+            createClouds();
+            updateEnvironment();
+        }
 
-        // Mobile menu toggle - FIXED
+        // Mobile menu toggle
         mobileMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             navLinks.classList.toggle('active');
@@ -1232,7 +1487,8 @@
                 description: description || "No description provided.",
                 date: new Date().toISOString().split('T')[0],
                 downloads: 0,
-                fileSize: fileInput.files.length ? `${(fileInput.files[0].size / 1024 / 1024).toFixed(1)} MB` : "N/A"
+                fileSize: fileInput.files.length ? `${(fileInput.files[0].size / 1024 / 1024).toFixed(1)} MB` : "N/A",
+                fileLocation: fileInput.files.length ? `/files/${subject}/${fileInput.files[0].name}` : "/files/default.pdf"
             };
             
             notesData.unshift(newNote);
@@ -1245,6 +1501,23 @@
             alert('Login functionality would connect to a backend in a real application.');
             loginModal.style.display = 'none';
         });
+
+        // Download file function
+        function downloadFile(fileLocation, fileName) {
+            // In a real application, this would download the file from the server
+            // For demo purposes, we'll simulate the download
+            
+            // Create a temporary link element
+            const link = document.createElement('a');
+            link.href = fileLocation;
+            link.download = fileName || fileLocation.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show download confirmation
+            return true;
+        }
 
         // Render notes function
         function renderNotes(notes) {
@@ -1265,6 +1538,31 @@
                     software: "Software"
                 };
                 
+                // Extract file extension for icon
+                const fileExtension = note.fileLocation ? note.fileLocation.split('.').pop().toLowerCase() : 'pdf';
+                let fileIcon = 'fas fa-file';
+                
+                switch(fileExtension) {
+                    case 'pdf':
+                        fileIcon = 'fas fa-file-pdf';
+                        break;
+                    case 'doc':
+                    case 'docx':
+                        fileIcon = 'fas fa-file-word';
+                        break;
+                    case 'ppt':
+                    case 'pptx':
+                        fileIcon = 'fas fa-file-powerpoint';
+                        break;
+                    case 'zip':
+                    case 'rar':
+                        fileIcon = 'fas fa-file-archive';
+                        break;
+                    case 'txt':
+                        fileIcon = 'fas fa-file-alt';
+                        break;
+                }
+                
                 noteCard.innerHTML = `
                     <div class="note-header">
                         <h4>${categoryNames[note.category] || note.category}</h4>
@@ -1276,6 +1574,10 @@
                         <div class="note-meta">
                             <span><i class="far fa-calendar-alt"></i> ${note.date}</span>
                             <span><i class="fas fa-download"></i> ${note.downloads} downloads</span>
+                        </div>
+                        <div class="note-meta">
+                            <span><i class="${fileIcon}"></i> ${fileExtension.toUpperCase()} File</span>
+                            <span><i class="fas fa-folder"></i> ${note.fileLocation ? note.fileLocation.split('/')[1] : 'Unknown'}</span>
                         </div>
                         <div class="note-actions">
                             <button class="action-btn download-btn" data-id="${note.id}">
@@ -1292,14 +1594,21 @@
                 
                 // Add event listeners to the buttons
                 noteCard.querySelector('.download-btn').addEventListener('click', () => {
-                    alert(`Downloading: ${note.title}\n\nIn a real application, this would download the file.`);
                     // Increment download count in the data
                     note.downloads++;
+                    
+                    // Simulate file download
+                    const fileName = `${note.title.replace(/\s+/g, '-').toLowerCase()}.${fileExtension}`;
+                    if (downloadFile(note.fileLocation, fileName)) {
+                        alert(`Downloading: ${note.title}\nFile location: ${note.fileLocation}`);
+                    }
+                    
+                    // Update the display
                     renderNotes(notesData.filter(n => n.category === activeFilter || activeFilter === 'all'));
                 });
                 
                 noteCard.querySelector('.view-btn').addEventListener('click', () => {
-                    alert(`Previewing: ${note.title}\n\nIn a real application, this would show a preview of the file.`);
+                    alert(`Previewing: ${note.title}\n\nFile location: ${note.fileLocation}\n\nIn a real application, this would show a preview of the file.`);
                 });
             });
         }
@@ -1354,8 +1663,44 @@
             });
         });
 
-        // Initialize the page with all notes
-        renderNotes(notesData);
+        // Initialize the page
+        function initPage() {
+            // Initialize environment
+            initEnvironment();
+            
+            // Set initial active nav link
+            setActiveNavLink();
+            
+            // Render initial data
+            renderNotes(notesData);
+            
+            // Listen for scroll to update active nav link
+            window.addEventListener('scroll', setActiveNavLink);
+        }
+
+        // Set active nav link based on scroll position
+        function setActiveNavLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initPage);
     </script>
 </body>
 </html>
