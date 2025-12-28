@@ -206,7 +206,7 @@
                 
                 // Category display name
                 const categoryNames = {
-                    programming: "Programming",
+                    programming: "Class 6",
                     networking: "Networking",
                     database: "Database",
                     web: "Web Development",
