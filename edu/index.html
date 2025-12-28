@@ -1,41 +1,1255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Notes Portal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechTeach - Computer Education Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4CAF50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
 
-  <link rel="stylesheet" href="style.css">
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background-color: #2db5de;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+        }
+
+        .features {
+            padding: 60px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: inline-block;
+            height: 80px;
+            width: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        /* Notes Section */
+        .notes-section {
+            padding: 60px 0;
+            background-color: white;
+            border-radius: 30px;
+            margin-bottom: 40px;
+        }
+
+        .notes-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .note-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .note-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note-category {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .note-body {
+            padding: 20px;
+        }
+
+        .note-title {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .view-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+            border-radius: 30px;
+            margin-bottom: 40px;
+        }
+
+        .upload-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .file-upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .file-upload-area i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .upload-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .upload-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: popUp 0.4s ease;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .notes-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .upload-form {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .note-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-laptop-code"></i>
+                TechTeach
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" id="loginBtn">Login</a></li>
+            </ul>
+        </div>
+    </header>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-content">
-    <h1>📘 Smart Notes Portal</h1>
-    <p>Learn • Revise • Download</p>
-  </div>
-</header>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Welcome to Your Computer Education Portal</h1>
+            <p>Upload and share educational notes with your students. Access course materials anytime, anywhere on any device.</p>
+            <a href="#notes" class="cta-button">Browse Notes <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
 
-<!-- SEARCH -->
-<section class="search-area">
-  <input type="text" id="search" placeholder="Search notes by topic...">
-</section>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Website Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3>Easy Upload</h3>
+                    <p>Upload notes in various formats (PDF, DOC, PPT) with just a few clicks. Organize by subject and topic.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Fully Responsive</h3>
+                    <p>Access the website seamlessly on mobile, tablet, and desktop devices with optimized layouts.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Smart Search</h3>
+                    <p>Students can quickly find notes by keyword, subject, or date with our advanced search functionality.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor which students have accessed materials and track their engagement with your content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- NOTES -->
-<section class="notes" id="notesContainer"></section>
+    <!-- Notes Section -->
+    <section class="notes-section" id="notes">
+        <div class="container">
+            <h2 class="section-title">Educational Notes</h2>
+            
+            <div class="notes-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search notes by title, subject or keyword...">
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="programming">Programming</button>
+                    <button class="filter-btn" data-filter="networking">Networking</button>
+                    <button class="filter-btn" data-filter="database">Database</button>
+                    <button class="filter-btn" data-filter="web">Web Development</button>
+                </div>
+            </div>
+            
+            <div class="notes-grid" id="notesGrid">
+                <!-- Notes will be dynamically added here -->
+            </div>
+        </div>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2025 | Designed for Students</p>
-</footer>
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <h2 class="section-title">Upload New Notes</h2>
+            
+            <form class="upload-form" id="uploadForm">
+                <div class="form-group">
+                    <label for="noteTitle">Note Title</label>
+                    <input type="text" id="noteTitle" class="form-control" placeholder="Enter note title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="noteSubject">Subject/Category</label>
+                    <select id="noteSubject" class="form-control" required>
+                        <option value="">Select a subject</option>
+                        <option value="programming">Programming</option>
+                        <option value="networking">Networking</option>
+                        <option value="database">Database Management</option>
+                        <option value="web">Web Development</option>
+                        <option value="hardware">Computer Hardware</option>
+                        <option value="software">Software Engineering</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="noteDescription">Description</label>
+                    <textarea id="noteDescription" class="form-control" rows="4" placeholder="Brief description of the note content"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Upload File</label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drag & Drop your file here</h3>
+                        <p>or click to browse (PDF, DOC, PPT, TXT, ZIP)</p>
+                        <input type="file" id="fileInput" style="display: none;">
+                    </div>
+                    <div id="fileName" style="margin-top: 10px; font-style: italic;"></div>
+                </div>
+                
+                <button type="submit" class="upload-button">
+                    <i class="fas fa-upload"></i> Upload Note
+                </button>
+            </form>
+        </div>
+    </section>
 
-<script src="script.js"></script>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-laptop-code"></i>
+                        TechTeach
+                    </div>
+                    <p>A dedicated platform for computer teachers to share educational materials with students. Simplify knowledge sharing and enhance learning experiences.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#notes">Browse Notes</a></li>
+                        <li><a href="#upload">Upload Notes</a></li>
+                        <li><a href="#">Student Dashboard</a></li>
+                        <li><a href="#">Teacher Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> teacher@techteach.edu</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Computer Science Department, Education City</p>
+                    <p><i class="fas fa-clock"></i> Support: Mon-Fri, 9AM-5PM</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 TechTeach - Computer Education Portal. All rights reserved.</p>
+                <p>Designed specifically for computer teachers to share knowledge effectively.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Teacher Login</h3>
+                <button class="close-modal" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="teacher@school.edu" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <input type="checkbox" id="rememberMe">
+                                <label for="rememberMe">Remember me</label>
+                            </div>
+                            <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot password?</a>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="upload-button">Login</button>
+                    
+                    <p style="text-align: center; margin-top: 20px;">
+                        Student access? <a href="#" style="color: var(--primary-color); text-decoration: none;">Click here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: var(--success-color);">
+                <h3>Success!</h3>
+                <button class="close-modal" id="closeSuccessModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 20px 0;">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success-color); margin-bottom: 20px;"></i>
+                    <h3>Note Uploaded Successfully</h3>
+                    <p>Your educational note has been uploaded and is now available to students.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample notes data
+        const notesData = [
+            {
+                id: 1,
+                title: "Introduction to Python Programming",
+                category: "programming",
+                description: "Basics of Python syntax, variables, data types, and control structures.",
+                date: "2023-10-15",
+                downloads: 142,
+                fileSize: "2.4 MB"
+            },
+            {
+                id: 2,
+                title: "Computer Networking Fundamentals",
+                category: "networking",
+                description: "OSI model, TCP/IP, network topologies, and basic networking concepts.",
+                date: "2023-10-10",
+                downloads: 98,
+                fileSize: "3.1 MB"
+            },
+            {
+                id: 3,
+                title: "Database Design with MySQL",
+                category: "database",
+                description: "ER diagrams, normalization, SQL queries, and database management.",
+                date: "2023-10-05",
+                downloads: 76,
+                fileSize: "1.8 MB"
+            },
+            {
+                id: 4,
+                title: "HTML5 & CSS3 Basics",
+                category: "web",
+                description: "Modern web development with HTML5 semantics and CSS3 styling.",
+                date: "2023-09-28",
+                downloads: 210,
+                fileSize: "4.2 MB"
+            },
+            {
+                id: 5,
+                title: "Object-Oriented Programming in Java",
+                category: "programming",
+                description: "Classes, objects, inheritance, polymorphism, and encapsulation.",
+                date: "2023-09-20",
+                downloads: 118,
+                fileSize: "2.9 MB"
+            },
+            {
+                id: 6,
+                title: "Network Security Principles",
+                category: "networking",
+                description: "Encryption, firewalls, VPNs, and security best practices.",
+                date: "2023-09-15",
+                downloads: 65,
+                fileSize: "3.7 MB"
+            }
+        ];
+
+        // DOM Elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const successModal = document.getElementById('successModal');
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        const uploadForm = document.getElementById('uploadForm');
+        const notesGrid = document.getElementById('notesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Login modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        closeSuccessModal.addEventListener('click', () => {
+            successModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === successModal) {
+                successModal.style.display = 'none';
+            }
+        });
+
+        // File upload area interaction
+        fileUploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = `Selected file: ${fileInput.files[0].name}`;
+                fileUploadArea.style.borderColor = 'var(--success-color)';
+                fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
+            }
+        });
+
+        // Drag and drop for file upload
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = 'var(--primary-color)';
+            fileUploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.style.borderColor = '#ddd';
+            fileUploadArea.style.backgroundColor = 'transparent';
+        });
+
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = '#ddd';
+            fileUploadArea.style.backgroundColor = 'transparent';
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                fileName.textContent = `Selected file: ${e.dataTransfer.files[0].name}`;
+                fileUploadArea.style.borderColor = 'var(--success-color)';
+                fileUploadArea.style.backgroundColor = 'rgba(76, 175, 80, 0.05)';
+            }
+        });
+
+        // Upload form submission
+        uploadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('noteTitle').value;
+            const subject = document.getElementById('noteSubject').value;
+            const description = document.getElementById('noteDescription').value;
+            
+            if (!title || !subject) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // In a real application, here you would upload the file to a server
+            // For this demo, we'll just show a success message
+            successModal.style.display = 'flex';
+            
+            // Reset the form
+            uploadForm.reset();
+            fileName.textContent = '';
+            fileUploadArea.style.borderColor = '#ddd';
+            fileUploadArea.style.backgroundColor = 'transparent';
+            
+            // Add the new note to the notes grid
+            const newNote = {
+                id: notesData.length + 1,
+                title: title,
+                category: subject,
+                description: description || "No description provided.",
+                date: new Date().toISOString().split('T')[0],
+                downloads: 0,
+                fileSize: fileInput.files.length ? `${(fileInput.files[0].size / 1024 / 1024).toFixed(1)} MB` : "N/A"
+            };
+            
+            notesData.unshift(newNote);
+            renderNotes(notesData);
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login functionality would connect to a backend in a real application.');
+            loginModal.style.display = 'none';
+        });
+
+        // Render notes function
+        function renderNotes(notes) {
+            notesGrid.innerHTML = '';
+            
+            notes.forEach(note => {
+                const noteCard = document.createElement('div');
+                noteCard.className = 'note-card';
+                noteCard.setAttribute('data-category', note.category);
+                
+                // Category display name
+                const categoryNames = {
+                    programming: "Programming",
+                    networking: "Networking",
+                    database: "Database",
+                    web: "Web Development",
+                    hardware: "Hardware",
+                    software: "Software"
+                };
+                
+                noteCard.innerHTML = `
+                    <div class="note-header">
+                        <h4>${categoryNames[note.category] || note.category}</h4>
+                        <span class="note-category">${note.fileSize}</span>
+                    </div>
+                    <div class="note-body">
+                        <h3 class="note-title">${note.title}</h3>
+                        <p>${note.description}</p>
+                        <div class="note-meta">
+                            <span><i class="far fa-calendar-alt"></i> ${note.date}</span>
+                            <span><i class="fas fa-download"></i> ${note.downloads} downloads</span>
+                        </div>
+                        <div class="note-actions">
+                            <button class="action-btn download-btn" data-id="${note.id}">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="action-btn view-btn" data-id="${note.id}">
+                                <i class="far fa-eye"></i> Preview
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                notesGrid.appendChild(noteCard);
+                
+                // Add event listeners to the buttons
+                noteCard.querySelector('.download-btn').addEventListener('click', () => {
+                    alert(`Downloading: ${note.title}\n\nIn a real application, this would download the file.`);
+                    // Increment download count in the data
+                    note.downloads++;
+                    renderNotes(notesData.filter(n => n.category === activeFilter || activeFilter === 'all'));
+                });
+                
+                noteCard.querySelector('.view-btn').addEventListener('click', () => {
+                    alert(`Previewing: ${note.title}\n\nIn a real application, this would show a preview of the file.`);
+                });
+            });
+        }
+
+        // Filter notes by category
+        let activeFilter = 'all';
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter notes
+                activeFilter = button.getAttribute('data-filter');
+                const filteredNotes = activeFilter === 'all' 
+                    ? notesData 
+                    : notesData.filter(note => note.category === activeFilter);
+                
+                renderNotes(filteredNotes);
+            });
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            const filteredNotes = notesData.filter(note => 
+                note.title.toLowerCase().includes(searchTerm) ||
+                note.description.toLowerCase().includes(searchTerm) ||
+                note.category.toLowerCase().includes(searchTerm)
+            );
+            
+            renderNotes(filteredNotes);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if(this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize the page with all notes
+        renderNotes(notesData);
+    </script>
 </body>
 </html>
