@@ -2,12 +2,12 @@
         const notesData = [
             {
                 id: 1,
-                title: "Introduction to Python Programming",
+                title: "Class 6",
                 category: "programming",
                 description: "Basics of Python syntax, variables, data types, and control structures.",
                 date: "2023-10-15",
                 downloads: 142,
-                fileSize: "2.4 MB"
+                fileSize: "Unit 1"
             },
             {
                 id: 2,
