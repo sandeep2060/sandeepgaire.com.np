@@ -1,1 +1,1694 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechTeach - Computer Education Portal with Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4CAF50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background-color: #2db5de;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+        }
+
+        .features {
+            padding: 60px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: inline-block;
+            height: 80px;
+            width: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        /* Notes Section */
+        .notes-section {
+            padding: 60px 0;
+            background-color: white;
+            border-radius: 30px;
+            margin-bottom: 40px;
+        }
+
+        .notes-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .note-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .note-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note-category {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .note-body {
+            padding: 20px;
+        }
+
+        .note-title {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .view-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+            border-radius: 30px;
+            margin-bottom: 40px;
+        }
+
+        .upload-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .file-upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .file-upload-area i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .upload-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .upload-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: popUp 0.4s ease;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Database Status */
+        .db-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            font-size: 0.9rem;
+        }
+
+        .db-status.connected {
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .db-status.disconnected {
+            color: var(--danger-color);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .notes-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .upload-form {
+                padding: 25px;
+            }
+            
+            .db-status {
+                bottom: 10px;
+                right: 10px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .note-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Database Status Indicator -->
+    <div class="db-status" id="dbStatus">
+        <i class="fas fa-database"></i>
+        <span>Connecting to database...</span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-laptop-code"></i>
+                TechTeach
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#students">Students</a></li>
+                <li><a href="#" id="loginBtn">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Welcome to Your Computer Education Portal</h1>
+            <p>Upload and share educational notes with your students. Access course materials anytime, anywhere on any device.</p>
+            <a href="#notes" class="cta-button">Browse Notes <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Website Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3>Database Integration</h3>
+                    <p>All notes are stored securely in Supabase cloud database. Real-time updates and persistent storage.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Fully Responsive</h3>
+                    <p>Access the website seamlessly on mobile, tablet, and desktop devices with optimized layouts.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Smart Search</h3>
+                    <p>Students can quickly find notes by keyword, subject, or date with our advanced search functionality.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Student Analytics</h3>
+                    <p>Track which students have accessed materials and monitor their engagement with your content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="notes-section" id="notes">
+        <div class="container">
+            <h2 class="section-title">Educational Notes</h2>
+            
+            <div class="notes-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search notes by title, subject or keyword...">
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="programming">Programming</button>
+                    <button class="filter-btn" data-filter="networking">Networking</button>
+                    <button class="filter-btn" data-filter="database">Database</button>
+                    <button class="filter-btn" data-filter="web">Web Development</button>
+                </div>
+            </div>
+            
+            <div class="notes-grid" id="notesGrid">
+                <!-- Notes will be dynamically loaded from Supabase -->
+                <div id="loadingNotes" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <div class="spinner" style="width: 40px; height: 40px; margin-bottom: 15px;"></div>
+                    <p>Loading notes from database...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <h2 class="section-title">Upload New Notes</h2>
+            
+            <form class="upload-form" id="uploadForm">
+                <div class="form-group">
+                    <label for="noteTitle">Note Title *</label>
+                    <input type="text" id="noteTitle" class="form-control" placeholder="Enter note title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="noteSubject">Subject/Category *</label>
+                    <select id="noteSubject" class="form-control" required>
+                        <option value="">Select a subject</option>
+                        <option value="programming">Programming</option>
+                        <option value="networking">Networking</option>
+                        <option value="database">Database Management</option>
+                        <option value="web">Web Development</option>
+                        <option value="hardware">Computer Hardware</option>
+                        <option value="software">Software Engineering</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="noteDescription">Description</label>
+                    <textarea id="noteDescription" class="form-control" rows="4" placeholder="Brief description of the note content"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fileUrl">File URL *</label>
+                    <input type="url" id="fileUrl" class="form-control" placeholder="https://drive.google.com/file/... or direct file link" required>
+                    <small style="color: #666; margin-top: 5px; display: block;">
+                        You can upload files to Google Drive, Dropbox, or any file hosting service and paste the link here.
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fileFormat">File Format</label>
+                    <select id="fileFormat" class="form-control">
+                        <option value="pdf">PDF</option>
+                        <option value="doc">DOC/DOCX</option>
+                        <option value="ppt">PPT/PPTX</option>
+                        <option value="txt">TXT</option>
+                        <option value="zip">ZIP/RAR</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="upload-button" id="submitBtn">
+                    <i class="fas fa-upload"></i> Upload Note to Database
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Students Section -->
+    <section class="notes-section" id="students" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Student Management</h2>
+            
+            <div class="notes-controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="studentSearch" placeholder="Search students by name or email...">
+                </div>
+                
+                <button class="cta-button" id="addStudentBtn">
+                    <i class="fas fa-user-plus"></i> Add Student
+                </button>
+            </div>
+            
+            <div class="notes-grid" id="studentsGrid">
+                <!-- Students will be dynamically loaded from Supabase -->
+                <div id="loadingStudents" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <div class="spinner" style="width: 40px; height: 40px; margin-bottom: 15px;"></div>
+                    <p>Loading student data...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-laptop-code"></i>
+                        TechTeach
+                    </div>
+                    <p>A dedicated platform for computer teachers to share educational materials with students. Simplify knowledge sharing and enhance learning experiences.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#notes">Browse Notes</a></li>
+                        <li><a href="#upload">Upload Notes</a></li>
+                        <li><a href="#students">Student Management</a></li>
+                        <li><a href="#">Teacher Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> teacher@techteach.edu</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Computer Science Department, Education City</p>
+                    <p><i class="fas fa-clock"></i> Support: Mon-Fri, 9AM-5PM</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 TechTeach - Computer Education Portal. All rights reserved.</p>
+                <p>Powered by Supabase Database | Designed specifically for computer teachers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Teacher Login</h3>
+                <button class="close-modal" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="teacher@school.edu" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <input type="checkbox" id="rememberMe">
+                                <label for="rememberMe">Remember me</label>
+                            </div>
+                            <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot password?</a>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="upload-button">Login</button>
+                    
+                    <p style="text-align: center; margin-top: 20px;">
+                        Student access? <a href="#" style="color: var(--primary-color); text-decoration: none;">Click here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal" id="addStudentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Student</h3>
+                <button class="close-modal" id="closeStudentModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addStudentForm">
+                    <div class="form-group">
+                        <label for="studentName">Student Name *</label>
+                        <input type="text" id="studentName" class="form-control" placeholder="Enter student full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentEmail">Email Address *</label>
+                        <input type="email" id="studentEmail" class="form-control" placeholder="student@school.edu" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentClass">Class/Group</label>
+                        <input type="text" id="studentClass" class="form-control" placeholder="e.g., Computer Science 2023">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentPhone">Phone Number</label>
+                        <input type="tel" id="studentPhone" class="form-control" placeholder="+1 (555) 123-4567">
+                    </div>
+                    
+                    <button type="submit" class="upload-button">Add Student to Database</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: var(--success-color);">
+                <h3>Success!</h3>
+                <button class="close-modal" id="closeSuccessModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 20px 0;">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success-color); margin-bottom: 20px;"></i>
+                    <h3 id="successTitle">Operation Successful</h3>
+                    <p id="successMessage">Your action has been completed successfully.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // ============================================
+        // STEP 2: CONFIGURE YOUR SUPABASE CREDENTIALS
+        // ============================================
+        // Replace these with your actual Supabase project credentials
+        const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';  // Replace with your Supabase URL
+        const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';  // Replace with your Supabase anon key
+        
+        // Initialize Supabase client
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // DOM Elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const successModal = document.getElementById('successModal');
+        const uploadForm = document.getElementById('uploadForm');
+        const notesGrid = document.getElementById('notesGrid');
+        const studentsGrid = document.getElementById('studentsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const dbStatus = document.getElementById('dbStatus');
+        const addStudentBtn = document.getElementById('addStudentBtn');
+        const addStudentModal = document.getElementById('addStudentModal');
+        const closeStudentModal = document.getElementById('closeStudentModal');
+        const addStudentForm = document.getElementById('addStudentForm');
+        const studentSearch = document.getElementById('studentSearch');
+
+        // Check database connection on page load
+        checkDatabaseConnection();
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Login modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        closeSuccessModal.addEventListener('click', () => {
+            successModal.style.display = 'none';
+        });
+
+        // Add student modal
+        addStudentBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            addStudentModal.style.display = 'flex';
+        });
+
+        closeStudentModal.addEventListener('click', () => {
+            addStudentModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === successModal) {
+                successModal.style.display = 'none';
+            }
+            if (e.target === addStudentModal) {
+                addStudentModal.style.display = 'none';
+            }
+        });
+
+        // ============================================
+        // STEP 3: CHECK DATABASE CONNECTION
+        // ============================================
+        async function checkDatabaseConnection() {
+            try {
+                dbStatus.innerHTML = '<div class="spinner"></div><span>Connecting to database...</span>';
+                
+                // Try to fetch a simple query to check connection
+                const { data, error } = await supabase
+                    .from('notes')
+                    .select('count')
+                    .limit(1);
+                
+                if (error) throw error;
+                
+                // Connection successful
+                dbStatus.className = 'db-status connected';
+                dbStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Connected to Supabase Database</span>';
+                
+                console.log('✅ Supabase connection successful');
+                
+                // Load data from database
+                loadNotesFromDatabase();
+                loadStudentsFromDatabase();
+                
+            } catch (error) {
+                console.error('❌ Database connection error:', error);
+                dbStatus.className = 'db-status disconnected';
+                dbStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Database connection failed. Using demo data.</span>';
+                
+                // Load demo data if connection fails
+                loadDemoData();
+            }
+        }
+
+        // ============================================
+        // STEP 4: LOAD NOTES FROM SUPABASE DATABASE
+        // ============================================
+        async function loadNotesFromDatabase() {
+            try {
+                const { data: notes, error } = await supabase
+                    .from('notes')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                // Remove loading indicator
+                document.getElementById('loadingNotes').style.display = 'none';
+                
+                if (notes && notes.length > 0) {
+                    renderNotes(notes);
+                } else {
+                    // If no notes in database, show message
+                    notesGrid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                            <i class="fas fa-inbox" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                            <h3>No Notes Found</h3>
+                            <p>Upload your first note to get started!</p>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('Error loading notes:', error);
+                document.getElementById('loadingNotes').innerHTML = `
+                    <div style="color: var(--danger-color);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Error loading notes from database</p>
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================
+        // STEP 5: UPLOAD NOTES TO SUPABASE DATABASE
+        // ============================================
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('noteTitle').value;
+            const subject = document.getElementById('noteSubject').value;
+            const description = document.getElementById('noteDescription').value;
+            const fileUrl = document.getElementById('fileUrl').value;
+            const fileFormat = document.getElementById('fileFormat').value;
+            
+            if (!title || !subject || !fileUrl) {
+                showSuccessModal('Error', 'Please fill in all required fields', 'danger');
+                return;
+            }
+            
+            // Disable submit button and show loading
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="spinner"></div> Uploading...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Insert note into Supabase database
+                const { data, error } = await supabase
+                    .from('notes')
+                    .insert([
+                        {
+                            title: title,
+                            category: subject,
+                            description: description || "No description provided.",
+                            file_url: fileUrl,
+                            file_format: fileFormat,
+                            downloads: 0,
+                            created_at: new Date().toISOString()
+                        }
+                    ]);
+                
+                if (error) throw error;
+                
+                // Show success message
+                showSuccessModal('Success!', 'Note uploaded to database successfully. Students can now access it.', 'success');
+                
+                // Reset the form
+                uploadForm.reset();
+                
+                // Reload notes from database
+                loadNotesFromDatabase();
+                
+            } catch (error) {
+                console.error('Error uploading note:', error);
+                showSuccessModal('Error', 'Failed to upload note to database. Please try again.', 'danger');
+            } finally {
+                // Re-enable submit button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // ============================================
+        // STEP 6: LOAD STUDENTS FROM SUPABASE DATABASE
+        // ============================================
+        async function loadStudentsFromDatabase() {
+            try {
+                const { data: students, error } = await supabase
+                    .from('students')
+                    .select('*')
+                    .order('name', { ascending: true });
+                
+                if (error) throw error;
+                
+                // Remove loading indicator
+                document.getElementById('loadingStudents').style.display = 'none';
+                
+                if (students && students.length > 0) {
+                    renderStudents(students);
+                } else {
+                    // If no students in database, show message
+                    studentsGrid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                            <i class="fas fa-users" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                            <h3>No Students Added Yet</h3>
+                            <p>Add your first student to get started!</p>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('Error loading students:', error);
+                document.getElementById('loadingStudents').innerHTML = `
+                    <div style="color: var(--danger-color);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Error loading students from database</p>
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================
+        // STEP 7: ADD STUDENT TO SUPABASE DATABASE
+        // ============================================
+        addStudentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('studentName').value;
+            const email = document.getElementById('studentEmail').value;
+            const studentClass = document.getElementById('studentClass').value;
+            const phone = document.getElementById('studentPhone').value;
+            
+            if (!name || !email) {
+                showSuccessModal('Error', 'Please fill in all required fields', 'danger');
+                return;
+            }
+            
+            try {
+                // Insert student into Supabase database
+                const { data, error } = await supabase
+                    .from('students')
+                    .insert([
+                        {
+                            name: name,
+                            email: email,
+                            class: studentClass || "Not specified",
+                            phone: phone || "Not provided",
+                            enrolled_date: new Date().toISOString().split('T')[0],
+                            notes_accessed: 0
+                        }
+                    ]);
+                
+                if (error) throw error;
+                
+                // Show success message
+                showSuccessModal('Success!', 'Student added to database successfully.', 'success');
+                
+                // Close modal and reset form
+                addStudentModal.style.display = 'none';
+                addStudentForm.reset();
+                
+                // Reload students from database
+                loadStudentsFromDatabase();
+                
+            } catch (error) {
+                console.error('Error adding student:', error);
+                showSuccessModal('Error', 'Failed to add student to database. Please try again.', 'danger');
+            }
+        });
+
+        // ============================================
+        // STEP 8: RENDER NOTES FROM DATABASE
+        // ============================================
+        function renderNotes(notes) {
+            notesGrid.innerHTML = '';
+            
+            notes.forEach(note => {
+                const noteCard = document.createElement('div');
+                noteCard.className = 'note-card';
+                noteCard.setAttribute('data-category', note.category);
+                
+                // Format date
+                const noteDate = new Date(note.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                // Category display name
+                const categoryNames = {
+                    programming: "Programming",
+                    networking: "Networking",
+                    database: "Database",
+                    web: "Web Development",
+                    hardware: "Hardware",
+                    software: "Software"
+                };
+                
+                noteCard.innerHTML = `
+                    <div class="note-header">
+                        <h4>${categoryNames[note.category] || note.category}</h4>
+                        <span class="note-category">${note.file_format ? note.file_format.toUpperCase() : 'FILE'}</span>
+                    </div>
+                    <div class="note-body">
+                        <h3 class="note-title">${note.title}</h3>
+                        <p>${note.description}</p>
+                        <div class="note-meta">
+                            <span><i class="far fa-calendar-alt"></i> ${noteDate}</span>
+                            <span><i class="fas fa-download"></i> ${note.downloads || 0} downloads</span>
+                        </div>
+                        <div class="note-actions">
+                            <button class="action-btn download-btn" data-id="${note.id}">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="action-btn view-btn" data-id="${note.id}">
+                                <i class="far fa-eye"></i> Preview
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                notesGrid.appendChild(noteCard);
+                
+                // Add event listeners to the buttons
+                noteCard.querySelector('.download-btn').addEventListener('click', async () => {
+                    // Increment download count in database
+                    const newDownloadCount = (note.downloads || 0) + 1;
+                    
+                    try {
+                        const { error } = await supabase
+                            .from('notes')
+                            .update({ downloads: newDownloadCount })
+                            .eq('id', note.id);
+                        
+                        if (error) throw error;
+                        
+                        // Update the note object locally
+                        note.downloads = newDownloadCount;
+                        noteCard.querySelector('.note-meta span:nth-child(2)').innerHTML = 
+                            `<i class="fas fa-download"></i> ${newDownloadCount} downloads`;
+                        
+                    } catch (error) {
+                        console.error('Error updating download count:', error);
+                    }
+                    
+                    // Open file URL in new tab
+                    window.open(note.file_url, '_blank');
+                });
+                
+                noteCard.querySelector('.view-btn').addEventListener('click', () => {
+                    // For PDFs, we can use Google Docs viewer
+                    if (note.file_format === 'pdf') {
+                        const pdfViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(note.file_url)}&embedded=true`;
+                        window.open(pdfViewerUrl, '_blank');
+                    } else {
+                        // For other files, just open the URL
+                        window.open(note.file_url, '_blank');
+                    }
+                });
+            });
+        }
+
+        // ============================================
+        // STEP 9: RENDER STUDENTS FROM DATABASE
+        // ============================================
+        function renderStudents(students) {
+            studentsGrid.innerHTML = '';
+            
+            students.forEach(student => {
+                const studentCard = document.createElement('div');
+                studentCard.className = 'note-card';
+                
+                studentCard.innerHTML = `
+                    <div class="note-header">
+                        <h4>${student.class || "Not specified"}</h4>
+                        <span class="note-category">Student</span>
+                    </div>
+                    <div class="note-body">
+                        <h3 class="note-title">${student.name}</h3>
+                        <p><i class="fas fa-envelope"></i> ${student.email}</p>
+                        <p><i class="fas fa-phone"></i> ${student.phone || "Not provided"}</p>
+                        <div class="note-meta">
+                            <span><i class="far fa-calendar-alt"></i> Enrolled: ${student.enrolled_date}</span>
+                            <span><i class="fas fa-book"></i> ${student.notes_accessed || 0} notes accessed</span>
+                        </div>
+                        <div class="note-actions">
+                            <button class="action-btn view-btn" data-id="${student.id}" style="flex-grow: 1;">
+                                <i class="fas fa-user-edit"></i> Edit
+                            </button>
+                            <button class="action-btn download-btn" data-id="${student.id}" style="background-color: var(--warning-color);">
+                                <i class="fas fa-chart-line"></i> Stats
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                studentsGrid.appendChild(studentCard);
+            });
+        }
+
+        // ============================================
+        // STEP 10: SEARCH AND FILTER FUNCTIONALITY
+        // ============================================
+        // Filter notes by category
+        let activeFilter = 'all';
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter notes
+                activeFilter = button.getAttribute('data-filter');
+                
+                // Reload notes from database with filter
+                loadFilteredNotes(activeFilter, searchInput.value);
+            });
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            loadFilteredNotes(activeFilter, searchTerm);
+        });
+
+        // Student search functionality
+        studentSearch.addEventListener('input', () => {
+            const searchTerm = studentSearch.value.toLowerCase();
+            // In a real implementation, you would query the database with search term
+            // For now, we'll filter the existing students
+            const studentCards = document.querySelectorAll('#studentsGrid .note-card');
+            
+            studentCards.forEach(card => {
+                const studentName = card.querySelector('.note-title').textContent.toLowerCase();
+                const studentEmail = card.querySelector('p:nth-child(2)').textContent.toLowerCase();
+                
+                if (studentName.includes(searchTerm) || studentEmail.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Load filtered notes from database
+        async function loadFilteredNotes(filter, searchTerm = '') {
+            try {
+                let query = supabase
+                    .from('notes')
+                    .select('*');
+                
+                // Apply category filter
+                if (filter !== 'all') {
+                    query = query.eq('category', filter);
+                }
+                
+                // Apply search filter
+                if (searchTerm) {
+                    query = query.or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%,category.ilike.%${searchTerm}%`);
+                }
+                
+                // Order by creation date
+                query = query.order('created_at', { ascending: false });
+                
+                const { data: notes, error } = await query;
+                
+                if (error) throw error;
+                
+                renderNotes(notes || []);
+                
+            } catch (error) {
+                console.error('Error filtering notes:', error);
+            }
+        }
+
+        // ============================================
+        // STEP 11: HELPER FUNCTIONS
+        // ============================================
+        function showSuccessModal(title, message, type = 'success') {
+            const successTitle = document.getElementById('successTitle');
+            const successMessage = document.getElementById('successMessage');
+            const modalHeader = successModal.querySelector('.modal-header');
+            
+            successTitle.textContent = title;
+            successMessage.textContent = message;
+            
+            // Change color based on type
+            if (type === 'success') {
+                modalHeader.style.backgroundColor = 'var(--success-color)';
+            } else if (type === 'danger') {
+                modalHeader.style.backgroundColor = 'var(--danger-color)';
+            } else if (type === 'warning') {
+                modalHeader.style.backgroundColor = 'var(--warning-color)';
+            }
+            
+            successModal.style.display = 'flex';
+        }
+
+        // Demo data for when database is not connected
+        function loadDemoData() {
+            const demoNotes = [
+                {
+                    id: 1,
+                    title: "Introduction to Python Programming",
+                    category: "programming",
+                    description: "Basics of Python syntax, variables, data types, and control structures.",
+                    created_at: "2023-10-15T10:30:00Z",
+                    downloads: 142,
+                    file_url: "https://example.com/python-intro.pdf",
+                    file_format: "pdf"
+                },
+                {
+                    id: 2,
+                    title: "Computer Networking Fundamentals",
+                    category: "networking",
+                    description: "OSI model, TCP/IP, network topologies, and basic networking concepts.",
+                    created_at: "2023-10-10T14:20:00Z",
+                    downloads: 98,
+                    file_url: "https://example.com/networking-fundamentals.pdf",
+                    file_format: "pdf"
+                }
+            ];
+            
+            const demoStudents = [
+                {
+                    id: 1,
+                    name: "John Smith",
+                    email: "john@school.edu",
+                    class: "Computer Science 2023",
+                    phone: "+1 (555) 123-4567",
+                    enrolled_date: "2023-09-01",
+                    notes_accessed: 12
+                },
+                {
+                    id: 2,
+                    name: "Sarah Johnson",
+                    email: "sarah@school.edu",
+                    class: "Computer Science 2023",
+                    phone: "+1 (555) 987-6543",
+                    enrolled_date: "2023-09-05",
+                    notes_accessed: 8
+                }
+            ];
+            
+            // Remove loading indicators
+            document.getElementById('loadingNotes').style.display = 'none';
+            document.getElementById('loadingStudents').style.display = 'none';
+            
+            // Render demo data
+            renderNotes(demoNotes);
+            renderStudents(demoStudents);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if(this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showSuccessModal('Login Feature', 'In a full implementation, this would connect to Supabase Authentication.', 'warning');
+            loginModal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
