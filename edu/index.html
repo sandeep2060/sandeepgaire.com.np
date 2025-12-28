@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechTeach - Computer Education Portal</title>
+    <title>Sandeep Gaire - Computer Education Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -781,10 +781,11 @@
                 
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="programming">Programming</button>
-                    <button class="filter-btn" data-filter="networking">Networking</button>
-                    <button class="filter-btn" data-filter="database">Database</button>
-                    <button class="filter-btn" data-filter="web">Web Development</button>
+                    <button class="filter-btn" data-filter="Class 6">Class 6</button>
+                    <button class="filter-btn" data-filter="networking">Class 7</button>
+                    <button class="filter-btn" data-filter="database">Class 8</button>
+                    <button class="filter-btn" data-filter="web">Class 9</button>
+                    <button class="filter-btn" data-filter="Class 10">Class 10</button>
                 </div>
             </div>
             
@@ -794,52 +795,7 @@
         </div>
     </section>
 
-    <!-- Upload Section -->
-    <section class="upload-section" id="upload">
-        <div class="container">
-            <h2 class="section-title">Upload New Notes</h2>
-            
-            <form class="upload-form" id="uploadForm">
-                <div class="form-group">
-                    <label for="noteTitle">Note Title</label>
-                    <input type="text" id="noteTitle" class="form-control" placeholder="Enter note title" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="noteSubject">Subject/Category</label>
-                    <select id="noteSubject" class="form-control" required>
-                        <option value="">Select a subject</option>
-                        <option value="programming">Programming</option>
-                        <option value="networking">Networking</option>
-                        <option value="database">Database Management</option>
-                        <option value="web">Web Development</option>
-                        <option value="hardware">Computer Hardware</option>
-                        <option value="software">Software Engineering</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="noteDescription">Description</label>
-                    <textarea id="noteDescription" class="form-control" rows="4" placeholder="Brief description of the note content"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label>Upload File</label>
-                    <div class="file-upload-area" id="fileUploadArea">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <h3>Drag & Drop your file here</h3>
-                        <p>or click to browse (PDF, DOC, PPT, TXT, ZIP)</p>
-                        <input type="file" id="fileInput" style="display: none;">
-                    </div>
-                    <div id="fileName" style="margin-top: 10px; font-style: italic;"></div>
-                </div>
-                
-                <button type="submit" class="upload-button">
-                    <i class="fas fa-upload"></i> Upload Note
-                </button>
-            </form>
-        </div>
-    </section>
+    
 
     <!-- Footer -->
     <footer id="contact">
