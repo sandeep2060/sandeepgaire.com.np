@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
      crossorigin="anonymous"></script>
-    
+     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sandeep Gaire | Portfolio</title>
@@ -84,13 +83,13 @@
         }
 
         :root {
-            --primary-color: #FF6B35;
-            --secondary-color: #2D3142;
-            --accent-color: #EF8354;
-            --text-color: #4A4A4A;
-            --light-bg: #FFFFFF;
-            --dark-bg: #1A1A2E;
-            --card-bg: #FFFFFF;
+            --primary-color: #2563eb;
+            --secondary-color: #1e293b;
+            --accent-color: #f59e0b;
+            --text-color: #334155;
+            --light-bg: #f8fafc;
+            --dark-bg: #0f172a;
+            --card-bg: #ffffff;
             --transition: all 0.3s ease;
         }
 
@@ -120,8 +119,8 @@
             z-index: -1;
         }
 
-        /* Top Navbar - yahachha.com style */
-        .top-navbar {
+        /* Updated Navbar */
+        header {
             position: fixed;
             top: 0;
             left: 0;
@@ -129,72 +128,67 @@
             z-index: 1000;
             background-color: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             transition: var(--transition);
-            padding: 15px 0;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
         }
 
-        .top-navbar .container {
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 10px;
         }
 
-        .navbar-brand {
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
             display: flex;
             align-items: center;
-            text-decoration: none;
-            gap: 12px;
+            gap: 8px;
         }
 
-        .logo-circle {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            border-radius: 50%;
+        .logo-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
         }
 
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-name {
-            font-size: 24px;
+        .logo-text {
+            font-size: 22px;
             font-weight: 800;
-            color: var(--secondary-color);
-            line-height: 1;
+            letter-spacing: -0.5px;
         }
 
-        .brand-tagline {
-            font-size: 11px;
-            color: var(--primary-color);
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        .logo-text span {
+            color: var(--accent-color);
         }
 
-        .top-nav-links {
+        .nav-links {
             display: flex;
             list-style: none;
             gap: 40px;
+            margin: 0 auto;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .top-nav-links li {
+        .nav-links li {
             position: relative;
         }
 
-        .top-nav-links a {
+        .nav-links a {
             text-decoration: none;
-            color: var(--text-color);
+            color: var(--secondary-color);
             font-weight: 600;
             font-size: 15px;
             transition: var(--transition);
@@ -203,34 +197,40 @@
             display: inline-block;
         }
 
-        .top-nav-links a:hover {
+        .nav-links a:hover {
             color: var(--primary-color);
         }
 
-        .top-nav-links a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
-            height: 3px;
+            height: 2px;
             background-color: var(--primary-color);
             transition: var(--transition);
             border-radius: 2px;
         }
 
-        .top-nav-links a:hover::after,
-        .top-nav-links a.active::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
-        .top-nav-links a.active {
+        .nav-links a.active {
             color: var(--primary-color);
         }
 
-        .nav-cta-btn {
-            padding: 12px 28px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
             color: white;
             text-decoration: none;
             border-radius: 8px;
@@ -239,137 +239,29 @@
             transition: var(--transition);
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
-        .nav-cta-btn:hover {
+        .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
         }
 
-        .mobile-menu-toggle {
+        .menu-toggle {
             display: none;
             font-size: 24px;
             cursor: pointer;
             color: var(--secondary-color);
             background: none;
             border: none;
+            z-index: 1001;
         }
 
-        /* Bottom Navigation Bar - yahachha.com style */
-        .bottom-navbar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
-            z-index: 999;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 15px 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-        }
-
-        .bottom-nav-links {
-            display: flex;
-            justify-content: space-between;
-            list-style: none;
-        }
-
-        .bottom-nav-links li {
-            text-align: center;
-        }
-
-        .bottom-nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            transition: var(--transition);
-            padding: 8px 12px;
-            border-radius: 10px;
-        }
-
-        .bottom-nav-links a:hover,
-        .bottom-nav-links a.active {
-            color: var(--primary-color);
-            background: rgba(255, 107, 53, 0.1);
-        }
-
-        .nav-icon {
-            font-size: 20px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 107, 53, 0.1);
-            border-radius: 10px;
-            transition: var(--transition);
-        }
-
-        .bottom-nav-links a:hover .nav-icon,
-        .bottom-nav-links a.active .nav-icon {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        .nav-label {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            background: linear-gradient(135deg, #FFF5F0 0%, #FFE8DC 100%);
-            padding: 40px 0;
-            margin-top: 80px;
-            border-radius: 0 0 20px 20px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-color);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Hero Section */
+        /* Hero Section with Advanced Animations */
         .hero {
-            padding: 180px 0 100px;
+            padding: 160px 0 100px;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #FFFFFF 0%, #FFF9F5 100%);
         }
 
         .hero::before {
@@ -379,7 +271,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            z-index: -2;
         }
 
         .floating-shapes {
@@ -393,7 +286,7 @@
         .shape {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(239, 131, 84, 0.05));
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.05));
             animation: float 6s ease-in-out infinite;
         }
 
@@ -438,10 +331,10 @@
         }
 
         .hero-text h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 800;
             line-height: 1.2;
-            color: var(--secondary-color);
+            color: var(--dark-bg);
             margin-bottom: 20px;
         }
 
@@ -458,16 +351,15 @@
             left: 0;
             width: 100%;
             height: 8px;
-            background-color: rgba(239, 131, 84, 0.3);
+            background-color: rgba(245, 158, 11, 0.3);
             z-index: -1;
             border-radius: 4px;
         }
 
         .hero-text p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 30px;
             color: var(--text-color);
-            line-height: 1.8;
         }
 
         .hero-image {
@@ -480,16 +372,23 @@
             max-width: 500px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
             animation: imageFloat 4s ease-in-out infinite;
         }
 
         @keyframes imageFloat {
             0%, 100% {
-                transform: translateY(0) rotate(0deg);
+                transform: perspective(1000px) rotateY(-10deg) translateY(0);
             }
             50% {
-                transform: translateY(-10px) rotate(1deg);
+                transform: perspective(1000px) rotateY(-10deg) translateY(-10px);
             }
+        }
+
+        .hero-img:hover {
+            transform: perspective(1000px) rotateY(0deg);
+            animation: none;
         }
 
         .cta-buttons {
@@ -533,14 +432,14 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
             color: white;
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
         }
 
         .btn-secondary {
@@ -550,7 +449,7 @@
         }
 
         .btn-secondary:hover {
-            background-color: rgba(255, 107, 53, 0.1);
+            background-color: rgba(37, 99, 235, 0.1);
             transform: translateY(-3px);
         }
 
@@ -566,7 +465,7 @@
 
         .section-title h2 {
             font-size: 2.5rem;
-            color: var(--secondary-color);
+            color: var(--dark-bg);
             margin-bottom: 15px;
             position: relative;
             display: inline-block;
@@ -588,7 +487,6 @@
             max-width: 700px;
             margin: 0 auto;
             color: var(--text-color);
-            font-size: 1.1rem;
         }
 
         /* About Section */
@@ -602,7 +500,7 @@
         .about-text h3 {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: var(--secondary-color);
+            color: var(--dark-bg);
         }
 
         .skills {
@@ -613,7 +511,7 @@
         }
 
         .skill-tag {
-            background-color: rgba(255, 107, 53, 0.1);
+            background-color: #dbeafe;
             color: var(--primary-color);
             padding: 10px 20px;
             border-radius: 50px;
@@ -646,7 +544,7 @@
 
         /* Services Section */
         .services {
-            background-color: #F9FAFB;
+            background-color: #f1f5f9;
         }
 
         .services-grid {
@@ -664,7 +562,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .service-card::before {
@@ -691,7 +588,7 @@
         .service-icon {
             width: 80px;
             height: 80px;
-            background-color: rgba(255, 107, 53, 0.1);
+            background-color: #dbeafe;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -711,7 +608,7 @@
         .service-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
-            color: var(--secondary-color);
+            color: var(--dark-bg);
         }
 
         /* Portfolio Section */
@@ -751,7 +648,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             position: relative;
             transition: var(--transition);
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .portfolio-item:hover {
@@ -770,7 +666,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(45, 49, 66, 0.95), transparent);
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
             color: white;
             padding: 30px;
             transform: translateY(20px);
@@ -871,7 +767,7 @@
         .form-control:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
 
         .form-control::placeholder {
@@ -926,7 +822,7 @@
         footer {
             background-color: #0a0f1f;
             color: #94a3b8;
-            padding: 60px 0 100px; /* Extra padding for bottom navbar */
+            padding: 60px 0 30px;
         }
 
         .footer-content {
@@ -1002,13 +898,13 @@
 
         /* Responsive Design */
         @media (max-width: 1100px) {
-            .top-nav-links {
+            .nav-links {
                 gap: 30px;
             }
         }
 
         @media (max-width: 992px) {
-            .top-nav-links {
+            .nav-links {
                 position: fixed;
                 top: 0;
                 left: -100%;
@@ -1025,16 +921,16 @@
                 z-index: 1000;
             }
 
-            .top-nav-links.active {
+            .nav-links.active {
                 left: 0;
             }
 
-            .top-nav-links a {
+            .nav-links a {
                 font-size: 18px;
                 padding: 10px 0;
             }
 
-            .mobile-menu-toggle {
+            .menu-toggle {
                 display: block;
             }
 
@@ -1047,25 +943,18 @@
                 font-size: 2.8rem;
             }
 
-            .bottom-navbar {
-                width: 95%;
-                padding: 10px 15px;
-            }
-
-            .nav-label {
-                font-size: 10px;
-            }
-
-            .nav-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
+            .nav-right .nav-cta {
+                display: none;
             }
         }
 
         @media (max-width: 768px) {
+            .navbar {
+                padding: 0;
+            }
+
             .hero {
-                padding: 160px 0 80px;
+                padding: 140px 0 80px;
             }
 
             .hero-text h1 {
@@ -1087,10 +976,6 @@
             .contact-form {
                 padding: 30px;
             }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
 
         @media (max-width: 576px) {
@@ -1107,30 +992,13 @@
                 font-size: 2rem;
             }
 
-            .nav-cta-btn {
-                padding: 10px 20px;
+            .nav-cta {
+                padding: 8px 20px;
                 font-size: 13px;
             }
 
-            .brand-name {
+            .logo-text {
                 font-size: 20px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .bottom-navbar {
-                bottom: 10px;
-                width: 90%;
-            }
-
-            .bottom-nav-links {
-                gap: 5px;
-            }
-
-            .bottom-nav-links a {
-                padding: 5px;
             }
         }
     </style>
@@ -1150,62 +1018,35 @@
     <!-- Particles Background -->
     <div id="particles-js"></div>
 
-    <!-- Top Navbar -->
-    <nav class="top-navbar">
+    <!-- Updated Navbar -->
+    <header>
         <div class="container">
-            <a href="#" class="navbar-brand">
-                <div class="logo-circle">SG</div>
-                <div class="brand-text">
-                    <div class="brand-name">Sandeep Gaire</div>
-                    <div class="brand-tagline">Creative Developer</div>
-                </div>
-            </a>
-            
-            <ul class="top-nav-links" id="topNavLinks">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            
-            <div class="nav-right">
-                <a href="#contact" class="nav-cta-btn">
-                    <i class="fas fa-paper-plane"></i> Get in Touch
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <div class="logo-img">SG</div>
+                    <div class="logo-text">Sandeep<span>Gaire</span></div>
                 </a>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <div class="nav-right">
+                    <a href="#contact" class="nav-cta">Get in Touch</a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
         </div>
-    </nav>
-
-    <!-- Stats Section -->
-    <section class="stats-section" id="home">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">5+</div>
-                    <div class="stat-label">Years Experience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Projects Completed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">40+</div>
-                    <div class="stat-label">Happy Clients</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Satisfaction Rate</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="floating-shapes">
             <div class="shape"></div>
             <div class="shape"></div>
@@ -1231,52 +1072,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Bottom Navigation Bar -->
-    <nav class="bottom-navbar">
-        <ul class="bottom-nav-links">
-            <li>
-                <a href="#home" class="active">
-                    <div class="nav-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="nav-label">Home</div>
-                </a>
-            </li>
-            <li>
-                <a href="#about">
-                    <div class="nav-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="nav-label">About</div>
-                </a>
-            </li>
-            <li>
-                <a href="#services">
-                    <div class="nav-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <div class="nav-label">Services</div>
-                </a>
-            </li>
-            <li>
-                <a href="#portfolio">
-                    <div class="nav-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="nav-label">Portfolio</div>
-                </a>
-            </li>
-            <li>
-                <a href="#contact">
-                    <div class="nav-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="nav-label">Contact</div>
-                </a>
-            </li>
-        </ul>
-    </nav>
 
     <!-- About Section -->
     <section class="about" id="about">
@@ -1405,7 +1200,7 @@
                             </div>
                             <div>
                                 <h4>Location</h4>
-                                <p>Butwal, Nepal</p>
+                                <p>Kathmandu, Nepal</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -1524,14 +1319,14 @@
         particlesJS('particles-js', {
             particles: {
                 number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#FF6B35" },
+                color: { value: "#2563eb" },
                 shape: { type: "circle" },
                 opacity: { value: 0.5, random: true },
                 size: { value: 3, random: true },
                 line_linked: {
                     enable: true,
                     distance: 150,
-                    color: "#FF6B35",
+                    color: "#2563eb",
                     opacity: 0.2,
                     width: 1
                 },
@@ -1556,37 +1351,32 @@
         });
 
         // Mobile Menu Toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const topNavLinks = document.getElementById('topNavLinks');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
 
-        mobileMenuToggle.addEventListener('click', () => {
-            topNavLinks.classList.toggle('active');
-            mobileMenuToggle.querySelector('i').classList.toggle('fa-bars');
-            mobileMenuToggle.querySelector('i').classList.toggle('fa-times');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
         });
 
         // Close mobile menu when clicking on a link
-        document.querySelectorAll('.top-nav-links a, .bottom-nav-links a').forEach(link => {
+        document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                topNavLinks.classList.remove('active');
-                mobileMenuToggle.querySelector('i').classList.add('fa-bars');
-                mobileMenuToggle.querySelector('i').classList.remove('fa-times');
+                navLinks.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
                 
-                // Update active nav link for both navbars
-                const href = link.getAttribute('href');
-                document.querySelectorAll('.top-nav-links a, .bottom-nav-links a').forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href') === href) {
-                        a.classList.add('active');
-                    }
-                });
+                // Update active nav link
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
             });
         });
 
         // Set active nav link based on scroll position
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.top-nav-links a, .bottom-nav-links a');
+            const navLinks = document.querySelectorAll('.nav-links a');
             
             let current = '';
             sections.forEach(section => {
@@ -1603,16 +1393,6 @@
                     link.classList.add('active');
                 }
             });
-
-            // Header scroll effect
-            const topNavbar = document.querySelector('.top-navbar');
-            if (window.scrollY > 50) {
-                topNavbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.08)';
-                topNavbar.style.padding = '10px 0';
-            } else {
-                topNavbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
-                topNavbar.style.padding = '15px 0';
-            }
         });
 
         // Portfolio Filtering
@@ -1666,7 +1446,8 @@
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
-            // Using EmailJS to send email
+            // Using EmailJS to send email (you need to create an account at emailjs.com)
+            // For now, we'll simulate sending with a timeout
             setTimeout(() => {
                 // In production, replace this with actual EmailJS code:
                 // emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
@@ -1708,6 +1489,18 @@
                     this.classList.remove('filled');
                 }
             });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                header.style.padding = '8px 0';
+            } else {
+                header.style.boxShadow = 'none';
+                header.style.padding = '12px 0';
+            }
         });
 
         // Add floating animation to skill tags
