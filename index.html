@@ -74,6 +74,24 @@
             50% { transform: translateY(-15px); }
         }
 
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
         /* Reset & Base Styles */
         * {
             margin: 0;
@@ -389,6 +407,25 @@
         .hero-img:hover {
             transform: perspective(1000px) rotateY(0deg);
             animation: none;
+        }
+
+        .typing-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            min-height: 60px;
+            margin-bottom: 30px;
+        }
+
+        .typing-text span {
+            border-right: 3px solid var(--primary-color);
+            animation: blink 0.75s infinite;
+            padding-right: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: var(--primary-color); }
         }
 
         .cta-buttons {
@@ -946,6 +983,11 @@
             .nav-right .nav-cta {
                 display: none;
             }
+
+            .typing-text {
+                font-size: 1.5rem;
+                min-height: 50px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -976,6 +1018,11 @@
             .contact-form {
                 padding: 30px;
             }
+
+            .typing-text {
+                font-size: 1.3rem;
+                min-height: 45px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -999,6 +1046,11 @@
 
             .logo-text {
                 font-size: 20px;
+            }
+
+            .typing-text {
+                font-size: 1.2rem;
+                min-height: 40px;
             }
         }
     </style>
@@ -1045,6 +1097,11 @@
         </div>
     </header>
 
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="floating-shapes">
@@ -1055,8 +1112,9 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
-                    <h1>Hi, I'm <span class="highlight">Sandeep Gaire</span><br>Creative Developer & Designer</h1>
-                    <p>I craft digital experiences that are beautiful, functional, and user-focused. With expertise in web development, UI/UX design, and digital strategy, I help brands establish their online presence.</p>
+                    <h1>Hi, I'm <span class="highlight">Sandeep Gaire</span><br>Full Stack Developer & Digital Creator</h1>
+                    <div class="typing-text" id="typingText"></div>
+                    <p>I build digital experiences that are beautiful, functional, and user-focused. With expertise in full stack development, UI/UX design, and digital strategy, I help brands establish their online presence.</p>
                     <div class="cta-buttons">
                         <a href="#portfolio" class="btn btn-primary">
                             <i class="fas fa-eye"></i> View My Work
@@ -1508,6 +1566,58 @@
         skillTags.forEach((tag, index) => {
             tag.style.animationDelay = `${index * 0.1}s`;
         });
+
+        // Progress Bar Scroll Indicator
+        const progressBar = document.getElementById('progressBar');
+
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Typing Animation
+        const typingText = document.getElementById('typingText');
+        const phrases = [
+            "Full Stack Developer",
+            "UI/UX Designer",
+            "Web Developer",
+            "Digital Creator",
+            "Problem Solver"
+        ];
+        
+        let phraseIndex = 0;
+        let letterIndex = 0;
+        let isDeleting = false;
+        let isEnd = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentPhrase.substring(0, letterIndex - 1);
+                letterIndex--;
+            } else {
+                typingText.textContent = currentPhrase.substring(0, letterIndex + 1);
+                letterIndex++;
+            }
+
+            if (!isDeleting && letterIndex === currentPhrase.length) {
+                isEnd = true;
+                isDeleting = true;
+                setTimeout(type, 1500); // Pause at end
+            } else if (isDeleting && letterIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500); // Pause before typing next
+            } else {
+                const speed = isDeleting ? 50 : 100;
+                setTimeout(type, speed);
+            }
+        }
+
+        // Start typing animation
+        setTimeout(type, 1000);
     </script>
 </body>
 </html>
