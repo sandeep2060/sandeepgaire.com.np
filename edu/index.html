@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechTeach - Computer Education Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -59,8 +62,13 @@
         }
 
         @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
         }
 
         .header-container {
@@ -93,9 +101,17 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .nav-links {
@@ -153,13 +169,13 @@
             left: 0;
             width: 100%;
             height: 60px;
-            background: linear-gradient(to right, 
-                #2E8B57 0%, 
-                #228B22 20%, 
-                #006400 40%, 
-                #228B22 60%, 
-                #2E8B57 80%, 
-                #228B22 100%);
+            background: linear-gradient(to right,
+                    #2E8B57 0%,
+                    #228B22 20%,
+                    #006400 40%,
+                    #228B22 60%,
+                    #2E8B57 80%,
+                    #228B22 100%);
             transition: all 2s ease;
         }
 
@@ -239,8 +255,17 @@
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
         }
 
         /* Clouds */
@@ -283,8 +308,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .hero h1 {
@@ -368,6 +398,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -654,7 +685,8 @@
             gap: 10px;
         }
 
-        .footer-links h4, .footer-contact h4 {
+        .footer-links h4,
+        .footer-contact h4 {
             margin-bottom: 20px;
             font-size: 1.2rem;
         }
@@ -742,8 +774,15 @@
         }
 
         @keyframes popUp {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .modal-header {
@@ -778,7 +817,7 @@
             header {
                 height: 100px;
             }
-            
+
             .nav-links {
                 position: fixed;
                 top: 70px;
@@ -816,7 +855,7 @@
             .upload-form {
                 padding: 25px;
             }
-            
+
             .mountains {
                 height: 40px;
             }
@@ -847,8 +886,39 @@
                 flex-direction: column;
             }
         }
+
+        /* PDF Viewer Modal */
+        #viewModal .modal-content {
+            width: 90%;
+            height: 90%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #viewModal .modal-body {
+            flex-grow: 1;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #pdfViewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .modal-body-scroll {
+            overflow-y: auto;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -861,27 +931,27 @@
                 <div class="mountain-peak"></div>
                 <div class="mountain-peak"></div>
             </div>
-            
+
             <!-- Clouds -->
             <div class="clouds" id="clouds"></div>
-            
+
             <!-- Celestial Body (Sun/Moon) -->
             <div class="celestial-body" id="celestialBody"></div>
-            
+
             <!-- Stars -->
             <div class="stars" id="stars"></div>
         </div>
-        
+
         <div class="container header-container">
             <a href="#" class="logo">
                 <i class="fas fa-laptop-code"></i>
                 Sandeep Gaire
             </a>
-            
+
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
-            
+
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#notes">Notes</a></li>
@@ -896,23 +966,20 @@
     <section class="hero" id="home">
         <div class="container">
             <h1>Welcome to Your Computer Education Portal</h1>
-            <p>Upload and share educational notes with your students. Access course materials anytime, anywhere on any device.</p>
+            <p>Upload and share educational notes with your students. Access course materials anytime, anywhere on any
+                device.</p>
             <a href="#notes" class="cta-button">Browse Notes <i class="fas fa-arrow-right"></i></a>
         </div>
     </section>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
-     crossorigin="anonymous"></script>
-<!-- goo4movie_sidebar1_AdSense2_1x1_as -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1662750642698861"
-     data-ad-slot="3722622502"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+        crossorigin="anonymous"></script>
+    <!-- goo4movie_sidebar1_AdSense2_1x1_as -->
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1662750642698861" data-ad-slot="3722622502"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
     <!-- Features Section -->
     <section class="features">
@@ -924,9 +991,10 @@
                         <i class="fas fa-upload"></i>
                     </div>
                     <h3>Easy Upload</h3>
-                    <p>Upload notes in various formats (PDF, DOC, PPT) with just a few clicks. Organize by subject and topic.</p>
+                    <p>Upload notes in various formats (PDF, DOC, PPT) with just a few clicks. Organize by subject and
+                        topic.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
@@ -934,15 +1002,16 @@
                     <h3>Fully Responsive</h3>
                     <p>Access the website seamlessly on mobile, tablet, and desktop devices with optimized layouts.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-search"></i>
                     </div>
                     <h3>Smart Search</h3>
-                    <p>Students can quickly find notes by keyword, subject, or date with our advanced search functionality.</p>
+                    <p>Students can quickly find notes by keyword, subject, or date with our advanced search
+                        functionality.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
@@ -958,22 +1027,23 @@
     <section class="notes-section" id="notes">
         <div class="container">
             <h2 class="section-title">Educational Notes</h2>
-            
+
             <div class="notes-controls">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" id="searchInput" placeholder="Search notes by title, subject or keyword...">
                 </div>
-                
+
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="programming">Programming</button>
-                    <button class="filter-btn" data-filter="networking">Networking</button>
-                    <button class="filter-btn" data-filter="database">Database</button>
-                    <button class="filter-btn" data-filter="web">Web Development</button>
+                    <button class="filter-btn" data-filter="class6">Class 6</button>
+                    <button class="filter-btn" data-filter="class7">Class 7</button>
+                    <button class="filter-btn" data-filter="class8">Class 8</button>
+                    <button class="filter-btn" data-filter="class9">Class 9</button>
+                    <button class="filter-btn" data-filter="class10">Class 10</button>
                 </div>
             </div>
-            
+
             <div class="notes-grid" id="notesGrid">
                 <!-- Notes will be dynamically added here -->
             </div>
@@ -984,31 +1054,31 @@
     <section class="upload-section" id="upload">
         <div class="container">
             <h2 class="section-title">Upload New Notes</h2>
-            
+
             <form class="upload-form" id="uploadForm">
                 <div class="form-group">
                     <label for="noteTitle">Note Title</label>
                     <input type="text" id="noteTitle" class="form-control" placeholder="Enter note title" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="noteSubject">Subject/Category</label>
                     <select id="noteSubject" class="form-control" required>
-                        <option value="">Select a subject</option>
-                        <option value="programming">Programming</option>
-                        <option value="networking">Networking</option>
-                        <option value="database">Database Management</option>
-                        <option value="web">Web Development</option>
-                        <option value="hardware">Computer Hardware</option>
-                        <option value="software">Software Engineering</option>
+                        <option value="">Select a class</option>
+                        <option value="class6">Class 6</option>
+                        <option value="class7">Class 7</option>
+                        <option value="class8">Class 8</option>
+                        <option value="class9">Class 9</option>
+                        <option value="class10">Class 10</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="noteDescription">Description</label>
-                    <textarea id="noteDescription" class="form-control" rows="4" placeholder="Brief description of the note content"></textarea>
+                    <textarea id="noteDescription" class="form-control" rows="4"
+                        placeholder="Brief description of the note content"></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Upload File</label>
                     <div class="file-upload-area" id="fileUploadArea">
@@ -1019,7 +1089,7 @@
                     </div>
                     <div id="fileName" style="margin-top: 10px; font-style: italic;"></div>
                 </div>
-                
+
                 <button type="submit" class="upload-button">
                     <i class="fas fa-upload"></i> Upload Note
                 </button>
@@ -1036,7 +1106,8 @@
                         <i class="fas fa-laptop-code"></i>
                         TechTeach
                     </div>
-                    <p>A dedicated platform for computer teachers to share educational materials with students. Simplify knowledge sharing and enhance learning experiences.</p>
+                    <p>A dedicated platform for computer teachers to share educational materials with students. Simplify
+                        knowledge sharing and enhance learning experiences.</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1044,7 +1115,7 @@
                         <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
@@ -1055,7 +1126,7 @@
                         <li><a href="#">Teacher Resources</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-contact">
                     <h4>Contact Info</h4>
                     <p><i class="fas fa-envelope"></i> sandeepgaire8@gmail.com</p>
@@ -1064,7 +1135,7 @@
                     <p><i class="fas fa-clock"></i> Support: Mon-Fri, 9AM-5PM</p>
                 </div>
             </div>
-            
+
             <div class="copyright">
                 <p>&copy; 2023 TechTeach - Computer Education Portal. All rights reserved.</p>
                 <p>Designed specifically for computer teachers to share knowledge effectively.</p>
@@ -1083,14 +1154,16 @@
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="loginEmail">Email Address</label>
-                        <input type="email" id="loginEmail" class="form-control" placeholder="teacher@school.edu" required>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="teacher@school.edu"
+                            required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password"
+                            required>
                     </div>
-                    
+
                     <div class="form-group">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
@@ -1100,11 +1173,12 @@
                             <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot password?</a>
                         </div>
                     </div>
-                    
+
                     <button type="submit" class="upload-button">Login</button>
-                    
+
                     <p style="text-align: center; margin-top: 20px;">
-                        Student access? <a href="#" style="color: var(--primary-color); text-decoration: none;">Click here</a>
+                        Student access? <a href="#" style="color: var(--primary-color); text-decoration: none;">Click
+                            here</a>
                     </p>
                 </form>
             </div>
@@ -1120,9 +1194,29 @@
             </div>
             <div class="modal-body">
                 <div style="text-align: center; padding: 20px 0;">
-                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success-color); margin-bottom: 20px;"></i>
+                    <i class="fas fa-check-circle"
+                        style="font-size: 4rem; color: var(--success-color); margin-bottom: 20px;"></i>
                     <h3>Note Uploaded Successfully</h3>
                     <p>Your educational note has been uploaded and is now available to students.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- View Note Modal -->
+    <div class="modal" id="viewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="viewModalTitle">Note Preview</h3>
+                <button class="close-modal" id="closeViewModal">&times;</button>
+            </div>
+            <div class="modal-body modal-body-scroll">
+                <embed id="pdfViewer" src="" type="application/pdf">
+                <!-- Fallback for generic files or if embed fails -->
+                <div id="noPreviewMessage" style="display: none; padding: 40px; text-align: center;">
+                    <i class="fas fa-file-alt" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
+                    <p>Preview not available for this file type.</p>
                 </div>
             </div>
         </div>
@@ -1132,64 +1226,75 @@
         // Sample notes data with file locations
         const notesData = [
             {
+                id: 0,
+                title: "Class 10 Note on OS",
+                category: "class10",
+                description: "Comprehensive notes on Operating Systems for Class 10.",
+                date: "2023-11-01",
+                downloads: 350,
+                fileSize: "1.5 MB",
+                fileLocation: "os.pdf",
+                allowDownload: false
+            },
+            {
                 id: 1,
-                title: "Introduction to Python Programming",
-                category: "programming",
-                description: "Basics of Python syntax, variables, data types, and control structures.",
+                title: "Introduction to Computer Science",
+                category: "class6",
+                description: "Basics of computers, input/output devices, and history of computing.",
                 date: "2023-10-15",
                 downloads: 142,
                 fileSize: "2.4 MB",
-                fileLocation: "/files/programming/python-intro.pdf"
+                fileLocation: "/files/class6/computer-intro.pdf"
             },
             {
                 id: 2,
-                title: "Computer Networking Fundamentals",
-                category: "networking",
-                description: "OSI model, TCP/IP, network topologies, and basic networking concepts.",
+                title: "Operating System Functions",
+                category: "class7",
+                description: "Understanding Windows, file management, and basic system settings.",
                 date: "2023-10-10",
                 downloads: 98,
                 fileSize: "3.1 MB",
-                fileLocation: "/files/networking/networking-fundamentals.pdf"
+                fileLocation: "/files/class7/os-basics.pdf"
             },
             {
                 id: 3,
-                title: "Database Design with MySQL",
-                category: "database",
-                description: "ER diagrams, normalization, SQL queries, and database management.",
+                title: "Introduction to QBASIC",
+                category: "class8",
+                description: "Basic programming concepts, variables, and simple logic in QBASIC.",
                 date: "2023-10-05",
                 downloads: 76,
                 fileSize: "1.8 MB",
-                fileLocation: "/files/database/mysql-database-design.zip"
+                fileLocation: "/files/class8/qbasic-intro.zip"
             },
             {
                 id: 4,
-                title: "HTML5 & CSS3 Basics",
-                category: "web",
-                description: "Modern web development with HTML5 semantics and CSS3 styling.",
+                title: "HTML5 Web Page Structure",
+                category: "class9",
+                description: "Creating web pages using HTML tags, lists, tables, and forms.",
                 date: "2023-09-28",
                 downloads: 210,
                 fileSize: "4.2 MB",
-                fileLocation: "/files/web/html5-css3-basics.pptx"
+                fileLocation: "/files/class9/html5-basics.pptx"
             },
             {
                 id: 5,
-                title: "Object-Oriented Programming in Java",
-                category: "programming",
-                description: "Classes, objects, inheritance, polymorphism, and encapsulation.",
+                title: "Database Management Systems",
+                category: "class10",
+                description: "Introduction to DBMS, MS Access, tables, queries, and reports.",
                 date: "2023-09-20",
                 downloads: 118,
                 fileSize: "2.9 MB",
-                fileLocation: "/files/programming/java-oop.pdf"
+                fileLocation: "/files/class10/dbms-intro.pdf"
             },
             {
                 id: 6,
-                title: "Network Security Principles",
-                category: "networking",
-                description: "Encryption, firewalls, VPNs, and security best practices.",
+                title: "C Programming Fundamentals",
+                category: "class10",
+                description: "Data types, control structures, loops, and arrays in C programming.",
                 date: "2023-09-15",
                 downloads: 65,
                 fileSize: "3.7 MB",
-                fileLocation: "/files/networking/network-security.docx"
+                fileLocation: "/files/class10/c-programming.docx"
             }
         ];
 
@@ -1242,7 +1347,7 @@
                 cloud.style.left = `${Math.random() * 100}%`;
                 cloud.style.top = `${Math.random() * 30}%`;
                 cloud.style.opacity = `${Math.random() * 0.5 + 0.3}`;
-                
+
                 // Create cloud shape with multiple circles
                 for (let j = 0; j < 3; j++) {
                     const cloudPart = document.createElement('div');
@@ -1265,21 +1370,21 @@
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const totalMinutes = hours * 60 + minutes;
-            
+
             // Time periods
             const isNight = hours >= 20 || hours < 6; // 8 PM to 6 AM
             const isEvening = hours >= 17 && hours < 20; // 5 PM to 8 PM
             const isDay = hours >= 6 && hours < 17; // 6 AM to 5 PM
-            
+
             // Update sky background
             if (isNight) {
                 header.style.background = 'var(--night-sky)';
                 stars.style.opacity = '1';
                 clouds.style.opacity = '0';
-                
+
                 // Darken mountains at night
                 mountains.style.background = 'linear-gradient(to right, #1E4D2B 0%, #1A3F1A 20%, #0D2C0D 40%, #1A3F1A 60%, #1E4D2B 80%, #1A3F1A 100%)';
-                
+
                 // Update mountain peaks color
                 document.querySelectorAll('.mountain-peak').forEach((peak, index) => {
                     const colors = ['#1E4D2B', '#1A3F1A', '#0D2C0D', '#1A3F1A', '#1E4D2B'];
@@ -1289,18 +1394,18 @@
                 header.style.background = 'var(--evening-sky)';
                 stars.style.opacity = '0.3';
                 clouds.style.opacity = '0.5';
-                
+
                 // Evening mountains
                 mountains.style.background = 'linear-gradient(to right, #3C6B47 0%, #2E8B57 20%, #228B22 40%, #2E8B57 60%, #3C6B47 80%, #2E8B57 100%)';
             } else {
                 header.style.background = 'var(--day-sky)';
                 stars.style.opacity = '0';
                 clouds.style.opacity = '0.7';
-                
+
                 // Day mountains
                 mountains.style.background = 'linear-gradient(to right, #2E8B57 0%, #228B22 20%, #006400 40%, #228B22 60%, #2E8B57 80%, #228B22 100%)';
             }
-            
+
             // Calculate celestial body position
             let position;
             if (isDay) {
@@ -1310,7 +1415,7 @@
                 const dayDuration = dayEnd - dayStart;
                 const dayMinutes = Math.max(0, Math.min(totalMinutes - dayStart, dayDuration));
                 position = (dayMinutes / dayDuration) * 100;
-                
+
                 // Update celestial body to sun
                 celestialBody.className = 'celestial-body sun';
             } else if (isEvening) {
@@ -1320,7 +1425,7 @@
                 const eveningDuration = eveningEnd - eveningStart;
                 const eveningMinutes = Math.max(0, Math.min(totalMinutes - eveningStart, eveningDuration));
                 position = 100 + (eveningMinutes / eveningDuration) * 20; // Move beyond 100% for sunset effect
-                
+
                 // Update celestial body to sun (setting)
                 celestialBody.className = 'celestial-body sun';
                 celestialBody.style.opacity = 1 - (eveningMinutes / eveningDuration) * 0.8; // Fade out
@@ -1329,30 +1434,30 @@
                 const nightStart = 20 * 60; // 8 PM
                 const nightEnd = 6 * 60 + 24 * 60; // 6 AM next day
                 let nightMinutes;
-                
+
                 if (totalMinutes >= nightStart) {
                     nightMinutes = totalMinutes - nightStart;
                 } else {
                     nightMinutes = totalMinutes + (24 * 60 - nightStart);
                 }
-                
+
                 const nightDuration = nightEnd - nightStart;
                 position = (nightMinutes / nightDuration) * 100;
-                
+
                 // Update celestial body to moon
                 celestialBody.className = 'celestial-body moon';
                 celestialBody.style.opacity = '1';
             }
-            
+
             // Set celestial body position (with vertical arc)
             const verticalPosition = Math.sin((position / 100) * Math.PI) * 40;
             celestialBody.style.left = `${position}%`;
             celestialBody.style.top = `${30 + verticalPosition}px`;
-            
+
             // Update text colors for better visibility
             const navLinks = document.querySelectorAll('.nav-links a');
             const logo = document.querySelector('.logo');
-            
+
             if (isNight) {
                 // Light text for dark background
                 navLinks.forEach(link => {
@@ -1370,7 +1475,7 @@
                 logo.style.color = 'var(--primary-color)';
                 logo.style.textShadow = '0 1px 2px rgba(255, 255, 255, 0.8)';
             }
-            
+
             // Update every 30 seconds
             setTimeout(updateEnvironment, 30000);
         }
@@ -1386,8 +1491,8 @@
         mobileMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
                 : '<i class="fas fa-bars"></i>';
         });
 
@@ -1429,7 +1534,20 @@
             if (e.target === successModal) {
                 successModal.style.display = 'none';
             }
+            if (e.target === document.getElementById('viewModal')) {
+                document.getElementById('viewModal').style.display = 'none';
+            }
         });
+
+        // Close View Modal
+        const closeViewModal = document.getElementById('closeViewModal');
+        if (closeViewModal) {
+            closeViewModal.addEventListener('click', () => {
+                document.getElementById('viewModal').style.display = 'none';
+                // Reset src to stop content playing/loading
+                document.getElementById('pdfViewer').src = '';
+            });
+        }
 
         // File upload area interaction
         fileUploadArea.addEventListener('click', () => {
@@ -1460,7 +1578,7 @@
             e.preventDefault();
             fileUploadArea.style.borderColor = '#ddd';
             fileUploadArea.style.backgroundColor = 'transparent';
-            
+
             if (e.dataTransfer.files.length) {
                 fileInput.files = e.dataTransfer.files;
                 fileName.textContent = `Selected file: ${e.dataTransfer.files[0].name}`;
@@ -1472,26 +1590,26 @@
         // Upload form submission
         uploadForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const title = document.getElementById('noteTitle').value;
             const subject = document.getElementById('noteSubject').value;
             const description = document.getElementById('noteDescription').value;
-            
+
             if (!title || !subject) {
                 alert('Please fill in all required fields');
                 return;
             }
-            
+
             // In a real application, here you would upload the file to a server
             // For this demo, we'll just show a success message
             successModal.style.display = 'flex';
-            
+
             // Reset the form
             uploadForm.reset();
             fileName.textContent = '';
             fileUploadArea.style.borderColor = '#ddd';
             fileUploadArea.style.backgroundColor = 'transparent';
-            
+
             // Add the new note to the notes grid
             const newNote = {
                 id: notesData.length + 1,
@@ -1503,7 +1621,7 @@
                 fileSize: fileInput.files.length ? `${(fileInput.files[0].size / 1024 / 1024).toFixed(1)} MB` : "N/A",
                 fileLocation: fileInput.files.length ? `/files/${subject}/${fileInput.files[0].name}` : "/files/default.pdf"
             };
-            
+
             notesData.unshift(newNote);
             renderNotes(notesData);
         });
@@ -1519,7 +1637,7 @@
         function downloadFile(fileLocation, fileName) {
             // In a real application, this would download the file from the server
             // For demo purposes, we'll simulate the download
-            
+
             // Create a temporary link element
             const link = document.createElement('a');
             link.href = fileLocation;
@@ -1527,7 +1645,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
+
             // Show download confirmation
             return true;
         }
@@ -1535,27 +1653,26 @@
         // Render notes function
         function renderNotes(notes) {
             notesGrid.innerHTML = '';
-            
+
             notes.forEach(note => {
                 const noteCard = document.createElement('div');
                 noteCard.className = 'note-card';
                 noteCard.setAttribute('data-category', note.category);
-                
+
                 // Category display name
                 const categoryNames = {
-                    programming: "Programming",
-                    networking: "Networking",
-                    database: "Database",
-                    web: "Web Development",
-                    hardware: "Hardware",
-                    software: "Software"
+                    class6: "Class 6",
+                    class7: "Class 7",
+                    class8: "Class 8",
+                    class9: "Class 9",
+                    class10: "Class 10"
                 };
-                
+
                 // Extract file extension for icon
                 const fileExtension = note.fileLocation ? note.fileLocation.split('.').pop().toLowerCase() : 'pdf';
                 let fileIcon = 'fas fa-file';
-                
-                switch(fileExtension) {
+
+                switch (fileExtension) {
                     case 'pdf':
                         fileIcon = 'fas fa-file-pdf';
                         break;
@@ -1575,7 +1692,7 @@
                         fileIcon = 'fas fa-file-alt';
                         break;
                 }
-                
+
                 noteCard.innerHTML = `
                     <div class="note-header">
                         <h4>${categoryNames[note.category] || note.category}</h4>
@@ -1593,54 +1710,82 @@
                             <span><i class="fas fa-folder"></i> ${note.fileLocation ? note.fileLocation.split('/')[1] : 'Unknown'}</span>
                         </div>
                         <div class="note-actions">
+                            ${note.allowDownload !== false ? `
                             <button class="action-btn download-btn" data-id="${note.id}">
                                 <i class="fas fa-download"></i> Download
                             </button>
-                            <button class="action-btn view-btn" data-id="${note.id}">
-                                <i class="far fa-eye"></i> Preview
+                            ` : ''}
+                            <button class="action-btn view-btn" data-id="${note.id}" style="${note.allowDownload === false ? 'width: 100%; justify-content: center;' : ''}">
+                                <i class="far fa-eye"></i> ${note.allowDownload === false ? 'View Notice' : 'Preview'}
                             </button>
                         </div>
                     </div>
                 `;
-                
+
                 notesGrid.appendChild(noteCard);
-                
+
                 // Add event listeners to the buttons
-                noteCard.querySelector('.download-btn').addEventListener('click', () => {
-                    // Increment download count in the data
-                    note.downloads++;
-                    
-                    // Simulate file download
-                    const fileName = `${note.title.replace(/\s+/g, '-').toLowerCase()}.${fileExtension}`;
-                    if (downloadFile(note.fileLocation, fileName)) {
-                        alert(`Downloading: ${note.title}\nFile location: ${note.fileLocation}`);
-                    }
-                    
-                    // Update the display
-                    renderNotes(notesData.filter(n => n.category === activeFilter || activeFilter === 'all'));
-                });
-                
+                // Add event listeners to the buttons
+                const downloadBtn = noteCard.querySelector('.download-btn');
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', () => {
+                        // Increment download count in the data
+                        note.downloads++;
+
+                        // Simulate file download
+                        const fileName = `${note.title.replace(/\s+/g, '-').toLowerCase()}.${fileExtension}`;
+                        if (downloadFile(note.fileLocation, fileName)) {
+                            alert(`Downloading: ${note.title}\nFile location: ${note.fileLocation}`);
+                        }
+
+                        // Update the display
+                        renderNotes(notesData.filter(n => n.category === activeFilter || activeFilter === 'all'));
+                    });
+                }
+
                 noteCard.querySelector('.view-btn').addEventListener('click', () => {
-                    alert(`Previewing: ${note.title}\n\nFile location: ${note.fileLocation}\n\nIn a real application, this would show a preview of the file.`);
+                    const viewModal = document.getElementById('viewModal');
+                    const pdfViewer = document.getElementById('pdfViewer');
+                    const viewModalTitle = document.getElementById('viewModalTitle');
+                    const noPreviewMessage = document.getElementById('noPreviewMessage');
+
+                    viewModalTitle.textContent = note.title;
+
+                    // Set source
+                    pdfViewer.src = note.fileLocation;
+
+                    // Check extension for PDF support (simple check)
+                    if (note.fileLocation.toLowerCase().endsWith('.pdf') || note.fileLocation.includes('.pdf')) {
+                        pdfViewer.style.display = 'block';
+                        noPreviewMessage.style.display = 'none';
+                    } else {
+                        // Simplify for demo: just assume only PDF usually works well in embed for this context
+                        // or we can try to embed everything.
+                        // But for now let's just show it.
+                        pdfViewer.style.display = 'block';
+                        noPreviewMessage.style.display = 'none';
+                    }
+
+                    viewModal.style.display = 'flex';
                 });
             });
         }
 
         // Filter notes by category
         let activeFilter = 'all';
-        
+
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Update active button
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
-                
+
                 // Filter notes
                 activeFilter = button.getAttribute('data-filter');
-                const filteredNotes = activeFilter === 'all' 
-                    ? notesData 
+                const filteredNotes = activeFilter === 'all'
+                    ? notesData
                     : notesData.filter(note => note.category === activeFilter);
-                
+
                 renderNotes(filteredNotes);
             });
         });
@@ -1648,26 +1793,26 @@
         // Search functionality
         searchInput.addEventListener('input', () => {
             const searchTerm = searchInput.value.toLowerCase();
-            
-            const filteredNotes = notesData.filter(note => 
+
+            const filteredNotes = notesData.filter(note =>
                 note.title.toLowerCase().includes(searchTerm) ||
                 note.description.toLowerCase().includes(searchTerm) ||
                 note.category.toLowerCase().includes(searchTerm)
             );
-            
+
             renderNotes(filteredNotes);
         });
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if(this.getAttribute('href') === '#') return;
-                
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') return;
+
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
-                if(targetElement) {
+
+                if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
@@ -1680,13 +1825,13 @@
         function initPage() {
             // Initialize environment
             initEnvironment();
-            
+
             // Set initial active nav link
             setActiveNavLink();
-            
+
             // Render initial data
             renderNotes(notesData);
-            
+
             // Listen for scroll to update active nav link
             window.addEventListener('scroll', setActiveNavLink);
         }
@@ -1695,12 +1840,12 @@
         function setActiveNavLink() {
             const sections = document.querySelectorAll('section[id]');
             const scrollPos = window.scrollY + 100;
-            
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 const sectionId = section.getAttribute('id');
-                
+
                 if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
                     document.querySelectorAll('.nav-links a').forEach(link => {
                         link.classList.remove('active');
@@ -1716,4 +1861,5 @@
         document.addEventListener('DOMContentLoaded', initPage);
     </script>
 </body>
+
 </html>
