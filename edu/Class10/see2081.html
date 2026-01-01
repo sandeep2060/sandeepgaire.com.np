@@ -520,6 +520,7 @@ END SUB<br>
                     </div>
                     <div class="answer-box">
                         <div class="program-code">
+                            <pre>
 REM to add record in an existing file
 OPEN "student.dat" FOR APPEND AS #2
 TOP:
@@ -529,6 +530,7 @@ INPUT "More records"; Y$
 IF UCASE$(Y$) = "Y" THEN GOTO TOP
 CLOSE #2
 END
+                            </pre>
                         </div>
                     </div>
                 </div>
