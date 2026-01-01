@@ -463,17 +463,19 @@
                     </div>
                     <div class="answer-box">
                         <div class="program-code">
-DECLARE SUB Display (T$)<br>
-S$ = "COMPUTER"<br>
-CALL Display (S$)<br>
-END<br><br>
+<pre>
+DECLARE SUB Display (T$)
+S$ = "COMPUTER"
+CALL Display (S$)
+END
 
-SUB Display (T$)<br>
-FOR C = 1 TO LEN (T$) STEP 2<br>
-    D$ = MID$ (T$, C, 1)<br>
-    PRINT D$;<br>
-NEXT C<br>
-END SUB<br>
+SUB Display (T$)
+FOR C = 1 TO LEN (T$) STEP 2
+    D$ = MID$ (T$, C, 1)
+    PRINT D$;
+NEXT C
+END SUB
+ </pre>
                         </div>
                         <span class="answer-label">Dry Run Table:</span>
                         <div class="table-container">
@@ -520,17 +522,17 @@ END SUB<br>
                     </div>
                     <div class="answer-box">
                         <div class="program-code">
-                            <pre>
-REM to add record in an existing file
-OPEN "student.dat" FOR APPEND AS #2
-TOP:
-INPUT "Enter Name, Class and Roll No."; SName$, C, RN
-WRITE #2, SName$, C, RN
-INPUT "More records"; Y$
-IF UCASE$(Y$) = "Y" THEN GOTO TOP
-CLOSE #2
-END
-                            </pre>
+                            
+REM to add record in an existing file<br>
+OPEN "student.dat" FOR APPEND AS #2<br>
+TOP:<br>
+INPUT "Enter Name, Class and Roll No."; SName$, C, RN<br>
+WRITE #2, SName$, C, RN<br>
+INPUT "More records"; Y$<br>
+IF UCASE$(Y$) = "Y" THEN GOTO TOP<br>
+CLOSE #2<br>
+END<br>
+                            
                         </div>
                     </div>
                 </div>
@@ -569,6 +571,7 @@ END
                     </div>
                     <div class="answer-box">
                         <div class="program-code">
+<pre>
 DECLARE FUNCTION Perimeter (L, B)
 DECLARE SUB Volume (L, B, H)
 
@@ -591,6 +594,7 @@ SUB Volume (L, B, H)
     V = L * B * H
     PRINT "The Volume of the room is: "; V
 END SUB
+</pre>
                         </div>
                     </div>
                 </div>
