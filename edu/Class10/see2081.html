@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEE 2081 Computer Science Exam - Sandeep Gaire Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            padding: 25px 0;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+        }
+        
+        .exam-info {
+            text-align: right;
+        }
+        
+        .exam-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        /* Main Content */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .questions-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: #1a73e8;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e8f0fe;
+            font-size: 1.6rem;
+        }
+        
+        .group-title {
+            background-color: #e8f0fe;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 30px 0 20px;
+            color: #0d47a1;
+            font-size: 1.4rem;
+            border-left: 5px solid #1a73e8;
+        }
+        
+        .question-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+        
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .question-number {
+            color: #1a73e8;
+            min-width: 25px;
+        }
+        
+        .answer-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #34a853;
+            margin-top: 10px;
+        }
+        
+        .answer-label {
+            font-weight: 600;
+            color: #34a853;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .program-code {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .dry-run-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        
+        .dry-run-table th, .dry-run-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .dry-run-table th {
+            background-color: #f1f8ff;
+            color: #1a73e8;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .sidebar-title {
+            color: #1a73e8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e8f0fe;
+        }
+        
+        .info-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .info-box h4 {
+            color: #0d47a1;
+            margin-bottom: 8px;
+        }
+        
+        .topic-list {
+            list-style-type: none;
+        }
+        
+        .topic-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .topic-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-list li:before {
+            content: "•";
+            color: #1a73e8;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .download-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .website-link {
+            color: #1a73e8;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .exam-info {
+                text-align: center;
+            }
+            
+            .questions-section {
+                padding: 20px;
+            }
+            
+            .sidebar {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">💻</div>
+                    <div>
+                        <h1>Sandeep Gaire Education</h1>
+                        <p>Computer Science Resources</p>
+                    </div>
+                </div>
+                <div class="exam-info">
+                    <h2>SEE 2081 (2025) Computer Science</h2>
+                    <p>Complete Question Set with Answers</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="content-wrapper">
+            <main class="questions-section">
+                <h2 class="section-title">Computer Science Examination Questions</h2>
+                
+                <div class="group-title">Group 'A'</div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">1a.</span>
+                        <span>What is telecommunication?</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        The transmission of data and information from one place to another for the purpose of communication is known as telecommunication.
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">1b.</span>
+                        <span>Give any two examples of simplex mode.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        Any two examples of simplex mode are radio and newspaper.
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">1c.</span>
+                        <span>Write any two methods of creating table in MS-Access.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        Any two methods of creating table in MS-Access are design view and datasheet view.
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">1d.</span>
+                        <span>What is the maximum character you can use for creating a field name in MS-Access?</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        The maximum character you can use for creating a field name in MS-Access is 64 characters.
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">1e.</span>
+                        <span>Write the syntax of KILL statement.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        The syntax of KILL statement is KILL "filename".
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">1f.</span>
+                        <span>Write any two keywords used in C-language.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        Any two keywords used in C language are char and void.
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">2a.</span>
+                        <span>The websites that search documents for specified keywords in WWW.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Technical Term:</span>
+                        Search engine
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">2b.</span>
+                        <span>The recording of interaction with the digital world.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Technical Term:</span>
+                        Digital Footprint
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">3a.</span>
+                        <span>UPS</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Full Form:</span>
+                        Uninterruptible Power Supply
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">3b.</span>
+                        <span>VR</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Full Form:</span>
+                        Virtual Reality
+                    </div>
+                </div>
+                
+                <div class="group-title">Group 'B'</div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">4a.</span>
+                        <span>Differentiate between guided and unguided media.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        <p><strong>Guided Media:</strong> The media which uses cable or wire to transfer data and information among computers are called guided communication media. Examples: Twisted Pair Cable, Co-Axial Cable and Fiber Optic Cable.</p>
+                        <p><strong>Unguided Media:</strong> Communication in which data and information are transferred between two devices without using cables. Examples: Radio Wave, Microwave and Satellite Communication.</p>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">4b.</span>
+                        <span>Define cyber law. List any one-one do's and don'ts of cyber ethics.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        <p>The law which governs the legal issues in the cyber space regarding the internet or WWW for digital data processing and transaction is called cyber law.</p>
+                        <p><strong>One do's of cyber ethics:</strong> Ask permission before sharing or using someone else's data or information.</p>
+                        <p><strong>One don't's of cyber ethics:</strong> Do not use a computer to publish fake information.</p>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">4c.</span>
+                        <span>Define Antivirus software with two examples.</span>
+                    </div>
+                    <div class="answer-box">
+                        <span class="answer-label">Answer:</span>
+                        Antivirus software is a program that scans, detects, and removes malicious software from a computer or device to protect it from security threats. E.g. Norton Antivirus, McAfee Antivirus.
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">5.</span>
+                        <span>Write down the output of the given program and show them in dry run table:</span>
+                    </div>
+                    <div class="answer-box">
+                        <div class="program-code">
+DECLARE SUB Display (T$)
+S$ = "COMPUTER"
+CALL Display (S$)
+END
+
+SUB Display (T$)
+FOR C = 1 TO LEN (T$) STEP 2
+    D$ = MID$ (T$, C, 1)
+    PRINT D$;
+NEXT C
+END SUB
+                        </div>
+                        <span class="answer-label">Dry Run Table:</span>
+                        <div class="table-container">
+                            <table class="dry-run-table">
+                                <thead>
+                                    <tr>
+                                        <th>C</th>
+                                        <th>D$ = MID$(T$, C, 1)</th>
+                                        <th>PRINT D$</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>C</td>
+                                        <td>C</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>M</td>
+                                        <td>CM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>U</td>
+                                        <td>CMU</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>E</td>
+                                        <td>CMUE</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p><strong>The output of the program is:</strong> CMUE</p>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">6.</span>
+                        <span>Rewrite the given program after correcting the bugs:</span>
+                    </div>
+                    <div class="answer-box">
+                        <div class="program-code">
+REM to add record in an existing file
+OPEN "student.dat" FOR APPEND AS #2
+TOP:
+INPUT "Enter Name, Class and Roll No."; SName$, C, RN
+WRITE #2, SName$, C, RN
+INPUT "More records"; Y$
+IF UCASE$(Y$) = "Y" THEN GOTO TOP
+CLOSE #2
+END
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group-title">Group 'C'</div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">8.</span>
+                        <span>Convert/Calculate as per the instruction:</span>
+                    </div>
+                    <div class="answer-box">
+                        <p><strong>i) (1503)<sub>8</sub> = (?)<sub>16</sub></strong></p>
+                        <p>Step: Octal to Binary: 1=001, 5=101, 0=000, 3=011 = (1101000011)<sub>2</sub></p>
+                        <p>Binary to Hex: 0011 = 3, 0100 = 4, 0011 = 3 = (343)<sub>16</sub></p>
+                        <p>∴ (1503)<sub>8</sub> = (343)<sub>16</sub></p>
+                        
+                        <p><strong>ii) (101000101)<sub>2</sub> = (?)<sub>8</sub></strong></p>
+                        <p>Binary to Octal: 101 = 5, 000 = 0, 101 = 5 = (505)<sub>8</sub></p>
+                        
+                        <p><strong>iii) (1010 + 1101)<sub>2</sub> - (110)<sub>2</sub></strong></p>
+                        <p>Addition: 1010 + 1101 = 10111</p>
+                        <p>Subtraction: 10111 - 110 = 10001</p>
+                        <p>∴ (1010 + 1101)<sub>2</sub> - (110)<sub>2</sub> = (10001)<sub>2</sub></p>
+                        
+                        <p><strong>iv) (100111)<sub>2</sub> ÷ (110)<sub>2</sub></strong></p>
+                        <p>Division: 110) 100111 (110</p>
+                        <p>Result: Q = 110, R = 11</p>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">9a.</span>
+                        <span>Write a program in QBASIC that asks length, breadth and height of room and calculate its perimeter and volume.</span>
+                    </div>
+                    <div class="answer-box">
+                        <div class="program-code">
+DECLARE FUNCTION Perimeter (L, B)
+DECLARE SUB Volume (L, B, H)
+
+CLS
+INPUT "Enter the Length of the room: "; L
+INPUT "Enter the Breadth of the room: "; B
+INPUT "Enter the Height of the room: "; H
+
+P = Perimeter(L, B)
+PRINT "The Perimeter of the room is: "; P
+CALL Volume(L, B, H)
+
+END
+
+FUNCTION Perimeter (L, B)
+    Perimeter = 2 * (L + B)
+END FUNCTION
+
+SUB Volume (L, B, H)
+    V = L * B * H
+    PRINT "The Volume of the room is: "; V
+END SUB
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-item">
+                    <div class="question-text">
+                        <span class="question-number">10.</span>
+                        <span>Write a program in C-language to find the greatest number among any two different input numbers.</span>
+                    </div>
+                    <div class="answer-box">
+                        <div class="program-code">
+#include &lt;stdio.h&gt;
+int main() {
+    int num1, num2;
+    
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+    
+    if (num1 > num2) {
+        printf("The greatest number is: %d\n", num1);
+    } else {
+        printf("The greatest number is: %d\n", num2);
+    }
+    
+    return 0;
+}
+                        </div>
+                    </div>
+                </div>
+                
+            </main>
+            
+            <aside class="sidebar">
+                <h3 class="sidebar-title">Exam Information</h3>
+                
+                <div class="info-box">
+                    <h4>Exam Details</h4>
+                    <p><strong>Year:</strong> 2081 (2025)</p>
+                    <p><strong>Subject:</strong> Computer Science</p>
+                    <p><strong>Level:</strong> SEE (Secondary Education Examination)</p>
+                    <p><strong>Total Marks:</strong> 50</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Topics Covered</h4>
+                    <ul class="topic-list">
+                        <li>Telecommunication & Networking</li>
+                        <li>Computer Ethics & Cyber Law</li>
+                        <li>Database Management (MS Access)</li>
+                        <li>Programming (QBASIC & C)</li>
+                        <li>Number System Conversions</li>
+                        <li>File Handling</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Useful Resources</h4>
+                    <ul class="topic-list">
+                        <li>QBASIC Programming Guide</li>
+                        <li>C Language Basics</li>
+                        <li>MS Access Tutorial</li>
+                        <li>Computer Networking Notes</li>
+                        <li>Previous Year Question Papers</li>
+                    </ul>
+                </div>
+                
+                <a href="index.html" class="download-btn">Download This Question Set (PDF)</a>
+                <a href="#" class="download-btn" style="background: linear-gradient(135deg, #34a853 0%, #0d6528 100%);">View More Exam Papers</a>
+            </aside>
+        </div>
+        
+        <footer>
+            <p>© 2025 Sandeep Gaire Education | <a href="https://sandeepgaire.com.np/edu" class="website-link">sandeepgaire.com.np/edu</a></p>
+            <p>This question set is for educational purposes only.</p>
+        </footer>
+    </div>
+</body>
+  </html>
