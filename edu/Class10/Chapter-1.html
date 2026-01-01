@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 10 Chapter 1: Complete Computer Networking Notes | SEE Nepal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-bg: #2c3e50;
+            --note-yellow: #fff9e6;
+            --note-border: #ffd166;
+            --text-color: #333;
+            --light-text: #666;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .chapter-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Table of Contents */
+        .toc-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .toc-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .toc-item:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .toc-item i {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .toc-item:hover i {
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .main-content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* Notes Section */
+        .notes-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin: 40px 0 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .note-card {
+            background-color: var(--note-yellow);
+            border-left: 5px solid var(--note-border);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .note-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .note-card h3 i {
+            color: var(--accent-color);
+        }
+
+        .note-content {
+            margin-bottom: 15px;
+        }
+
+        .key-term {
+            display: inline-block;
+            background-color: #f1f8ff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 2px 0;
+        }
+
+        /* Image & Diagram Styling */
+        .image-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .diagram-img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid #ddd;
+        }
+
+        .diagram-caption {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Important Questions Section */
+        .questions-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+        }
+
+        .questions-title {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .questions-title i {
+            color: var(--accent-color);
+        }
+
+        .see-important {
+            background-color: #ffeaea;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .question-card {
+            margin-bottom: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .question-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .question-header h4 {
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .question-number {
+            background-color: var(--accent-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-btn.rotated {
+            transform: rotate(180deg);
+        }
+
+        .answer-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .answer-content.show {
+            padding: 25px;
+            max-height: 2000px;
+        }
+
+        .answer-content p {
+            margin-bottom: 15px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .fact-box {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        .fact-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fact-list {
+            list-style-type: none;
+        }
+
+        .fact-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fact-list li i {
+            color: var(--secondary-color);
+        }
+
+        .memory-tip {
+            background-color: #fff0f0;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-color);
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: 40px;
+            border-radius: var(--border-radius);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .website-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .website-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .notes-section, .questions-container, .sidebar {
+                padding: 20px;
+            }
+            
+            .comparison-table th, .comparison-table td {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            .chapter-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .question-header h4 {
+                width: 100%;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .toc-container, .sidebar, .back-to-top, .toggle-btn {
+                display: none;
+            }
+            
+            .answer-content {
+                max-height: none !important;
+                padding: 20px !important;
+            }
+            
+            .note-card, .question-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Computer Networking & Telecommunications</h1>
+                <p class="subtitle">Class 10 Chapter 1 - Complete Notes with Important SEE Questions</p>
+                <div class="chapter-info">
+                    <span class="tag"><i class="fas fa-graduation-cap"></i> SEE Computer Science</span>
+                    <span class="tag"><i class="fas fa-book"></i> Chapter 1</span>
+                    <span class="tag"><i class="fas fa-calendar-alt"></i> Nepal SEE Exam Focus</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Table of Contents -->
+        <div class="toc-container">
+            <h2 class="toc-title"><i class="fas fa-list"></i> Table of Contents</h2>
+            <div class="toc-grid">
+                <div class="toc-item" data-target="communication">
+                    <i class="fas fa-comments"></i>
+                    <span>1. Introduction to Communication</span>
+                </div>
+                <div class="toc-item" data-target="data-elements">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <span>2. Elements of Data Communication</span>
+                </div>
+                <div class="toc-item" data-target="transmission-modes">
+                    <i class="fas fa-directions"></i>
+                    <span>3. Transmission Modes</span>
+                </div>
+                <div class="toc-item" data-target="media">
+                    <i class="fas fa-wifi"></i>
+                    <span>4. Transmission Media</span>
+                </div>
+                <div class="toc-item" data-target="networks">
+                    <i class="fas fa-network-wired"></i>
+                    <span>5. Computer Networks</span>
+                </div>
+                <div class="toc-item" data-target="internet">
+                    <i class="fas fa-globe"></i>
+                    <span>6. Internet & Services</span>
+                </div>
+                <div class="toc-item" data-target="questions">
+                    <i class="fas fa-question-circle"></i>
+                    <span>7. Important SEE Questions</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="notes-section">
+                <!-- 1. Introduction to Communication -->
+                <h2 id="communication" class="section-title"><i class="fas fa-comments"></i> 1. Introduction to Communication & Telecommunications</h2>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-exchange-alt"></i> What is Communication?</h3>
+                    <div class="note-content">
+                        <p>Communication is the process of sharing information between two or more people. It can happen through talking, writing, or using other methods like gestures or technology.</p>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-satellite-dish"></i> Telecommunications</h3>
+                    <div class="note-content">
+                        <p>Telecommunications is the process of sending messages over long distances using electronic signals. This can include phone calls, emails, and using the internet.</p>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-database"></i> Data Communication</h3>
+                    <div class="note-content">
+                        <p>Data communication is the electronic exchange of data between two or more computers. It's like sending a message using computers or other electronic devices.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Data Communication Diagram" class="diagram-img">
+                        <p class="diagram-caption">Basic data communication model showing sender, receiver, and transmission medium</p>
+                    </div>
+                </div>
+
+                <!-- 2. Elements of Data Communication -->
+                <h2 id="data-elements" class="section-title"><i class="fas fa-broadcast-tower"></i> 2. Elements of Data Communication</h2>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-cogs"></i> Five Essential Elements</h3>
+                    <div class="note-content">
+                        <ul>
+                            <li><span class="key-term">Data/Message:</span> The information to be sent.</li>
+                            <li><span class="key-term">Sender:</span> The person or device that originates the data.</li>
+                            <li><span class="key-term">Medium:</span> The path through which data travels (like wires or wireless signals).</li>
+                            <li><span class="key-term">Receiver:</span> The person or device that receives the data.</li>
+                            <li><span class="key-term">Protocols:</span> Rules that govern how data is sent and received.</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Data Communication Elements" class="diagram-img">
+                        <p class="diagram-caption">The five essential elements of data communication system</p>
+                    </div>
+                </div>
+
+                <!-- 3. Transmission Modes -->
+                <h2 id="transmission-modes" class="section-title"><i class="fas fa-directions"></i> 3. Modes of Data Transmission</h2>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-project-diagram"></i> Simplex, Half-Duplex & Full-Duplex</h3>
+                    <div class="note-content">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Mode</th>
+                                    <th>Description</th>
+                                    <th>Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Simplex</strong></td>
+                                    <td>Data flows in one direction only</td>
+                                    <td>TV broadcast, Keyboard to computer</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Half-duplex</strong></td>
+                                    <td>Data flows in both directions but not at the same time</td>
+                                    <td>Walkie-talkie, Wireless handset</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Full-duplex</strong></td>
+                                    <td>Data flows in both directions simultaneously</td>
+                                    <td>Telephone conversation, Video call</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-wave-square"></i> Analog vs Digital Signals</h3>
+                    <div class="note-content">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Analog vs Digital Signals" class="diagram-img">
+                            <p class="diagram-caption">Analog signals are continuous, while digital signals are discrete (0s and 1s)</p>
+                        </div>
+                        
+                        <p><strong>Analog Signals:</strong> These are continuous signals that vary smoothly over time. They can have any value within a range. For example, the sound you hear from a radio is an analog signal.</p>
+                        
+                        <p><strong>Digital Signals:</strong> These signals are not continuous; they have only two values, usually 0 and 1. Computers use digital signals to process information, like the data in a USB drive.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Transmission Media -->
+                <h2 id="media" class="section-title"><i class="fas fa-wifi"></i> 4. Communication Media (Transmission Media)</h2>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-network-wired"></i> Wired Communication Media (Guided Media)</h3>
+                    <div class="note-content">
+                        <ul>
+                            <li><span class="key-term">Twisted Pair Cable:</span> Two wires twisted together to reduce interference. Used in telephone lines and Ethernet networks.</li>
+                            <li><span class="key-term">Coaxial Cable:</span> Central wire surrounded by insulation and shielding. Used for cable TV and internet connections.</li>
+                            <li><span class="key-term">Fiber Optic Cable:</span> Uses thin strands of glass or plastic to transmit data as light signals. Very fast and used for internet and phone networks.</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wired Transmission Media" class="diagram-img">
+                        <p class="diagram-caption">Different types of wired transmission media: Twisted pair, coaxial, and fiber optic cables</p>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-satellite"></i> Wireless Communication Media (Unguided Media)</h3>
+                    <div class="note-content">
+                        <ul>
+                            <li><span class="key-term">Microwave System:</span> Uses high-frequency radio waves to transmit data over long distances.</li>
+                            <li><span class="key-term">Radio Wave System:</span> Used to communicate over long distances in broadcasting and wireless networks.</li>
+                            <li><span class="key-term">Communication Satellite:</span> Satellites orbit the Earth and transmit data signals globally.</li>
+                            <li><span class="key-term">Bluetooth Technology:</span> Short-range wireless technology for connecting devices.</li>
+                            <li><span class="key-term">Wi-Fi Technology:</span> Uses radio waves to provide wireless internet connections.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-balance-scale"></i> Guided vs Unguided Media</h3>
+                    <div class="note-content">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Guided Media</th>
+                                    <th>Unguided Media</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Use physical cables to transmit data</td>
+                                    <td>Use air or space to transmit data</td>
+                                </tr>
+                                <tr>
+                                    <td>Generally faster and more reliable</td>
+                                    <td>Offer mobility and flexibility</td>
+                                </tr>
+                                <tr>
+                                    <td>Examples: Twisted pair, Coaxial, Fiber optic</td>
+                                    <td>Examples: Wi-Fi, Bluetooth, Satellite</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 5. Computer Networks -->
+                <h2 id="networks" class="section-title"><i class="fas fa-network-wired"></i> 5. Introduction to Computer Networks</h2>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-laptop-house"></i> What is a Computer Network?</h3>
+                    <div class="note-content">
+                        <p>A computer network is a group of computers and other devices connected so they can share resources, like files, printers, and internet connections.</p>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-sitemap"></i> Network Types (LAN, MAN, WAN)</h3>
+                    <div class="note-content">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="LAN, MAN, WAN Network Comparison" class="diagram-img">
+                            <p class="diagram-caption">Different network types based on geographical coverage</p>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="key-term">LAN (Local Area Network):</span> Covers a small area like a home, school, or office building.</li>
+                            <li><span class="key-term">MAN (Metropolitan Area Network):</span> Covers a larger area, like a city.</li>
+                            <li><span class="key-term">WAN (Wide Area Network):</span> Covers a very large area, like a country or even the world. The internet is the largest WAN.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-project-diagram"></i> Network Topologies</h3>
+                    <div class="note-content">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Network Topologies" class="diagram-img">
+                            <p class="diagram-caption">Common network topologies: Bus, Star, and Ring</p>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="key-term">Bus Topology:</span> All devices connected to a single central cable. Simple but failure of main cable affects entire network.</li>
+                            <li><span class="key-term">Star Topology:</span> All devices connected to a central hub/switch. Failure of one device doesn't affect others but hub failure affects entire network.</li>
+                            <li><span class="key-term">Ring Topology:</span> All devices connected in a circular loop. Data travels in one direction around the ring.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 6. Internet & Services -->
+                <h2 id="internet" class="section-title"><i class="fas fa-globe"></i> 6. Internet & Its Services</h2>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-internet-explorer"></i> The Internet</h3>
+                    <div class="note-content">
+                        <p>The Internet is a global network of computers that allows people to connect, share information, and communicate with each other.</p>
+                        <p>It offers a vast array of services, including:</p>
+                        <ul>
+                            <li><span class="key-term">Email:</span> Sending electronic messages</li>
+                            <li><span class="key-term">Web browsing:</span> Accessing information through websites</li>
+                            <li><span class="key-term">Online shopping:</span> Purchasing goods and services</li>
+                            <li><span class="key-term">Social networking:</span> Connecting with friends and family</li>
+                            <li><span class="key-term">Video conferencing:</span> Holding virtual meetings</li>
+                            <li><span class="key-term">File sharing:</span> Sharing files with others</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-mail-bulk"></i> E-mail & E-fax</h3>
+                    <div class="note-content">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>E-mail (Electronic Mail)</th>
+                                    <th>E-fax (Electronic Fax)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Service that lets you send and receive text messages, files, and documents over the internet</td>
+                                    <td>Allows you to send and receive faxes using the internet instead of a traditional fax machine</td>
+                                </tr>
+                                <tr>
+                                    <td>Used for general communication</td>
+                                    <td>Used for sending documents that need to be faxed to someone who may not have an email address</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="note-card">
+                    <h3><i class="fas fa-building"></i> Intranet vs Extranet</h3>
+                    <div class="note-content">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Intranet</th>
+                                    <th>Extranet</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A private network used within an organization (company, school)</td>
+                                    <td>An extension of an intranet that allows external users (clients, partners) to access certain parts</td>
+                                </tr>
+                                <tr>
+                                    <td>Allows employees/members to share information securely within the organization</td>
+                                    <td>Used to share specific information and resources with people outside the organization</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 7. Important SEE Questions -->
+                <div class="questions-container">
+                    <h2 id="questions" class="questions-title"><i class="fas fa-question-circle"></i> 7. Important SEE Exam Questions with Answers</h2>
+                    
+                    <div class="see-important">
+                        <h3><i class="fas fa-exclamation-triangle"></i> SEE Exam Focus</h3>
+                        <p>These questions are selected based on previous SEE exam patterns and frequently asked topics. Practice these well for your exam preparation.</p>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">1</div>
+                            <h4>What is data communication? List its elements.</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong> Data communication is the electronic exchange of data between two or more computers or electronic devices.</p>
+                            <p><strong>Elements of Data Communication:</strong></p>
+                            <ul>
+                                <li><strong>Data/Message:</strong> The information to be sent</li>
+                                <li><strong>Sender:</strong> The person or device that originates the data</li>
+                                <li><strong>Medium:</strong> The path through which data travels (wires, wireless signals)</li>
+                                <li><strong>Receiver:</strong> The person or device that receives the data</li>
+                                <li><strong>Protocols:</strong> Rules that govern how data is sent and received</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">2</div>
+                            <h4>Differentiate between simplex, half-duplex and full-duplex transmission modes with examples.</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong></p>
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Transmission Mode</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Simplex</strong></td>
+                                        <td>Data flows in one direction only</td>
+                                        <td>TV broadcast, Keyboard to computer</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Half-duplex</strong></td>
+                                        <td>Data flows in both directions but not at the same time</td>
+                                        <td>Walkie-talkie, Wireless handset</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Full-duplex</strong></td>
+                                        <td>Data flows in both directions simultaneously</td>
+                                        <td>Telephone conversation, Video call</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">3</div>
+                            <h4>Write the differences between guided and unguided transmission media.</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong></p>
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Guided Media</th>
+                                        <th>Unguided Media</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Uses physical cables to transmit data</td>
+                                        <td>Uses air or space to transmit data</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generally faster and more reliable</td>
+                                        <td>Offers mobility and flexibility</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Installation requires physical cables</td>
+                                        <td>No physical installation needed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Examples: Twisted pair, Coaxial, Fiber optic cables</td>
+                                        <td>Examples: Wi-Fi, Bluetooth, Satellite, Microwave</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">4</div>
+                            <h4>Differentiate between LAN, MAN and WAN.</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong></p>
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Network Type</th>
+                                        <th>Full Form</th>
+                                        <th>Coverage Area</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>LAN</strong></td>
+                                        <td>Local Area Network</td>
+                                        <td>Small area (home, school, office)</td>
+                                        <td>Computer lab network, Office network</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>MAN</strong></td>
+                                        <td>Metropolitan Area Network</td>
+                                        <td>City or metropolitan area</td>
+                                        <td>Cable TV network in a city</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>WAN</strong></td>
+                                        <td>Wide Area Network</td>
+                                        <td>Large area (country, worldwide)</td>
+                                        <td>The Internet, Bank network</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">5</div>
+                            <h4>What is network topology? List any three network topologies with one advantage and disadvantage of each.</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong> Network topology refers to the layout or structure of how devices are connected in a network.</p>
+                            <p><strong>Three Network Topologies:</strong></p>
+                            
+                            <p><strong>1. Bus Topology:</strong></p>
+                            <ul>
+                                <li><strong>Advantage:</strong> Simple and easy to set up; requires less cable</li>
+                                <li><strong>Disadvantage:</strong> If the main cable fails, the entire network goes down</li>
+                            </ul>
+                            
+                            <p><strong>2. Star Topology:</strong></p>
+                            <ul>
+                                <li><strong>Advantage:</strong> If one device fails, the rest of the network is unaffected</li>
+                                <li><strong>Disadvantage:</strong> If the central hub fails, the whole network goes down</li>
+                            </ul>
+                            
+                            <p><strong>3. Ring Topology:</strong></p>
+                            <ul>
+                                <li><strong>Advantage:</strong> Data travels in one direction, reducing packet collisions</li>
+                                <li><strong>Disadvantage:</strong> If one device fails, it can affect the entire network</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">6</div>
+                            <h4>Differentiate between intranet and extranet.</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong></p>
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Intranet</th>
+                                        <th>Extranet</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>A private network used within an organization</td>
+                                        <td>An extension of intranet that allows external users to access certain parts</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Accessible only to employees/members of the organization</td>
+                                        <td>Accessible to selected external users like clients, partners</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Used for internal communication and resource sharing</td>
+                                        <td>Used for collaboration with external parties</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Example: Company's internal portal for employees</td>
+                                        <td>Example: Supplier portal for a manufacturing company</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">7</div>
+                            <h4>What are the advantages and disadvantages of computer networking?</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong></p>
+                            
+                            <p><strong>Advantages of Computer Networking:</strong></p>
+                            <ul>
+                                <li><strong>Resource Sharing:</strong> Computers can share resources like files, printers, and internet connections.</li>
+                                <li><strong>Communication:</strong> Networking allows easy communication between users, such as through email or instant messaging.</li>
+                                <li><strong>Data Backup:</strong> Data can be backed up more easily, reducing the risk of data loss.</li>
+                                <li><strong>Cost Efficiency:</strong> Sharing resources reduces the need for individual devices for each user.</li>
+                                <li><strong>Centralized Management:</strong> Network administrators can manage all devices from a central location.</li>
+                            </ul>
+                            
+                            <p><strong>Disadvantages of Computer Networking:</strong></p>
+                            <ul>
+                                <li><strong>Security Risks:</strong> Networks can be vulnerable to unauthorized access or hacking.</li>
+                                <li><strong>Complexity:</strong> Setting up and maintaining a network can be complex and require specialized knowledge.</li>
+                                <li><strong>Cost:</strong> The initial cost of setting up a network can be high due to the need for hardware and software.</li>
+                                <li><strong>Dependence on Server:</strong> If the server fails, the entire network may become inaccessible.</li>
+                                <li><strong>Virus Spread:</strong> Viruses and malware can spread quickly across a network.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="question-card">
+                        <div class="question-header">
+                            <div class="question-number">8</div>
+                            <h4>Explain different types of wired transmission media with examples.</h4>
+                            <button class="toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                        </div>
+                        <div class="answer-content">
+                            <p><strong>Answer:</strong></p>
+                            <p>Wired transmission media, also known as guided media, use physical cables to transmit data. The main types are:</p>
+                            
+                            <p><strong>1. Twisted Pair Cable:</strong></p>
+                            <ul>
+                                <li>Consists of two copper wires twisted together to reduce electromagnetic interference.</li>
+                                <li><strong>Types:</strong> Unshielded Twisted Pair (UTP) and Shielded Twisted Pair (STP)</li>
+                                <li><strong>Use:</strong> Telephone lines, Ethernet networks</li>
+                                <li><strong>Example:</strong> CAT5, CAT6 cables used in LAN connections</li>
+                            </ul>
+                            
+                            <p><strong>2. Coaxial Cable:</strong></p>
+                            <ul>
+                                <li>Has a central copper conductor surrounded by insulation, a metallic shield, and an outer cover.</li>
+                                <li>Better shielding than twisted pair, can transmit data over longer distances.</li>
+                                <li><strong>Use:</strong> Cable TV, broadband internet, CCTV systems</li>
+                                <li><strong>Example:</strong> RG-6 cable used for cable TV connections</li>
+                            </ul>
+                            
+                            <p><strong>3. Fiber Optic Cable:</strong></p>
+                            <ul>
+                                <li>Uses thin strands of glass or plastic (optical fibers) to transmit data as light pulses.</li>
+                                <li>Very high speed, immune to electromagnetic interference, secure transmission.</li>
+                                <li><strong>Use:</strong> High-speed internet backbones, telecommunications, medical equipment</li>
+                                <li><strong>Example:</strong> Fiber cables used by ISPs for high-speed internet</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar with Quick Facts -->
+            <div class="sidebar">
+                <div class="fact-box">
+                    <h3><i class="fas fa-lightbulb"></i> Chapter Highlights</h3>
+                    <ul class="fact-list">
+                        <li><i class="fas fa-check-circle"></i> Communication requires sender, message, medium, receiver</li>
+                        <li><i class="fas fa-check-circle"></i> Data transmission can be simplex, half-duplex, or full-duplex</li>
+                        <li><i class="fas fa-check-circle"></i> Signals can be analog (continuous) or digital (discrete)</li>
+                        <li><i class="fas fa-check-circle"></i> Networks classified as LAN, MAN, WAN by coverage area</li>
+                        <li><i class="fas fa-check-circle"></i> Topology defines how devices are connected in a network</li>
+                        <li><i class="fas fa-check-circle"></i> Internet is the largest WAN connecting computers worldwide</li>
+                    </ul>
+                </div>
+                
+                <div class="fact-box">
+                    <h3><i class="fas fa-clipboard-list"></i> Important Terms</h3>
+                    <ul class="fact-list">
+                        <li><span class="key-term">Protocol</span> - Rules for data transmission</li>
+                        <li><span class="key-term">NIC</span> - Network Interface Card</li>
+                        <li><span class="key-term">Router</span> - Connects different networks</li>
+                        <li><span class="key-term">Switch</span> - Smarter than hub, sends data to specific device</li>
+                        <li><span class="key-term">Modem</span> - Converts digital to analog signals and vice versa</li>
+                        <li><span class="key-term">TCP/IP</span> - Basic internet protocol</li>
+                        <li><span class="key-term">FTP</span> - File Transfer Protocol</li>
+                    </ul>
+                </div>
+                
+                <div class="memory-tip">
+                    <h3><i class="fas fa-brain"></i> Memory Tip for SEE</h3>
+                    <p>Remember the acronym <strong>"SMRP"</strong> for Data Communication Elements:</p>
+                    <ul>
+                        <li><strong>S</strong> - Sender</li>
+                        <li><strong>M</strong> - Message/Medium</li>
+                        <li><strong>R</strong> - Receiver</li>
+                        <li><strong>P</strong> - Protocol</li>
+                    </ul>
+                </div>
+                
+                <div class="fact-box">
+                    <h3><i class="fas fa-exclamation-triangle"></i> SEE Exam Weightage</h3>
+                    <ul class="fact-list">
+                        <li><i class="fas fa-pen"></i> Chapter 1: 10-12 marks</li>
+                        <li><i class="fas fa-pen"></i> Focus on definitions and differences</li>
+                        <li><i class="fas fa-pen"></i> Practice diagram drawing</li>
+                        <li><i class="fas fa-pen"></i> Memorize examples for each concept</li>
+                        <li><i class="fas fa-pen"></i> Review last 5 years' questions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <p>Class 10 Computer Science - Chapter 1: Computer Networking & Telecommunications</p>
+                <p>Complete notes for SEE Exam preparation of Nepal</p>
+                <p>© <span id="current-year"></span> <a href="https://sandeepgaire.com.np/edu" class="website-link">sandeepgaire.com.np/edu</a> - Educational Resources</p>
+            </div>
+        </footer>
+
+        <!-- Back to Top Button -->
+        <div class="back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Table of Contents navigation
+        document.querySelectorAll('.toc-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Toggle question answers
+        document.querySelectorAll('.toggle-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const answerContent = this.parentElement.nextElementSibling;
+                answerContent.classList.toggle('show');
+                this.classList.toggle('rotated');
+            });
+        });
+        
+        // Back to Top button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Auto-open first question for better UX
+        window.addEventListener('load', function() {
+            // Open first question by default
+            const firstQuestion = document.querySelector('.question-card:first-child .answer-content');
+            const firstButton = document.querySelector('.question-card:first-child .toggle-btn');
+            
+            if (firstQuestion && firstButton) {
+                setTimeout(() => {
+                    firstQuestion.classList.add('show');
+                    firstButton.classList.add('rotated');
+                }, 500);
+            }
+        });
+        
+        // Add active state to TOC items on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section-title, .questions-title');
+            const tocItems = document.querySelectorAll('.toc-item');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 150) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            tocItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-target') === currentSection) {
+                    item.classList.add('active');
+                    item.style.backgroundColor = 'var(--secondary-color)';
+                    item.style.color = 'white';
+                } else {
+                    item.style.backgroundColor = '';
+                    item.style.color = '';
+                }
+            });
+        });
+    </script>
+</body>
+                  </html>
