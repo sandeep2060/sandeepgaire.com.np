@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        /* Preloader Styles - Improved */
+        /* Preloader Styles */
         #preloader {
             position: fixed;
             top: 0;
@@ -1382,13 +1382,25 @@
 </head>
 <body>
     <!-- Preloader -->
-    
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="loader-container">
+                <div class="loader loader-1"></div>
+                <div class="loader loader-2"></div>
+                <div class="loader loader-3"></div>
+                <div class="logo-preloader">S<span>G</span></div>
+            </div>
+            <div class="preloader-text">
+                Loading Portfolio<span class="loading-dots"><span></span><span></span><span></span></span>
+            </div>
+        </div>
+    </div>
 
     <!-- Menu Overlay -->
-
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <!-- Particles Background -->
-    
+    <div id="particles-js"></div>
 
     <!-- Updated Navbar -->
     <header>
@@ -1563,81 +1575,80 @@
     </section>
 
     <!-- Contact Section -->
-     <!-- Contact Section -->
-<section class="contact" id="contact">
-    <div class="container">
-        <div class="section-title" data-aos="fade-up" data-aos-duration="800">
-            <h2>Get In Touch</h2>
-            <p>Let's discuss your project and create something amazing together</p>
-        </div>
-        <div class="contact-content">
-            <div class="contact-info" data-aos="fade-right" data-aos-duration="1000">
-                <h3>Let's Connect</h3>
-                <p>I'm currently available for freelance projects and full-time opportunities. Feel free to reach out if you want to collaborate or just say hello!</p>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up" data-aos-duration="800">
+                <h2>Get In Touch</h2>
+                <p>Let's discuss your project and create something amazing together</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right" data-aos-duration="1000">
+                    <h3>Let's Connect</h3>
+                    <p>I'm currently available for freelance projects and full-time opportunities. Feel free to reach out if you want to collaborate or just say hello!</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Butwal, Nepal</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4>Location</h4>
-                            <p>Butwal, Nepal</p>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>sandeepgaire8@gmail.com</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>sandeepgaire8@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+977 98616390050</p>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+977 9861639050</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="contact-form" data-aos="fade-left" data-aos-duration="1000">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="from_name" required placeholder="Your Name">
-                        <label for="name" class="form-label">Your Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="email" name="from_email" required placeholder="your@email.com">
-                        <label for="email" class="form-label">Your Email</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone Number (Optional)">
-                        <label for="phone" class="form-label">Your Phone Number (Optional)</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="subject" name="subject" required placeholder="Subject">
-                        <label for="subject" class="form-label">Subject</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
-                        <label for="message" class="form-label">Your Message</label>
-                    </div>
-                    <div class="form-message" id="formMessage"></div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;" id="submitBtn">
-                        <span id="submitText">Send Message</span>
-                        <span id="submitLoading" style="display:none;">
-                            <i class="fas fa-spinner fa-spin"></i> Sending...
-                        </span>
-                    </button>
-                </form>
+                <div class="contact-form" data-aos="fade-left" data-aos-duration="1000">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="from_name" required placeholder="Your Name">
+                            <label for="name" class="form-label">Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="from_email" required placeholder="your@email.com">
+                            <label for="email" class="form-label">Your Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone Number (Optional)">
+                            <label for="phone" class="form-label">Your Phone Number (Optional)</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" name="subject" required placeholder="Subject">
+                            <label for="subject" class="form-label">Subject</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
+                            <label for="message" class="form-label">Your Message</label>
+                        </div>
+                        <div class="form-message" id="formMessage"></div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;" id="submitBtn">
+                            <span id="submitText">Send Message</span>
+                            <span id="submitLoading" style="display:none;">
+                                <i class="fas fa-spinner fa-spin"></i> Sending...
+                            </span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -1685,429 +1696,454 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-         <script>                                   }
-// Initialize AOS (Animate On Scroll)
-AOS.init({
-    duration: 1000,
-    once: true,
-    offset: 100,
-    disable: function() {
-        return window.innerWidth < 768;
-    }
-});
-
-// Initialize EmailJS with your credentials
-(function() {
-    emailjs.init({
-        publicKey: "pPIG4Sq5wAHhscPNK",
-    });
-    console.log("EmailJS initialized");
-})();
-
-// Enhanced Preloader
-window.addEventListener('load', function() {
-    const preloader = document.getElementById('preloader');
-    // Add a slight delay for smoother transition
-    setTimeout(() => {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.visibility = 'hidden';
-        }, 500);
-    }, 1200);
-});
-
-// Particles.js Background
-particlesJS('particles-js', {
-    particles: {
-        number: { 
-            value: 60, 
-            density: { 
-                enable: true, 
-                value_area: 800 
-            } 
-        },
-        color: { value: "#2563eb" },
-        shape: { type: "circle" },
-        opacity: { 
-            value: 0.5, 
-            random: true,
-            anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.1,
-                sync: false
-            }
-        },
-        size: { 
-            value: 3, 
-            random: true,
-            anim: {
-                enable: true,
-                speed: 2,
-                size_min: 0.1,
-                sync: false
-            }
-        },
-        line_linked: {
-            enable: true,
-            distance: 120,
-            color: "#2563eb",
-            opacity: 0.2,
-            width: 1
-        },
-        move: {
-            enable: true,
-            speed: 1.5,
-            direction: "none",
-            random: true,
-            straight: false,
-            out_mode: "out",
-            bounce: false,
-            attract: {
-                enable: true,
-                rotateX: 600,
-                rotateY: 1200
-            }
-        }
-    },
-    interactivity: {
-        detect_on: "canvas",
-        events: {
-            onhover: { 
-                enable: true, 
-                mode: "grab" 
-            },
-            onclick: { 
-                enable: true, 
-                mode: "push" 
-            }
-        }
-    },
-    retina_detect: true
-});
-
-// Mobile Menu Toggle with Overlay
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
-const menuOverlay = document.getElementById('menuOverlay');
-
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
-    menuToggle.querySelector('i').classList.toggle('fa-bars');
-    menuToggle.querySelector('i').classList.toggle('fa-times');
-    
-    // Prevent body scroll when menu is open
-    if (navLinks.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
-});
-
-// Close menu when clicking overlay
-menuOverlay.addEventListener('click', () => {
-    navLinks.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    menuToggle.querySelector('i').classList.add('fa-bars');
-    menuToggle.querySelector('i').classList.remove('fa-times');
-    document.body.style.overflow = '';
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        menuToggle.querySelector('i').classList.add('fa-bars');
-        menuToggle.querySelector('i').classList.remove('fa-times');
-        document.body.style.overflow = '';
-        
-        // Update active nav link
-        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-        link.classList.add('active');
-    });
-});
-
-// Set active nav link based on scroll position
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// Portfolio Filtering
-const filterButtons = document.querySelectorAll('.filter-btn');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        button.classList.add('active');
-        
-        const filterValue = button.getAttribute('data-filter');
-        
-        portfolioItems.forEach(item => {
-            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                item.style.display = 'block';
-                setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'scale(1)';
-                }, 100);
-            } else {
-                item.style.opacity = '0';
-                item.style.transform = 'scale(0.8)';
-                setTimeout(() => {
-                    item.style.display = 'none';
-                }, 300);
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            disable: function() {
+                return window.innerWidth < 768;
             }
         });
-    });
-});
 
-// SIMPLE WORKING CONTACT FORM
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    console.log("Form submitted");
-    
-    const submitBtn = document.getElementById('submitBtn');
-    const submitText = document.getElementById('submitText');
-    const submitLoading = document.getElementById('submitLoading');
-    const formMessage = document.getElementById('formMessage');
-    
-    // Show loading state
-    submitText.style.display = 'none';
-    submitLoading.style.display = 'inline';
-    submitBtn.disabled = true;
-    
-    // Clear previous messages
-    formMessage.style.display = 'none';
-    formMessage.textContent = '';
-    formMessage.className = 'form-message';
-    
-    // Get form values
-    const formData = {
-        from_name: document.getElementById('name').value,
-        from_email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value || 'Not provided',
-        subject: document.getElementById('subject').value,
-        message: document.getElementById('message').value
-    };
-    
-    console.log("Form Data:", formData);
-    
-    // Send using EmailJS
-    emailjs.send('service_pc131se', 'template_uiedhn5', formData)
-        .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
+        // Initialize EmailJS
+        (function() {
+            try {
+                emailjs.init({
+                    publicKey: "pPIG4Sq5wAHhscPNK",
+                });
+                console.log("EmailJS initialized successfully");
+            } catch (error) {
+                console.error("EmailJS initialization failed:", error);
+            }
+        })();
+
+        // FIXED PRELOADER - Will definitely close
+        (function() {
+            const preloader = document.getElementById('preloader');
+            const minDisplayTime = 1200;
+            const startTime = Date.now();
             
-            // Success message
-            formMessage.innerHTML = '<div style="color:#16a34a; background:rgba(34,197,94,0.1); padding:15px; border-radius:8px; border:1px solid rgba(34,197,94,0.2);">✅ <strong>Success!</strong> Your message has been sent. I\'ll respond within 24 hours.</div>';
-            formMessage.style.display = 'block';
-            
-            // Reset form
-            document.getElementById('contactForm').reset();
-            
-            // Reset button
-            submitText.style.display = 'inline';
-            submitLoading.style.display = 'none';
-            submitBtn.disabled = false;
-            
-            // Scroll to message
-            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                formMessage.style.display = 'none';
-            }, 5000);
-            
-        }, function(error) {
-            console.log('FAILED...', error);
-            
-            // Error message - more detailed
-            let errorMsg = '❌ <strong>Failed to send message.</strong>';
-            
-            if (error.text) {
-                if (error.text.includes('user_id') || error.text.includes('key')) {
-                    errorMsg += ' Invalid API key. Please check EmailJS setup.';
-                } else if (error.text.includes('template')) {
-                    errorMsg += ' Template error. Check template ID.';
-                } else if (error.text.includes('service')) {
-                    errorMsg += ' Service error. Check service ID.';
-                } else {
-                    errorMsg += ' ' + error.text;
+            function hidePreloader() {
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = minDisplayTime - elapsedTime;
+                
+                if (remainingTime > 0) {
+                    setTimeout(hidePreloader, remainingTime);
+                    return;
                 }
+                
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.visibility = 'hidden';
+                    preloader.style.display = 'none';
+                }, 500);
             }
             
-            // Show direct email option
-            errorMsg += '<br><br>Please try again or email me directly at <a href="mailto:sandeepgaire8@gmail.com" style="color:#2563eb; text-decoration:underline;">sandeepgaire8@gmail.com</a>';
+            // Multiple ways to ensure preloader hides
+            window.addEventListener('load', hidePreloader);
             
-            formMessage.innerHTML = '<div style="color:#dc2626; background:rgba(239,68,68,0.1); padding:15px; border-radius:8px; border:1px solid rgba(239,68,68,0.2);">' + errorMsg + '</div>';
-            formMessage.style.display = 'block';
+            // Fallback - hide after 3 seconds max
+            setTimeout(hidePreloader, 3000);
             
-            // Reset button
-            submitText.style.display = 'inline';
-            submitLoading.style.display = 'none';
-            submitBtn.disabled = false;
+            // Force hide on user interaction
+            document.addEventListener('click', hidePreloader);
+            document.addEventListener('keydown', hidePreloader);
             
-            // Scroll to error
-            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Check if already loaded
+            if (document.readyState === 'complete') {
+                hidePreloader();
+            }
+        })();
+
+        // Particles.js Background
+        particlesJS('particles-js', {
+            particles: {
+                number: { 
+                    value: 60, 
+                    density: { 
+                        enable: true, 
+                        value_area: 800 
+                    } 
+                },
+                color: { value: "#2563eb" },
+                shape: { type: "circle" },
+                opacity: { 
+                    value: 0.5, 
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: { 
+                    value: 3, 
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 120,
+                    color: "#2563eb",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { 
+                        enable: true, 
+                        mode: "grab" 
+                    },
+                    onclick: { 
+                        enable: true, 
+                        mode: "push" 
+                    }
+                }
+            },
+            retina_detect: true
         });
-});
 
-// Form validation - floating labels
-const formControls = document.querySelectorAll('.form-control');
-formControls.forEach(control => {
-    control.addEventListener('blur', function() {
-        if (this.value.trim() !== '') {
-            this.classList.add('filled');
-        } else {
-            this.classList.remove('filled');
-        }
-    });
-    
-    // Add filled class on page load if there's content
-    if (control.value.trim() !== '') {
-        control.classList.add('filled');
-    }
-});
+        // Mobile Menu Toggle with Overlay
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const menuOverlay = document.getElementById('menuOverlay');
 
-// Header scroll effect
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-        header.style.padding = '8px 0';
-    } else {
-        header.style.boxShadow = 'none';
-        header.style.padding = '12px 0';
-    }
-});
+        if (menuToggle && navLinks && menuOverlay) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                menuToggle.querySelector('i').classList.toggle('fa-bars');
+                menuToggle.querySelector('i').classList.toggle('fa-times');
+                
+                if (navLinks.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
 
-// Add floating animation to skill tags
-const skillTags = document.querySelectorAll('.skill-tag');
-skillTags.forEach((tag, index) => {
-    tag.style.animationDelay = `${index * 0.1}s`;
-});
+            // Close menu when clicking overlay
+            menuOverlay.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+                document.body.style.overflow = '';
+            });
 
-// Progress Bar Scroll Indicator
-const progressBar = document.getElementById('progressBar');
-
-window.addEventListener('scroll', () => {
-    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (window.scrollY / windowHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-});
-
-// Typing Animation
-const typingText = document.getElementById('typingText');
-const phrases = [
-    "Full Stack Developer",
-    "UI/UX Designer",
-    "Web Developer",
-    "Digital Creator",
-    "Problem Solver"
-];
-
-let phraseIndex = 0;
-let letterIndex = 0;
-let isDeleting = false;
-let typingSpeed = 100;
-let deletingSpeed = 50;
-let pauseTime = 1500;
-
-function type() {
-    const currentPhrase = phrases[phraseIndex];
-    
-    if (isDeleting) {
-        typingText.textContent = currentPhrase.substring(0, letterIndex - 1);
-        letterIndex--;
-    } else {
-        typingText.textContent = currentPhrase.substring(0, letterIndex + 1);
-        letterIndex++;
-    }
-
-    if (!isDeleting && letterIndex === currentPhrase.length) {
-        isDeleting = true;
-        setTimeout(type, pauseTime);
-    } else if (isDeleting && letterIndex === 0) {
-        isDeleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        setTimeout(type, 500);
-    } else {
-        const speed = isDeleting ? deletingSpeed : typingSpeed;
-        setTimeout(type, speed);
-    }
-}
-
-// Start typing animation
-setTimeout(type, 1000);
-
-// Handle responsive image error
-const heroImg = document.querySelector('.hero-img');
-if (heroImg) {
-    heroImg.onerror = function() {
-        this.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
-    };
-}
-
-// Handle window resize for better mobile experience
-let resizeTimer;
-window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-        // Re-initialize AOS on resize
-        AOS.refresh();
-        
-        // Close mobile menu on resize to desktop
-        if (window.innerWidth > 992) {
-            navLinks.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            menuToggle.querySelector('i').classList.add('fa-bars');
-            menuToggle.querySelector('i').classList.remove('fa-times');
-            document.body.style.overflow = '';
-        }
-    }, 250);
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const targetPosition = targetElement.offsetTop - headerHeight - 20;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                    
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                });
             });
         }
-    });
-});
-         </script>
+
+        // Set active nav link based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Portfolio Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 100);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // WORKING CONTACT FORM
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitLoading = document.getElementById('submitLoading');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Show loading state
+            submitText.style.display = 'none';
+            submitLoading.style.display = 'inline';
+            submitBtn.disabled = true;
+            
+            // Clear previous messages
+            formMessage.style.display = 'none';
+            formMessage.textContent = '';
+            formMessage.className = 'form-message';
+            
+            // Prepare form data
+            const formData = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value || 'Not provided',
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                to_email: 'sandeepgaire8@gmail.com'
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_pc131se', 'template_uiedhn5', formData)
+                .then(function(response) {
+                    console.log('Email sent successfully:', response);
+                    
+                    // Success message
+                    formMessage.innerHTML = '<div style="color:#16a34a;">✅ <strong>Success!</strong> Your message has been sent. I\'ll respond within 24 hours.</div>';
+                    formMessage.className = 'form-message success';
+                    formMessage.style.display = 'block';
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                    
+                    // Reset button
+                    submitText.style.display = 'inline';
+                    submitLoading.style.display = 'none';
+                    submitBtn.disabled = false;
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 5000);
+                    
+                }, function(error) {
+                    console.error('EmailJS Error:', error);
+                    
+                    // Error message
+                    let errorMsg = '❌ <strong>Failed to send message.</strong>';
+                    
+                    if (error.text) {
+                        if (error.text.includes('user_id') || error.text.includes('key')) {
+                            errorMsg += ' EmailJS API key error.';
+                        } else if (error.text.includes('template')) {
+                            errorMsg += ' Template error.';
+                        } else if (error.text.includes('service')) {
+                            errorMsg += ' Service error.';
+                        } else {
+                            errorMsg += ' ' + error.text;
+                        }
+                    }
+                    
+                    // Add alternative contact method
+                    errorMsg += '<br><br>Please email me directly at <a href="mailto:sandeepgaire8@gmail.com" style="color:#2563eb;">sandeepgaire8@gmail.com</a>';
+                    
+                    formMessage.innerHTML = '<div style="color:#dc2626;">' + errorMsg + '</div>';
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                    
+                    // Reset button
+                    submitText.style.display = 'inline';
+                    submitLoading.style.display = 'none';
+                    submitBtn.disabled = false;
+                    
+                    // Hide message after 8 seconds
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 8000);
+                });
+        });
+
+        // Form validation
+        const formControls = document.querySelectorAll('.form-control');
+        formControls.forEach(control => {
+            control.addEventListener('blur', function() {
+                if (this.value.trim() !== '') {
+                    this.classList.add('filled');
+                } else {
+                    this.classList.remove('filled');
+                }
+            });
+            
+            if (control.value.trim() !== '') {
+                control.classList.add('filled');
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                header.style.padding = '8px 0';
+            } else {
+                header.style.boxShadow = 'none';
+                header.style.padding = '12px 0';
+            }
+        });
+
+        // Add floating animation to skill tags
+        const skillTags = document.querySelectorAll('.skill-tag');
+        skillTags.forEach((tag, index) => {
+            tag.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Progress Bar Scroll Indicator
+        const progressBar = document.getElementById('progressBar');
+
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Typing Animation
+        const typingText = document.getElementById('typingText');
+        const phrases = [
+            "Full Stack Developer",
+            "UI/UX Designer",
+            "Web Developer",
+            "Digital Creator",
+            "Problem Solver"
+        ];
+        
+        let phraseIndex = 0;
+        let letterIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        let deletingSpeed = 50;
+        let pauseTime = 1500;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentPhrase.substring(0, letterIndex - 1);
+                letterIndex--;
+            } else {
+                typingText.textContent = currentPhrase.substring(0, letterIndex + 1);
+                letterIndex++;
+            }
+
+            if (!isDeleting && letterIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(type, pauseTime);
+            } else if (isDeleting && letterIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500);
+            } else {
+                const speed = isDeleting ? deletingSpeed : typingSpeed;
+                setTimeout(type, speed);
+            }
+        }
+
+        // Start typing animation
+        setTimeout(type, 1000);
+
+        // Handle responsive image error
+        const heroImg = document.querySelector('.hero-img');
+        if (heroImg) {
+            heroImg.onerror = function() {
+                this.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+            };
+        }
+
+        // Handle window resize for better mobile experience
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                AOS.refresh();
+                
+                if (window.innerWidth > 992) {
+                    if (navLinks) navLinks.classList.remove('active');
+                    if (menuOverlay) menuOverlay.classList.remove('active');
+                    if (menuToggle) {
+                        menuToggle.querySelector('i').classList.add('fa-bars');
+                        menuToggle.querySelector('i').classList.remove('fa-times');
+                    }
+                    document.body.style.overflow = '';
+                }
+            }, 250);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
-</html>
+         </html>
