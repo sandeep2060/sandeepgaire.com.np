@@ -1,1 +1,767 @@
-pending...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Ethical and Social Issues in ICT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Animated Back Button */
+        .back-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .back-button a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            transform-origin: left center;
+        }
+
+        .back-button a:hover {
+            background-color: #3498db;
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .back-button a i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-button a:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Content Cards */
+        .section {
+            background-color: white;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #3498db;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .section:nth-child(odd) {
+            border-left-color: #e74c3c;
+        }
+
+        .section:nth-child(3n) {
+            border-left-color: #2ecc71;
+        }
+
+        .section:nth-child(4n) {
+            border-left-color: #f39c12;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #3498db;
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .section ul, .section ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+
+        .dos-donts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .dos, .donts {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .dos {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+        }
+
+        .donts {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Diagrams and Images */
+        .diagram-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .diagram {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .diagram:hover {
+            transform: translateY(-5px);
+        }
+
+        .diagram-img {
+            width: 100%;
+            height: 200px;
+            background-color: #eef2f7;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-size: 4rem;
+            overflow: hidden;
+        }
+
+        .diagram-img i {
+            opacity: 0.7;
+        }
+
+        .diagram h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        /* SEE Exam Questions */
+        .see-questions {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #9b59b6;
+        }
+
+        .question {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .question:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .question h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question h4 i {
+            color: #3498db;
+        }
+
+        .answer {
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .question.active .answer {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .question.active h4 i {
+            transform: rotate(90deg);
+            transition: transform 0.3s ease;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .back-button {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .back-button a {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .dos-donts {
+                flex-direction: column;
+            }
+            
+            .diagram-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Delay animations for sections */
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+        .section:nth-child(7) { animation-delay: 0.7s; }
+        .section:nth-child(8) { animation-delay: 0.8s; }
+        .section:nth-child(9) { animation-delay: 0.9s; }
+    </style>
+</head>
+<body>
+    <!-- Animated Back Button -->
+    <div class="back-button">
+        <a href="https://sandeepgaire.com.np/edu" target="_blank">
+            <i class="fas fa-arrow-left"></i> Back to Learning Portal
+        </a>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Chapter 2: Ethical and Social Issues in ICT</h1>
+        <p>Class 10 Computer Science - Important Concepts for SEE Examination</p>
+    </div>
+
+    <!-- Cyber Ethics Section -->
+    <div class="section">
+        <h2>Cyber Ethics</h2>
+        <p>Cyber ethics refers to the moral principles and rules that guide our behavior when using computers and the internet. It's about doing the right thing online, like respecting others' privacy and not using technology to harm others.</p>
+        
+        <h3>Do's and Don'ts of Cyber Ethics</h3>
+        <div class="dos-donts">
+            <div class="dos">
+                <h4><i class="fas fa-check-circle"></i> Do's:</h4>
+                <ul>
+                    <li>Respect others' privacy and personal information.</li>
+                    <li>Use strong passwords and protect your accounts.</li>
+                    <li>Report any illegal or harmful activities online.</li>
+                    <li>Be polite and respectful in online communication.</li>
+                    <li>Use the internet responsibly for learning and communication.</li>
+                </ul>
+            </div>
+            <div class="donts">
+                <h4><i class="fas fa-times-circle"></i> Don'ts:</h4>
+                <ul>
+                    <li>Don't share personal information or passwords with others.</li>
+                    <li>Don't engage in cyberbullying or spread false information.</li>
+                    <li>Don't download or share copyrighted material without permission.</li>
+                    <li>Don't use someone else's identity or pretend to be someone else online.</li>
+                    <li>Don't access or modify someone else's data without permission.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Computer Ethics Section -->
+    <div class="section">
+        <h2>Computer Ethics</h2>
+        <p>Computer ethics are the moral principles that govern the use of computers and technology. It involves ensuring that technology is used fairly and responsibly.</p>
+        
+        <h3>Commandments of Computer Ethics</h3>
+        <ol>
+            <li>You shall not use a computer to harm other people.</li>
+            <li>You shall not interfere with other people's computer work.</li>
+            <li>You shall not snoop around in other people's computer files.</li>
+            <li>You shall not use a computer to steal.</li>
+            <li>You shall not use a computer to bear false witness.</li>
+            <li>You shall not use or copy software for which you have not paid.</li>
+            <li>You shall not use other people's computer resources without authorization.</li>
+            <li>You shall not appropriate other people's intellectual output.</li>
+            <li>You shall think about the social consequences of the program you write.</li>
+            <li>You shall use a computer in ways that show consideration and respect.</li>
+        </ol>
+    </div>
+
+    <!-- Digital Citizenship Section -->
+    <div class="section">
+        <h2>Digital Citizenship</h2>
+        <p>Digital citizenship is the responsible use of technology and the internet. It means being aware of your online behavior, understanding your rights and responsibilities, and acting in a way that promotes a positive online community.</p>
+        
+        <h3>Elements of Digital Citizenship</h3>
+        <div class="diagram-container">
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h4>Digital Access</h4>
+                <p>Ensuring everyone has equal access to technology.</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h4>Digital Communication</h4>
+                <p>Using digital tools to communicate responsibly and respectfully.</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h4>Digital Literacy</h4>
+                <p>Understanding how to use technology safely and effectively.</p>
+            </div>
+        </div>
+        
+        <ul>
+            <li><strong>Digital Etiquette:</strong> Following the rules of polite and respectful online behavior.</li>
+            <li><strong>Digital Law:</strong> Understanding and following the laws related to digital activities.</li>
+            <li><strong>Digital Rights and Responsibilities:</strong> Knowing your rights online and respecting others' rights.</li>
+            <li><strong>Digital Security:</strong> Protecting your information and devices from threats.</li>
+            <li><strong>Digital Health and Wellness:</strong> Maintaining a healthy balance between online and offline life.</li>
+        </ul>
+    </div>
+  <!-- Adsence Sandeep Edu Start-->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-7y+f0-j-59+b8"
+     data-ad-client="ca-pub-1662750642698861"
+     data-ad-slot="8992852362"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                <!-- Adsence Sandeep Edu End-->
+
+    <!-- Digital Footprint Section -->
+    <div class="section">
+        <h2>Digital Footprint</h2>
+        <p>A digital footprint is the trail of data you leave behind when you use the internet. It includes everything you post online, websites you visit, and information you share.</p>
+        
+        <div class="diagram-container">
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h4>Think Before You Post</h4>
+                <p>Be mindful of what you share online.</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h4>Use Privacy Settings</h4>
+                <p>Control who can see your information on social media.</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+                <h4>Delete Unwanted Accounts</h4>
+                <p>Close accounts you no longer use.</p>
+            </div>
+        </div>
+        
+        <ul>
+            <li>Regularly check your online presence: Search for yourself online to see what others can find about you.</li>
+            <li>Be cautious with apps and websites: Only use trusted apps and websites that protect your information.</li>
+        </ul>
+    </div>
+
+    <!-- Cyberbullying Section -->
+    <div class="section">
+        <h2>Cyberbullying</h2>
+        <p>Cyberbullying is the use of technology to harass, threaten, or embarrass someone. It can happen through social media, text messages, emails, or other online platforms.</p>
+        
+        <h3>Common Places Where Cyberbullying Occurs</h3>
+        <ul>
+            <li><strong>Social Media:</strong> Platforms like Facebook, Instagram, and Twitter.</li>
+            <li><strong>Messaging Apps:</strong> Text messages, WhatsApp, or Snapchat.</li>
+            <li><strong>Online Forums and Chat Rooms:</strong> Places where people discuss topics and can be targeted.</li>
+            <li><strong>Gaming Communities:</strong> Online games where players can communicate.</li>
+        </ul>
+        
+        <h3>Examples of Cyberbullying</h3>
+        <div class="diagram-container">
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-comment-slash"></i>
+                </div>
+                <h4>Mean Messages</h4>
+                <p>Sending mean or threatening messages</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <h4>Impersonation</h4>
+                <p>Pretending to be someone else online</p>
+            </div>
+            <div class="diagram">
+                <div class="diagram-img">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h4>Embarrassing Content</h4>
+                <p>Sharing embarrassing photos or videos</p>
+            </div>
+        </div>
+    </div>
+
+  <!-- Adsence Sandeep Edu Start-->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-7y+f0-j-59+b8"
+     data-ad-client="ca-pub-1662750642698861"
+     data-ad-slot="8992852362"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                <!-- Adsence Sandeep Edu End-->
+
+    <!-- Cyber Law Section -->
+    <div class="section">
+        <h2>Cyber Law</h2>
+        <p>Cyber law refers to the laws and regulations that govern the use of the internet and technology. It covers issues like online privacy, hacking, and intellectual property rights.</p>
+        
+        <h3>Areas Covered by Cyber Law</h3>
+        <ul>
+            <li><strong>Digital Signature Law:</strong> Laws that recognize electronic signatures as legally binding.</li>
+            <li><strong>Copyright Law:</strong> Laws that protect the rights of creators over their digital content.</li>
+            <li><strong>Trademark Law:</strong> Laws that protect brand names, logos, and symbols online.</li>
+            <li><strong>Telecommunication Law:</strong> Regulations that govern internet service providers and communication technologies.</li>
+            <li><strong>Data Protection and Privacy Law:</strong> Laws that protect individuals' data and privacy online.</li>
+        </ul>
+        
+        <h3>Cyber Law of Nepal</h3>
+        <p>In Nepal, cyber law is governed by the Electronic Transaction Act 2063 B.S. This act provides the legal framework for electronic transactions, digital signatures, and protecting online rights.</p>
+        
+        <h4>Objectives of the Electronic Transaction Act 2063 B.S.</h4>
+        <ul>
+            <li>To promote E-commerce: Encourage the use of electronic transactions in business.</li>
+            <li>To secure Digital Signatures: Provide legal recognition for electronic signatures.</li>
+            <li>To prevent Cybercrime: Establish laws to prevent and punish online crimes.</li>
+            <li>To protect Online Privacy: Safeguard personal data and privacy in digital spaces.</li>
+        </ul>
+    </div>
+
+    <!-- Social Media Section -->
+    <div class="section">
+        <h2>Social Media</h2>
+        <p>Social Media refers to online platforms where people can create, share, and engage with content, such as Facebook, Twitter, Instagram, and LinkedIn.</p>
+        
+        <div class="dos-donts">
+            <div class="dos">
+                <h4><i class="fas fa-thumbs-up"></i> Opportunities in Social Media:</h4>
+                <ul>
+                    <li><strong>Communication:</strong> Connect with friends, family, and new people worldwide.</li>
+                    <li><strong>Business Promotion:</strong> Market products and services to a large audience.</li>
+                    <li><strong>Learning and Sharing Knowledge:</strong> Access information and educational resources.</li>
+                    <li><strong>Building a Personal Brand:</strong> Showcase your skills, achievements, and interests.</li>
+                    <li><strong>Networking:</strong> Create professional connections and find job opportunities.</li>
+                </ul>
+            </div>
+            <div class="donts">
+                <h4><i class="fas fa-exclamation-triangle"></i> Threats in Social Media:</h4>
+                <ul>
+                    <li><strong>Privacy Risks:</strong> Sharing too much personal information can lead to identity theft.</li>
+                    <li><strong>Cyberbullying:</strong> Being targeted by harmful or abusive behavior online.</li>
+                    <li><strong>Addiction:</strong> Spending too much time on social media can affect mental health and productivity.</li>
+                    <li><strong>Misinformation:</strong> False or misleading information can spread quickly on social media.</li>
+                    <li><strong>Scams and Fraud:</strong> Criminals may use social media to trick people into giving money or personal details.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Adsence Sandeep Edu Start-->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-7y+f0-j-59+b8"
+     data-ad-client="ca-pub-1662750642698861"
+     data-ad-slot="8992852362"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+                <!-- Adsence Sandeep Edu End-->
+
+    <!-- SEE Exam Questions Section -->
+    <div class="section see-questions">
+        <h2>SEE Examination Questions</h2>
+        <p>Important questions and answers related to Chapter 2 for SEE preparation.</p>
+        
+        <div class="question" onclick="toggleAnswer(this)">
+            <h4><i class="fas fa-chevron-right"></i> What is cyber ethics? List any four commandments of computer ethics.</h4>
+            <div class="answer">
+                <p><strong>Answer:</strong> Cyber ethics refers to the moral principles and rules that guide our behavior when using computers and the internet. It's about doing the right thing online.</p>
+                <p>Four commandments of computer ethics:</p>
+                <ol>
+                    <li>You shall not use a computer to harm other people.</li>
+                    <li>You shall not interfere with other people's computer work.</li>
+                    <li>You shall not snoop around in other people's computer files.</li>
+                    <li>You shall not use a computer to steal.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="question" onclick="toggleAnswer(this)">
+            <h4><i class="fas fa-chevron-right"></i> Define digital citizenship. Explain any three elements of digital citizenship.</h4>
+            <div class="answer">
+                <p><strong>Answer:</strong> Digital citizenship is the responsible use of technology and the internet. It means being aware of your online behavior, understanding your rights and responsibilities, and acting in a way that promotes a positive online community.</p>
+                <p>Three elements of digital citizenship:</p>
+                <ol>
+                    <li><strong>Digital Access:</strong> Ensuring everyone has equal access to technology.</li>
+                    <li><strong>Digital Communication:</strong> Using digital tools to communicate responsibly and respectfully.</li>
+                    <li><strong>Digital Literacy:</strong> Understanding how to use technology safely and effectively.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="question" onclick="toggleAnswer(this)">
+            <h4><i class="fas fa-chevron-right"></i> What is cyberbullying? Mention any four measures to prevent it.</h4>
+            <div class="answer">
+                <p><strong>Answer:</strong> Cyberbullying is the use of technology to harass, threaten, or embarrass someone. It can happen through social media, text messages, emails, or other online platforms.</p>
+                <p>Four measures to prevent cyberbullying:</p>
+                <ol>
+                    <li>Never share personal information or passwords online.</li>
+                    <li>Think carefully before posting anything that could hurt someone.</li>
+                    <li>Report any cyberbullying incidents to parents, teachers, or authorities.</li>
+                    <li>Use privacy settings to control who can see your information.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="question" onclick="toggleAnswer(this)">
+            <h4><i class="fas fa-chevron-right"></i> Explain the Electronic Transaction Act 2063 B.S. of Nepal.</h4>
+            <div class="answer">
+                <p><strong>Answer:</strong> The Electronic Transaction Act 2063 B.S. is a law in Nepal that regulates electronic transactions, digital signatures, and cybercrime. It aims to ensure the safety and security of online activities.</p>
+                <p>Key objectives of this act:</p>
+                <ol>
+                    <li>To promote E-commerce by encouraging electronic transactions in business.</li>
+                    <li>To secure Digital Signatures by providing legal recognition for electronic signatures.</li>
+                    <li>To prevent Cybercrime by establishing laws to prevent and punish online crimes.</li>
+                    <li>To protect Online Privacy by safeguarding personal data and privacy in digital spaces.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="question" onclick="toggleAnswer(this)">
+            <h4><i class="fas fa-chevron-right"></i> Differentiate between digital footprint and digital citizenship.</h4>
+            <div class="answer">
+                <p><strong>Answer:</strong></p>
+                <table style="width:100%; border-collapse: collapse; margin-top:10px;">
+                    <tr style="background-color:#f1f8ff;">
+                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Digital Footprint</th>
+                        <th style="padding:10px; text-align:left; border:1px solid #ddd;">Digital Citizenship</th>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">The trail of data you leave behind when using the internet</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Responsible use of technology and the internet</td>
+                    </tr>
+                    <tr style="background-color:#f9f9f9;">
+                        <td style="padding:10px; border:1px solid #ddd;">Includes everything you post online, websites you visit</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Involves awareness of online behavior and rights</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px; border:1px solid #ddd;">Can be permanent and affect future opportunities</td>
+                        <td style="padding:10px; border:1px solid #ddd;">Promotes a positive online community</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="question" onclick="toggleAnswer(this)">
+            <h4><i class="fas fa-chevron-right"></i> List the advantages and disadvantages of social media.</h4>
+            <div class="answer">
+                <p><strong>Answer:</strong></p>
+                <div style="display:flex; flex-wrap:wrap; gap:20px; margin-top:10px;">
+                    <div style="flex:1; min-width:300px;">
+                        <h5>Advantages:</h5>
+                        <ul>
+                            <li>Connect with people worldwide</li>
+                            <li>Access to information and news</li>
+                            <li>Business and marketing opportunities</li>
+                            <li>Educational resources and online learning</li>
+                            <li>Platform for creativity and self-expression</li>
+                        </ul>
+                    </div>
+                    <div style="flex:1; min-width:300px;">
+                        <h5>Disadvantages:</h5>
+                        <ul>
+                            <li>Privacy concerns and data theft</li>
+                            <li>Cyberbullying and online harassment</li>
+                            <li>Addiction and time wastage</li>
+                            <li>Spread of misinformation and fake news</li>
+                            <li>Mental health issues like anxiety and depression</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Chapter 2: Ethical and Social Issues in ICT | Class 10 Computer Science</p>
+        <p>For SEE Examination Preparation | © 2023 Educational Resource</p>
+    </div>
+
+    <script>
+        // Toggle SEE question answers
+        function toggleAnswer(element) {
+            element.classList.toggle('active');
+        }
+        
+        // Add some interactive effects to diagrams on hover
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagrams = document.querySelectorAll('.diagram');
+            diagrams.forEach(diagram => {
+                diagram.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.diagram-img i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.2)';
+                        icon.style.transition = 'transform 0.3s ease';
+                    }
+                });
+                
+                diagram.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.diagram-img i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+          </html>
