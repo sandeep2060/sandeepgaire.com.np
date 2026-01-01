@@ -1408,7 +1408,7 @@
             <nav class="navbar">
                 <a href="#" class="logo">
                     <div class="logo-img">SG</div>
-                    <div class="logo-text">Sandeep<span> Gaire</span></div>
+                    <div class="logo-text">Saandeep<span> Gaire</span></div>
                 </a>
                 
                 <ul class="nav-links" id="navLinks">
@@ -1892,65 +1892,91 @@
             });
         });
 
-        // Working Contact Form with EmailJS
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+// Working Contact Form with EmailJS
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const submitLoading = document.getElementById('submitLoading');
+    const formMessage = document.getElementById('formMessage');
+    
+    // Show loading state
+    submitText.style.display = 'none';
+    submitLoading.style.display = 'inline';
+    submitBtn.disabled = true;
+    
+    // Clear previous messages
+    formMessage.style.display = 'none';
+    formMessage.textContent = '';
+    formMessage.className = 'form-message';
+    
+    // Get form data for debugging
+    const formData = {
+        from_name: document.getElementById('name').value,
+        from_email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value || 'Not provided',
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+    };
+    
+    console.log('Sending form data:', formData);
+    
+    // Send email using EmailJS
+    emailjs.sendForm('service_pc131se', 'template_uiedhn5', this)
+        .then(function(response) {
+            console.log('EmailJS Success:', response);
+            // Success
+            formMessage.textContent = '✅ Message sent successfully! I will get back to you soon.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
             
-            const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const submitLoading = document.getElementById('submitLoading');
-            const formMessage = document.getElementById('formMessage');
+            // Reset form
+            document.getElementById('contactForm').reset();
             
-            // Show loading state
-            submitText.style.display = 'none';
-            submitLoading.style.display = 'inline';
-            submitBtn.disabled = true;
+            // Reset button state
+            submitText.style.display = 'inline';
+            submitLoading.style.display = 'none';
+            submitBtn.disabled = false;
             
-            // Clear previous messages
-            formMessage.style.display = 'none';
-            formMessage.textContent = '';
-            formMessage.className = 'form-message';
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000);
             
-            // Send email using EmailJS
-            emailjs.sendForm('service_pc131se', 'template_uiedhn5', this)
-                .then(function() {
-                    // Success
-                    formMessage.textContent = '✅ Message sent successfully! I will get back to you soon.';
-                    formMessage.className = 'form-message success';
-                    formMessage.style.display = 'block';
-                    
-                    // Reset form
-                    document.getElementById('contactForm').reset();
-                    
-                    // Reset button state
-                    submitText.style.display = 'inline';
-                    submitLoading.style.display = 'none';
-                    submitBtn.disabled = false;
-                    
-                    // Hide success message after 5 seconds
-                    setTimeout(() => {
-                        formMessage.style.display = 'none';
-                    }, 5000);
-                    
-                }, function(error) {
-                    // Error
-                    console.error('EmailJS Error:', error);
-                    formMessage.textContent = '❌ Failed to send message. Please try again or email me directly at sandeepgaire8@gmail.com';
-                    formMessage.className = 'form-message error';
-                    formMessage.style.display = 'block';
-                    
-                    // Reset button state
-                    submitText.style.display = 'inline';
-                    submitLoading.style.display = 'none';
-                    submitBtn.disabled = false;
-                    
-                    // Hide error message after 5 seconds
-                    setTimeout(() => {
-                        formMessage.style.display = 'none';
-                    }, 5000);
-                });
+        }, function(error) {
+            // Detailed error logging
+            console.error('EmailJS Detailed Error:', error);
+            console.error('Error Status:', error.status);
+            console.error('Error Text:', error.text);
+            
+            let errorMsg = '❌ Failed to send message. Please try again.';
+            
+            if (error.text) {
+                if (error.text.includes('Invalid template')) {
+                    errorMsg = '❌ Template error. Please check EmailJS template setup.';
+                } else if (error.text.includes('Invalid service')) {
+                    errorMsg = '❌ Service error. Please check EmailJS service connection.';
+                } else if (error.text.includes('public key')) {
+                    errorMsg = '❌ API key error. Please check EmailJS credentials.';
+                }
+            }
+            
+            formMessage.textContent = errorMsg;
+            formMessage.className = 'form-message error';
+            formMessage.style.display = 'block';
+            
+            // Reset button state
+            submitText.style.display = 'inline';
+            submitLoading.style.display = 'none';
+            submitBtn.disabled = false;
+            
+            // Hide error message after 8 seconds
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 8000);
         });
-
+});
         // Form validation
         const formControls = document.querySelectorAll('.form-control');
         formControls.forEach(control => {
