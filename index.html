@@ -190,6 +190,92 @@
             40% { transform: scale(1); opacity: 1; }
         }
 
+        /* Location Permission Modal */
+        .location-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .location-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalFadeIn 0.5s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .location-icon {
+            font-size: 60px;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .location-modal h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .location-modal p {
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .location-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .location-btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+
+        .location-btn.allow {
+            background: #2563eb;
+            color: white;
+        }
+
+        .location-btn.allow:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .location-btn.skip {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .location-btn.skip:hover {
+            background: #cbd5e1;
+            transform: translateY(-2px);
+        }
+
         /* Progress Bar */
         .progress-container {
             position: fixed;
@@ -1293,6 +1379,28 @@
     </style>
 </head>
 <body>
+    <!-- Location Permission Modal -->
+    <div class="location-modal" id="locationModal">
+        <div class="location-modal-content">
+            <div class="location-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Share Your Location?</h3>
+            <p>We'd like to know your location to provide better service. Your location helps us understand where our visitors are coming from.</p>
+            <p style="font-size: 14px; color: #94a3b8; margin-top: 10px;">
+                <i class="fas fa-info-circle"></i> This is optional. You can still send messages without sharing location.
+            </p>
+            <div class="location-buttons">
+                <button class="location-btn allow" id="allowLocation">
+                    <i class="fas fa-check"></i> Allow Location
+                </button>
+                <button class="location-btn skip" id="skipLocation">
+                    <i class="fas fa-forward"></i> Skip for Now
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-content">
@@ -1664,6 +1772,179 @@
             document.addEventListener('touchstart', hidePreloader, { once: true });
         })();
 
+        // Location State Management
+        let userLocation = {
+            enabled: false,
+            latitude: null,
+            longitude: null,
+            city: 'Unknown',
+            region: 'Unknown',
+            country: 'Unknown',
+            permission: 'not-asked'
+        };
+
+        // Location Permission Modal
+        const locationModal = document.getElementById('locationModal');
+        const allowLocationBtn = document.getElementById('allowLocation');
+        const skipLocationBtn = document.getElementById('skipLocation');
+
+        // Show location modal when contact form is focused
+        document.getElementById('contactForm').addEventListener('focusin', (e) => {
+            if (userLocation.permission === 'not-asked' && !locationModal.classList.contains('shown')) {
+                setTimeout(() => {
+                    locationModal.style.display = 'flex';
+                    locationModal.classList.add('shown');
+                    document.body.style.overflow = 'hidden';
+                }, 500);
+            }
+        });
+
+        // Get User Location with Permission
+        async function getUserLocationWithPermission() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    userLocation.permission = 'unsupported';
+                    resolve(userLocation);
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        userLocation.enabled = true;
+                        userLocation.latitude = position.coords.latitude;
+                        userLocation.longitude = position.coords.longitude;
+                        userLocation.permission = 'granted';
+                        
+                        // Try to get city name from coordinates
+                        try {
+                            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLocation.latitude}&lon=${userLocation.longitude}`);
+                            const data = await response.json();
+                            
+                            if (data.address) {
+                                userLocation.city = data.address.city || data.address.town || data.address.village || data.address.county || 'Unknown';
+                                userLocation.region = data.address.state || data.address.region || 'Unknown';
+                                userLocation.country = data.address.country || 'Unknown';
+                            }
+                        } catch (error) {
+                            console.log("Reverse geocoding failed, using coordinates only");
+                        }
+                        
+                        resolve(userLocation);
+                    },
+                    (error) => {
+                        userLocation.enabled = false;
+                        userLocation.permission = 'denied';
+                        resolve(userLocation);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            });
+        }
+
+        // Get IP-based location as fallback
+        async function getIPBasedLocation() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                
+                return {
+                    city: data.city || 'Unknown',
+                    region: data.region || 'Unknown',
+                    country: data.country_name || 'Unknown',
+                    ip: data.ip || 'Unknown',
+                    timezone: data.timezone || 'Unknown',
+                    isp: data.org || 'Unknown'
+                };
+            } catch (error) {
+                return {
+                    city: 'Unknown',
+                    region: 'Unknown',
+                    country: 'Unknown',
+                    ip: 'Unknown',
+                    timezone: 'Unknown',
+                    isp: 'Unknown'
+                };
+            }
+        }
+
+        // Handle Allow Location Button
+        allowLocationBtn.addEventListener('click', async () => {
+            locationModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            const locationData = await getUserLocationWithPermission();
+            
+            // Show feedback to user
+            if (locationData.enabled) {
+                showToast('✅ Location access granted!', 'success');
+            } else {
+                showToast('⚠️ Location access denied. Using IP-based location.', 'warning');
+            }
+        });
+
+        // Handle Skip Location Button
+        skipLocationBtn.addEventListener('click', () => {
+            locationModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            userLocation.permission = 'skipped';
+            showToast('ℹ️ Location sharing skipped. Form will still be sent.', 'info');
+        });
+
+        // Toast Notification Function
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            // Add toast styles
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${type === 'success' ? '#16a34a' : type === 'warning' ? '#f59e0b' : '#2563eb'};
+                color: white;
+                border-radius: 8px;
+                z-index: 10000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+                font-size: 14px;
+            `;
+            
+            // Add keyframes for animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(toast);
+            
+            // Remove toast after 3 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
         // Particles.js Background
         particlesJS('particles-js', {
             particles: {
@@ -1761,7 +2042,7 @@
             });
         });
 
-        // Get User IP and Location
+        // Get User IP
         async function getUserIP() {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
@@ -1771,31 +2052,6 @@
                 console.log('Error getting IP:', error);
                 return 'Unknown';
             }
-        }
-
-        async function getUserLocation(ip) {
-            try {
-                if (ip && ip !== 'Unknown') {
-                    const response = await fetch(`https://ipapi.co/${ip}/json/`);
-                    const data = await response.json();
-                    return {
-                        city: data.city || 'Unknown',
-                        region: data.region || 'Unknown',
-                        country: data.country_name || 'Unknown',
-                        timezone: data.timezone || 'Unknown',
-                        isp: data.org || 'Unknown'
-                    };
-                }
-            } catch (error) {
-                console.log('Error getting location:', error);
-            }
-            return {
-                city: 'Unknown',
-                region: 'Unknown',
-                country: 'Unknown',
-                timezone: 'Unknown',
-                isp: 'Unknown'
-            };
         }
 
         // Get Browser Info
@@ -1862,7 +2118,7 @@
             };
         }
 
-        // CONTACT FORM - FULLY WORKING WITH ALL DATA
+        // CONTACT FORM - WITH LOCATION PERMISSION HANDLING
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1886,12 +2142,12 @@
                 
                 // Get all user data
                 const userIP = await getUserIP();
-                const locationData = await getUserLocation(userIP);
                 const browserInfo = getBrowserInfo();
                 const timeInfo = getTimeInfo();
                 const referrerInfo = getReferrerInfo();
                 
-                console.log("✅ User information collected");
+                // Get IP-based location as fallback
+                const ipLocation = await getIPBasedLocation();
                 
                 // Prepare ALL data for EmailJS
                 const formData = {
@@ -1902,13 +2158,18 @@
                     subject: document.getElementById('subject').value.trim(),
                     message: document.getElementById('message').value.trim(),
                     
-                    // Location & Network
+                    // Location Info (with permission status)
                     user_ip: userIP,
-                    user_city: locationData.city,
-                    user_region: locationData.region,
-                    user_country: locationData.country,
-                    user_timezone: locationData.timezone,
-                    user_isp: locationData.isp,
+                    user_city: userLocation.enabled ? userLocation.city : ipLocation.city,
+                    user_region: userLocation.enabled ? userLocation.region : ipLocation.region,
+                    user_country: userLocation.enabled ? userLocation.country : ipLocation.country,
+                    user_timezone: ipLocation.timezone,
+                    user_isp: ipLocation.isp,
+                    location_permission: userLocation.permission,
+                    location_enabled: userLocation.enabled ? 'Yes' : 'No',
+                    location_source: userLocation.enabled ? 'GPS' : 'IP Address',
+                    latitude: userLocation.latitude || 'Not available',
+                    longitude: userLocation.longitude || 'Not available',
                     
                     // Date & Time
                     submission_date: timeInfo.date,
@@ -1941,7 +2202,14 @@
                     
                     // Metadata
                     submission_id: `FORM_${Date.now()}`,
-                    to_email: 'sandeepgaire8@gmail.com'
+                    to_email: 'sandeepgaire8@gmail.com',
+                    location_status_message: userLocation.enabled 
+                        ? '✅ User allowed location access' 
+                        : userLocation.permission === 'denied' 
+                            ? '❌ User denied location access' 
+                            : userLocation.permission === 'skipped' 
+                                ? '⚠️ User skipped location request' 
+                                : 'ℹ️ Location permission not requested'
                 };
                 
                 console.log("📤 Sending email with ALL data...");
@@ -1955,6 +2223,18 @@
                 
                 console.log('✅ Email sent successfully:', response);
                 
+                // Success message with location info
+                let locationStatus = '';
+                if (userLocation.enabled) {
+                    locationStatus = `📍 Location: ${userLocation.city}, ${userLocation.country}`;
+                } else if (userLocation.permission === 'denied') {
+                    locationStatus = '📍 Location: User denied access';
+                } else if (userLocation.permission === 'skipped') {
+                    locationStatus = '📍 Location: User skipped location request';
+                } else {
+                    locationStatus = `📍 Location: ${ipLocation.city}, ${ipLocation.country} (IP-based)`;
+                }
+                
                 // Success message
                 formMessage.innerHTML = `
                     <div style="color:#16a34a; background:rgba(34,197,94,0.1); padding:15px; border-radius:8px; border:1px solid rgba(34,197,94,0.2);">
@@ -1963,6 +2243,7 @@
                             <strong>Message Sent Successfully!</strong>
                         </div>
                         <p style="margin:5px 0; font-size:14px;">I'll respond within 24 hours.</p>
+                        <p style="margin:5px 0; font-size:12px; opacity:0.8;">${locationStatus}</p>
                         <p style="margin:5px 0; font-size:12px; opacity:0.8;">Submission ID: ${formData.submission_id}</p>
                     </div>
                 `;
@@ -2129,6 +2410,19 @@
                 }
             });
         });
+
+        // Manual location request button (optional)
+        window.requestLocation = async function() {
+            const locationData = await getUserLocationWithPermission();
+            
+            if (locationData.enabled) {
+                showToast(`📍 Location detected: ${locationData.city}, ${locationData.country}`, 'success');
+            } else {
+                showToast('⚠️ Location access denied or not available', 'warning');
+            }
+            
+            return locationData;
+        };
     </script>
 </body>
-                                                 </html>
+    </html>
