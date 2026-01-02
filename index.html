@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        /* Preloader Styles */
+        /* Preloader Styles - FIXED FOR MOBILE */
         #preloader {
             position: fixed;
             top: 0;
@@ -28,13 +28,31 @@
         .preloader-content {
             text-align: center;
             position: relative;
+            width: 100%;
+            padding: 20px;
         }
 
         .loader-container {
             position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 40px;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+        }
+
+        @media (max-width: 768px) {
+            .loader-container {
+                width: 120px;
+                height: 120px;
+                margin: 0 auto 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loader-container {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 20px;
+            }
         }
 
         .loader {
@@ -56,15 +74,19 @@
             border-bottom: 3px solid #f59e0b;
             border-left: 3px solid #f59e0b;
             animation: spinReverse 1.5s linear infinite;
-            width: 140px;
-            height: 140px;
-            top: 20px;
-            left: 20px;
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
         }
 
         .loader-3 {
             border: 2px solid rgba(255, 255, 255, 0.1);
             animation: pulse 2s ease-in-out infinite;
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
         }
 
         .logo-preloader {
@@ -78,6 +100,18 @@
             z-index: 2;
         }
 
+        @media (max-width: 768px) {
+            .logo-preloader {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-preloader {
+                font-size: 20px;
+            }
+        }
+
         .logo-preloader span {
             color: #f59e0b;
         }
@@ -89,6 +123,20 @@
             letter-spacing: 1px;
             margin-top: 20px;
             position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .preloader-text {
+                font-size: 16px;
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .preloader-text {
+                font-size: 14px;
+                margin-top: 10px;
+            }
         }
 
         .loading-dots {
@@ -1303,19 +1351,6 @@
             .copyright {
                 font-size: 13px;
             }
-            
-            .preloader-text {
-                font-size: 16px;
-            }
-            
-            .loader-container {
-                width: 140px;
-                height: 140px;
-            }
-            
-            .logo-preloader {
-                font-size: 22px;
-            }
         }
 
         @media (max-width: 400px) {
@@ -1381,7 +1416,7 @@
     </style>
 </head>
 <body>
-    <!-- Preloader -->
+    <!-- Preloader - FIXED -->
     <div id="preloader">
         <div class="preloader-content">
             <div class="loader-container">
@@ -1574,7 +1609,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section - FIXED FORM -->
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-title" data-aos="fade-up" data-aos-duration="800">
@@ -1626,7 +1661,7 @@
                             <label for="email" class="form-label">Your Email</label>
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone Number (Optional)">
+                            <input type="tel" class="form-control" id="phone" name="user_phone" placeholder="Your Phone Number (Optional)">
                             <label for="phone" class="form-label">Your Phone Number (Optional)</label>
                         </div>
                         <div class="form-group">
@@ -1707,22 +1742,20 @@
             }
         });
 
-        // Initialize EmailJS
+        // Initialize EmailJS - FIXED
         (function() {
             try {
-                emailjs.init({
-                    publicKey: "9xLM6BbLliCdRcfsV",
-                });
+                emailjs.init("MX78JoDDkdSsuF9h8");
                 console.log("EmailJS initialized successfully");
             } catch (error) {
                 console.error("EmailJS initialization failed:", error);
             }
         })();
 
-        // FIXED PRELOADER - Will definitely close
+        // PRELOADER FIX - WORKING FOR ALL DEVICES
         (function() {
             const preloader = document.getElementById('preloader');
-            const minDisplayTime = 1200;
+            const minDisplayTime = 1500; // Increased to ensure smooth loading
             const startTime = Date.now();
             
             function hidePreloader() {
@@ -1734,27 +1767,34 @@
                     return;
                 }
                 
+                // Ensure preloader fades out smoothly
                 preloader.style.opacity = '0';
+                preloader.style.transition = 'opacity 0.5s ease';
+                
                 setTimeout(() => {
                     preloader.style.visibility = 'hidden';
                     preloader.style.display = 'none';
+                    
+                    // Re-enable scrolling
+                    document.body.style.overflow = 'auto';
+                    document.documentElement.style.overflow = 'auto';
                 }, 500);
             }
             
-            // Multiple ways to ensure preloader hides
+            // Disable scrolling during preloader
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+            
+            // Multiple triggers to ensure preloader hides
             window.addEventListener('load', hidePreloader);
             
-            // Fallback - hide after 3 seconds max
+            // Fallback timeout
             setTimeout(hidePreloader, 3000);
             
-            // Force hide on user interaction
-            document.addEventListener('click', hidePreloader);
-            document.addEventListener('keydown', hidePreloader);
-            
-            // Check if already loaded
-            if (document.readyState === 'complete') {
-                hidePreloader();
-            }
+            // Force hide on user interaction (for mobile)
+            document.addEventListener('click', hidePreloader, { once: true });
+            document.addEventListener('touchstart', hidePreloader, { once: true });
+            document.addEventListener('keydown', hidePreloader, { once: true });
         })();
 
         // Particles.js Background
@@ -2020,7 +2060,7 @@
             };
         }
 
-        // ENHANCED CONTACT FORM WITH DETAILED USER INFO
+        // CONTACT FORM FIX - WORKING VERSION
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -2042,93 +2082,65 @@
             try {
                 console.log("Collecting user information...");
                 
-                // Collect all user information in parallel
-                const [locationData, browserInfo, nepalTime, referrerInfo] = await Promise.all([
-                    getUserLocation(),
-                    Promise.resolve(getBrowserInfo()),
-                    Promise.resolve(getNepalTime()),
-                    Promise.resolve(getReferrerInfo())
-                ]);
+                // Collect all user information
+                const locationData = await getUserLocation();
+                const browserInfo = getBrowserInfo();
+                const nepalTime = getNepalTime();
+                const referrerInfo = getReferrerInfo();
                 
-                console.log("User information collected:", {
-                    locationData,
-                    browserInfo,
-                    nepalTime,
-                    referrerInfo
-                });
+                console.log("User information collected");
                 
                 // Prepare comprehensive form data
                 const formData = {
                     // Basic form info
                     from_name: document.getElementById('name').value.trim(),
                     from_email: document.getElementById('email').value.trim(),
-                    phone: document.getElementById('phone').value.trim() || 'Not provided',
+                    user_phone: document.getElementById('phone').value.trim() || 'Not provided',
                     subject: document.getElementById('subject').value.trim(),
                     message: document.getElementById('message').value.trim(),
                     
                     // Date and Time Info
                     submission_date: nepalTime.date,
                     submission_time: nepalTime.time,
-                    submission_timestamp: nepalTime.timestamp,
                     nepali_time_info: nepalTime.nepaliDate,
                     
                     // Location Info
                     user_city: locationData.city,
-                    user_region: locationData.region,
                     user_country: locationData.country,
                     user_ip: locationData.ip,
                     user_timezone: locationData.timezone,
-                    user_isp: locationData.isp,
                     
                     // Browser/Device Info
                     user_browser: browserInfo.browser,
                     user_os: browserInfo.os,
                     user_device: browserInfo.device,
                     screen_resolution: browserInfo.screenResolution,
-                    user_language: browserInfo.language,
-                    user_agent: browserInfo.userAgent,
-                    online_status: browserInfo.online,
-                    cookies_enabled: browserInfo.cookiesEnabled,
-                    java_enabled: browserInfo.javaEnabled,
                     
                     // Referrer/Page Info
                     referrer_source: referrerInfo.referrer,
                     page_url: referrerInfo.pageUrl,
-                    page_title: referrerInfo.pageTitle,
                     
-                    // Additional system info
-                    platform: navigator.platform,
-                    vendor: navigator.vendor || 'Unknown',
-                    product: navigator.product || 'Unknown',
-                    do_not_track: navigator.doNotTrack || 'Not specified',
-                    hardware_concurrency: navigator.hardwareConcurrency || 'Unknown',
-                    device_memory: navigator.deviceMemory || 'Unknown',
-                    
-                    // Email metadata
-                    to_email: 'sandeepgaire8@gmail.com',
-                    email_type: 'Website Contact Form Submission'
+                    // Additional info
+                    submission_timestamp: new Date().toISOString(),
+                    form_id: 'contact_form_' + Date.now()
                 };
                 
-                console.log("Sending email with detailed info...");
+                console.log("Sending email...");
                 
-                // Send email using EmailJS
-                const response = await emailjs.send('service_pc131se', 'template_uiedhn5', formData);
+                // Send email using EmailJS - FIXED TEMPLATE PARAMS
+                const response = await emailjs.send(
+                    'service_pc131se', 
+                    'template_sa0dhms', 
+                    formData
+                );
+                
                 console.log('Email sent successfully:', response);
                 
-                // Success message
+                // Success message - simplified
                 formMessage.innerHTML = `
-                    <div style="color:#16a34a; background:rgba(34,197,94,0.1); padding:20px; border-radius:8px; border:1px solid rgba(34,197,94,0.2);">
-                        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                            <i class="fas fa-check-circle" style="font-size:24px;"></i>
-                            <strong style="font-size:18px;">Message Sent Successfully!</strong>
-                        </div>
-                        <p style="margin:10px 0; line-height:1.6;">✅ Your message has been delivered. I'll respond within 24 hours.</p>
-                        <div style="margin-top:15px; padding:10px; background:rgba(34,197,94,0.05); border-radius:6px; font-size:14px;">
-                            <p style="margin:5px 0;"><strong>Submission Details:</strong></p>
-                            <p style="margin:3px 0;">📅 Date: ${nepalTime.date}</p>
-                            <p style="margin:3px 0;">⏰ Time: ${nepalTime.time} (NPT)</p>
-                            <p style="margin:3px 0;">📍 Location: ${locationData.city}, ${locationData.country}</p>
-                        </div>
+                    <div style="color:#16a34a;">
+                        <i class="fas fa-check-circle"></i> 
+                        Message sent successfully! I'll respond within 24 hours.
                     </div>
                 `;
                 formMessage.className = 'form-message success';
@@ -2137,57 +2149,28 @@
                 // Reset form
                 document.getElementById('contactForm').reset();
                 
-                // Hide success message after 8 seconds
+                // Hide success message after 5 seconds
                 setTimeout(() => {
                     formMessage.style.display = 'none';
-                }, 8000);
+                }, 5000);
                 
             } catch (error) {
                 console.error('EmailJS Error:', error);
                 
-                // Enhanced error message
-                let errorMsg = `
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-                        <i class="fas fa-exclamation-circle" style="font-size:24px;"></i>
-                        <strong style="font-size:18px;">Failed to Send Message</strong>
+                // Error message - simplified
+                formMessage.innerHTML = `
+                    <div style="color:#dc2626;">
+                        <i class="fas fa-exclamation-circle"></i> 
+                        Failed to send message. Please try again or email directly to sandeepgaire8@gmail.com
                     </div>
                 `;
-                
-                if (error.text) {
-                    if (error.text.includes('user_id') || error.text.includes('key')) {
-                        errorMsg += '<p style="margin:10px 0;">🔑 EmailJS API key error. Please check configuration.</p>';
-                    } else if (error.text.includes('template')) {
-                        errorMsg += '<p style="margin:10px 0;">📝 Template error. Please check template setup.</p>';
-                    } else if (error.text.includes('service')) {
-                        errorMsg += '<p style="margin:10px 0;">⚙️ Service error. Please check service connection.</p>';
-                    } else {
-                        errorMsg += `<p style="margin:10px 0;">${error.text}</p>`;
-                    }
-                }
-                
-                // Add alternative contact method
-                errorMsg += `
-                    <div style="margin-top:15px; padding:15px; background:rgba(239,68,68,0.05); border-radius:6px;">
-                        <p style="margin:5px 0;"><strong>Alternative Contact Methods:</strong></p>
-                        <p style="margin:8px 0;">
-                            <i class="fas fa-envelope" style="margin-right:8px;"></i>
-                            Email directly: <a href="mailto:sandeepgaire8@gmail.com" style="color:#2563eb; text-decoration:underline;">sandeepgaire8@gmail.com</a>
-                        </p>
-                        <p style="margin:8px 0;">
-                            <i class="fas fa-phone" style="margin-right:8px;"></i>
-                            Call: <a href="tel:+9779861639050" style="color:#2563eb; text-decoration:underline;">+977 9861639050</a>
-                        </p>
-                    </div>
-                `;
-                
-                formMessage.innerHTML = `<div style="color:#dc2626;">${errorMsg}</div>`;
                 formMessage.className = 'form-message error';
                 formMessage.style.display = 'block';
                 
-                // Hide error message after 10 seconds
+                // Hide error message after 5 seconds
                 setTimeout(() => {
                     formMessage.style.display = 'none';
-                }, 10000);
+                }, 5000);
                 
             } finally {
                 // Reset button state
@@ -2331,6 +2314,36 @@
                 }
             });
         });
+
+        // Test EmailJS function (for debugging)
+        window.testEmailJS = async function() {
+            console.log("Testing EmailJS...");
+            try {
+                const testData = {
+                    from_name: "Test User",
+                    from_email: "test@example.com",
+                    user_phone: "+977 1234567890",
+                    subject: "Test Message",
+                    message: "This is a test message from the website",
+                    user_city: "Test City",
+                    user_country: "Test Country",
+                    user_ip: "127.0.0.1",
+                    submission_date: new Date().toDateString()
+                };
+                
+                const response = await emailjs.send(
+                    'service_pc131se',
+                    'template_uiedhn5',
+                    testData
+                );
+                
+                alert("Test email sent successfully!");
+                console.log("Test response:", response);
+            } catch (error) {
+                alert("Test failed: " + error.text);
+                console.error("Test error:", error);
+            }
+        };
     </script>
 </body>
-     </html>
+                                 </html>
