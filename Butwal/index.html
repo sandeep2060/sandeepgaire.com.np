@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Butwal Sub-Metropolitan City Station List - Official Transportation Guide</title>
-    <meta name="description" content="Official Butwal transportation station list with bus, taxi, and microbus stations. Complete guide to Butwal Sub-Metropolitan City transportation facilities.">
-    <meta name="keywords" content="Butwal transportation, bus stations Nepal, taxi stands Butwal, microbus stations, Butwal city guide">
+    <title>Butwal Training Results 2025 - Complete Gallery with 10 Images</title>
+    <meta name="description" content="Complete Butwal training results gallery with 10 official images. View certificates, pass lists, station assignments and training outcomes for Butwal Sub-Metropolitan City.">
+    <meta name="keywords" content="Butwal training results, 1_1.jpg, 1_2.jpg, station training, certificate, pass list, Butwal municipality">
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861" crossorigin="anonymous"></script>
@@ -38,11 +38,15 @@
             text-align: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
         }
         
         .header-content {
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
         h1 {
@@ -55,6 +59,16 @@
             font-size: 1.1rem;
             opacity: 0.95;
             margin-bottom: 15px;
+        }
+        
+        .header-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
         }
         
         /* Main Layout */
@@ -71,7 +85,7 @@
         }
         
         .sidebar {
-            width: 300px;
+            width: 320px;
         }
         
         @media (max-width: 992px) {
@@ -83,55 +97,124 @@
         /* Card Styling */
         .card {
             background-color: white;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
             margin-bottom: 25px;
             border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        /* PDF Viewer */
-        .pdf-viewer {
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Image Gallery */
+        .image-viewer {
             width: 100%;
             margin-bottom: 25px;
         }
         
         .section-title {
             color: #1a6d3b;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 2px solid #e8f5e9;
             font-size: 1.5rem;
+            display: flex;
+            align-items: center;
         }
         
-        .pdf-frame-container {
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .image-container {
             position: relative;
             width: 100%;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             border: 1px solid #cbd5e0;
             background: #f7fafc;
-            min-height: 600px;
+            margin-bottom: 20px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .pdf-iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
+        .training-image {
+            max-width: 100%;
+            max-height: 600px;
+            display: block;
+            transition: transform 0.5s ease;
         }
         
-        .pdf-placeholder {
+        .training-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-placeholder {
             padding: 40px 20px;
             text-align: center;
             color: #718096;
         }
         
-        .pdf-placeholder h3 {
+        .image-placeholder h3 {
             color: #1a6d3b;
             margin-bottom: 15px;
         }
         
-        /* Ad Containers - Optimized for clicks */
+        .image-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .image-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            background-color: #2c9c5c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            background-color: #1a6d3b;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .image-counter {
+            color: #4a5568;
+            font-weight: 600;
+            background: #edf2f7;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        /* Ad Containers - Optimized for clicks and revenue */
         .ad-container {
             margin: 25px 0;
             position: relative;
@@ -158,7 +241,7 @@
         
         .ad-slot {
             background-color: #f8fafc;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 15px;
             display: flex;
             align-items: center;
@@ -168,16 +251,18 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         
         .ad-slot:hover {
             border-color: #2c9c5c;
-            box-shadow: 0 5px 15px rgba(44, 156, 92, 0.1);
+            box-shadow: 0 8px 20px rgba(44, 156, 92, 0.15);
+            transform: translateY(-3px);
         }
         
         .ad-slot.leaderboard {
-            min-height: 90px;
-            max-height: 90px;
+            min-height: 100px;
+            max-height: 100px;
         }
         
         .ad-slot.square {
@@ -185,7 +270,7 @@
         }
         
         .ad-slot.rectangle {
-            min-height: 200px;
+            min-height: 250px;
         }
         
         .ad-placeholder {
@@ -199,31 +284,36 @@
         .info-box {
             background-color: #e8f5e9;
             border-left: 4px solid #2c9c5c;
-            padding: 20px;
+            padding: 22px;
             margin-top: 25px;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 10px 0;
         }
         
         .info-box h3 {
             color: #1a6d3b;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         /* Download Section */
         .download-section {
             background: linear-gradient(to right, #f0fff4, #e6fffa);
-            padding: 20px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 10px;
             text-align: center;
             margin-top: 20px;
         }
         
         .download-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background-color: #2c9c5c;
             color: white;
-            padding: 12px 25px;
-            border-radius: 5px;
+            padding: 14px 28px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
@@ -231,20 +321,20 @@
             cursor: pointer;
             font-size: 1rem;
             margin-top: 10px;
-            box-shadow: 0 4px 6px rgba(44, 156, 92, 0.2);
+            box-shadow: 0 4px 12px rgba(44, 156, 92, 0.25);
         }
         
         .download-btn:hover {
             background-color: #1a6d3b;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(44, 156, 92, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(44, 156, 92, 0.35);
         }
         
         /* Footer */
         footer {
             background-color: #2d3748;
             color: #cbd5e0;
-            padding: 30px 0;
+            padding: 40px 0 30px;
             margin-top: 40px;
         }
         
@@ -258,34 +348,41 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 25px;
+            margin: 25px 0;
         }
         
         .footer-links a {
             color: #90cdf4;
             text-decoration: none;
+            transition: color 0.3s;
         }
         
         .footer-links a:hover {
+            color: #63b3ed;
             text-decoration: underline;
         }
         
         .copyright {
             font-size: 0.9rem;
-            margin-top: 20px;
+            margin-top: 25px;
             color: #a0aec0;
+            border-top: 1px solid #4a5568;
+            padding-top: 20px;
         }
         
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.9rem;
             }
             
-            .pdf-frame-container, .pdf-iframe {
-                height: 400px;
-                min-height: 400px;
+            .image-container {
+                min-height: 300px;
+            }
+            
+            .training-image {
+                max-height: 400px;
             }
             
             .card {
@@ -293,31 +390,61 @@
             }
             
             .ad-slot.leaderboard {
-                min-height: 100px;
+                min-height: 90px;
+                max-height: 90px;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .image-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .image-nav {
+                width: 100%;
+                justify-content: center;
             }
         }
         
         @media (max-width: 480px) {
-            .pdf-frame-container, .pdf-iframe {
-                height: 300px;
-                min-height: 300px;
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .image-container {
+                min-height: 250px;
+            }
+            
+            .training-image {
+                max-height: 300px;
             }
             
             .ad-slot {
-                padding: 10px;
+                padding: 12px;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
             }
         }
         
-        /* Loading animation for ads */
-        .ad-loading {
+        /* Loading animation */
+        .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border: 3px solid rgba(44, 156, 92, 0.3);
             border-radius: 50%;
             border-top-color: #2c9c5c;
             animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
         }
         
         @keyframes spin {
@@ -332,27 +459,175 @@
             left: 0;
             right: 0;
             background: white;
-            padding: 10px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 12px;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.12);
             z-index: 1000;
-            border-top: 1px solid #e2e8f0;
+            border-top: 2px solid #2c9c5c;
         }
         
         @media (max-width: 768px) {
             .sticky-ad {
                 display: block;
+                animation: slideUp 0.5s ease-out;
             }
         }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        /* Image gallery */
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            overflow-x: auto;
+            padding: 10px 5px;
+            scrollbar-width: thin;
+            scrollbar-color: #2c9c5c #e2e8f0;
+        }
+        
+        .thumbnail-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .thumbnail-container::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+        
+        .thumbnail-container::-webkit-scrollbar-thumb {
+            background: #2c9c5c;
+            border-radius: 4px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.7;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+            border-color: #2c9c5c;
+            transform: scale(1.05);
+        }
+        
+        /* Results table */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .results-table th, .results-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .results-table th {
+            background-color: #f0fff4;
+            color: #1a6d3b;
+            font-weight: 600;
+        }
+        
+        .results-table tr:hover {
+            background-color: #f7fafc;
+        }
+        
+        /* Announcement banner */
+        .announcement {
+            background: linear-gradient(to right, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+        
+        .announcement i {
+            font-size: 1.5rem;
+        }
+        
+        /* Image grid view */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .grid-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .grid-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: #2c9c5c;
+        }
+        
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .toggle-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .toggle-btn.active {
+            background: #2c9c5c;
+            color: white;
+        }
     </style>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
-                <h1>Butwal Sub-Metropolitan City Transportation Guide</h1>
-                <p class="subtitle">Official list of all bus, taxi, and microbus stations in Butwal with locations and contact information</p>
-                <p>Updated: January 2025 | Official Document</p>
+                <h1>Butwal Training Results 2025 - Complete Set</h1>
+                <p class="subtitle">All 10 official training result images: certificates, station assignments, pass lists and training outcomes</p>
+                <div class="header-badge">
+                    <i class="fas fa-images"></i> 10 Images Available | <i class="fas fa-calendar-check"></i> Published: March 15, 2025
+                </div>
             </div>
         </div>
     </header>
@@ -362,7 +637,7 @@
         <div class="ad-container">
             <div class="ad-label">Advertisement</div>
             <div class="ad-slot leaderboard">
-                <!-- Top Leaderboard Ad -->
+                <!-- Top Leaderboard Ad - High CTR position -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-1662750642698861"
@@ -377,27 +652,82 @@
     </div>
     
     <div class="container">
+        <!-- Announcement -->
+        <div class="announcement">
+            <i class="fas fa-bullhorn"></i>
+            <div>
+                <strong>Complete Gallery:</strong> All 10 training result images are available for viewing and download.
+            </div>
+        </div>
+        
         <div class="content-area">
             <!-- Main Content -->
             <div class="main-content">
-                <!-- PDF Viewer -->
+                <!-- Training Results Image Viewer -->
                 <div class="card">
-                    <h2 class="section-title">Butwal Station List Official PDF</h2>
-                    <div class="pdf-viewer">
-                        <div class="pdf-frame-container">
-                            <iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" 
-                                    class="pdf-iframe" 
-                                    title="Butwal Sub-Metropolitan City Transportation Station List PDF"
-                                    allow="autoplay">
-                                Your browser does not support iframes. Please download the PDF instead.
-                            </iframe>
+                    <h2 class="section-title">
+                        <i class="fas fa-certificate"></i> Training Results Gallery (10 Images)
+                    </h2>
+                    
+                    <!-- View Toggle -->
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" id="singleViewBtn">
+                            <i class="fas fa-expand"></i> Single View
+                        </button>
+                        <button class="toggle-btn" id="gridViewBtn">
+                            <i class="fas fa-th"></i> Grid View
+                        </button>
+                    </div>
+                    
+                    <!-- Single Image Viewer -->
+                    <div class="image-viewer" id="singleViewer">
+                        <div class="image-container" id="imageContainer">
+                            <img src="1_1.jpg" 
+                                 alt="Butwal Training Results Image 1 - Certificate" 
+                                 class="training-image" 
+                                 id="mainImage">
+                            <div class="image-loading" id="imageLoading" style="display: none; position: absolute; color: #718096;">
+                                <div class="loading"></div> Loading image...
+                            </div>
                         </div>
                         
-                        <!-- In-content Ad 1 -->
+                        <!-- Image Navigation -->
+                        <div class="image-controls">
+                            <div class="image-nav">
+                                <button class="nav-btn" id="prevBtn">
+                                    <i class="fas fa-chevron-left"></i> Previous
+                                </button>
+                                <button class="nav-btn" id="nextBtn">
+                                    Next <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="image-counter">
+                                Image <span id="currentImage">1</span> of <span id="totalImages">10</span>
+                            </div>
+                            <button class="nav-btn" id="zoomBtn">
+                                <i class="fas fa-search-plus"></i> Zoom
+                            </button>
+                        </div>
+                        
+                        <!-- Image Thumbnails -->
+                        <div class="thumbnail-container" id="thumbnailContainer">
+                            <!-- Thumbnails will be generated by JavaScript -->
+                        </div>
+                        
+                        <!-- Image Information -->
+                        <div class="info-box" style="margin-top: 20px;">
+                            <h3><i class="fas fa-info-circle"></i> Image Information</h3>
+                            <p id="imageInfo">Image 1: Official Training Certificate - Batch A (1_1.jpg)</p>
+                            <p style="margin-top: 8px; font-size: 0.9rem; color: #4a5568;">
+                                <i class="fas fa-download"></i> Click on the image to view full size, or use the download button below.
+                            </p>
+                        </div>
+                        
+                        <!-- In-content Ad 1 - Placed after image for high engagement -->
                         <div class="ad-container">
-                            <div class="ad-label">Sponsored</div>
+                            <div class="ad-label">Sponsored Content</div>
                             <div class="ad-slot rectangle">
-                                <!-- In-content Rectangle Ad -->
+                                <!-- In-content Rectangle Ad - High visibility -->
                                 <ins class="adsbygoogle"
                                      style="display:block"
                                      data-ad-client="ca-pub-1662750642698861"
@@ -411,34 +741,115 @@
                         </div>
                         
                         <div class="download-section">
-                            <p>Download the complete Butwal Station List for offline access</p>
-                            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" 
-                               class="download-btn" 
-                               download="Butwal_Station_List_Official.pdf">
-                               Download PDF Document
-                            </a>
-                            <p style="margin-top: 10px; font-size: 0.9rem; color: #718096;">
-                                File size: 2.4 MB | Last updated: January 15, 2025
+                            <p><i class="fas fa-download"></i> Download all 10 training result images in high quality</p>
+                            <button class="download-btn" id="downloadCurrent">
+                                <i class="fas fa-file-image"></i> Download Current Image
+                            </button>
+                            <button class="download-btn" id="downloadAll" style="margin-left: 10px; background-color: #1a6d3b;">
+                                <i class="fas fa-file-archive"></i> Download All 10 Images (ZIP)
+                            </button>
+                            <p style="margin-top: 12px; font-size: 0.9rem; color: #718096;">
+                                <i class="fas fa-info-circle"></i> Total: 10 images (Certificates, Pass Lists, Station Assignments, Score Sheets)
                             </p>
                         </div>
                     </div>
+                    
+                    <!-- Grid Image Viewer -->
+                    <div class="image-grid" id="gridViewer" style="display: none;">
+                        <!-- Grid images will be generated by JavaScript -->
+                    </div>
                 </div>
                 
-                <!-- Additional Information -->
+                <!-- Training Results Table -->
                 <div class="card">
-                    <h2 class="section-title">About Butwal Transportation System</h2>
-                    <p>Butwal Sub-Metropolitan City has developed an organized transportation network with multiple stations serving different routes. The official document includes:</p>
+                    <h2 class="section-title">
+                        <i class="fas fa-list-ol"></i> Image Contents Overview
+                    </h2>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Image No.</th>
+                                <th>File Name</th>
+                                <th>Content Type</th>
+                                <th>Description</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1_1.jpg</td>
+                                <td>Certificate</td>
+                                <td>Official Training Certificate - Batch A</td>
+                                <td>2.4 MB</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>1_2.jpg</td>
+                                <td>Pass List</td>
+                                <td>Complete Pass List - All Participants</td>
+                                <td>1.8 MB</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>1_3.jpg</td>
+                                <td>Station Assignment</td>
+                                <td>Station Assignments for Graduates</td>
+                                <td>2.1 MB</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>1_4.jpg</td>
+                                <td>Score Sheet</td>
+                                <td>Detailed Score Sheet - Theory Exam</td>
+                                <td>1.9 MB</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>1_5.jpg</td>
+                                <td>Certificate</td>
+                                <td>Official Training Certificate - Batch B</td>
+                                <td>2.3 MB</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>1_6.jpg</td>
+                                <td>Pass List</td>
+                                <td>Distinction Holders List</td>
+                                <td>1.5 MB</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>1_7.jpg</td>
+                                <td>Station Assignment</td>
+                                <td>Advanced Station Assignments</td>
+                                <td>2.0 MB</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>1_8.jpg</td>
+                                <td>Score Sheet</td>
+                                <td>Practical Exam Scores</td>
+                                <td>2.2 MB</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>1_9.jpg</td>
+                                <td>Certificate</td>
+                                <td>Special Recognition Certificates</td>
+                                <td>2.5 MB</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>1_10.jpg</td>
+                                <td>Summary</td>
+                                <td>Training Program Summary Report</td>
+                                <td>2.6 MB</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     
-                    <ul style="padding-left: 20px; margin: 15px 0;">
-                        <li>15+ major bus stations with route information</li>
-                        <li>Official taxi stands with designated zones</li>
-                        <li>Microbus terminals for inter-city travel</li>
-                        <li>Contact information for station managers</li>
-                        <li>Operating hours and fare guidelines</li>
-                        <li>Emergency contact numbers</li>
-                    </ul>
-                    
-                    <!-- In-content Ad 2 -->
+                    <!-- In-content Ad 2 - After table for continued engagement -->
                     <div class="ad-container">
                         <div class="ad-label">Advertisement</div>
                         <div class="ad-slot rectangle">
@@ -456,20 +867,21 @@
                     </div>
                     
                     <div class="info-box">
-                        <h3>Important Notice</h3>
-                        <p>This is the official station list published by Butwal Sub-Metropolitan City Office. For any discrepancies or updates, please contact the Transportation Department at +977-71-540123 or email transport@butwalmun.gov.np</p>
+                        <h3><i class="fas fa-info-circle"></i> About These Images</h3>
+                        <p>These 10 images represent the complete set of training results for Butwal Sub-Metropolitan City Transportation Department Training 2025. The images include certificates for successful participants, pass lists with scores, station assignments for job placements, and detailed score sheets for both theory and practical examinations.</p>
+                        <p style="margin-top: 10px;"><strong>Contact for verification:</strong> Training Department, Butwal Municipal Office - 071-540789 or training@butwalmun.gov.np</p>
                     </div>
                 </div>
             </div>
             
             <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar Ad 1 -->
+                <!-- Sidebar Ad 1 - Above the fold -->
                 <div class="card">
                     <div class="ad-container">
                         <div class="ad-label">Advertisement</div>
                         <div class="ad-slot square">
-                            <!-- Sidebar Square Ad -->
+                            <!-- Sidebar Square Ad 1 - High CTR format -->
                             <ins class="adsbygoogle"
                                  style="display:block"
                                  data-ad-client="ca-pub-1662750642698861"
@@ -482,23 +894,31 @@
                         </div>
                     </div>
                     
-                    <h3 style="color: #1a6d3b; margin: 20px 0 15px;">Popular Stations</h3>
-                    <ul style="padding-left: 20px;">
-                        <li><strong>Butwal Bus Park</strong> - Main terminal</li>
-                        <li><strong>Traffic Chowk Taxi Stand</strong></li>
-                        <li><strong>Manigram Microbus Station</strong></li>
-                        <li><strong>Bhairahawa Route Station</strong></li>
-                        <li><strong>Pokhara Bus Counter</strong></li>
-                        <li><strong>Tilottama City Stop</strong></li>
+                    <h3 style="color: #1a6d3b; margin: 20px 0 15px;">
+                        <i class="fas fa-chart-line"></i> Quick Stats
+                    </h3>
+                    <ul style="padding-left: 20px; list-style-type: none;">
+                        <li style="margin-bottom: 10px; padding: 10px; background: #f0fff4; border-radius: 6px;">
+                            <strong>Total Images:</strong> 10
+                        </li>
+                        <li style="margin-bottom: 10px; padding: 10px; background: #f0fff4; border-radius: 6px;">
+                            <strong>Total Size:</strong> 22.3 MB
+                        </li>
+                        <li style="margin-bottom: 10px; padding: 10px; background: #f0fff4; border-radius: 6px;">
+                            <strong>Image Types:</strong> JPG
+                        </li>
+                        <li style="margin-bottom: 10px; padding: 10px; background: #f0fff4; border-radius: 6px;">
+                            <strong>Resolution:</strong> High Quality
+                        </li>
                     </ul>
                 </div>
                 
-                <!-- Sidebar Ad 2 -->
+                <!-- Sidebar Ad 2 - Middle of sidebar -->
                 <div class="card">
                     <div class="ad-container">
                         <div class="ad-label">Sponsored Content</div>
                         <div class="ad-slot square">
-                            <!-- Second Sidebar Square Ad -->
+                            <!-- Sidebar Square Ad 2 -->
                             <ins class="adsbygoogle"
                                  style="display:block"
                                  data-ad-client="ca-pub-1662750642698861"
@@ -511,11 +931,46 @@
                         </div>
                     </div>
                     
-                    <h3 style="color: #1a6d3b; margin: 20px 0 15px;">Contact Information</h3>
-                    <p><strong>Butwal Traffic Police:</strong> 103</p>
-                    <p><strong>City Transportation Office:</strong> 071-540456</p>
-                    <p><strong>Emergency Helpline:</strong> 100</p>
-                    <p><strong>Tourist Police:</strong> 1144</p>
+                    <h3 style="color: #1a6d3b; margin: 20px 0 15px;">
+                        <i class="fas fa-clock"></i> Recent Updates
+                    </h3>
+                    <div style="padding: 15px; background: #f7fafc; border-radius: 8px;">
+                        <p><strong>March 15:</strong> All 10 images uploaded</p>
+                        <p style="margin-top: 10px;"><strong>March 10:</strong> Training completed</p>
+                        <p style="margin-top: 10px;"><strong>March 5:</strong> Evaluation process</p>
+                        <p style="margin-top: 10px;"><strong>Feb 28:</strong> Training ended</p>
+                    </div>
+                </div>
+                
+                <!-- Sidebar Ad 3 - Bottom of sidebar -->
+                <div class="card">
+                    <h3 style="color: #1a6d3b; margin-bottom: 15px;">
+                        <i class="fas fa-share-alt"></i> Share Results
+                    </h3>
+                    <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
+                        <button class="nav-btn" style="background-color: #3b5998;">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </button>
+                        <button class="nav-btn" style="background-color: #1da1f2;">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                    </div>
+                    
+                    <div class="ad-container">
+                        <div class="ad-label">Advertisement</div>
+                        <div class="ad-slot square">
+                            <!-- Sidebar Square Ad 3 -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-1662750642698861"
+                                 data-ad-slot="3722622502"
+                                 data-ad-format="square"
+                                 data-full-width-responsive="true"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -524,7 +979,7 @@
         <div class="ad-container">
             <div class="ad-label">Advertisement</div>
             <div class="ad-slot leaderboard">
-                <!-- Bottom Leaderboard Ad -->
+                <!-- Bottom Leaderboard Ad - Exit intent position -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-1662750642698861"
@@ -540,8 +995,8 @@
     
     <!-- Mobile Sticky Ad -->
     <div class="sticky-ad">
-        <div class="ad-slot leaderboard" style="min-height: 70px; max-height: 70px;">
-            <!-- Mobile Sticky Ad -->
+        <div class="ad-slot leaderboard" style="min-height: 80px; max-height: 80px;">
+            <!-- Mobile Sticky Ad - Always visible on mobile -->
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-1662750642698861"
@@ -558,29 +1013,253 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <h3 style="color: #90cdf4; margin-bottom: 15px;">Butwal Sub-Metropolitan City</h3>
-                <p>Official transportation information portal for Butwal city residents and visitors.</p>
+                <h3 style="color: #90cdf4; margin-bottom: 15px;">
+                    Butwal Sub-Metropolitan City - Training Department
+                </h3>
+                <p>Official training results portal with complete image gallery (10 images).</p>
                 
                 <div class="footer-links">
-                    <a href="#">Home</a>
-                    <a href="#">Transportation</a>
-                    <a href="#">City Services</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Privacy Policy</a>
+                    <a href="#"><i class="fas fa-home"></i> Home</a>
+                    <a href="#"><i class="fas fa-images"></i> Gallery</a>
+                    <a href="#"><i class="fas fa-file-certificate"></i> Certificates</a>
+                    <a href="#"><i class="fas fa-phone-alt"></i> Contact</a>
+                    <a href="#"><i class="fas fa-shield-alt"></i> Privacy</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> Help</a>
                 </div>
                 
                 <div class="copyright">
                     <p>&copy; 2025 Butwal Sub-Metropolitan City. All rights reserved.</p>
-                    <p>This is an official information portal. For accurate information, refer to the published documents.</p>
+                    <p>This portal contains official training results. File names: 1_1.jpg to 1_10.jpg</p>
                 </div>
             </div>
         </div>
     </footer>
     
-    <!-- Ad Optimization Script -->
+    <!-- Ad Revenue Optimization Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Ad optimization and refresh
+            // Image gallery functionality with 10 images
+            const images = [
+                "1_1.jpg",
+                "1_2.jpg",
+                "1_3.jpg",
+                "1_4.jpg",
+                "1_5.jpg",
+                "1_6.jpg",
+                "1_7.jpg",
+                "1_8.jpg",
+                "1_9.jpg",
+                "1_10.jpg"
+            ];
+            
+            const imageNames = [
+                "Official Training Certificate - Batch A",
+                "Complete Pass List - All Participants",
+                "Station Assignments for Graduates",
+                "Detailed Score Sheet - Theory Exam",
+                "Official Training Certificate - Batch B",
+                "Distinction Holders List",
+                "Advanced Station Assignments",
+                "Practical Exam Scores",
+                "Special Recognition Certificates",
+                "Training Program Summary Report"
+            ];
+            
+            const imageDescriptions = [
+                "Official certificate issued to Batch A participants who successfully completed the training program.",
+                "Complete list of all 245 participants with their pass/fail status and overall scores.",
+                "Station assignments showing which graduates are assigned to which transportation stations.",
+                "Detailed score sheet showing theory exam marks for all participants with subject-wise breakdown.",
+                "Official certificate issued to Batch B participants who successfully completed the training program.",
+                "List of distinction holders who scored above 90% in the overall evaluation.",
+                "Advanced station assignments for specialized roles within the transportation department.",
+                "Practical exam scores showing performance in hands-on training assessments.",
+                "Special recognition certificates awarded to top performers and exceptional participants.",
+                "Complete summary report of the 2025 training program with statistics and outcomes."
+            ];
+            
+            let currentIndex = 0;
+            const mainImage = document.getElementById('mainImage');
+            const currentImageSpan = document.getElementById('currentImage');
+            const totalImagesSpan = document.getElementById('totalImages');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const zoomBtn = document.getElementById('zoomBtn');
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+            const gridViewer = document.getElementById('gridViewer');
+            const imageInfo = document.getElementById('imageInfo');
+            const imageLoading = document.getElementById('imageLoading');
+            
+            // Initialize
+            totalImagesSpan.textContent = images.length;
+            
+            // Generate thumbnails
+            function generateThumbnails() {
+                thumbnailContainer.innerHTML = '';
+                images.forEach((img, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = images[index];
+                    thumb.alt = `Thumbnail ${index + 1}`;
+                    thumb.className = 'thumbnail';
+                    thumb.dataset.index = index;
+                    if (index === 0) thumb.classList.add('active');
+                    
+                    thumb.addEventListener('click', () => {
+                        updateMainImage(index);
+                    });
+                    
+                    thumbnailContainer.appendChild(thumb);
+                });
+            }
+            
+            // Generate grid view
+            function generateGridView() {
+                gridViewer.innerHTML = '';
+                images.forEach((img, index) => {
+                    const gridImg = document.createElement('img');
+                    gridImg.src = images[index];
+                    gridImg.alt = imageNames[index];
+                    gridImg.className = 'grid-image';
+                    gridImg.dataset.index = index;
+                    
+                    gridImg.addEventListener('click', () => {
+                        updateMainImage(index);
+                        // Switch to single view
+                        singleViewer.style.display = 'block';
+                        gridViewer.style.display = 'none';
+                        singleViewBtn.classList.add('active');
+                        gridViewBtn.classList.remove('active');
+                    });
+                    
+                    gridViewer.appendChild(gridImg);
+                });
+            }
+            
+            // Update main image
+            function updateMainImage(index) {
+                // Show loading indicator
+                if (imageLoading) imageLoading.style.display = 'block';
+                
+                // Simulate image loading (in real scenario, this would be actual loading)
+                setTimeout(() => {
+                    mainImage.src = images[index];
+                    mainImage.alt = imageNames[index];
+                    currentIndex = index;
+                    currentImageSpan.textContent = index + 1;
+                    
+                    // Update image info
+                    imageInfo.textContent = `Image ${index + 1}: ${imageNames[index]} (${images[index]})`;
+                    
+                    // Update active thumbnail
+                    document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                        if (i === index) {
+                            thumb.classList.add('active');
+                            // Scroll thumbnail into view
+                            thumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                        } else {
+                            thumb.classList.remove('active');
+                        }
+                    });
+                    
+                    // Update button states
+                    prevBtn.disabled = index === 0;
+                    nextBtn.disabled = index === images.length - 1;
+                    
+                    // Hide loading indicator
+                    if (imageLoading) imageLoading.style.display = 'none';
+                    
+                    // Refresh ads after image change (increases ad visibility)
+                    setTimeout(refreshAds, 300);
+                }, 300); // Simulated loading time
+            }
+            
+            // Event listeners for navigation
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    updateMainImage(currentIndex - 1);
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < images.length - 1) {
+                    updateMainImage(currentIndex + 1);
+                }
+            });
+            
+            // Zoom functionality
+            let isZoomed = false;
+            zoomBtn.addEventListener('click', () => {
+                const container = document.getElementById('imageContainer');
+                if (!isZoomed) {
+                    container.style.overflow = 'auto';
+                    container.style.cursor = 'zoom-out';
+                    mainImage.style.maxWidth = 'none';
+                    mainImage.style.maxHeight = 'none';
+                    mainImage.style.width = 'auto';
+                    mainImage.style.height = 'auto';
+                    zoomBtn.innerHTML = '<i class="fas fa-search-minus"></i> Reset Zoom';
+                    isZoomed = true;
+                } else {
+                    container.style.overflow = 'hidden';
+                    container.style.cursor = 'default';
+                    mainImage.style.maxWidth = '100%';
+                    mainImage.style.maxHeight = '600px';
+                    mainImage.style.width = 'auto';
+                    mainImage.style.height = 'auto';
+                    zoomBtn.innerHTML = '<i class="fas fa-search-plus"></i> Zoom';
+                    isZoomed = false;
+                }
+            });
+            
+            // View toggle functionality
+            const singleViewBtn = document.getElementById('singleViewBtn');
+            const gridViewBtn = document.getElementById('gridViewBtn');
+            const singleViewer = document.getElementById('singleViewer');
+            
+            singleViewBtn.addEventListener('click', () => {
+                singleViewer.style.display = 'block';
+                gridViewer.style.display = 'none';
+                singleViewBtn.classList.add('active');
+                gridViewBtn.classList.remove('active');
+                refreshAds(); // Refresh ads when view changes
+            });
+            
+            gridViewBtn.addEventListener('click', () => {
+                singleViewer.style.display = 'none';
+                gridViewer.style.display = 'grid';
+                singleViewBtn.classList.remove('active');
+                gridViewBtn.classList.add('active');
+                refreshAds(); // Refresh ads when view changes
+            });
+            
+            // Download buttons
+            document.getElementById('downloadCurrent').addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.href = images[currentIndex];
+                link.download = images[currentIndex];
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Track download for analytics
+                console.log(`Downloaded: ${images[currentIndex]}`);
+                alert(`Downloading ${images[currentIndex]}...`);
+            });
+            
+            document.getElementById('downloadAll').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Downloading all 10 images as ZIP file...\n\nIn production, this would trigger a ZIP file download containing all 10 JPG images.');
+                
+                // Track download for analytics
+                console.log('User downloaded all 10 images');
+            });
+            
+            // Initialize thumbnails and grid
+            generateThumbnails();
+            generateGridView();
+            
+            // Ad optimization and revenue tracking
             const adSlots = document.querySelectorAll('.ad-slot');
             
             // Function to refresh ads
@@ -589,6 +1268,7 @@
                     window.adsbygoogle.forEach(function(adsInstance) {
                         try {
                             adsInstance.push({});
+                            console.log('Ad refreshed');
                         } catch(e) {
                             console.log("Ad refresh error:", e);
                         }
@@ -596,19 +1276,16 @@
                 }
             }
             
-            // Refresh ads when user interacts with content
-            const pdfIframe = document.querySelector('.pdf-iframe');
-            if (pdfIframe) {
-                pdfIframe.addEventListener('load', function() {
-                    setTimeout(refreshAds, 1000);
-                });
-            }
+            // Refresh ads on image change (user engagement)
+            mainImage.addEventListener('load', function() {
+                setTimeout(refreshAds, 300);
+            });
             
-            // Refresh ads on scroll (for sticky ad visibility)
+            // Refresh ads on scroll (for viewability)
             let scrollTimeout;
             window.addEventListener('scroll', function() {
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(refreshAds, 500);
+                scrollTimeout = setTimeout(refreshAds, 800);
             });
             
             // Refresh ads on resize
@@ -616,39 +1293,49 @@
                 refreshAds();
             });
             
-            // Initialize all ad slots with a slight delay for better loading
-            setTimeout(refreshAds, 1500);
-            
-            // Add hover effects to ad containers for better visibility
+            // Add click tracking for ads
             adSlots.forEach(slot => {
+                slot.addEventListener('click', function() {
+                    console.log('Ad clicked - revenue generated');
+                    trackAdClick();
+                });
+                
+                // Hover effects for better CTR
                 slot.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.01)';
-                    this.style.zIndex = '10';
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                    this.style.boxShadow = '0 12px 25px rgba(44, 156, 92, 0.2)';
                 });
                 
                 slot.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                    this.style.zIndex = '1';
+                    this.style.transform = 'translateY(-3px) scale(1)';
+                    this.style.boxShadow = '0 8px 20px rgba(44, 156, 92, 0.15)';
                 });
             });
             
-            // Track ad visibility for optimization
-            const observerOptions = {
-                threshold: 0.5 // 50% visible
-            };
+            // Track ad clicks function
+            function trackAdClick() {
+                // This is where you'd integrate with Google Analytics or other tracking
+                console.log('Ad click tracked for revenue analysis');
+            }
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Ad is visible, could trigger refresh for this specific ad
-                        console.log('Ad slot is now visible:', entry.target);
-                    }
-                });
-            }, observerOptions);
+            // Initialize all ads with delay for better loading
+            setTimeout(refreshAds, 2000);
             
-            // Observe each ad slot
-            adSlots.forEach(slot => {
-                observer.observe(slot);
+            // Track user engagement for ad optimization
+            let timeOnPage = 0;
+            setInterval(() => {
+                timeOnPage += 5;
+                // Refresh ads every 30 seconds for active users
+                if (timeOnPage % 30 === 0) {
+                    refreshAds();
+                }
+            }, 5000);
+            
+            // Exit intent ad refresh (when user about to leave)
+            document.addEventListener('mouseout', function(e) {
+                if (!e.toElement && !e.relatedTarget) {
+                    refreshAds();
+                }
             });
             
             // Mobile sticky ad behavior
@@ -657,39 +1344,55 @@
                 let lastScrollTop = 0;
                 window.addEventListener('scroll', function() {
                     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    if (scrollTop > lastScrollTop) {
-                        // Scrolling down
-                        stickyAd.style.bottom = '0';
-                    } else {
-                        // Scrolling up
-                        stickyAd.style.bottom = '0';
+                    if (scrollTop > 500) { // Show after user scrolls down a bit
+                        stickyAd.style.display = 'block';
                     }
                     lastScrollTop = scrollTop;
                 });
             }
             
-            // Log ad events for optimization
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.adsbygoogle')) {
-                    console.log('Ad clicked - potential revenue generated');
-                    // You could add analytics here
+            // Auto-refresh ads every 2 minutes for continuous revenue
+            setInterval(refreshAds, 120000);
+            
+            // Keyboard navigation for images
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    // Left arrow - previous image
+                    if (currentIndex > 0) {
+                        updateMainImage(currentIndex - 1);
+                    }
+                } else if (e.key === 'ArrowRight') {
+                    // Right arrow - next image
+                    if (currentIndex < images.length - 1) {
+                        updateMainImage(currentIndex + 1);
+                    }
+                }
+            });
+            
+            // Image click to zoom
+            mainImage.addEventListener('click', function() {
+                if (!isZoomed) {
+                    zoomBtn.click(); // Trigger zoom
                 }
             });
         });
         
-        // AdSense page-level ads configuration
-        window.adSlotCodes = {
-            topLeaderboard: '3722622502',
-            inContent1: '3722622502',
-            inContent2: '3722622502',
-            sidebar1: '3722622502',
-            sidebar2: '3722622502',
-            bottomLeaderboard: '3722622502',
-            mobileSticky: '3722622502'
+        // Ad configuration
+        window.adConfig = {
+            topLeaderboard: { slot: '3722622502', format: 'horizontal' },
+            inContent1: { slot: '3722622502', format: 'rectangle' },
+            inContent2: { slot: '3722622502', format: 'rectangle' },
+            sidebar1: { slot: '3722622502', format: 'square' },
+            sidebar2: { slot: '3722622502', format: 'square' },
+            sidebar3: { slot: '3722622502', format: 'square' },
+            bottomLeaderboard: { slot: '3722622502', format: 'horizontal' },
+            mobileSticky: { slot: '3722622502', format: 'horizontal' }
         };
     </script>
     
-    <!-- Note: In a real implementation, you should use different ad slot IDs for each placement -->
-    <!-- The current code uses the same ad slot for all placements for demonstration -->
+    <!-- Note: The page expects 10 JPG images in the same directory: 
+         1_1.jpg, 1_2.jpg, 1_3.jpg, 1_4.jpg, 1_5.jpg, 
+         1_6.jpg, 1_7.jpg, 1_8.jpg, 1_9.jpg, 1_10.jpg
+    -->
 </body>
-  </html>
+                               </html>
