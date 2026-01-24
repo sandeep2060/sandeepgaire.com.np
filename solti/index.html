@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solti Restaurant | Digital Menu Book</title>
+    <title>Solti Restaurant | Premium 3D Menu Book</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,15 +14,30 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            background: radial-gradient(ellipse at center, #2c1810 0%, #1a0f0a 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            color: #333;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(201, 169, 110, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, rgba(201, 169, 110, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(201, 169, 110, 0.02) 0%, transparent 20%);
+            z-index: -1;
         }
 
         .header {
@@ -30,42 +45,78 @@
             margin-bottom: 30px;
             width: 100%;
             max-width: 900px;
+            animation: fadeInDown 1s ease-out;
         }
 
         .restaurant-name {
             font-size: 3.5rem;
-            color: #c9a96e;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(45deg, #d4af37, #ffd700, #f8de7e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             letter-spacing: 3px;
             margin-bottom: 10px;
             font-family: 'Playfair Display', serif;
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+
+        .restaurant-name::before, .restaurant-name::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        .restaurant-name::before {
+            right: 100%;
+        }
+
+        .restaurant-name::after {
+            left: 100%;
         }
 
         .tagline {
-            color: #ddd;
-            font-size: 1.2rem;
+            color: #e6d5b8;
+            font-size: 1.3rem;
             font-style: italic;
             margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .contact-info {
-            background: rgba(201, 169, 110, 0.1);
-            padding: 15px;
-            border-radius: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 15px 30px;
+            border-radius: 50px;
             display: inline-block;
             margin-top: 10px;
-            border: 1px solid #c9a96e;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info:hover {
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
         .contact-info i {
-            color: #c9a96e;
+            color: #d4af37;
             margin-right: 10px;
+            font-size: 1.2rem;
         }
 
         .phone-number {
             font-size: 1.4rem;
-            color: white;
+            color: #ffd700;
             font-weight: bold;
+            letter-spacing: 1px;
         }
 
         .menu-container {
@@ -75,249 +126,418 @@
             width: 100%;
             max-width: 1200px;
             position: relative;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        /* Premium Book Container */
+        .book-wrapper {
+            position: relative;
+            width: 900px;
+            height: 650px;
+            perspective: 2000px;
+            transform-style: preserve-3d;
         }
 
         .book {
-            width: 900px;
-            height: 600px;
+            width: 100%;
+            height: 100%;
             position: relative;
-            perspective: 1500px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
-            border-radius: 5px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: rotateY(0deg);
+        }
+
+        /* Hard Cover with Embossed Effect */
+        .hard-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #8b4513, #654321, #8b4513);
+            border-radius: 10px 5px 5px 10px;
+            transform-style: preserve-3d;
+            box-shadow: 
+                inset 0 0 50px rgba(0, 0, 0, 0.5),
+                inset 0 5px 20px rgba(255, 215, 0, 0.1),
+                0 20px 60px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .hard-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 95%, rgba(0,0,0,0.1) 100%),
+                radial-gradient(circle at 20% 50%, rgba(255,215,0,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255,215,0,0.05) 0%, transparent 50%);
+            border-radius: 10px 5px 5px 10px;
+        }
+
+        /* Book Spine with Gold Lettering */
+        .book-spine {
+            position: absolute;
+            left: -40px;
+            top: 20px;
+            width: 40px;
+            height: calc(100% - 40px);
+            background: linear-gradient(to right, #5a2d0c, #8b4513, #5a2d0c);
+            transform: rotateY(-90deg);
+            transform-origin: right center;
+            border-radius: 5px 0 0 5px;
+            box-shadow: 
+                inset -5px 0 15px rgba(0, 0, 0, 0.5),
+                -5px 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 19;
+        }
+
+        .spine-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            color: #d4af37;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 3px;
+            white-space: nowrap;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Pages Stack */
+        .pages-stack {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
         }
 
         .page {
+            position: absolute;
             width: 100%;
             height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform-origin: left;
+            transform-origin: left center;
             transform-style: preserve-3d;
-            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             border-radius: 5px;
             overflow: hidden;
-            background-color: #f8f5e9;
-        }
-
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            backface-visibility: hidden;
-            background-color: #f8f5e9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .back {
-            transform: rotateY(180deg);
+            cursor: pointer;
         }
 
         .page-content {
+            position: absolute;
             width: 100%;
             height: 100%;
+            backface-visibility: hidden;
+            background: #f8f5e9;
             display: flex;
-            flex-direction: column;
-            position: relative;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
             overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(139, 69, 19, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 69, 19, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 1;
         }
 
         .page-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            position: relative;
+            z-index: 2;
             background-color: white;
         }
 
-        .page-header {
+        .page-shadow {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            text-align: center;
-            padding: 10px;
-            z-index: 10;
-            display: none; /* Hidden by default, can be shown if needed */
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+            z-index: 3;
         }
 
+        /* Page Corner for Turning */
+        .page-corner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%);
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .page-corner:hover {
+            background: linear-gradient(135deg, transparent 50%, rgba(212, 175, 55, 0.3) 50%);
+        }
+
+        .page-corner::after {
+            content: '⇀';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: rgba(139, 69, 19, 0.5);
+            font-size: 1.5rem;
+            transform: rotate(45deg);
+        }
+
+        /* Page Number */
         .page-number {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(139, 69, 19, 0.1);
+            color: #8b4513;
             padding: 5px 10px;
             border-radius: 3px;
             font-size: 0.9rem;
-            z-index: 10;
+            z-index: 5;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(139, 69, 19, 0.2);
         }
 
-        .cover {
-            background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
-            color: #f8f5e9;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 60px;
+        /* Bookmark Ribbon */
+        .bookmark {
+            position: absolute;
+            right: -15px;
+            top: 50px;
+            width: 30px;
+            height: 150px;
+            background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 30;
+            transform: rotate(0deg);
+            transition: transform 0.5s ease;
+            border-radius: 3px 0 0 3px;
         }
 
-        .cover-title {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #c9a96e;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 5px;
+        .bookmark:hover {
+            transform: rotate(5deg);
         }
 
-        .cover-subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 40px;
-            color: #f8f5e9;
-            font-style: italic;
+        .bookmark::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 15px solid #b8941f;
+            border-right: 15px solid #b8941f;
+            border-bottom: 20px solid transparent;
         }
 
-        .cover-ornament {
-            font-size: 3rem;
-            color: #c9a96e;
-            margin: 30px 0;
-        }
-
-        .cover-contact {
-            margin-top: 40px;
-            font-size: 1.3rem;
-            background: rgba(201, 169, 110, 0.2);
-            padding: 15px 30px;
-            border-radius: 10px;
-            border: 1px solid #c9a96e;
-        }
-
-        .page-controls {
+        /* Controls */
+        .controls-container {
             display: flex;
             justify-content: center;
             margin-top: 40px;
             gap: 20px;
+            animation: fadeIn 1s ease-out 1s both;
         }
 
-        .btn {
-            background: #8b4513;
+        .control-btn {
+            background: linear-gradient(145deg, #8b4513, #a0522d);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 1.1rem;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn:hover {
-            background: #a0522d;
-            transform: translateY(-2px);
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
-        .btn:active {
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(145deg, #a0522d, #8b4513);
+        }
+
+        .control-btn:active {
             transform: translateY(1px);
         }
 
-        .btn:disabled {
-            background: #aaa;
+        .control-btn:disabled {
+            background: #666;
             cursor: not-allowed;
             transform: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .book-spine {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 40px;
-            height: 100%;
-            background: linear-gradient(to right, #654321, #8b4513, #654321);
-            border-radius: 5px 0 0 5px;
-            box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.5);
-            z-index: -1;
+        .control-btn:disabled::before {
+            display: none;
         }
 
+        /* Sound Toggle */
         .sound-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
             background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
+            color: #d4af37;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 100;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .sound-toggle:hover {
-            background: rgba(201, 169, 110, 0.8);
+            background: rgba(212, 175, 55, 0.2);
+            transform: rotate(15deg) scale(1.1);
         }
 
-        .book-shadow {
-            position: absolute;
-            bottom: -30px;
-            width: 90%;
-            height: 40px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 50%;
-            filter: blur(10px);
-            z-index: -1;
-        }
-
+        /* Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: #1a1a1a;
+            background: #1a0f0a;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            transition: opacity 0.5s;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-content {
+            text-align: center;
         }
 
         .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(201, 169, 110, 0.3);
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(212, 175, 55, 0.1);
             border-radius: 50%;
-            border-top-color: #c9a96e;
+            border-top-color: #d4af37;
             animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 5px solid transparent;
+            border-radius: 50%;
+            border-top-color: rgba(212, 175, 55, 0.3);
+            animation: spin 1.5s linear infinite reverse;
         }
 
         .loading-text {
-            color: #c9a96e;
-            font-size: 1.2rem;
+            color: #d4af37;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+        .loading-subtext {
+            color: #e6d5b8;
+            font-size: 1rem;
+            opacity: 0.8;
         }
 
-        .image-load-error {
+        /* Page Counter */
+        .page-counter {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #e6d5b8;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            min-width: 150px;
+            text-align: center;
+        }
+
+        /* Instructions */
+        .instructions {
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #b8a98a;
+            text-align: center;
+            font-size: 0.9rem;
+            max-width: 800px;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .instructions p {
+            margin: 5px 0;
+        }
+
+        .instructions i {
+            color: #d4af37;
+            margin-right: 8px;
+        }
+
+        /* Error Display */
+        .image-error {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -326,21 +546,68 @@
             padding: 40px;
             text-align: center;
             background: #f8f5e9;
+            z-index: 2;
         }
 
-        .image-load-error i {
+        .image-error i {
             font-size: 3rem;
             color: #8b4513;
             margin-bottom: 20px;
+            opacity: 0.5;
         }
 
-        .image-load-error h3 {
+        .image-error h3 {
             color: #8b4513;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
 
+        .image-error p {
+            color: #666;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Design */
         @media (max-width: 1000px) {
-            .book {
+            .book-wrapper {
                 width: 95vw;
                 height: 70vh;
             }
@@ -349,54 +616,84 @@
                 font-size: 2.5rem;
             }
             
-            .cover-title {
-                font-size: 3rem;
+            .control-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
             }
         }
 
         @media (max-width: 768px) {
-            .book {
+            .book-wrapper {
                 height: 80vh;
-            }
-            
-            .cover-title {
-                font-size: 2.5rem;
-            }
-            
-            .cover-subtitle {
-                font-size: 1.4rem;
-            }
-            
-            .btn {
-                padding: 10px 15px;
-                font-size: 1rem;
             }
             
             .restaurant-name {
                 font-size: 2rem;
             }
+            
+            .phone-number {
+                font-size: 1.2rem;
+            }
+            
+            .controls-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 250px;
+                justify-content: center;
+            }
+            
+            .instructions {
+                bottom: -130px;
+                font-size: 0.8rem;
+            }
         }
 
-        /* Page turning effect */
-        .page.turning {
-            z-index: 10;
+        /* Page Curl Effect Classes */
+        .page.curling {
+            transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 100;
         }
 
-        /* Instructions */
-        .instructions {
-            color: #aaa;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            max-width: 800px;
-            line-height: 1.5;
+        .page.curling .page-content {
+            box-shadow: 
+                -5px 0 15px rgba(0, 0, 0, 0.2),
+                inset 5px 0 5px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ambient Light Effect */
+        .ambient-light {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: float 15s ease-in-out infinite alternate;
+        }
+
+        /* Page Tilt Effect */
+        .page.tilted {
+            transform: rotateY(-15deg) !important;
+            transition: transform 0.3s ease;
         }
     </style>
 </head>
 <body>
+    <div class="ambient-light"></div>
+    
     <div class="loading-screen" id="loadingScreen">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading Menu Book...</div>
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Opening Menu Book</div>
+            <div class="loading-subtext">Preparing your culinary journey...</div>
+        </div>
     </div>
 
     <button class="sound-toggle" id="soundToggle">
@@ -405,7 +702,7 @@
 
     <div class="header">
         <h1 class="restaurant-name">SOLTI RESTAURANT</h1>
-        <p class="tagline">Authentic Nepali Cuisine in the Heart of Butwal</p>
+        <p class="tagline">Where Tradition Meets Taste in Butwal</p>
         <div class="contact-info">
             <i class="fas fa-phone-alt"></i>
             <span class="phone-number">+977 976-3661500</span>
@@ -413,514 +710,772 @@
     </div>
 
     <div class="menu-container">
-        <div class="book" id="book">
-            <!-- Book spine -->
-            <div class="book-spine"></div>
-            
-            <!-- Page 1 (Cover) -->
-            <div class="page" id="page1">
-                <div class="front cover">
-                    <div class="cover-ornament">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h1 class="cover-title">SOLTI</h1>
-                    <h2 class="cover-subtitle">RESTAURANT & BAR</h2>
-                    <div class="cover-ornament">
-                        <i class="fas fa-pepper-hot"></i>
-                    </div>
-                    <p style="font-size: 1.5rem; margin-top: 30px;">Butwal, Nepal</p>
-                    <div class="cover-contact">
-                        <i class="fas fa-phone"></i> +977 976-3661500
-                    </div>
-                    <p style="margin-top: 40px; font-style: italic;">Open Daily: 10:00 AM - 10:00 PM</p>
-                    <div class="page-number">Cover</div>
+        <div class="book-wrapper">
+            <div class="book" id="book">
+                <!-- Book Spine -->
+                <div class="book-spine">
+                    <div class="spine-title">SOLTI MENU</div>
                 </div>
-                <div class="back">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Main Menu</h2>
+                
+                <!-- Hard Cover -->
+                <div class="hard-cover" id="hardCover">
+                    <div class="cover-content" style="
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        text-align: center;
+                        color: #d4af37;
+                        width: 80%;
+                    ">
+                        <h2 style="font-size: 3rem; margin-bottom: 20px; font-family: 'Playfair Display', serif;">SOLTI</h2>
+                        <p style="font-size: 1.5rem; margin-bottom: 30px; font-style: italic;">Restaurant & Bar</p>
+                        <div style="font-size: 4rem; margin-bottom: 30px; opacity: 0.7;">
+                            <i class="fas fa-utensils"></i>
                         </div>
-                        <img src="Main.png" alt="Main Menu Page" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">1</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Page 2 -->
-            <div class="page" id="page2">
-                <div class="front">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
+                        <p style="font-size: 1.2rem; margin-bottom: 20px;">Butwal, Nepal</p>
+                        <div style="
+                            background: rgba(212, 175, 55, 0.1);
+                            padding: 15px;
+                            border-radius: 10px;
+                            border: 1px solid rgba(212, 175, 55, 0.3);
+                            margin-top: 20px;
+                        ">
+                            <i class="fas fa-phone"></i> +977 976-3661500
                         </div>
-                        <img src="A1.png" alt="Menu Page A1" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">2</div>
                     </div>
                 </div>
-                <div class="back">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
-                        </div>
-                        <img src="1_2.png" alt="Menu Page 1_2" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">3</div>
-                    </div>
+                
+                <!-- Pages Stack -->
+                <div class="pages-stack" id="pagesStack">
+                    <!-- Pages will be dynamically added here -->
                 </div>
-            </div>
-            
-            <!-- Page 3 -->
-            <div class="page" id="page3">
-                <div class="front">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
-                        </div>
-                        <img src="A2.png" alt="Menu Page A2" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">4</div>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
-                        </div>
-                        <img src="1_3.png" alt="Menu Page 1_3" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">5</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Page 4 -->
-            <div class="page" id="page4">
-                <div class="front">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
-                        </div>
-                        <img src="1_4.png" alt="Menu Page 1_4" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">6</div>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
-                        </div>
-                        <img src="1_5.png" alt="Menu Page 1_5" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">7</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Page 5 -->
-            <div class="page" id="page5">
-                <div class="front">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
-                        </div>
-                        <img src="1_6.png" alt="Menu Page 1_6" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">8</div>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="page-content">
-                        <div class="page-header">
-                            <h2>Menu Page</h2>
-                        </div>
-                        <img src="1_7.png" alt="Menu Page 1_7" class="page-image" onerror="handleImageError(this)">
-                        <div class="page-number">9</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Page 6 (Back Cover) -->
-            <div class="page" id="page6">
-                <div class="front">
-                    <div class="page-content">
-                        <div style="text-align: center; margin-top: 60px; padding: 40px;">
-                            <div style="font-size: 5rem; color: #c9a96e; margin-bottom: 30px;">
-                                <i class="fas fa-utensil-spoon"></i>
-                            </div>
-                            <h2 style="font-size: 2rem; color: #8b4513; margin-bottom: 20px;">
-                                Thank You
-                            </h2>
-                            <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                                Thank you for dining with us. We hope you enjoyed your meal and we look forward to serving you again soon.
-                            </p>
-                            
-                            <div style="background: rgba(201, 169, 110, 0.1); padding: 25px; border-radius: 10px; margin-top: 40px; border: 1px solid #c9a96e;">
-                                <h4 style="color: #8b4513; margin-bottom: 15px; font-size: 1.3rem;">Contact Information</h4>
-                                <p><i class="fas fa-map-marker-alt" style="color: #c9a96e;"></i> Butwal, Rupandehi, Nepal</p>
-                                <p><i class="fas fa-phone" style="color: #c9a96e;"></i> +977 976-3661500</p>
-                                <p><i class="fas fa-clock" style="color: #c9a96e;"></i> Open Daily: 10:00 AM - 10:00 PM</p>
-                            </div>
-                        </div>
-                        <div class="page-number">10</div>
-                    </div>
-                </div>
-                <div class="back cover">
-                    <h1 style="font-size: 3rem; color: #c9a96e; margin-bottom: 30px;">SOLTI</h1>
-                    <div style="font-size: 4rem; color: #c9a96e; margin-bottom: 30px;">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <p style="font-size: 1.5rem; margin-bottom: 20px;">Menu Book</p>
-                    <p style="font-style: italic; margin-bottom: 40px;">Authentic Nepali Cuisine</p>
-                    <div style="margin-top: 60px; font-size: 1.2rem;">
-                        <p>Butwal, Nepal</p>
-                        <p>Est. 2010</p>
-                    </div>
-                    <div class="page-number">Back Cover</div>
-                </div>
+                
+                <!-- Bookmark -->
+                <div class="bookmark" id="bookmark"></div>
             </div>
         </div>
         
-        <div class="book-shadow"></div>
+        <div class="page-counter" id="pageCounter">
+            Page: <span id="currentPage">1</span> / <span id="totalPages">10</span>
+        </div>
     </div>
     
-    <div class="page-controls">
-        <button class="btn" id="prevBtn">
-            <i class="fas fa-arrow-left"></i> Previous Page
+    <div class="controls-container">
+        <button class="control-btn" id="prevBtn">
+            <i class="fas fa-arrow-left"></i>
+            <span>Previous Page</span>
         </button>
-        <button class="btn" id="nextBtn">
-            Next Page <i class="fas fa-arrow-right"></i>
+        <button class="control-btn" id="nextBtn">
+            <span>Next Page</span>
+            <i class="fas fa-arrow-right"></i>
         </button>
     </div>
     
     <div class="instructions">
-        <p><i class="fas fa-mouse-pointer"></i> Click on the right edge of the book to turn forward, left edge to turn back</p>
-        <p><i class="fas fa-keyboard"></i> Use keyboard arrows (← →) or spacebar to navigate</p>
-        <p><i class="fas fa-mobile-alt"></i> On touch devices, swipe left/right to turn pages</p>
+        <p><i class="fas fa-hand-pointer"></i> Click & drag the page corner to turn pages naturally</p>
+        <p><i class="fas fa-mouse-pointer"></i> Click on right/left edges of the book for quick navigation</p>
+        <p><i class="fas fa-keyboard"></i> Use keyboard arrows (← →) or spacebar</p>
+        <p><i class="fas fa-mobile-alt"></i> Swipe left/right on touch devices</p>
     </div>
-
-    <audio id="pageTurnSound" preload="auto">
-        <!-- Audio element for page turn sound -->
-    </audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // DOM elements
+            // Configuration with your exact page order
+            const CONFIG = {
+                totalPages: 10, // Cover + 8 content pages + back cover
+                pageOrder: [
+                    { type: 'cover', image: null, title: 'Front Cover' },
+                    { type: 'content', image: 'Main.png', title: 'Main Menu', number: 1 },
+                    { type: 'content', image: 'A1.png', title: 'Menu Page 1', number: 2 },
+                    { type: 'content', image: '1_2.png', title: 'Menu Page 2', number: 3 },
+                    { type: 'content', image: 'A2.png', title: 'Menu Page 3', number: 4 },
+                    { type: 'content', image: '1_3.png', title: 'Menu Page 4', number: 5 },
+                    { type: 'content', image: '1_4.png', title: 'Menu Page 5', number: 6 },
+                    { type: 'content', image: '1_5.png', title: 'Menu Page 6', number: 7 },
+                    { type: 'content', image: '1_6.png', title: 'Menu Page 7', number: 8 },
+                    { type: 'content', image: '1_7.png', title: 'Menu Page 8', number: 9 },
+                    { type: 'cover', image: null, title: 'Back Cover' }
+                ],
+                enablePhysics: true,
+                curlIntensity: 0.3,
+                soundEnabled: true,
+                pageWidth: 900,
+                pageHeight: 650
+            };
+
+            // DOM Elements
             const loadingScreen = document.getElementById('loadingScreen');
-            const pages = document.querySelectorAll('.page');
+            const pagesStack = document.getElementById('pagesStack');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const soundToggle = document.getElementById('soundToggle');
-            const totalPages = pages.length;
-            let currentPage = 0;
+            const pageCounter = document.getElementById('pageCounter');
+            const currentPageSpan = document.getElementById('currentPage');
+            const totalPagesSpan = document.getElementById('totalPages');
+            const bookmark = document.getElementById('bookmark');
+            const book = document.getElementById('book');
+
+            // State Variables
+            let currentPageIndex = 0;
             let isAnimating = false;
-            let soundEnabled = true;
-            let imagesLoaded = 0;
-            const totalImages = document.querySelectorAll('img').length;
-            
-            // Image preloading with progress tracking
-            function preloadImages() {
-                const images = document.querySelectorAll('img');
-                let loadedCount = 0;
+            let soundEnabled = CONFIG.soundEnabled;
+            let pages = [];
+            let isDragging = false;
+            let dragStartX = 0;
+            let dragStartY = 0;
+            let currentRotation = 0;
+            let isMouseOverBook = false;
+
+            // Audio Context for Realistic Sounds
+            let audioContext;
+            let pageTurnSoundBuffer;
+            let paperRustleSoundBuffer;
+
+            // Initialize Audio
+            function initAudio() {
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    createPageTurnSound();
+                    createPaperRustleSound();
+                } catch (e) {
+                    console.log("Web Audio API not supported, continuing without sound");
+                    soundEnabled = false;
+                    soundToggle.style.opacity = '0.5';
+                }
+            }
+
+            // Create Page Turn Sound
+            function createPageTurnSound() {
+                if (!audioContext) return;
                 
-                images.forEach(img => {
-                    // Check if image is already loaded
-                    if (img.complete && img.naturalHeight !== 0) {
-                        loadedCount++;
-                        updateLoadingProgress();
+                const duration = 0.6;
+                const sampleRate = audioContext.sampleRate;
+                const frameCount = sampleRate * duration;
+                const buffer = audioContext.createBuffer(1, frameCount, sampleRate);
+                const channelData = buffer.getChannelData(0);
+                
+                // Create a realistic page turn sound
+                for (let i = 0; i < frameCount; i++) {
+                    const t = i / sampleRate;
+                    
+                    // Base frequency with slight variation
+                    let frequency = 80 + Math.sin(t * 30) * 20;
+                    
+                    // Add paper rustle noise
+                    let noise = (Math.random() * 2 - 1) * Math.exp(-t * 8);
+                    
+                    // Create the sound
+                    let value = Math.sin(t * Math.PI * 2 * frequency) * Math.exp(-t * 4);
+                    value += noise * 0.3;
+                    value *= Math.min(t * 20, 1) * (1 - t/duration);
+                    
+                    channelData[i] = value * 0.5;
+                }
+                
+                pageTurnSoundBuffer = buffer;
+            }
+
+            // Create Paper Rustle Sound
+            function createPaperRustleSound() {
+                if (!audioContext) return;
+                
+                const duration = 0.4;
+                const sampleRate = audioContext.sampleRate;
+                const frameCount = sampleRate * duration;
+                const buffer = audioContext.createBuffer(1, frameCount, sampleRate);
+                const channelData = buffer.getChannelData(0);
+                
+                // Create paper rustle sound
+                for (let i = 0; i < frameCount; i++) {
+                    const t = i / sampleRate;
+                    
+                    // Pink noise-like rustle
+                    let value = 0;
+                    for (let j = 0; j < 5; j++) {
+                        value += (Math.random() * 2 - 1) * Math.exp(-t * (10 + j * 5));
+                    }
+                    
+                    // Apply envelope
+                    value *= Math.min(t * 40, 1) * Math.exp(-t * 6);
+                    
+                    channelData[i] = value * 0.3;
+                }
+                
+                paperRustleSoundBuffer = buffer;
+            }
+
+            // Play Sound
+            function playSound(soundBuffer, volume = 1.0) {
+                if (!soundEnabled || !audioContext || !soundBuffer) return;
+                
+                try {
+                    const source = audioContext.createBufferSource();
+                    const gainNode = audioContext.createGain();
+                    
+                    source.buffer = soundBuffer;
+                    gainNode.gain.value = volume;
+                    
+                    source.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    source.start();
+                } catch (e) {
+                    console.log("Sound playback error:", e);
+                }
+            }
+
+            // Create Pages in Your Exact Order
+            function createPages() {
+                // Clear existing pages
+                pagesStack.innerHTML = '';
+                pages = [];
+                
+                // Create pages according to your order
+                CONFIG.pageOrder.forEach((pageConfig, index) => {
+                    const page = createPageElement(index, pageConfig);
+                    pagesStack.appendChild(page);
+                    pages.push(page);
+                    
+                    // Set initial positions for pages (all pages start hidden behind cover)
+                    if (index === 0) {
+                        // Cover page - show front
+                        page.style.transform = `rotateY(0deg)`;
+                        page.style.zIndex = CONFIG.totalPages;
                     } else {
-                        // Load image
-                        img.onload = function() {
-                            loadedCount++;
-                            updateLoadingProgress();
-                        };
-                        img.onerror = function() {
-                            // Handle image load error
-                            loadedCount++;
-                            updateLoadingProgress();
-                        };
+                        // All other pages - hide behind
+                        page.style.transform = `rotateY(-180deg)`;
+                        page.style.zIndex = CONFIG.totalPages - index;
                     }
                 });
                 
-                // In case all images are already loaded
-                if (loadedCount === images.length) {
-                    hideLoadingScreen();
-                }
+                // Update page counter
+                totalPagesSpan.textContent = CONFIG.totalPages;
+                updatePageCounter();
             }
-            
-            function updateLoadingProgress() {
-                imagesLoaded++;
-                // You could update a progress bar here if needed
-                if (imagesLoaded >= totalImages) {
-                    // Give a small delay for smooth transition
-                    setTimeout(hideLoadingScreen, 500);
-                }
-            }
-            
-            function hideLoadingScreen() {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                }, 500);
-            }
-            
-            // Handle image loading errors
-            function handleImageError(imgElement) {
-                console.log(`Failed to load image: ${imgElement.src}`);
-                imgElement.style.display = 'none';
+
+            // Create Page Element
+            function createPageElement(index, pageConfig) {
+                const page = document.createElement('div');
+                page.className = 'page';
+                page.id = `page-${index}`;
+                page.dataset.pageIndex = index;
+                page.dataset.pageType = pageConfig.type;
                 
-                // Create error message
+                const pageContent = document.createElement('div');
+                pageContent.className = 'page-content';
+                
+                if (pageConfig.type === 'cover') {
+                    if (index === 0) {
+                        // Front cover - Main.png
+                        const img = document.createElement('img');
+                        img.className = 'page-image';
+                        img.src = 'Main.png';
+                        img.alt = 'Solti Restaurant Menu Cover';
+                        img.onerror = handleImageError;
+                        pageContent.appendChild(img);
+                    } else {
+                        // Back cover
+                        pageContent.style.background = 'linear-gradient(145deg, #f8f0e3, #f8f5e9)';
+                        pageContent.innerHTML = `
+                            <div style="text-align: center; padding: 40px;">
+                                <div style="font-size: 5rem; color: #8b4513; margin-bottom: 30px; opacity: 0.7;">
+                                    <i class="fas fa-utensil-spoon"></i>
+                                </div>
+                                <h2 style="font-size: 2.5rem; color: #8b4513; margin-bottom: 20px;">Thank You</h2>
+                                <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px; max-width: 500px; line-height: 1.6;">
+                                    Thank you for visiting Solti Restaurant. We hope you enjoyed your meal and we look forward to serving you again.
+                                </p>
+                                <div style="
+                                    background: rgba(139, 69, 19, 0.1);
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    border: 1px solid rgba(139, 69, 19, 0.2);
+                                    margin-top: 40px;
+                                ">
+                                    <h3 style="color: #8b4513; margin-bottom: 15px;">Contact Information</h3>
+                                    <p><i class="fas fa-map-marker-alt" style="color: #8b4513;"></i> Butwal, Rupandehi, Nepal</p>
+                                    <p><i class="fas fa-phone" style="color: #8b4513;"></i> +977 976-3661500</p>
+                                    <p><i class="fas fa-clock" style="color: #8b4513;"></i> Open Daily: 10:00 AM - 10:00 PM</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else if (pageConfig.type === 'content' && pageConfig.image) {
+                    // Content page with image
+                    const img = document.createElement('img');
+                    img.className = 'page-image';
+                    img.src = pageConfig.image;
+                    img.alt = pageConfig.title || `Menu Page ${pageConfig.number}`;
+                    img.onerror = handleImageError;
+                    pageContent.appendChild(img);
+                }
+                
+                // Add page shadow
+                const pageShadow = document.createElement('div');
+                pageShadow.className = 'page-shadow';
+                pageContent.appendChild(pageShadow);
+                
+                // Add page corner for dragging (only for content pages that can be turned)
+                if (index < CONFIG.pageOrder.length - 1 && pageConfig.type === 'content') {
+                    const pageCorner = document.createElement('div');
+                    pageCorner.className = 'page-corner';
+                    pageCorner.addEventListener('mousedown', startDrag);
+                    pageCorner.addEventListener('touchstart', startDragTouch);
+                    pageContent.appendChild(pageCorner);
+                }
+                
+                // Add page number for content pages
+                if (pageConfig.type === 'content' && pageConfig.number) {
+                    const pageNumberEl = document.createElement('div');
+                    pageNumberEl.className = 'page-number';
+                    pageNumberEl.textContent = pageConfig.number;
+                    pageContent.appendChild(pageNumberEl);
+                }
+                
+                page.appendChild(pageContent);
+                
+                // Add mouse events for page tilt effect
+                page.addEventListener('mouseenter', handlePageMouseEnter);
+                page.addEventListener('mouseleave', handlePageMouseLeave);
+                
+                return page;
+            }
+
+            // Handle Image Error
+            function handleImageError() {
+                this.style.display = 'none';
                 const errorDiv = document.createElement('div');
-                errorDiv.className = 'image-load-error';
+                errorDiv.className = 'image-error';
                 errorDiv.innerHTML = `
                     <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Menu Image Not Loaded</h3>
-                    <p>The menu image could not be loaded. Please check your internet connection or contact the restaurant.</p>
+                    <h3>Menu Image Unavailable</h3>
+                    <p>The menu image could not be loaded. Please contact the restaurant for the complete menu.</p>
                     <p style="margin-top: 20px;"><strong>Contact: +977 976-3661500</strong></p>
                 `;
-                
-                imgElement.parentNode.appendChild(errorDiv);
+                this.parentNode.appendChild(errorDiv);
             }
-            
-            // Create page turn sound using Web Audio API
-            function createPageTurnSound() {
-                try {
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    
-                    // Create a buffer for rustling paper sound
-                    const bufferSize = audioContext.sampleRate * 0.4; // 0.4 seconds
-                    const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
-                    const output = buffer.getChannelData(0);
-                    
-                    // Generate paper rustling sound
-                    for (let i = 0; i < bufferSize; i++) {
-                        // Create noise with decreasing high frequencies
-                        let noise = Math.random() * 2 - 1;
-                        
-                        // Apply low-pass filter simulation
-                        if (i > 0) {
-                            noise = 0.98 * output[i-1] + 0.02 * noise;
-                        }
-                        
-                        // Apply envelope
-                        const envelope = Math.exp(-i / (audioContext.sampleRate * 0.25));
-                        output[i] = noise * envelope * 0.3;
-                    }
-                    
-                    return buffer;
-                } catch (e) {
-                    console.log("Web Audio API not supported");
-                    return null;
+
+            // Page Mouse Enter Effect
+            function handlePageMouseEnter() {
+                if (isAnimating || isDragging) return;
+                const pageIndex = parseInt(this.dataset.pageIndex);
+                if (pageIndex === currentPageIndex) {
+                    this.classList.add('tilted');
                 }
             }
-            
-            // Play page turn sound
-            function playPageTurnSound() {
-                if (!soundEnabled) return;
+
+            // Page Mouse Leave Effect
+            function handlePageMouseLeave() {
+                this.classList.remove('tilted');
+            }
+
+            // Start Drag (Mouse)
+            function startDrag(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                try {
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const soundBuffer = createPageTurnSound();
-                    
-                    if (soundBuffer) {
-                        const source = audioContext.createBufferSource();
-                        source.buffer = soundBuffer;
-                        source.connect(audioContext.destination);
-                        source.start();
-                    } else {
-                        // Fallback: use a simple click
-                        const click = new Audio();
-                        const context = new AudioContext();
-                        const oscillator = context.createOscillator();
-                        const gainNode = context.createGain();
-                        
-                        oscillator.connect(gainNode);
-                        gainNode.connect(context.destination);
-                        
-                        oscillator.frequency.value = 150;
-                        oscillator.type = 'sine';
-                        
-                        gainNode.gain.setValueAtTime(0.1, context.currentTime);
-                        gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.2);
-                        
-                        oscillator.start(context.currentTime);
-                        oscillator.stop(context.currentTime + 0.2);
-                    }
-                } catch (e) {
-                    console.log("Sound playback failed");
+                if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+                
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                currentRotation = 0;
+                
+                const currentPage = pages[currentPageIndex];
+                currentPage.classList.add('curling');
+                
+                document.addEventListener('mousemove', dragPage);
+                document.addEventListener('mouseup', endDrag);
+                
+                playSound(paperRustleSoundBuffer, 0.3);
+            }
+
+            // Start Drag (Touch)
+            function startDragTouch(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+                
+                isDragging = true;
+                const touch = e.touches[0];
+                dragStartX = touch.clientX;
+                dragStartY = touch.clientY;
+                currentRotation = 0;
+                
+                const currentPage = pages[currentPageIndex];
+                currentPage.classList.add('curling');
+                
+                document.addEventListener('touchmove', dragPageTouch);
+                document.addEventListener('touchend', endDrag);
+            }
+
+            // Drag Page with Curl Effect
+            function dragPage(e) {
+                if (!isDragging) return;
+                
+                const dragX = e.clientX;
+                const dragY = e.clientY;
+                const dragDistanceX = Math.max(0, (dragStartX - dragX));
+                const dragDistanceY = dragStartY - dragY;
+                
+                // Calculate rotation with curl effect
+                let rotation = Math.min(180, dragDistanceX * 0.2);
+                
+                // Add curl effect based on vertical drag
+                const curlEffect = Math.max(0, Math.min(1, dragDistanceY / 100));
+                const curlAngle = curlEffect * 15; // Max 15 degrees of curl
+                
+                currentRotation = -rotation;
+                
+                const currentPage = pages[currentPageIndex];
+                
+                // Apply rotation with 3D curl effect
+                currentPage.style.transform = `rotateY(${currentRotation}deg) rotateZ(${curlAngle}deg)`;
+                
+                // Update next page position
+                const nextPage = pages[currentPageIndex + 1];
+                if (nextPage) {
+                    const nextRotation = Math.max(-180, -180 + rotation * 0.8);
+                    nextPage.style.zIndex = CONFIG.totalPages + 1;
+                    nextPage.style.transform = `rotateY(${nextRotation}deg)`;
+                }
+                
+                // Play rustle sound during drag
+                if (Math.random() < 0.1) {
+                    playSound(paperRustleSoundBuffer, 0.1);
                 }
             }
-            
-            // Set initial page positions
-            function initializePages() {
-                for (let i = 0; i < totalPages; i++) {
-                    if (i === 0) {
-                        // First page - show front (cover)
-                        pages[i].style.transform = 'rotateY(0deg)';
-                        pages[i].style.zIndex = totalPages;
-                    } else {
-                        // Other pages - hide behind
-                        pages[i].style.transform = 'rotateY(-180deg)';
-                        pages[i].style.zIndex = totalPages - i;
-                    }
-                }
-                updateButtons();
-            }
-            
-            // Go to next page
-            function nextPage() {
-                if (isAnimating || currentPage >= totalPages - 1) return;
+
+            // Drag Page (Touch)
+            function dragPageTouch(e) {
+                if (!isDragging) return;
                 
+                const touch = e.touches[0];
+                const dragX = touch.clientX;
+                const dragY = touch.clientY;
+                const dragDistanceX = Math.max(0, (dragStartX - dragX));
+                const dragDistanceY = dragStartY - dragY;
+                
+                let rotation = Math.min(180, dragDistanceX * 0.2);
+                const curlEffect = Math.max(0, Math.min(1, dragDistanceY / 100));
+                const curlAngle = curlEffect * 15;
+                
+                currentRotation = -rotation;
+                
+                const currentPage = pages[currentPageIndex];
+                currentPage.style.transform = `rotateY(${currentRotation}deg) rotateZ(${curlAngle}deg)`;
+                
+                const nextPage = pages[currentPageIndex + 1];
+                if (nextPage) {
+                    const nextRotation = Math.max(-180, -180 + rotation * 0.8);
+                    nextPage.style.zIndex = CONFIG.totalPages + 1;
+                    nextPage.style.transform = `rotateY(${nextRotation}deg)`;
+                }
+            }
+
+            // End Drag
+            function endDrag() {
+                if (!isDragging) return;
+                
+                isDragging = false;
+                const currentPage = pages[currentPageIndex];
+                currentPage.classList.remove('curling');
+                
+                document.removeEventListener('mousemove', dragPage);
+                document.removeEventListener('touchmove', dragPageTouch);
+                document.removeEventListener('mouseup', endDrag);
+                document.removeEventListener('touchend', endDrag);
+                
+                // Determine if page should turn or revert
+                if (currentRotation < -90) {
+                    completePageTurn();
+                } else {
+                    revertPageTurn();
+                }
+            }
+
+            // Complete Page Turn with Animation
+            function completePageTurn() {
                 isAnimating = true;
-                playPageTurnSound();
+                playSound(pageTurnSoundBuffer, 0.8);
                 
-                // Add turning class for z-index
-                pages[currentPage].classList.add('turning');
+                const currentPage = pages[currentPageIndex];
+                const nextPage = pages[currentPageIndex + 1];
                 
-                // Animate current page to turn
-                pages[currentPage].style.transform = 'rotateY(-180deg)';
+                // Animate current page to fully turned with smooth curve
+                currentPage.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                currentPage.style.transform = 'rotateY(-180deg) rotateZ(0deg)';
                 
-                // If there's a next page, bring it forward
-                if (currentPage + 1 < totalPages) {
-                    pages[currentPage + 1].style.zIndex = totalPages + 1;
-                    pages[currentPage + 1].style.transform = 'rotateY(0deg)';
+                // Animate next page to front
+                if (nextPage) {
+                    nextPage.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                    nextPage.style.transform = 'rotateY(0deg)';
                 }
                 
-                // After animation completes
+                // Update state after animation
                 setTimeout(() => {
-                    pages[currentPage].classList.remove('turning');
-                    if (currentPage + 1 < totalPages) {
-                        pages[currentPage + 1].style.zIndex = totalPages - currentPage - 1;
+                    if (nextPage) {
+                        nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
+                        nextPage.style.transition = '';
                     }
-                    currentPage++;
+                    currentPage.style.transition = '';
+                    currentPageIndex++;
+                    updatePageCounter();
                     updateButtons();
                     isAnimating = false;
-                }, 1500);
+                    
+                    // Move bookmark
+                    updateBookmarkPosition();
+                }, 800);
             }
-            
-            // Go to previous page
-            function prevPage() {
-                if (isAnimating || currentPage <= 0) return;
+
+            // Revert Page Turn
+            function revertPageTurn() {
+                isAnimating = true;
+                playSound(paperRustleSoundBuffer, 0.2);
+                
+                const currentPage = pages[currentPageIndex];
+                const nextPage = pages[currentPageIndex + 1];
+                
+                // Animate back to original position
+                currentPage.style.transition = 'transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+                currentPage.style.transform = 'rotateY(0deg) rotateZ(0deg)';
+                
+                if (nextPage) {
+                    nextPage.style.transition = 'transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+                    nextPage.style.transform = 'rotateY(-180deg)';
+                }
+                
+                setTimeout(() => {
+                    if (nextPage) {
+                        nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 2;
+                        nextPage.style.transition = '';
+                    }
+                    currentPage.style.transition = '';
+                    isAnimating = false;
+                }, 500);
+            }
+
+            // Next Page
+            function nextPage() {
+                if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
                 
                 isAnimating = true;
-                playPageTurnSound();
+                playSound(pageTurnSoundBuffer, 0.8);
                 
-                // Add turning class for z-index
-                pages[currentPage].classList.add('turning');
+                const currentPage = pages[currentPageIndex];
+                const nextPage = pages[currentPageIndex + 1];
                 
-                // Reset current page to hidden
-                pages[currentPage].style.transform = 'rotateY(-180deg)';
+                // Add curl effect class
+                currentPage.classList.add('curling');
+                
+                // Animate with curl effect
+                currentPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
+                currentPage.style.transform = 'rotateY(-180deg)';
+                
+                if (nextPage) {
+                    nextPage.style.zIndex = CONFIG.totalPages + 1;
+                    nextPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
+                    nextPage.style.transform = 'rotateY(0deg)';
+                }
+                
+                setTimeout(() => {
+                    currentPage.classList.remove('curling');
+                    if (nextPage) {
+                        nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
+                        nextPage.style.transition = '';
+                    }
+                    currentPage.style.transition = '';
+                    currentPageIndex++;
+                    updatePageCounter();
+                    updateButtons();
+                    isAnimating = false;
+                    
+                    // Move bookmark
+                    updateBookmarkPosition();
+                }, 1000);
+            }
+
+            // Previous Page
+            function previousPage() {
+                if (isAnimating || currentPageIndex <= 0) return;
+                
+                isAnimating = true;
+                playSound(pageTurnSoundBuffer, 0.6);
+                
+                const currentPage = pages[currentPageIndex];
+                const previousPage = pages[currentPageIndex - 1];
+                
+                // Add curl effect to previous page
+                previousPage.classList.add('curling');
+                
+                // Reset current page
+                currentPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
+                currentPage.style.transform = 'rotateY(-180deg)';
                 
                 // Bring previous page forward
-                pages[currentPage - 1].style.zIndex = totalPages + 1;
-                pages[currentPage - 1].style.transform = 'rotateY(0deg)';
+                previousPage.style.zIndex = CONFIG.totalPages + 1;
+                previousPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
+                previousPage.style.transform = 'rotateY(0deg)';
                 
-                // After animation completes
                 setTimeout(() => {
-                    pages[currentPage].classList.remove('turning');
-                    pages[currentPage - 1].style.zIndex = totalPages - currentPage + 1;
-                    currentPage--;
+                    previousPage.classList.remove('curling');
+                    previousPage.style.zIndex = CONFIG.totalPages - currentPageIndex + 1;
+                    previousPage.style.transition = '';
+                    currentPage.style.transition = '';
+                    currentPageIndex--;
+                    updatePageCounter();
                     updateButtons();
                     isAnimating = false;
-                }, 1500);
+                    
+                    // Move bookmark
+                    updateBookmarkPosition();
+                }, 1000);
             }
-            
-            // Update button states
+
+            // Update Page Counter
+            function updatePageCounter() {
+                currentPageSpan.textContent = currentPageIndex + 1;
+                pageCounter.style.animation = 'none';
+                setTimeout(() => {
+                    pageCounter.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
+            }
+
+            // Update Bookmark Position
+            function updateBookmarkPosition() {
+                const position = 50 + (currentPageIndex / (CONFIG.totalPages - 1)) * 80;
+                bookmark.style.top = `${position}px`;
+                bookmark.style.transition = 'top 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+            }
+
+            // Update Button States
             function updateButtons() {
-                prevBtn.disabled = currentPage <= 0;
-                nextBtn.disabled = currentPage >= totalPages - 1;
+                prevBtn.disabled = currentPageIndex <= 0;
+                nextBtn.disabled = currentPageIndex >= CONFIG.totalPages - 1;
                 
-                if (currentPage <= 0) {
-                    prevBtn.innerHTML = '<i class="fas fa-book"></i> Front Cover';
+                // Add visual feedback
+                if (prevBtn.disabled) {
+                    prevBtn.style.opacity = '0.6';
+                    prevBtn.innerHTML = '<i class="fas fa-book"></i><span>Front Cover</span>';
                 } else {
-                    prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Previous Page';
+                    prevBtn.style.opacity = '1';
+                    prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i><span>Previous Page</span>';
                 }
                 
-                if (currentPage >= totalPages - 1) {
-                    nextBtn.innerHTML = 'Back Cover <i class="fas fa-book"></i>';
+                if (nextBtn.disabled) {
+                    nextBtn.style.opacity = '0.6';
+                    nextBtn.innerHTML = '<span>Back Cover</span><i class="fas fa-book"></i>';
                 } else {
-                    nextBtn.innerHTML = 'Next Page <i class="fas fa-arrow-right"></i>';
+                    nextBtn.style.opacity = '1';
+                    nextBtn.innerHTML = '<span>Next Page</span><i class="fas fa-arrow-right"></i>';
                 }
             }
-            
-            // Toggle sound
+
+            // Toggle Sound
             soundToggle.addEventListener('click', function() {
                 soundEnabled = !soundEnabled;
                 if (soundEnabled) {
-                    soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    soundToggle.title = "Sound: ON";
+                    this.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    this.title = "Sound: ON";
+                    this.style.color = '#d4af37';
                 } else {
-                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                    soundToggle.title = "Sound: OFF";
+                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    this.title = "Sound: OFF";
+                    this.style.color = '#999';
                 }
             });
-            
-            // Add click event listeners to page edges for realistic interaction
-            function addPageEdgeListeners() {
-                const book = document.getElementById('book');
-                
-                book.addEventListener('click', function(e) {
-                    if (isAnimating) return;
-                    
-                    const rect = book.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const width = rect.width;
-                    
-                    // Click on right third of book to go forward
-                    if (x > width * 0.66 && currentPage < totalPages - 1) {
-                        nextPage();
-                    }
-                    // Click on left third of book to go backward
-                    else if (x < width * 0.33 && currentPage > 0) {
-                        prevPage();
-                    }
-                });
-            }
-            
-            // Add keyboard navigation
+
+            // Keyboard Navigation
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     e.preventDefault();
                     nextPage();
                 } else if (e.key === 'ArrowLeft') {
                     e.preventDefault();
-                    prevPage();
+                    previousPage();
                 }
             });
-            
-            // Add touch swipe support for mobile
+
+            // Touch Swipe Support
             let touchStartX = 0;
-            let touchEndX = 0;
-            
             document.addEventListener('touchstart', function(e) {
                 touchStartX = e.changedTouches[0].screenX;
             }, false);
             
             document.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, false);
-            
-            function handleSwipe() {
-                const swipeThreshold = 50;
+                const touchEndX = e.changedTouches[0].screenX;
                 const diff = touchStartX - touchEndX;
+                const swipeThreshold = 50;
                 
                 if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0 && currentPage < totalPages - 1) {
+                    if (diff > 0 && currentPageIndex < CONFIG.totalPages - 1) {
                         // Swipe left - next page
                         nextPage();
-                    } else if (diff < 0 && currentPage > 0) {
+                    } else if (diff < 0 && currentPageIndex > 0) {
                         // Swipe right - previous page
-                        prevPage();
+                        previousPage();
                     }
                 }
+            }, false);
+
+            // Initialize
+            function init() {
+                initAudio();
+                createPages();
+                updateButtons();
+                updateBookmarkPosition();
+                
+                // Hide loading screen after a short delay
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 1500);
+                
+                // Add click events to buttons
+                prevBtn.addEventListener('click', previousPage);
+                nextBtn.addEventListener('click', nextPage);
+                
+                // Add click events to book edges
+                book.addEventListener('click', function(e) {
+                    if (isAnimating || isDragging) return;
+                    
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const width = rect.width;
+                    
+                    if (x > width * 0.7 && currentPageIndex < CONFIG.totalPages - 1) {
+                        nextPage();
+                    } else if (x < width * 0.3 && currentPageIndex > 0) {
+                        previousPage();
+                    }
+                });
+                
+                // Initialize sound toggle state
+                soundToggle.title = soundEnabled ? "Sound: ON" : "Sound: OFF";
+                if (!soundEnabled) {
+                    soundToggle.style.color = '#999';
+                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                }
+                
+                // Add mouse enter/leave for book
+                book.addEventListener('mouseenter', () => {
+                    isMouseOverBook = true;
+                });
+                
+                book.addEventListener('mouseleave', () => {
+                    isMouseOverBook = false;
+                    // Remove tilt from all pages when mouse leaves book
+                    pages.forEach(page => page.classList.remove('tilted'));
+                });
             }
-            
-            // Initialize everything
-            preloadImages();
-            initializePages();
-            addPageEdgeListeners();
-            
-            // Add event listeners to buttons
-            prevBtn.addEventListener('click', prevPage);
-            nextBtn.addEventListener('click', nextPage);
-            
-            // Initialize sound toggle state
-            soundToggle.title = "Sound: ON";
+
+            // Start initialization
+            init();
         });
     </script>
 </body>
