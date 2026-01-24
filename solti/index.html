@@ -1,35 +1,927 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
-     crossorigin="anonymous"></script>
-    <meta name="google-adsense-account" content="ca-pub-1662750642698861">
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solti Resturent Butwal | Menu</title>
+    <title>Solti Restaurant | Digital Menu Book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        img {
-  margin-top: 0px;
-  margin-bottom: -2px;
-  margin-right: 0px;
-  margin-left: 0px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .restaurant-name {
+            font-size: 3.5rem;
+            color: #c9a96e;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .tagline {
+            color: #ddd;
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            background: rgba(201, 169, 110, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 10px;
+            border: 1px solid #c9a96e;
+        }
+
+        .contact-info i {
+            color: #c9a96e;
+            margin-right: 10px;
+        }
+
+        .phone-number {
+            font-size: 1.4rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .menu-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+        }
+
+        .book {
+            width: 900px;
+            height: 600px;
+            position: relative;
+            perspective: 1500px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #f8f5e9;
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            background-color: #f8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+        }
+
+        .page-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: white;
+        }
+
+        .page-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 10;
+            display: none; /* Hidden by default, can be shown if needed */
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        .cover {
+            background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+            color: #f8f5e9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
+        }
+
+        .cover-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #c9a96e;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 5px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: #f8f5e9;
+            font-style: italic;
+        }
+
+        .cover-ornament {
+            font-size: 3rem;
+            color: #c9a96e;
+            margin: 30px 0;
+        }
+
+        .cover-contact {
+            margin-top: 40px;
+            font-size: 1.3rem;
+            background: rgba(201, 169, 110, 0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: 1px solid #c9a96e;
+        }
+
+        .page-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .btn {
+            background: #8b4513;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            background: #a0522d;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .book-spine {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(to right, #654321, #8b4513, #654321);
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .sound-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .sound-toggle:hover {
+            background: rgba(201, 169, 110, 0.8);
+        }
+
+        .book-shadow {
+            position: absolute;
+            bottom: -30px;
+            width: 90%;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50%;
+            border-top-color: #c9a96e;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            color: #c9a96e;
+            font-size: 1.2rem;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .image-load-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+            background: #f8f5e9;
+        }
+
+        .image-load-error i {
+            font-size: 3rem;
+            color: #8b4513;
+            margin-bottom: 20px;
+        }
+
+        .image-load-error h3 {
+            color: #8b4513;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 1000px) {
+            .book {
+                width: 95vw;
+                height: 70vh;
+            }
+            
+            .restaurant-name {
+                font-size: 2.5rem;
+            }
+            
+            .cover-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .book {
+                height: 80vh;
+            }
+            
+            .cover-title {
+                font-size: 2.5rem;
+            }
+            
+            .cover-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            
+            .restaurant-name {
+                font-size: 2rem;
+            }
+        }
+
+        /* Page turning effect */
+        .page.turning {
+            z-index: 10;
+        }
+
+        /* Instructions */
+        .instructions {
+            color: #aaa;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            max-width: 800px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
-    <img src="Animation.gif" alt="HOME"  width="100%"> 
-    <img src="Main.png" alt="Menu page 1"  width="100%">
-    <img src="A1.png" alt="Menu page 1"  width="100%">
-    <img src="1_2.png" alt="Menu page 2"  width="100%">
-    <img src="A2.png" alt="Menu page 1"  width="100%">
-    <img src="1_3.png" alt="Menu page 3"  width="100%">
-    <img src="1_4.png" alt="Menu page 4"  width="100%">
-    <img src="1_5.png" alt="Menu page 5"  width="100%">
-    <img src="1_6.png" alt="Menu page 6"  width="100%">
-    <img src="1_7.png" alt="Menu page 7"  width="100%">
-    
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Menu Book...</div>
+    </div>
 
+    <button class="sound-toggle" id="soundToggle">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <div class="header">
+        <h1 class="restaurant-name">SOLTI RESTAURANT</h1>
+        <p class="tagline">Authentic Nepali Cuisine in the Heart of Butwal</p>
+        <div class="contact-info">
+            <i class="fas fa-phone-alt"></i>
+            <span class="phone-number">+977 976-3661500</span>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="book" id="book">
+            <!-- Book spine -->
+            <div class="book-spine"></div>
+            
+            <!-- Page 1 (Cover) -->
+            <div class="page" id="page1">
+                <div class="front cover">
+                    <div class="cover-ornament">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h1 class="cover-title">SOLTI</h1>
+                    <h2 class="cover-subtitle">RESTAURANT & BAR</h2>
+                    <div class="cover-ornament">
+                        <i class="fas fa-pepper-hot"></i>
+                    </div>
+                    <p style="font-size: 1.5rem; margin-top: 30px;">Butwal, Nepal</p>
+                    <div class="cover-contact">
+                        <i class="fas fa-phone"></i> +977 976-3661500
+                    </div>
+                    <p style="margin-top: 40px; font-style: italic;">Open Daily: 10:00 AM - 10:00 PM</p>
+                    <div class="page-number">Cover</div>
+                </div>
+                <div class="back">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Main Menu</h2>
+                        </div>
+                        <img src="Main.png" alt="Main Menu Page" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">1</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page 2 -->
+            <div class="page" id="page2">
+                <div class="front">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="A1.png" alt="Menu Page A1" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">2</div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="1_2.png" alt="Menu Page 1_2" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">3</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page 3 -->
+            <div class="page" id="page3">
+                <div class="front">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="A2.png" alt="Menu Page A2" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">4</div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="1_3.png" alt="Menu Page 1_3" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">5</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page 4 -->
+            <div class="page" id="page4">
+                <div class="front">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="1_4.png" alt="Menu Page 1_4" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">6</div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="1_5.png" alt="Menu Page 1_5" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">7</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page 5 -->
+            <div class="page" id="page5">
+                <div class="front">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="1_6.png" alt="Menu Page 1_6" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">8</div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="page-content">
+                        <div class="page-header">
+                            <h2>Menu Page</h2>
+                        </div>
+                        <img src="1_7.png" alt="Menu Page 1_7" class="page-image" onerror="handleImageError(this)">
+                        <div class="page-number">9</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page 6 (Back Cover) -->
+            <div class="page" id="page6">
+                <div class="front">
+                    <div class="page-content">
+                        <div style="text-align: center; margin-top: 60px; padding: 40px;">
+                            <div style="font-size: 5rem; color: #c9a96e; margin-bottom: 30px;">
+                                <i class="fas fa-utensil-spoon"></i>
+                            </div>
+                            <h2 style="font-size: 2rem; color: #8b4513; margin-bottom: 20px;">
+                                Thank You
+                            </h2>
+                            <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                                Thank you for dining with us. We hope you enjoyed your meal and we look forward to serving you again soon.
+                            </p>
+                            
+                            <div style="background: rgba(201, 169, 110, 0.1); padding: 25px; border-radius: 10px; margin-top: 40px; border: 1px solid #c9a96e;">
+                                <h4 style="color: #8b4513; margin-bottom: 15px; font-size: 1.3rem;">Contact Information</h4>
+                                <p><i class="fas fa-map-marker-alt" style="color: #c9a96e;"></i> Butwal, Rupandehi, Nepal</p>
+                                <p><i class="fas fa-phone" style="color: #c9a96e;"></i> +977 976-3661500</p>
+                                <p><i class="fas fa-clock" style="color: #c9a96e;"></i> Open Daily: 10:00 AM - 10:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="page-number">10</div>
+                    </div>
+                </div>
+                <div class="back cover">
+                    <h1 style="font-size: 3rem; color: #c9a96e; margin-bottom: 30px;">SOLTI</h1>
+                    <div style="font-size: 4rem; color: #c9a96e; margin-bottom: 30px;">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <p style="font-size: 1.5rem; margin-bottom: 20px;">Menu Book</p>
+                    <p style="font-style: italic; margin-bottom: 40px;">Authentic Nepali Cuisine</p>
+                    <div style="margin-top: 60px; font-size: 1.2rem;">
+                        <p>Butwal, Nepal</p>
+                        <p>Est. 2010</p>
+                    </div>
+                    <div class="page-number">Back Cover</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="book-shadow"></div>
+    </div>
+    
+    <div class="page-controls">
+        <button class="btn" id="prevBtn">
+            <i class="fas fa-arrow-left"></i> Previous Page
+        </button>
+        <button class="btn" id="nextBtn">
+            Next Page <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+    
+    <div class="instructions">
+        <p><i class="fas fa-mouse-pointer"></i> Click on the right edge of the book to turn forward, left edge to turn back</p>
+        <p><i class="fas fa-keyboard"></i> Use keyboard arrows (← →) or spacebar to navigate</p>
+        <p><i class="fas fa-mobile-alt"></i> On touch devices, swipe left/right to turn pages</p>
+    </div>
+
+    <audio id="pageTurnSound" preload="auto">
+        <!-- Audio element for page turn sound -->
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const loadingScreen = document.getElementById('loadingScreen');
+            const pages = document.querySelectorAll('.page');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const soundToggle = document.getElementById('soundToggle');
+            const totalPages = pages.length;
+            let currentPage = 0;
+            let isAnimating = false;
+            let soundEnabled = true;
+            let imagesLoaded = 0;
+            const totalImages = document.querySelectorAll('img').length;
+            
+            // Image preloading with progress tracking
+            function preloadImages() {
+                const images = document.querySelectorAll('img');
+                let loadedCount = 0;
+                
+                images.forEach(img => {
+                    // Check if image is already loaded
+                    if (img.complete && img.naturalHeight !== 0) {
+                        loadedCount++;
+                        updateLoadingProgress();
+                    } else {
+                        // Load image
+                        img.onload = function() {
+                            loadedCount++;
+                            updateLoadingProgress();
+                        };
+                        img.onerror = function() {
+                            // Handle image load error
+                            loadedCount++;
+                            updateLoadingProgress();
+                        };
+                    }
+                });
+                
+                // In case all images are already loaded
+                if (loadedCount === images.length) {
+                    hideLoadingScreen();
+                }
+            }
+            
+            function updateLoadingProgress() {
+                imagesLoaded++;
+                // You could update a progress bar here if needed
+                if (imagesLoaded >= totalImages) {
+                    // Give a small delay for smooth transition
+                    setTimeout(hideLoadingScreen, 500);
+                }
+            }
+            
+            function hideLoadingScreen() {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }
+            
+            // Handle image loading errors
+            function handleImageError(imgElement) {
+                console.log(`Failed to load image: ${imgElement.src}`);
+                imgElement.style.display = 'none';
+                
+                // Create error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'image-load-error';
+                errorDiv.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Menu Image Not Loaded</h3>
+                    <p>The menu image could not be loaded. Please check your internet connection or contact the restaurant.</p>
+                    <p style="margin-top: 20px;"><strong>Contact: +977 976-3661500</strong></p>
+                `;
+                
+                imgElement.parentNode.appendChild(errorDiv);
+            }
+            
+            // Create page turn sound using Web Audio API
+            function createPageTurnSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Create a buffer for rustling paper sound
+                    const bufferSize = audioContext.sampleRate * 0.4; // 0.4 seconds
+                    const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+                    const output = buffer.getChannelData(0);
+                    
+                    // Generate paper rustling sound
+                    for (let i = 0; i < bufferSize; i++) {
+                        // Create noise with decreasing high frequencies
+                        let noise = Math.random() * 2 - 1;
+                        
+                        // Apply low-pass filter simulation
+                        if (i > 0) {
+                            noise = 0.98 * output[i-1] + 0.02 * noise;
+                        }
+                        
+                        // Apply envelope
+                        const envelope = Math.exp(-i / (audioContext.sampleRate * 0.25));
+                        output[i] = noise * envelope * 0.3;
+                    }
+                    
+                    return buffer;
+                } catch (e) {
+                    console.log("Web Audio API not supported");
+                    return null;
+                }
+            }
+            
+            // Play page turn sound
+            function playPageTurnSound() {
+                if (!soundEnabled) return;
+                
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const soundBuffer = createPageTurnSound();
+                    
+                    if (soundBuffer) {
+                        const source = audioContext.createBufferSource();
+                        source.buffer = soundBuffer;
+                        source.connect(audioContext.destination);
+                        source.start();
+                    } else {
+                        // Fallback: use a simple click
+                        const click = new Audio();
+                        const context = new AudioContext();
+                        const oscillator = context.createOscillator();
+                        const gainNode = context.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(context.destination);
+                        
+                        oscillator.frequency.value = 150;
+                        oscillator.type = 'sine';
+                        
+                        gainNode.gain.setValueAtTime(0.1, context.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.2);
+                        
+                        oscillator.start(context.currentTime);
+                        oscillator.stop(context.currentTime + 0.2);
+                    }
+                } catch (e) {
+                    console.log("Sound playback failed");
+                }
+            }
+            
+            // Set initial page positions
+            function initializePages() {
+                for (let i = 0; i < totalPages; i++) {
+                    if (i === 0) {
+                        // First page - show front (cover)
+                        pages[i].style.transform = 'rotateY(0deg)';
+                        pages[i].style.zIndex = totalPages;
+                    } else {
+                        // Other pages - hide behind
+                        pages[i].style.transform = 'rotateY(-180deg)';
+                        pages[i].style.zIndex = totalPages - i;
+                    }
+                }
+                updateButtons();
+            }
+            
+            // Go to next page
+            function nextPage() {
+                if (isAnimating || currentPage >= totalPages - 1) return;
+                
+                isAnimating = true;
+                playPageTurnSound();
+                
+                // Add turning class for z-index
+                pages[currentPage].classList.add('turning');
+                
+                // Animate current page to turn
+                pages[currentPage].style.transform = 'rotateY(-180deg)';
+                
+                // If there's a next page, bring it forward
+                if (currentPage + 1 < totalPages) {
+                    pages[currentPage + 1].style.zIndex = totalPages + 1;
+                    pages[currentPage + 1].style.transform = 'rotateY(0deg)';
+                }
+                
+                // After animation completes
+                setTimeout(() => {
+                    pages[currentPage].classList.remove('turning');
+                    if (currentPage + 1 < totalPages) {
+                        pages[currentPage + 1].style.zIndex = totalPages - currentPage - 1;
+                    }
+                    currentPage++;
+                    updateButtons();
+                    isAnimating = false;
+                }, 1500);
+            }
+            
+            // Go to previous page
+            function prevPage() {
+                if (isAnimating || currentPage <= 0) return;
+                
+                isAnimating = true;
+                playPageTurnSound();
+                
+                // Add turning class for z-index
+                pages[currentPage].classList.add('turning');
+                
+                // Reset current page to hidden
+                pages[currentPage].style.transform = 'rotateY(-180deg)';
+                
+                // Bring previous page forward
+                pages[currentPage - 1].style.zIndex = totalPages + 1;
+                pages[currentPage - 1].style.transform = 'rotateY(0deg)';
+                
+                // After animation completes
+                setTimeout(() => {
+                    pages[currentPage].classList.remove('turning');
+                    pages[currentPage - 1].style.zIndex = totalPages - currentPage + 1;
+                    currentPage--;
+                    updateButtons();
+                    isAnimating = false;
+                }, 1500);
+            }
+            
+            // Update button states
+            function updateButtons() {
+                prevBtn.disabled = currentPage <= 0;
+                nextBtn.disabled = currentPage >= totalPages - 1;
+                
+                if (currentPage <= 0) {
+                    prevBtn.innerHTML = '<i class="fas fa-book"></i> Front Cover';
+                } else {
+                    prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Previous Page';
+                }
+                
+                if (currentPage >= totalPages - 1) {
+                    nextBtn.innerHTML = 'Back Cover <i class="fas fa-book"></i>';
+                } else {
+                    nextBtn.innerHTML = 'Next Page <i class="fas fa-arrow-right"></i>';
+                }
+            }
+            
+            // Toggle sound
+            soundToggle.addEventListener('click', function() {
+                soundEnabled = !soundEnabled;
+                if (soundEnabled) {
+                    soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    soundToggle.title = "Sound: ON";
+                } else {
+                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    soundToggle.title = "Sound: OFF";
+                }
+            });
+            
+            // Add click event listeners to page edges for realistic interaction
+            function addPageEdgeListeners() {
+                const book = document.getElementById('book');
+                
+                book.addEventListener('click', function(e) {
+                    if (isAnimating) return;
+                    
+                    const rect = book.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const width = rect.width;
+                    
+                    // Click on right third of book to go forward
+                    if (x > width * 0.66 && currentPage < totalPages - 1) {
+                        nextPage();
+                    }
+                    // Click on left third of book to go backward
+                    else if (x < width * 0.33 && currentPage > 0) {
+                        prevPage();
+                    }
+                });
+            }
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextPage();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevPage();
+                }
+            });
+            
+            // Add touch swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            document.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0 && currentPage < totalPages - 1) {
+                        // Swipe left - next page
+                        nextPage();
+                    } else if (diff < 0 && currentPage > 0) {
+                        // Swipe right - previous page
+                        prevPage();
+                    }
+                }
+            }
+            
+            // Initialize everything
+            preloadImages();
+            initializePages();
+            addPageEdgeListeners();
+            
+            // Add event listeners to buttons
+            prevBtn.addEventListener('click', prevPage);
+            nextBtn.addEventListener('click', nextPage);
+            
+            // Initialize sound toggle state
+            soundToggle.title = "Sound: ON";
+        });
+    </script>
 </body>
 </html>
