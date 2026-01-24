@@ -3,41 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solti Restaurant | Premium 3D Menu Book</title>
+    <title>Solti Restaurant | 8D Realistic Menu Book</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Georgia', 'Times New Roman', serif;
         }
 
         body {
-            background: radial-gradient(ellipse at center, #2c1810 0%, #1a0f0a 100%);
+            background: radial-gradient(ellipse at center, #0c0a06 0%, #000000 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
+            font-family: 'Georgia', 'Times New Roman', serif;
         }
 
-        /* Subtle background pattern */
-        body::before {
-            content: '';
+        /* 8D Background Effects */
+        .particles-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(201, 169, 110, 0.03) 0%, transparent 20%),
-                radial-gradient(circle at 85% 30%, rgba(201, 169, 110, 0.03) 0%, transparent 20%),
-                radial-gradient(circle at 50% 80%, rgba(201, 169, 110, 0.02) 0%, transparent 20%);
-            z-index: -1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Holographic Effect */
+        .hologram-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 49.9%, rgba(212, 175, 55, 0.03) 50%, transparent 50.1%) 0 0 / 50px 50px,
+                linear-gradient(-45deg, transparent 49.9%, rgba(212, 175, 55, 0.03) 50%, transparent 50.1%) 0 0 / 50px 50px;
+            z-index: 0;
+            pointer-events: none;
+            animation: hologramMove 20s infinite linear;
+        }
+
+        @keyframes hologramMove {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 100px 100px, 100px 100px; }
         }
 
         .header {
@@ -45,31 +87,65 @@
             margin-bottom: 30px;
             width: 100%;
             max-width: 900px;
-            animation: fadeInDown 1s ease-out;
+            animation: hologramText 3s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes hologramText {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
         }
 
         .restaurant-name {
-            font-size: 3.5rem;
-            background: linear-gradient(45deg, #d4af37, #ffd700, #f8de7e);
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, 
+                #d4af37 0%, 
+                #ffd700 25%, 
+                #f8de7e 50%, 
+                #ffd700 75%, 
+                #d4af37 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            letter-spacing: 3px;
-            margin-bottom: 10px;
+            text-shadow: 
+                0 0 30px rgba(212, 175, 55, 0.5),
+                0 0 60px rgba(212, 175, 55, 0.3),
+                0 0 90px rgba(212, 175, 55, 0.1);
+            letter-spacing: 4px;
+            margin-bottom: 15px;
             font-family: 'Playfair Display', serif;
             position: relative;
             display: inline-block;
-            padding: 0 20px;
+            padding: 0 30px;
+            animation: shine 5s infinite linear;
+            background-size: 200% auto;
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         .restaurant-name::before, .restaurant-name::after {
             content: '';
             position: absolute;
             top: 50%;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(212, 175, 55, 0.8), 
+                transparent);
+            transform: translateY(-50%);
         }
 
         .restaurant-name::before {
@@ -82,462 +158,751 @@
 
         .tagline {
             color: #e6d5b8;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-style: italic;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+            animation: floatText 6s ease-in-out infinite;
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .contact-info {
-            background: rgba(212, 175, 55, 0.1);
-            padding: 15px 30px;
+            background: linear-gradient(45deg, 
+                rgba(212, 175, 55, 0.15), 
+                rgba(212, 175, 55, 0.05));
+            padding: 20px 40px;
             border-radius: 50px;
             display: inline-block;
-            margin-top: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .contact-info:hover {
-            background: rgba(212, 175, 55, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .contact-info i {
-            color: #d4af37;
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        .phone-number {
-            font-size: 1.4rem;
-            color: #ffd700;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .menu-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 1200px;
-            position: relative;
-            animation: fadeInUp 1s ease-out 0.5s both;
-        }
-
-        /* Premium Book Container */
-        .book-wrapper {
-            position: relative;
-            width: 900px;
-            height: 650px;
-            perspective: 2000px;
-            transform-style: preserve-3d;
-        }
-
-        .book {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-            transform: rotateY(0deg);
-        }
-
-        /* Hard Cover with Embossed Effect */
-        .hard-cover {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, #8b4513, #654321, #8b4513);
-            border-radius: 10px 5px 5px 10px;
-            transform-style: preserve-3d;
+            margin-top: 15px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
             box-shadow: 
-                inset 0 0 50px rgba(0, 0, 0, 0.5),
-                inset 0 5px 20px rgba(255, 215, 0, 0.1),
-                0 20px 60px rgba(0, 0, 0, 0.8);
-            overflow: hidden;
-            z-index: 20;
-        }
-
-        .hard-cover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(90deg, transparent 95%, rgba(0,0,0,0.1) 100%),
-                radial-gradient(circle at 20% 50%, rgba(255,215,0,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255,215,0,0.05) 0%, transparent 50%);
-            border-radius: 10px 5px 5px 10px;
-        }
-
-        /* Book Spine with Gold Lettering */
-        .book-spine {
-            position: absolute;
-            left: -40px;
-            top: 20px;
-            width: 40px;
-            height: calc(100% - 40px);
-            background: linear-gradient(to right, #5a2d0c, #8b4513, #5a2d0c);
-            transform: rotateY(-90deg);
-            transform-origin: right center;
-            border-radius: 5px 0 0 5px;
-            box-shadow: 
-                inset -5px 0 15px rgba(0, 0, 0, 0.5),
-                -5px 0 20px rgba(0, 0, 0, 0.3);
-            z-index: 19;
-        }
-
-        .spine-title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(90deg);
-            color: #d4af37;
-            font-size: 1.2rem;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 3px;
-            white-space: nowrap;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Pages Stack */
-        .pages-stack {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-        }
-
-        .page {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-origin: left center;
-            transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            border-radius: 5px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .page-content {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            background: #f8f5e9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .page-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(rgba(139, 69, 19, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 69, 19, 0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-            z-index: 1;
-        }
-
-        .page-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: relative;
-            z-index: 2;
-            background-color: white;
-        }
-
-        .page-shadow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.1) 100%);
-            pointer-events: none;
-            z-index: 3;
-        }
-
-        /* Page Corner for Turning */
-        .page-corner {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%);
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
-
-        .page-corner:hover {
-            background: linear-gradient(135deg, transparent 50%, rgba(212, 175, 55, 0.3) 50%);
-        }
-
-        .page-corner::after {
-            content: '⇀';
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            color: rgba(139, 69, 19, 0.5);
-            font-size: 1.5rem;
-            transform: rotate(45deg);
-        }
-
-        /* Page Number */
-        .page-number {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(139, 69, 19, 0.1);
-            color: #8b4513;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 0.9rem;
-            z-index: 5;
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(139, 69, 19, 0.2);
-        }
-
-        /* Bookmark Ribbon */
-        .bookmark {
-            position: absolute;
-            right: -15px;
-            top: 50px;
-            width: 30px;
-            height: 150px;
-            background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 30;
-            transform: rotate(0deg);
-            transition: transform 0.5s ease;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .bookmark:hover {
-            transform: rotate(5deg);
-        }
-
-        .bookmark::before {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 15px solid #b8941f;
-            border-right: 15px solid #b8941f;
-            border-bottom: 20px solid transparent;
-        }
-
-        /* Controls */
-        .controls-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-            gap: 20px;
-            animation: fadeIn 1s ease-out 1s both;
-        }
-
-        .control-btn {
-            background: linear-gradient(145deg, #8b4513, #a0522d);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.2);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
 
-        .control-btn::before {
+        .contact-info::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            transition: left 0.7s ease;
         }
 
-        .control-btn:hover::before {
+        .contact-info:hover::before {
             left: 100%;
         }
 
-        .control-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(145deg, #a0522d, #8b4513);
+        .contact-info:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(212, 175, 55, 0.4);
+            border-color: rgba(212, 175, 55, 0.6);
         }
 
-        .control-btn:active {
-            transform: translateY(1px);
+        .contact-info i {
+            color: #ffd700;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
         }
 
-        .control-btn:disabled {
-            background: #666;
+        .phone-number {
+            font-size: 1.6rem;
+            color: #ffd700;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* 8D Book Container */
+        .book-3d-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 700px;
+            perspective: 2500px;
+            position: relative;
+            animation: containerFloat 8s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            25% { transform: translateY(-10px) rotateX(1deg); }
+            50% { transform: translateY(-5px) rotateX(-0.5deg); }
+            75% { transform: translateY(-8px) rotateX(0.5deg); }
+        }
+
+        .book-3d {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: 
+                rotateX(5deg) 
+                rotateY(0deg) 
+                translateZ(0);
+            animation: bookGlow 4s infinite alternate;
+        }
+
+        @keyframes bookGlow {
+            0% {
+                filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3));
+            }
+            100% {
+                filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6));
+            }
+        }
+
+        /* Book Cover with 3D Texture */
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(145deg, 
+                    #5a2d0c 0%, 
+                    #8b4513 25%, 
+                    #654321 50%, 
+                    #8b4513 75%, 
+                    #5a2d0c 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23000000" fill-opacity="0.1" d="M0,0 L100,0 L100,100 L0,100 Z M10,10 L90,10 L90,90 L10,90 Z"/></svg>');
+            border-radius: 15px 8px 8px 15px;
+            transform-style: preserve-3d;
+            box-shadow: 
+                inset 0 0 100px rgba(0, 0, 0, 0.8),
+                inset 0 10px 50px rgba(212, 175, 55, 0.2),
+                0 30px 100px rgba(0, 0, 0, 0.9),
+                0 0 50px rgba(212, 175, 55, 0.3);
+            overflow: hidden;
+            z-index: 20;
+            animation: coverPulse 8s infinite;
+        }
+
+        @keyframes coverPulse {
+            0%, 100% { 
+                box-shadow: 
+                    inset 0 0 100px rgba(0, 0, 0, 0.8),
+                    inset 0 10px 50px rgba(212, 175, 55, 0.2),
+                    0 30px 100px rgba(0, 0, 0, 0.9),
+                    0 0 50px rgba(212, 175, 55, 0.3);
+            }
+            50% { 
+                box-shadow: 
+                    inset 0 0 100px rgba(0, 0, 0, 0.9),
+                    inset 0 10px 50px rgba(212, 175, 55, 0.4),
+                    0 30px 120px rgba(0, 0, 0, 1),
+                    0 0 70px rgba(212, 175, 55, 0.5);
+            }
+        }
+
+        .cover-emboss {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #d4af37;
+            width: 80%;
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.5);
+            animation: embossFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes embossFloat {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -52%); }
+        }
+
+        .cover-title {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: titleShine 3s infinite linear;
+        }
+
+        @keyframes titleShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Book Spine */
+        .book-spine-3d {
+            position: absolute;
+            left: -50px;
+            top: 20px;
+            width: 50px;
+            height: calc(100% - 40px);
+            background: linear-gradient(to right, 
+                #3d1f08 0%, 
+                #5a2d0c 20%, 
+                #8b4513 50%, 
+                #5a2d0c 80%, 
+                #3d1f08 100%);
+            transform: rotateY(-90deg) rotateX(5deg);
+            transform-origin: right center;
+            border-radius: 8px 0 0 8px;
+            box-shadow: 
+                inset -5px 0 20px rgba(0, 0, 0, 0.7),
+                -10px 0 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.2);
+            z-index: 18;
+            animation: spineGlow 5s infinite alternate;
+        }
+
+        @keyframes spineGlow {
+            0% { box-shadow: 
+                    inset -5px 0 20px rgba(0, 0, 0, 0.7),
+                    -10px 0 30px rgba(0, 0, 0, 0.5),
+                    0 0 20px rgba(212, 175, 55, 0.2); }
+            100% { box-shadow: 
+                    inset -5px 0 20px rgba(0, 0, 0, 0.8),
+                    -10px 0 40px rgba(0, 0, 0, 0.6),
+                    0 0 30px rgba(212, 175, 55, 0.4); }
+        }
+
+        /* Pages Stack with 8D Effect */
+        .pages-stack-3d {
+            position: absolute;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            left: 10px;
+            top: 10px;
+            transform-style: preserve-3d;
+            perspective: 1500px;
+            z-index: 10;
+        }
+
+        .page-3d {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            filter: drop-shadow(-2px 0 5px rgba(0,0,0,0.1));
+        }
+
+        .page-content-3d {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: 
+                linear-gradient(45deg, #f8f5e9 0%, #fffaf0 100%),
+                repeating-linear-gradient(0deg, 
+                    transparent, 
+                    transparent 1px, 
+                    rgba(139, 69, 19, 0.05) 1px, 
+                    rgba(139, 69, 19, 0.05) 2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 30px rgba(0, 0, 0, 0.1),
+                inset 5px 0 20px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        .page-image-3d {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .page-image-3d:hover {
+            transform: scale(1.02);
+        }
+
+        /* Page Curl Effect */
+        .page-curl {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, 
+                transparent 50%, 
+                rgba(0,0,0,0.15) 50%);
+            cursor: pointer;
+            z-index: 15;
+            transition: all 0.3s ease;
+            animation: curlHint 2s infinite;
+        }
+
+        @keyframes curlHint {
+            0%, 100% { 
+                background: linear-gradient(135deg, 
+                    transparent 50%, 
+                    rgba(212, 175, 55, 0.3) 50%);
+                transform: scale(1);
+            }
+            50% { 
+                background: linear-gradient(135deg, 
+                    transparent 50%, 
+                    rgba(212, 175, 55, 0.6) 50%);
+                transform: scale(1.1);
+            }
+        }
+
+        .page-curl:hover {
+            background: linear-gradient(135deg, 
+                transparent 50%, 
+                rgba(212, 175, 55, 0.4) 50%);
+            animation: none;
+        }
+
+        .page-curl::after {
+            content: '⇀';
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: rgba(139, 69, 19, 0.7);
+            font-size: 2rem;
+            transform: rotate(45deg);
+            filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
+        }
+
+        /* Page Number with 3D Effect */
+        .page-number-3d {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(139, 69, 19, 0.15);
+            color: #8b4513;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(139, 69, 19, 0.3);
+            box-shadow: 
+                inset 0 1px 3px rgba(255,255,255,0.5),
+                0 2px 5px rgba(0,0,0,0.2);
+            transform: translateZ(10px);
+        }
+
+        /* 8D Bookmark */
+        .bookmark-3d {
+            position: absolute;
+            right: -25px;
+            top: 100px;
+            width: 40px;
+            height: 200px;
+            background: linear-gradient(45deg, 
+                #d4af37 0%, 
+                #ffd700 25%, 
+                #f8de7e 50%, 
+                #ffd700 75%, 
+                #d4af37 100%);
+            box-shadow: 
+                5px 5px 20px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(212, 175, 55, 0.5);
+            z-index: 30;
+            transform: rotateY(-10deg) rotateX(5deg);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 5px 0 0 5px;
+            animation: bookmarkFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes bookmarkFloat {
+            0%, 100% { 
+                transform: rotateY(-10deg) rotateX(5deg) translateY(0); 
+                box-shadow: 
+                    5px 5px 20px rgba(0, 0, 0, 0.4),
+                    0 0 20px rgba(212, 175, 55, 0.5);
+            }
+            50% { 
+                transform: rotateY(-10deg) rotateX(5deg) translateY(-10px);
+                box-shadow: 
+                    8px 8px 30px rgba(0, 0, 0, 0.6),
+                    0 0 30px rgba(212, 175, 55, 0.7);
+            }
+        }
+
+        .bookmark-3d:hover {
+            transform: rotateY(-10deg) rotateX(5deg) rotateZ(10deg) translateY(-10px);
+            animation: none;
+        }
+
+        .bookmark-3d::before {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 20px solid #b8941f;
+            border-right: 20px solid #b8941f;
+            border-bottom: 30px solid transparent;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+        }
+
+        /* 8D Navigation Controls */
+        .controls-3d {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 10;
+            animation: controlsAppear 1s ease-out 1s both;
+        }
+
+        @keyframes controlsAppear {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.9); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .control-3d {
+            background: linear-gradient(145deg, 
+                rgba(139, 69, 19, 0.8), 
+                rgba(160, 82, 45, 0.9));
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.3),
+                inset 0 1px 3px rgba(255,255,255,0.2);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .control-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transition: left 0.7s ease;
+        }
+
+        .control-3d:hover::before {
+            left: 100%;
+        }
+
+        .control-3d:hover {
+            transform: translateY(-8px) translateZ(20px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                0 0 40px rgba(212, 175, 55, 0.5),
+                inset 0 1px 5px rgba(255,255,255,0.3);
+            background: linear-gradient(145deg, 
+                rgba(160, 82, 45, 0.9), 
+                rgba(139, 69, 19, 0.8));
+        }
+
+        .control-3d:active {
+            transform: translateY(-4px) translateZ(10px) scale(1.02);
+            transition: transform 0.1s ease;
+        }
+
+        .control-3d:disabled {
+            background: rgba(102, 102, 102, 0.5);
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            opacity: 0.6;
         }
 
-        .control-btn:disabled::before {
+        .control-3d:disabled::before {
             display: none;
         }
 
-        /* Sound Toggle */
-        .sound-toggle {
+        .control-3d i {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        /* Page Counter with 8D Effect */
+        .page-counter-3d {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%) translateZ(20px);
+            color: #e6d5b8;
+            font-size: 1.3rem;
+            background: linear-gradient(45deg, 
+                rgba(0, 0, 0, 0.4), 
+                rgba(20, 20, 20, 0.6));
+            padding: 15px 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            min-width: 180px;
+            text-align: center;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.2);
+            animation: counterFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes counterFloat {
+            0%, 100% { transform: translateX(-50%) translateZ(20px) translateY(0); }
+            50% { transform: translateX(-50%) translateZ(20px) translateY(-10px); }
+        }
+
+        /* Sound Toggle with 8D Effect */
+        .sound-toggle-3d {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, 
+                rgba(0, 0, 0, 0.7), 
+                rgba(20, 20, 20, 0.9));
             color: #d4af37;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            width: 60px;
-            height: 60px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 100;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(212, 175, 55, 0.3);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
-        .sound-toggle:hover {
-            background: rgba(212, 175, 55, 0.2);
-            transform: rotate(15deg) scale(1.1);
+        .sound-toggle-3d:hover {
+            transform: rotate(180deg) scale(1.2) translateZ(20px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(212, 175, 55, 0.5);
+            border-color: rgba(212, 175, 55, 0.7);
         }
 
-        /* Loading Screen */
-        .loading-screen {
+        /* Loading Screen with 8D Effect */
+        .loading-screen-3d {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: #1a0f0a;
+            background: radial-gradient(ellipse at center, 
+                #0c0a06 0%, 
+                #000000 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .loading-content {
+        .loading-content-3d {
             text-align: center;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(10deg);
         }
 
-        .loading-spinner {
-            width: 80px;
-            height: 80px;
-            border: 5px solid rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-            border-top-color: #d4af37;
-            animation: spin 1s linear infinite;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .loading-spinner::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
+        .loading-spinner-3d {
+            width: 100px;
+            height: 100px;
             border: 5px solid transparent;
             border-radius: 50%;
-            border-top-color: rgba(212, 175, 55, 0.3);
-            animation: spin 1.5s linear infinite reverse;
+            border-top: 5px solid #d4af37;
+            border-right: 5px solid #ffd700;
+            border-bottom: 5px solid #f8de7e;
+            border-left: 5px solid #d4af37;
+            margin-bottom: 40px;
+            animation: spin3D 2s linear infinite, colorShift 3s linear infinite;
+            position: relative;
+            transform-style: preserve-3d;
         }
 
-        .loading-text {
+        @keyframes spin3D {
+            0% { transform: rotate3d(1, 1, 1, 0deg); }
+            100% { transform: rotate3d(1, 1, 1, 360deg); }
+        }
+
+        @keyframes colorShift {
+            0%, 100% { 
+                border-top-color: #d4af37;
+                border-right-color: #ffd700;
+                border-bottom-color: #f8de7e;
+                border-left-color: #d4af37;
+            }
+            33% { 
+                border-top-color: #ffd700;
+                border-right-color: #f8de7e;
+                border-bottom-color: #d4af37;
+                border-left-color: #ffd700;
+            }
+            66% { 
+                border-top-color: #f8de7e;
+                border-right-color: #d4af37;
+                border-bottom-color: #ffd700;
+                border-left-color: #f8de7e;
+            }
+        }
+
+        .loading-spinner-3d::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 5px solid transparent;
+            border-radius: 50%;
+            border-top: 5px solid rgba(212, 175, 55, 0.3);
+            border-right: 5px solid rgba(255, 215, 0, 0.3);
+            border-bottom: 5px solid rgba(248, 222, 126, 0.3);
+            border-left: 5px solid rgba(212, 175, 55, 0.3);
+            animation: spin3D 3s linear infinite reverse;
+        }
+
+        .loading-text-3d {
             color: #d4af37;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
+            font-size: 2rem;
+            letter-spacing: 4px;
             margin-bottom: 10px;
+            text-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.7),
+                0 0 40px rgba(212, 175, 55, 0.5);
+            animation: textPulse 2s infinite alternate;
         }
 
-        .loading-subtext {
+        @keyframes textPulse {
+            0% { 
+                opacity: 0.8;
+                transform: scale(1);
+                text-shadow: 
+                    0 0 20px rgba(212, 175, 55, 0.7),
+                    0 0 40px rgba(212, 175, 55, 0.5);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1.1);
+                text-shadow: 
+                    0 0 30px rgba(212, 175, 55, 1),
+                    0 0 60px rgba(212, 175, 55, 0.8),
+                    0 0 90px rgba(212, 175, 55, 0.6);
+            }
+        }
+
+        .loading-subtext-3d {
             color: #e6d5b8;
-            font-size: 1rem;
+            font-size: 1.2rem;
             opacity: 0.8;
+            animation: subtextFloat 3s infinite;
         }
 
-        /* Page Counter */
-        .page-counter {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #e6d5b8;
-            font-size: 1.1rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            min-width: 150px;
-            text-align: center;
+        @keyframes subtextFloat {
+            0%, 100% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(-5px); opacity: 1; }
         }
 
-        /* Instructions */
-        .instructions {
+        /* Instructions with Holographic Effect */
+        .instructions-3d {
             position: absolute;
-            bottom: -100px;
+            bottom: -130px;
             left: 50%;
             transform: translateX(-50%);
             color: #b8a98a;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
             max-width: 800px;
-            line-height: 1.5;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px 25px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            line-height: 1.6;
+            background: linear-gradient(45deg, 
+                rgba(0, 0, 0, 0.3), 
+                rgba(20, 20, 20, 0.5));
+            padding: 20px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(212, 175, 55, 0.1);
+            animation: instructionsAppear 1.5s ease-out 1.5s both;
         }
 
-        .instructions p {
-            margin: 5px 0;
+        @keyframes instructionsAppear {
+            from { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(30px) scale(0.9); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(0) scale(1); 
+            }
         }
 
-        .instructions i {
+        .instructions-3d p {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .instructions-3d i {
             color: #d4af37;
-            margin-right: 8px;
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
         }
 
         /* Error Display */
-        .image-error {
+        .image-error-3d {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -545,911 +910,952 @@
             height: 100%;
             padding: 40px;
             text-align: center;
-            background: #f8f5e9;
+            background: 
+                linear-gradient(45deg, #f8f5e9 0%, #fffaf0 100%),
+                repeating-linear-gradient(45deg, 
+                    transparent, 
+                    transparent 10px, 
+                    rgba(139, 69, 19, 0.05) 10px, 
+                    rgba(139, 69, 19, 0.05) 20px);
             z-index: 2;
+            border-radius: 5px;
         }
 
-        .image-error i {
-            font-size: 3rem;
+        .image-error-3d i {
+            font-size: 4rem;
+            color: #8b4513;
+            margin-bottom: 25px;
+            opacity: 0.6;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+
+        .image-error-3d h3 {
             color: #8b4513;
             margin-bottom: 20px;
-            opacity: 0.5;
+            font-size: 2rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        .image-error h3 {
-            color: #8b4513;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .image-error p {
+        .image-error-3d p {
             color: #666;
             max-width: 400px;
-            line-height: 1.6;
-        }
-
-        /* Animations */
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            line-height: 1.8;
+            margin-bottom: 15px;
         }
 
         /* Responsive Design */
-        @media (max-width: 1000px) {
-            .book-wrapper {
-                width: 95vw;
-                height: 70vh;
+        @media (max-width: 1100px) {
+            .book-3d-container {
+                height: 600px;
+                max-width: 95vw;
             }
             
             .restaurant-name {
-                font-size: 2.5rem;
+                font-size: 3.5rem;
             }
             
-            .control-btn {
-                padding: 12px 25px;
-                font-size: 1rem;
+            .control-3d {
+                padding: 15px 30px;
+                font-size: 1.1rem;
             }
         }
 
         @media (max-width: 768px) {
-            .book-wrapper {
-                height: 80vh;
+            .book-3d-container {
+                height: 500px;
             }
             
             .restaurant-name {
-                font-size: 2rem;
+                font-size: 2.8rem;
+                padding: 0 20px;
+            }
+            
+            .restaurant-name::before,
+            .restaurant-name::after {
+                width: 80px;
+            }
+            
+            .phone-number {
+                font-size: 1.4rem;
+            }
+            
+            .controls-3d {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .control-3d {
+                width: 280px;
+                justify-content: center;
+            }
+            
+            .instructions-3d {
+                bottom: -180px;
+                font-size: 0.9rem;
+                padding: 15px 20px;
+                max-width: 90vw;
+            }
+            
+            .page-counter-3d {
+                bottom: -100px;
+                padding: 12px 25px;
+                min-width: 160px;
+            }
+            
+            .sound-toggle-3d {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+                top: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .book-3d-container {
+                height: 400px;
+            }
+            
+            .restaurant-name {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .contact-info {
+                padding: 15px 25px;
             }
             
             .phone-number {
                 font-size: 1.2rem;
             }
             
-            .controls-container {
-                flex-direction: column;
-                align-items: center;
+            .cover-title {
+                font-size: 3.5rem;
             }
             
-            .control-btn {
-                width: 250px;
-                justify-content: center;
-            }
-            
-            .instructions {
-                bottom: -130px;
-                font-size: 0.8rem;
+            .loading-text-3d {
+                font-size: 1.6rem;
             }
         }
 
-        /* Page Curl Effect Classes */
-        .page.curling {
-            transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
-            z-index: 100;
+        /* 8D Ambient Effects */
+        .ambient-orb {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, 
+                rgba(212, 175, 55, 0.1) 0%,
+                rgba(212, 175, 55, 0.05) 30%,
+                transparent 70%);
+            filter: blur(40px);
+            z-index: 0;
+            animation: orbFloat 20s infinite ease-in-out;
         }
 
-        .page.curling .page-content {
-            box-shadow: 
-                -5px 0 15px rgba(0, 0, 0, 0.2),
-                inset 5px 0 5px -5px rgba(0, 0, 0, 0.1);
+        @keyframes orbFloat {
+            0%, 100% { 
+                transform: translate(calc(100vw - 400px), calc(100vh - 400px)) scale(1);
+            }
+            25% { 
+                transform: translate(calc(100vw - 600px), calc(100vh - 200px)) scale(1.2);
+            }
+            50% { 
+                transform: translate(calc(100vw - 300px), calc(100vh - 300px)) scale(0.8);
+            }
+            75% { 
+                transform: translate(calc(100vw - 500px), calc(100vh - 500px)) scale(1.1);
+            }
         }
 
-        /* Ambient Light Effect */
-        .ambient-light {
+        /* Parallax Layers */
+        .parallax-layer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
-            z-index: -1;
-            animation: float 15s ease-in-out infinite alternate;
+            z-index: 1;
         }
 
-        /* Page Tilt Effect */
-        .page.tilted {
-            transform: rotateY(-15deg) !important;
-            transition: transform 0.3s ease;
+        .layer-1 {
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+            animation: layerMove 40s infinite linear;
+        }
+
+        .layer-2 {
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(139, 69, 19, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(139, 69, 19, 0.02) 0%, transparent 50%);
+            animation: layerMove 60s infinite linear reverse;
+        }
+
+        @keyframes layerMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100px, 100px) rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="ambient-light"></div>
+    <!-- 8D Background Effects -->
+    <div class="particles-container" id="particles"></div>
+    <div class="hologram-effect"></div>
+    <div class="ambient-orb"></div>
+    <div class="parallax-layer layer-1"></div>
+    <div class="parallax-layer layer-2"></div>
     
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Opening Menu Book</div>
-            <div class="loading-subtext">Preparing your culinary journey...</div>
+    <!-- Loading Screen -->
+    <div class="loading-screen-3d" id="loadingScreen">
+        <div class="loading-content-3d">
+            <div class="loading-spinner-3d"></div>
+            <div class="loading-text-3d">INITIALIZING MENU BOOK</div>
+            <div class="loading-subtext-3d">Loading 8D Experience...</div>
         </div>
     </div>
 
-    <button class="sound-toggle" id="soundToggle">
+    <!-- Sound Toggle -->
+    <button class="sound-toggle-3d" id="soundToggle">
         <i class="fas fa-volume-up"></i>
     </button>
 
+    <!-- Header -->
     <div class="header">
         <h1 class="restaurant-name">SOLTI RESTAURANT</h1>
-        <p class="tagline">Where Tradition Meets Taste in Butwal</p>
+        <p class="tagline">Where Culinary Art Meets 8D Experience</p>
         <div class="contact-info">
             <i class="fas fa-phone-alt"></i>
             <span class="phone-number">+977 976-3661500</span>
         </div>
     </div>
 
-    <div class="menu-container">
-        <div class="book-wrapper">
-            <div class="book" id="book">
-                <!-- Book Spine -->
-                <div class="book-spine">
-                    <div class="spine-title">SOLTI MENU</div>
+    <!-- 8D Book Container -->
+    <div class="book-3d-container">
+        <div class="book-3d" id="book">
+            <!-- Book Spine -->
+            <div class="book-spine-3d">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(90deg); 
+                    color: #d4af37; font-family: 'Playfair Display', serif; letter-spacing: 3px; white-space: nowrap;">
+                    SOLTI
                 </div>
-                
-                
-                
-                <!-- Pages Stack -->
-                <div class="pages-stack" id="pagesStack">
-                    <!-- Pages will be dynamically added here -->
-                </div>
-                
-                <!-- Bookmark -->
-                <div class="bookmark" id="bookmark"></div>
             </div>
+            
+            <!-- Book Cover -->
+            <div class="book-cover">
+                <div class="cover-emboss">
+                    <div class="cover-title">SOLTI</div>
+                    <p style="font-size: 1.8rem; margin-bottom: 40px; font-style: italic;">RESTAURANT & BAR</p>
+                    <div style="font-size: 5rem; margin-bottom: 40px; opacity: 0.8;">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <p style="font-size: 1.5rem; margin-bottom: 30px;">BUTWAL, NEPAL</p>
+                    <div style="
+                        background: rgba(212, 175, 55, 0.15);
+                        padding: 20px;
+                        border-radius: 15px;
+                        border: 2px solid rgba(212, 175, 55, 0.3);
+                        backdrop-filter: blur(10px);
+                        margin-top: 30px;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                    ">
+                        <i class="fas fa-phone"></i> +977 976-3661500
+                    </div>
+                    <p style="margin-top: 40px; font-style: italic; font-size: 1.2rem;">
+                        Open Daily: 10:00 AM - 10:00 PM
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Pages Stack -->
+            <div class="pages-stack-3d" id="pagesStack">
+                <!-- Pages will be dynamically created here -->
+            </div>
+            
+            <!-- Bookmark -->
+            <div class="bookmark-3d" id="bookmark"></div>
         </div>
         
-        <div class="page-counter" id="pageCounter">
-            Page: <span id="currentPage">1</span> / <span id="totalPages">10</span>
+        <!-- Page Counter -->
+        <div class="page-counter-3d" id="pageCounter">
+            PAGE: <span id="currentPage">1</span> / <span id="totalPages">10</span>
         </div>
     </div>
     
-    <div class="controls-container">
-        <button class="control-btn" id="prevBtn">
+    <!-- Navigation Controls -->
+    <div class="controls-3d">
+        <button class="control-3d" id="prevBtn">
             <i class="fas fa-arrow-left"></i>
-            <span>Previous Page</span>
+            <span>PREVIOUS PAGE</span>
         </button>
-        <button class="control-btn" id="nextBtn">
-            <span>Next Page</span>
+        <button class="control-3d" id="nextBtn">
+            <span>NEXT PAGE</span>
             <i class="fas fa-arrow-right"></i>
         </button>
     </div>
     
-    <div class="instructions">
-        <p><i class="fas fa-hand-pointer"></i> Click & drag the page corner to turn pages naturally</p>
-        <p><i class="fas fa-mouse-pointer"></i> Click on right/left edges of the book for quick navigation</p>
-        <p><i class="fas fa-keyboard"></i> Use keyboard arrows (← →) or spacebar</p>
-        <p><i class="fas fa-mobile-alt"></i> Swipe left/right on touch devices</p>
+    <!-- Instructions -->
+    <div class="instructions-3d">
+        <p><i class="fas fa-hand-pointer"></i> CLICK & DRAG PAGE CORNER FOR REALISTIC TURNING</p>
+        <p><i class="fas fa-mouse-pointer"></i> CLICK BOOK EDGES OR USE ARROW KEYS</p>
+        <p><i class="fas fa-mobile-alt"></i> SWIPE ON TOUCH DEVICES</p>
+        <p><i class="fas fa-volume-up"></i> TOGGLE SOUND WITH BUTTON TOP-RIGHT</p>
     </div>
 
+    <!-- Audio Element for Page Flip Sound -->
+    <audio id="pageFlipAudio" preload="auto">
+        <source src="page-flip.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Configuration with your exact page order
-            const CONFIG = {
-                totalPages: 10, // Cover + 8 content pages + back cover
-                pageOrder: [
-                    { type: 'cover', image: null, title: 'Front Cover' },
-                    { type: 'content', image: 'Main.png', title: 'Main Menu', number: 1 },
-                    { type: 'content', image: 'A1.png', title: 'Menu Page 1', number: 2 },
-                    { type: 'content', image: '1_2.png', title: 'Menu Page 2', number: 3 },
-                    { type: 'content', image: 'A2.png', title: 'Menu Page 3', number: 4 },
-                    { type: 'content', image: '1_3.png', title: 'Menu Page 4', number: 5 },
-                    { type: 'content', image: '1_4.png', title: 'Menu Page 5', number: 6 },
-                    { type: 'content', image: '1_5.png', title: 'Menu Page 6', number: 7 },
-                    { type: 'content', image: '1_6.png', title: 'Menu Page 7', number: 8 },
-                    { type: 'content', image: '1_7.png', title: 'Menu Page 8', number: 9 },
-                    { type: 'cover', image: null, title: 'Back Cover' }
-                ],
-                enablePhysics: true,
-                curlIntensity: 0.3,
-                soundEnabled: true,
-                pageWidth: 900,
-                pageHeight: 650
-            };
-
-            // DOM Elements
-            const loadingScreen = document.getElementById('loadingScreen');
-            const pagesStack = document.getElementById('pagesStack');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const soundToggle = document.getElementById('soundToggle');
-            const pageCounter = document.getElementById('pageCounter');
-            const currentPageSpan = document.getElementById('currentPage');
-            const totalPagesSpan = document.getElementById('totalPages');
-            const bookmark = document.getElementById('bookmark');
-            const book = document.getElementById('book');
-
-            // State Variables
-            let currentPageIndex = 0;
-            let isAnimating = false;
-            let soundEnabled = CONFIG.soundEnabled;
-            let pages = [];
-            let isDragging = false;
-            let dragStartX = 0;
-            let dragStartY = 0;
-            let currentRotation = 0;
-            let isMouseOverBook = false;
-
-            // Audio Context for Realistic Sounds
-            let audioContext;
-            let pageTurnSoundBuffer;
-            let paperRustleSoundBuffer;
-
-            // Initialize Audio
-            function initAudio() {
-                try {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    createPageTurnSound();
-                    createPaperRustleSound();
-                } catch (e) {
-                    console.log("Web Audio API not supported, continuing without sound");
-                    soundEnabled = false;
-                    soundToggle.style.opacity = '0.5';
-                }
+        // Create Particles for Background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random animation delay and duration
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+                
+                container.appendChild(particle);
             }
+        }
 
-            // Create Page Turn Sound
-            function createPageTurnSound() {
-                if (!audioContext) return;
-                
-                const duration = 0.6;
-                const sampleRate = audioContext.sampleRate;
-                const frameCount = sampleRate * duration;
-                const buffer = audioContext.createBuffer(1, frameCount, sampleRate);
-                const channelData = buffer.getChannelData(0);
-                
-                // Create a realistic page turn sound
-                for (let i = 0; i < frameCount; i++) {
-                    const t = i / sampleRate;
-                    
-                    // Base frequency with slight variation
-                    let frequency = 80 + Math.sin(t * 30) * 20;
-                    
-                    // Add paper rustle noise
-                    let noise = (Math.random() * 2 - 1) * Math.exp(-t * 8);
-                    
-                    // Create the sound
-                    let value = Math.sin(t * Math.PI * 2 * frequency) * Math.exp(-t * 4);
-                    value += noise * 0.3;
-                    value *= Math.min(t * 20, 1) * (1 - t/duration);
-                    
-                    channelData[i] = value * 0.5;
-                }
-                
-                pageTurnSoundBuffer = buffer;
-            }
+        // Configuration
+        const CONFIG = {
+            totalPages: 10,
+            pageOrder: [
+                { type: 'cover', image: 'Main.png', title: 'Front Cover', number: null },
+                { type: 'content', image: 'A1.png', title: 'Starters & Appetizers', number: 1 },
+                { type: 'content', image: '1_2.png', title: 'Soups & Salads', number: 2 },
+                { type: 'content', image: 'A2.png', title: 'Main Course - Vegetarian', number: 3 },
+                { type: 'content', image: '1_3.png', title: 'Main Course - Non-Vegetarian', number: 4 },
+                { type: 'content', image: '1_4.png', title: 'Sizzlers & Grill', number: 5 },
+                { type: 'content', image: '1_5.png', title: 'Breads & Noodles', number: 6 },
+                { type: 'content', image: '1_6.png', title: 'Beverages & Desserts', number: 7 },
+                { type: 'content', image: '1_7.png', title: 'Thank You', number: 8 },
+                { type: 'cover', image: null, title: 'Back Cover', number: null }
+            ],
+            soundEnabled: true,
+            pageWidth: 900,
+            pageHeight: 650
+        };
 
-            // Create Paper Rustle Sound
-            function createPaperRustleSound() {
-                if (!audioContext) return;
-                
-                const duration = 0.4;
-                const sampleRate = audioContext.sampleRate;
-                const frameCount = sampleRate * duration;
-                const buffer = audioContext.createBuffer(1, frameCount, sampleRate);
-                const channelData = buffer.getChannelData(0);
-                
-                // Create paper rustle sound
-                for (let i = 0; i < frameCount; i++) {
-                    const t = i / sampleRate;
-                    
-                    // Pink noise-like rustle
-                    let value = 0;
-                    for (let j = 0; j < 5; j++) {
-                        value += (Math.random() * 2 - 1) * Math.exp(-t * (10 + j * 5));
+        // Global Variables
+        let currentPageIndex = 0;
+        let isAnimating = false;
+        let soundEnabled = CONFIG.soundEnabled;
+        let pages = [];
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let currentRotation = 0;
+        let pageFlipAudio;
+
+        // DOM Elements
+        const loadingScreen = document.getElementById('loadingScreen');
+        const pagesStack = document.getElementById('pagesStack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const soundToggle = document.getElementById('soundToggle');
+        const pageCounter = document.getElementById('pageCounter');
+        const currentPageSpan = document.getElementById('currentPage');
+        const totalPagesSpan = document.getElementById('totalPages');
+        const bookmark = document.getElementById('bookmark');
+        const book = document.getElementById('book');
+
+        // Initialize Audio
+        function initAudio() {
+            pageFlipAudio = document.getElementById('pageFlipAudio');
+            
+            // Preload audio
+            pageFlipAudio.load();
+            
+            // Handle audio context on user interaction
+            document.addEventListener('click', function initAudioContext() {
+                if (pageFlipAudio) {
+                    // Resume audio context
+                    if (pageFlipAudio.readyState >= 2) {
+                        pageFlipAudio.play().then(() => {
+                            pageFlipAudio.pause();
+                            pageFlipAudio.currentTime = 0;
+                        }).catch(e => {
+                            console.log("Audio initialization:", e);
+                        });
                     }
-                    
-                    // Apply envelope
-                    value *= Math.min(t * 40, 1) * Math.exp(-t * 6);
-                    
-                    channelData[i] = value * 0.3;
                 }
-                
-                paperRustleSoundBuffer = buffer;
-            }
+                document.removeEventListener('click', initAudioContext);
+            }, { once: true });
+        }
 
-            // Play Sound
-            function playSound(soundBuffer, volume = 1.0) {
-                if (!soundEnabled || !audioContext || !soundBuffer) return;
+        // Play Page Turn Sound
+        function playPageTurnSound() {
+            if (!soundEnabled || !pageFlipAudio) return;
+            
+            try {
+                // Clone the audio element to allow overlapping sounds
+                const audioClone = pageFlipAudio.cloneNode();
+                audioClone.volume = 0.7;
+                audioClone.currentTime = 0;
                 
-                try {
-                    const source = audioContext.createBufferSource();
-                    const gainNode = audioContext.createGain();
-                    
-                    source.buffer = soundBuffer;
-                    gainNode.gain.value = volume;
-                    
-                    source.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
-                    
-                    source.start();
-                } catch (e) {
-                    console.log("Sound playback error:", e);
-                }
-            }
-
-            // Create Pages in Your Exact Order
-            function createPages() {
-                // Clear existing pages
-                pagesStack.innerHTML = '';
-                pages = [];
-                
-                // Create pages according to your order
-                CONFIG.pageOrder.forEach((pageConfig, index) => {
-                    const page = createPageElement(index, pageConfig);
-                    pagesStack.appendChild(page);
-                    pages.push(page);
-                    
-                    // Set initial positions for pages (all pages start hidden behind cover)
-                    if (index === 0) {
-                        // Cover page - show front
-                        page.style.transform = `rotateY(0deg)`;
-                        page.style.zIndex = CONFIG.totalPages;
-                    } else {
-                        // All other pages - hide behind
-                        page.style.transform = `rotateY(-180deg)`;
-                        page.style.zIndex = CONFIG.totalPages - index;
-                    }
+                audioClone.play().catch(e => {
+                    console.log("Audio play failed:", e);
+                    // Try with user interaction
+                    document.addEventListener('click', function playOnce() {
+                        audioClone.play();
+                        document.removeEventListener('click', playOnce);
+                    }, { once: true });
                 });
                 
-                // Update page counter
-                totalPagesSpan.textContent = CONFIG.totalPages;
-                updatePageCounter();
+                // Remove clone after playing
+                audioClone.addEventListener('ended', function() {
+                    audioClone.remove();
+                });
+            } catch (e) {
+                console.log("Sound playback error:", e);
             }
+        }
 
-            // Create Page Element
-            function createPageElement(index, pageConfig) {
-                const page = document.createElement('div');
-                page.className = 'page';
-                page.id = `page-${index}`;
-                page.dataset.pageIndex = index;
-                page.dataset.pageType = pageConfig.type;
-                
-                const pageContent = document.createElement('div');
-                pageContent.className = 'page-content';
-                
-                if (pageConfig.type === 'cover') {
-                    if (index === 0) {
-                        // Front cover - Main.png
-                        const img = document.createElement('img');
-                        img.className = 'page-image';
-                        img.src = 'Main.png';
-                        img.alt = 'Solti Restaurant Menu Cover';
-                        img.onerror = handleImageError;
-                        pageContent.appendChild(img);
-                    } else {
-                        // Back cover
-                        pageContent.style.background = 'linear-gradient(145deg, #f8f0e3, #f8f5e9)';
-                        pageContent.innerHTML = `
-                            <div style="text-align: center; padding: 40px;">
-                                <div style="font-size: 5rem; color: #8b4513; margin-bottom: 30px; opacity: 0.7;">
-                                    <i class="fas fa-utensil-spoon"></i>
-                                </div>
-                                <h2 style="font-size: 2.5rem; color: #8b4513; margin-bottom: 20px;">Thank You</h2>
-                                <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px; max-width: 500px; line-height: 1.6;">
-                                    Thank you for visiting Solti Restaurant. We hope you enjoyed your meal and we look forward to serving you again.
-                                </p>
-                                <div style="
-                                    background: rgba(139, 69, 19, 0.1);
-                                    padding: 20px;
-                                    border-radius: 10px;
-                                    border: 1px solid rgba(139, 69, 19, 0.2);
-                                    margin-top: 40px;
-                                ">
-                                    <h3 style="color: #8b4513; margin-bottom: 15px;">Contact Information</h3>
-                                    <p><i class="fas fa-map-marker-alt" style="color: #8b4513;"></i> Butwal, Rupandehi, Nepal</p>
-                                    <p><i class="fas fa-phone" style="color: #8b4513;"></i> +977 976-3661500</p>
-                                    <p><i class="fas fa-clock" style="color: #8b4513;"></i> Open Daily: 10:00 AM - 10:00 PM</p>
-                                </div>
-                            </div>
-                        `;
-                    }
-                } else if (pageConfig.type === 'content' && pageConfig.image) {
-                    // Content page with image
-                    const img = document.createElement('img');
-                    img.className = 'page-image';
-                    img.src = pageConfig.image;
-                    img.alt = pageConfig.title || `Menu Page ${pageConfig.number}`;
-                    img.onerror = handleImageError;
-                    pageContent.appendChild(img);
-                }
-                
-                // Add page shadow
-                const pageShadow = document.createElement('div');
-                pageShadow.className = 'page-shadow';
-                pageContent.appendChild(pageShadow);
-                
-                // Add page corner for dragging (only for content pages that can be turned)
-                if (index < CONFIG.pageOrder.length - 1 && pageConfig.type === 'content') {
-                    const pageCorner = document.createElement('div');
-                    pageCorner.className = 'page-corner';
-                    pageCorner.addEventListener('mousedown', startDrag);
-                    pageCorner.addEventListener('touchstart', startDragTouch);
-                    pageContent.appendChild(pageCorner);
-                }
-                
-                // Add page number for content pages
-                if (pageConfig.type === 'content' && pageConfig.number) {
-                    const pageNumberEl = document.createElement('div');
-                    pageNumberEl.className = 'page-number';
-                    pageNumberEl.textContent = pageConfig.number;
-                    pageContent.appendChild(pageNumberEl);
-                }
-                
-                page.appendChild(pageContent);
-                
-                // Add mouse events for page tilt effect
-                page.addEventListener('mouseenter', handlePageMouseEnter);
-                page.addEventListener('mouseleave', handlePageMouseLeave);
-                
-                return page;
-            }
-
-            // Handle Image Error
-            function handleImageError() {
-                this.style.display = 'none';
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'image-error';
-                errorDiv.innerHTML = `
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Menu Image Unavailable</h3>
-                    <p>The menu image could not be loaded. Please contact the restaurant for the complete menu.</p>
-                    <p style="margin-top: 20px;"><strong>Contact: +977 976-3661500</strong></p>
-                `;
-                this.parentNode.appendChild(errorDiv);
-            }
-
-            // Page Mouse Enter Effect
-            function handlePageMouseEnter() {
-                if (isAnimating || isDragging) return;
-                const pageIndex = parseInt(this.dataset.pageIndex);
-                if (pageIndex === currentPageIndex) {
-                    this.classList.add('tilted');
-                }
-            }
-
-            // Page Mouse Leave Effect
-            function handlePageMouseLeave() {
-                this.classList.remove('tilted');
-            }
-
-            // Start Drag (Mouse)
-            function startDrag(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
-                
-                isDragging = true;
-                dragStartX = e.clientX;
-                dragStartY = e.clientY;
-                currentRotation = 0;
-                
-                const currentPage = pages[currentPageIndex];
-                currentPage.classList.add('curling');
-                
-                document.addEventListener('mousemove', dragPage);
-                document.addEventListener('mouseup', endDrag);
-                
-                playSound(paperRustleSoundBuffer, 0.3);
-            }
-
-            // Start Drag (Touch)
-            function startDragTouch(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
-                
-                isDragging = true;
-                const touch = e.touches[0];
-                dragStartX = touch.clientX;
-                dragStartY = touch.clientY;
-                currentRotation = 0;
-                
-                const currentPage = pages[currentPageIndex];
-                currentPage.classList.add('curling');
-                
-                document.addEventListener('touchmove', dragPageTouch);
-                document.addEventListener('touchend', endDrag);
-            }
-
-            // Drag Page with Curl Effect
-            function dragPage(e) {
-                if (!isDragging) return;
-                
-                const dragX = e.clientX;
-                const dragY = e.clientY;
-                const dragDistanceX = Math.max(0, (dragStartX - dragX));
-                const dragDistanceY = dragStartY - dragY;
-                
-                // Calculate rotation with curl effect
-                let rotation = Math.min(180, dragDistanceX * 0.2);
-                
-                // Add curl effect based on vertical drag
-                const curlEffect = Math.max(0, Math.min(1, dragDistanceY / 100));
-                const curlAngle = curlEffect * 15; // Max 15 degrees of curl
-                
-                currentRotation = -rotation;
-                
-                const currentPage = pages[currentPageIndex];
-                
-                // Apply rotation with 3D curl effect
-                currentPage.style.transform = `rotateY(${currentRotation}deg) rotateZ(${curlAngle}deg)`;
-                
-                // Update next page position
-                const nextPage = pages[currentPageIndex + 1];
-                if (nextPage) {
-                    const nextRotation = Math.max(-180, -180 + rotation * 0.8);
-                    nextPage.style.zIndex = CONFIG.totalPages + 1;
-                    nextPage.style.transform = `rotateY(${nextRotation}deg)`;
-                }
-                
-                // Play rustle sound during drag
-                if (Math.random() < 0.1) {
-                    playSound(paperRustleSoundBuffer, 0.1);
-                }
-            }
-
-            // Drag Page (Touch)
-            function dragPageTouch(e) {
-                if (!isDragging) return;
-                
-                const touch = e.touches[0];
-                const dragX = touch.clientX;
-                const dragY = touch.clientY;
-                const dragDistanceX = Math.max(0, (dragStartX - dragX));
-                const dragDistanceY = dragStartY - dragY;
-                
-                let rotation = Math.min(180, dragDistanceX * 0.2);
-                const curlEffect = Math.max(0, Math.min(1, dragDistanceY / 100));
-                const curlAngle = curlEffect * 15;
-                
-                currentRotation = -rotation;
-                
-                const currentPage = pages[currentPageIndex];
-                currentPage.style.transform = `rotateY(${currentRotation}deg) rotateZ(${curlAngle}deg)`;
-                
-                const nextPage = pages[currentPageIndex + 1];
-                if (nextPage) {
-                    const nextRotation = Math.max(-180, -180 + rotation * 0.8);
-                    nextPage.style.zIndex = CONFIG.totalPages + 1;
-                    nextPage.style.transform = `rotateY(${nextRotation}deg)`;
-                }
-            }
-
-            // End Drag
-            function endDrag() {
-                if (!isDragging) return;
-                
-                isDragging = false;
-                const currentPage = pages[currentPageIndex];
-                currentPage.classList.remove('curling');
-                
-                document.removeEventListener('mousemove', dragPage);
-                document.removeEventListener('touchmove', dragPageTouch);
-                document.removeEventListener('mouseup', endDrag);
-                document.removeEventListener('touchend', endDrag);
-                
-                // Determine if page should turn or revert
-                if (currentRotation < -90) {
-                    completePageTurn();
-                } else {
-                    revertPageTurn();
-                }
-            }
-
-            // Complete Page Turn with Animation
-            function completePageTurn() {
-                isAnimating = true;
-                playSound(pageTurnSoundBuffer, 0.8);
-                
-                const currentPage = pages[currentPageIndex];
-                const nextPage = pages[currentPageIndex + 1];
-                
-                // Animate current page to fully turned with smooth curve
-                currentPage.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-                currentPage.style.transform = 'rotateY(-180deg) rotateZ(0deg)';
-                
-                // Animate next page to front
-                if (nextPage) {
-                    nextPage.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-                    nextPage.style.transform = 'rotateY(0deg)';
-                }
-                
-                // Update state after animation
-                setTimeout(() => {
-                    if (nextPage) {
-                        nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
-                        nextPage.style.transition = '';
-                    }
-                    currentPage.style.transition = '';
-                    currentPageIndex++;
-                    updatePageCounter();
-                    updateButtons();
-                    isAnimating = false;
-                    
-                    // Move bookmark
-                    updateBookmarkPosition();
-                }, 800);
-            }
-
-            // Revert Page Turn
-            function revertPageTurn() {
-                isAnimating = true;
-                playSound(paperRustleSoundBuffer, 0.2);
-                
-                const currentPage = pages[currentPageIndex];
-                const nextPage = pages[currentPageIndex + 1];
-                
-                // Animate back to original position
-                currentPage.style.transition = 'transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
-                currentPage.style.transform = 'rotateY(0deg) rotateZ(0deg)';
-                
-                if (nextPage) {
-                    nextPage.style.transition = 'transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
-                    nextPage.style.transform = 'rotateY(-180deg)';
-                }
-                
-                setTimeout(() => {
-                    if (nextPage) {
-                        nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 2;
-                        nextPage.style.transition = '';
-                    }
-                    currentPage.style.transition = '';
-                    isAnimating = false;
-                }, 500);
-            }
-
-            // Next Page
-            function nextPage() {
-                if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
-                
-                isAnimating = true;
-                playSound(pageTurnSoundBuffer, 0.8);
-                
-                const currentPage = pages[currentPageIndex];
-                const nextPage = pages[currentPageIndex + 1];
-                
-                // Add curl effect class
-                currentPage.classList.add('curling');
-                
-                // Animate with curl effect
-                currentPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
-                currentPage.style.transform = 'rotateY(-180deg)';
-                
-                if (nextPage) {
-                    nextPage.style.zIndex = CONFIG.totalPages + 1;
-                    nextPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
-                    nextPage.style.transform = 'rotateY(0deg)';
-                }
-                
-                setTimeout(() => {
-                    currentPage.classList.remove('curling');
-                    if (nextPage) {
-                        nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
-                        nextPage.style.transition = '';
-                    }
-                    currentPage.style.transition = '';
-                    currentPageIndex++;
-                    updatePageCounter();
-                    updateButtons();
-                    isAnimating = false;
-                    
-                    // Move bookmark
-                    updateBookmarkPosition();
-                }, 1000);
-            }
-
-            // Previous Page
-            function previousPage() {
-                if (isAnimating || currentPageIndex <= 0) return;
-                
-                isAnimating = true;
-                playSound(pageTurnSoundBuffer, 0.6);
-                
-                const currentPage = pages[currentPageIndex];
-                const previousPage = pages[currentPageIndex - 1];
-                
-                // Add curl effect to previous page
-                previousPage.classList.add('curling');
-                
-                // Reset current page
-                currentPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
-                currentPage.style.transform = 'rotateY(-180deg)';
-                
-                // Bring previous page forward
-                previousPage.style.zIndex = CONFIG.totalPages + 1;
-                previousPage.style.transition = 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)';
-                previousPage.style.transform = 'rotateY(0deg)';
-                
-                setTimeout(() => {
-                    previousPage.classList.remove('curling');
-                    previousPage.style.zIndex = CONFIG.totalPages - currentPageIndex + 1;
-                    previousPage.style.transition = '';
-                    currentPage.style.transition = '';
-                    currentPageIndex--;
-                    updatePageCounter();
-                    updateButtons();
-                    isAnimating = false;
-                    
-                    // Move bookmark
-                    updateBookmarkPosition();
-                }, 1000);
-            }
-
-            // Update Page Counter
-            function updatePageCounter() {
-                currentPageSpan.textContent = currentPageIndex + 1;
-                pageCounter.style.animation = 'none';
-                setTimeout(() => {
-                    pageCounter.style.animation = 'fadeIn 0.5s ease';
-                }, 10);
-            }
-
-            // Update Bookmark Position
-            function updateBookmarkPosition() {
-                const position = 50 + (currentPageIndex / (CONFIG.totalPages - 1)) * 80;
-                bookmark.style.top = `${position}px`;
-                bookmark.style.transition = 'top 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
-            }
-
-            // Update Button States
-            function updateButtons() {
-                prevBtn.disabled = currentPageIndex <= 0;
-                nextBtn.disabled = currentPageIndex >= CONFIG.totalPages - 1;
-                
-                // Add visual feedback
-                if (prevBtn.disabled) {
-                    prevBtn.style.opacity = '0.6';
-                    prevBtn.innerHTML = '<i class="fas fa-book"></i><span>Front Cover</span>';
-                } else {
-                    prevBtn.style.opacity = '1';
-                    prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i><span>Previous Page</span>';
-                }
-                
-                if (nextBtn.disabled) {
-                    nextBtn.style.opacity = '0.6';
-                    nextBtn.innerHTML = '<span>Back Cover</span><i class="fas fa-book"></i>';
-                } else {
-                    nextBtn.style.opacity = '1';
-                    nextBtn.innerHTML = '<span>Next Page</span><i class="fas fa-arrow-right"></i>';
-                }
-            }
-
-            // Toggle Sound
-            soundToggle.addEventListener('click', function() {
-                soundEnabled = !soundEnabled;
-                if (soundEnabled) {
-                    this.innerHTML = '<i class="fas fa-volume-up"></i>';
-                    this.title = "Sound: ON";
-                    this.style.color = '#d4af37';
-                } else {
-                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                    this.title = "Sound: OFF";
-                    this.style.color = '#999';
-                }
-            });
-
-            // Keyboard Navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    nextPage();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    previousPage();
-                }
-            });
-
-            // Touch Swipe Support
-            let touchStartX = 0;
-            document.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, false);
+        // Create Pages
+        function createPages() {
+            pagesStack.innerHTML = '';
+            pages = [];
             
-            document.addEventListener('touchend', function(e) {
-                const touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                const swipeThreshold = 50;
+            CONFIG.pageOrder.forEach((pageConfig, index) => {
+                const page = createPageElement(index, pageConfig);
+                pagesStack.appendChild(page);
+                pages.push(page);
                 
-                if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0 && currentPageIndex < CONFIG.totalPages - 1) {
-                        // Swipe left - next page
-                        nextPage();
-                    } else if (diff < 0 && currentPageIndex > 0) {
-                        // Swipe right - previous page
-                        previousPage();
-                    }
+                // Set initial positions
+                if (index === 0) {
+                    // Cover page - show front
+                    page.style.transform = 'rotateY(0deg)';
+                    page.style.zIndex = CONFIG.totalPages;
+                } else {
+                    // Other pages - hide behind
+                    page.style.transform = 'rotateY(-180deg)';
+                    page.style.zIndex = CONFIG.totalPages - index;
                 }
-            }, false);
+            });
+            
+            totalPagesSpan.textContent = CONFIG.totalPages;
+            updatePageCounter();
+        }
 
-            // Initialize
-            function init() {
-                initAudio();
-                createPages();
+        // Create Page Element
+        function createPageElement(index, pageConfig) {
+            const page = document.createElement('div');
+            page.className = 'page-3d';
+            page.id = `page-${index}`;
+            page.dataset.pageIndex = index;
+            page.dataset.pageType = pageConfig.type;
+            
+            const pageContent = document.createElement('div');
+            pageContent.className = 'page-content-3d';
+            
+            if (pageConfig.type === 'cover' && index === 0 && pageConfig.image) {
+                // Front cover with Main.png
+                const img = document.createElement('img');
+                img.className = 'page-image-3d';
+                img.src = pageConfig.image;
+                img.alt = pageConfig.title;
+                img.onerror = handleImageError;
+                pageContent.appendChild(img);
+            } else if (pageConfig.type === 'content' && pageConfig.image) {
+                // Content pages
+                const img = document.createElement('img');
+                img.className = 'page-image-3d';
+                img.src = pageConfig.image;
+                img.alt = pageConfig.title;
+                img.onerror = handleImageError;
+                pageContent.appendChild(img);
+            } else if (index === CONFIG.pageOrder.length - 1) {
+                // Back cover
+                pageContent.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div style="font-size: 5rem; color: #8b4513; margin-bottom: 30px; opacity: 0.7;">
+                            <i class="fas fa-utensil-spoon"></i>
+                        </div>
+                        <h2 style="font-size: 3rem; color: #8b4513; margin-bottom: 20px;">THANK YOU</h2>
+                        <p style="font-size: 1.3rem; color: #666; margin-bottom: 30px; max-width: 500px; line-height: 1.8;">
+                            Thank you for visiting Solti Restaurant. We hope you enjoyed your 8D dining experience.
+                        </p>
+                        <div style="
+                            background: rgba(139, 69, 19, 0.15);
+                            padding: 25px;
+                            border-radius: 15px;
+                            border: 2px solid rgba(139, 69, 19, 0.3);
+                            backdrop-filter: blur(10px);
+                            margin-top: 40px;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                        ">
+                            <h3 style="color: #8b4513; margin-bottom: 20px; font-size: 1.5rem;">CONTACT INFORMATION</h3>
+                            <p style="margin: 10px 0; font-size: 1.1rem;">
+                                <i class="fas fa-map-marker-alt" style="color: #8b4513; margin-right: 10px;"></i>
+                                Butwal, Rupandehi, Nepal
+                            </p>
+                            <p style="margin: 10px 0; font-size: 1.1rem;">
+                                <i class="fas fa-phone" style="color: #8b4513; margin-right: 10px;"></i>
+                                +977 976-3661500
+                            </p>
+                            <p style="margin: 10px 0; font-size: 1.1rem;">
+                                <i class="fas fa-clock" style="color: #8b4513; margin-right: 10px;"></i>
+                                Open Daily: 10:00 AM - 10:00 PM
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Add page shadow
+            const pageShadow = document.createElement('div');
+            pageShadow.style.position = 'absolute';
+            pageShadow.style.width = '100%';
+            pageShadow.style.height = '100%';
+            pageShadow.style.background = 'linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.1) 100%)';
+            pageShadow.style.pointerEvents = 'none';
+            pageShadow.style.zIndex = '3';
+            pageContent.appendChild(pageShadow);
+            
+            // Add page corner for dragging (for all pages except last)
+            if (index < CONFIG.pageOrder.length - 1 && pageConfig.type !== 'cover') {
+                const pageCorner = document.createElement('div');
+                pageCorner.className = 'page-curl';
+                pageCorner.addEventListener('mousedown', startDrag);
+                pageCorner.addEventListener('touchstart', startDragTouch);
+                pageContent.appendChild(pageCorner);
+            }
+            
+            // Add page number for content pages
+            if (pageConfig.number) {
+                const pageNumber = document.createElement('div');
+                pageNumber.className = 'page-number-3d';
+                pageNumber.textContent = pageConfig.number;
+                pageContent.appendChild(pageNumber);
+            }
+            
+            page.appendChild(pageContent);
+            
+            // Add click events to page edges
+            page.addEventListener('click', handlePageEdgeClick);
+            
+            return page;
+        }
+
+        // Handle Image Error
+        function handleImageError() {
+            this.style.display = 'none';
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'image-error-3d';
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>MENU IMAGE UNAVAILABLE</h3>
+                <p>The menu image could not be loaded. Please contact the restaurant for the complete menu.</p>
+                <p style="margin-top: 20px; font-weight: bold; color: #8b4513;">
+                    <i class="fas fa-phone"></i> +977 976-3661500
+                </p>
+            `;
+            this.parentNode.appendChild(errorDiv);
+        }
+
+        // Handle Page Edge Click
+        function handlePageEdgeClick(e) {
+            if (isAnimating || isDragging) return;
+            
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const width = rect.width;
+            
+            // Click on right edge (next)
+            if (x > width * 0.8 && currentPageIndex < CONFIG.totalPages - 1) {
+                nextPage();
+            }
+            // Click on left edge (previous)
+            else if (x < width * 0.2 && currentPageIndex > 0) {
+                previousPage();
+            }
+        }
+
+        // Start Drag (Mouse)
+        function startDrag(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+            
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            currentRotation = 0;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transition = 'transform 0.3s ease';
+            
+            document.addEventListener('mousemove', dragPage);
+            document.addEventListener('mouseup', endDrag);
+        }
+
+        // Start Drag (Touch)
+        function startDragTouch(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+            
+            isDragging = true;
+            const touch = e.touches[0];
+            dragStartX = touch.clientX;
+            dragStartY = touch.clientY;
+            currentRotation = 0;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transition = 'transform 0.3s ease';
+            
+            document.addEventListener('touchmove', dragPageTouch);
+            document.addEventListener('touchend', endDrag);
+        }
+
+        // Drag Page (Mouse)
+        function dragPage(e) {
+            if (!isDragging) return;
+            
+            const dragX = e.clientX;
+            const dragDistance = Math.max(0, (dragStartX - dragX));
+            const rotation = Math.min(180, dragDistance * 0.3);
+            
+            currentRotation = -rotation;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transform = `rotateY(${currentRotation}deg)`;
+            
+            // Add 3D curl effect
+            if (rotation > 45) {
+                const curlAmount = Math.min(1, (rotation - 45) / 45);
+                currentPage.style.transform = `rotateY(${currentRotation}deg) rotateZ(${curlAmount * 10}deg)`;
+            }
+            
+            // Update next page position
+            const nextPage = pages[currentPageIndex + 1];
+            if (nextPage) {
+                const nextRotation = Math.max(-180, -180 + rotation * 0.7);
+                nextPage.style.zIndex = CONFIG.totalPages + 1;
+                nextPage.style.transform = `rotateY(${nextRotation}deg)`;
+            }
+        }
+
+        // Drag Page (Touch)
+        function dragPageTouch(e) {
+            if (!isDragging) return;
+            
+            const touch = e.touches[0];
+            const dragX = touch.clientX;
+            const dragDistance = Math.max(0, (dragStartX - dragX));
+            const rotation = Math.min(180, dragDistance * 0.3);
+            
+            currentRotation = -rotation;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transform = `rotateY(${currentRotation}deg)`;
+            
+            if (rotation > 45) {
+                const curlAmount = Math.min(1, (rotation - 45) / 45);
+                currentPage.style.transform = `rotateY(${currentRotation}deg) rotateZ(${curlAmount * 10}deg)`;
+            }
+            
+            const nextPage = pages[currentPageIndex + 1];
+            if (nextPage) {
+                const nextRotation = Math.max(-180, -180 + rotation * 0.7);
+                nextPage.style.zIndex = CONFIG.totalPages + 1;
+                nextPage.style.transform = `rotateY(${nextRotation}deg)`;
+            }
+        }
+
+        // End Drag
+        function endDrag() {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            const currentPage = pages[currentPageIndex];
+            
+            document.removeEventListener('mousemove', dragPage);
+            document.removeEventListener('touchmove', dragPageTouch);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchend', endDrag);
+            
+            if (currentRotation < -90) {
+                completePageTurn();
+            } else {
+                revertPageTurn();
+            }
+        }
+
+        // Complete Page Turn
+        function completePageTurn() {
+            isAnimating = true;
+            playPageTurnSound();
+            
+            const currentPage = pages[currentPageIndex];
+            const nextPage = pages[currentPageIndex + 1];
+            
+            // Animate with 8D effects
+            currentPage.style.transition = 'transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            currentPage.style.transform = 'rotateY(-180deg) rotateZ(0deg)';
+            
+            if (nextPage) {
+                nextPage.style.transition = 'transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                nextPage.style.transform = 'rotateY(0deg)';
+            }
+            
+            // Add book animation
+            book.style.transform = 'rotateX(5deg) rotateY(10deg) translateZ(20px)';
+            setTimeout(() => {
+                book.style.transform = 'rotateX(5deg) rotateY(0deg) translateZ(0)';
+            }, 200);
+            
+            setTimeout(() => {
+                if (nextPage) {
+                    nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
+                    nextPage.style.transition = '';
+                }
+                currentPage.style.transition = '';
+                currentPageIndex++;
+                updatePageCounter();
                 updateButtons();
                 updateBookmarkPosition();
-                
-                // Hide loading screen after a short delay
-                setTimeout(() => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                }, 1500);
-                
-                // Add click events to buttons
-                prevBtn.addEventListener('click', previousPage);
-                nextBtn.addEventListener('click', nextPage);
-                
-                // Add click events to book edges
-                book.addEventListener('click', function(e) {
-                    if (isAnimating || isDragging) return;
-                    
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const width = rect.width;
-                    
-                    if (x > width * 0.7 && currentPageIndex < CONFIG.totalPages - 1) {
-                        nextPage();
-                    } else if (x < width * 0.3 && currentPageIndex > 0) {
-                        previousPage();
-                    }
-                });
-                
-                // Initialize sound toggle state
-                soundToggle.title = soundEnabled ? "Sound: ON" : "Sound: OFF";
-                if (!soundEnabled) {
-                    soundToggle.style.color = '#999';
-                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                }
-                
-                // Add mouse enter/leave for book
-                book.addEventListener('mouseenter', () => {
-                    isMouseOverBook = true;
-                });
-                
-                book.addEventListener('mouseleave', () => {
-                    isMouseOverBook = false;
-                    // Remove tilt from all pages when mouse leaves book
-                    pages.forEach(page => page.classList.remove('tilted'));
-                });
-            }
+                isAnimating = false;
+            }, 1000);
+        }
 
-            // Start initialization
-            init();
+        // Revert Page Turn
+        function revertPageTurn() {
+            isAnimating = true;
+            
+            const currentPage = pages[currentPageIndex];
+            const nextPage = pages[currentPageIndex + 1];
+            
+            currentPage.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            currentPage.style.transform = 'rotateY(0deg) rotateZ(0deg)';
+            
+            if (nextPage) {
+                nextPage.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                nextPage.style.transform = 'rotateY(-180deg)';
+            }
+            
+            setTimeout(() => {
+                if (nextPage) {
+                    nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 2;
+                    nextPage.style.transition = '';
+                }
+                currentPage.style.transition = '';
+                isAnimating = false;
+            }, 500);
+        }
+
+        // Next Page
+        function nextPage() {
+            if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+            
+            isAnimating = true;
+            playPageTurnSound();
+            
+            const currentPage = pages[currentPageIndex];
+            const nextPage = pages[currentPageIndex + 1];
+            
+            // 8D Animation
+            currentPage.style.transition = 'transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            currentPage.style.transform = 'rotateY(-180deg)';
+            
+            if (nextPage) {
+                nextPage.style.zIndex = CONFIG.totalPages + 1;
+                nextPage.style.transition = 'transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                nextPage.style.transform = 'rotateY(0deg)';
+            }
+            
+            // Book tilt animation
+            book.style.transform = 'rotateX(5deg) rotateY(-10deg) translateZ(20px)';
+            setTimeout(() => {
+                book.style.transform = 'rotateX(5deg) rotateY(0deg) translateZ(0)';
+            }, 200);
+            
+            setTimeout(() => {
+                if (nextPage) {
+                    nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
+                    nextPage.style.transition = '';
+                }
+                currentPage.style.transition = '';
+                currentPageIndex++;
+                updatePageCounter();
+                updateButtons();
+                updateBookmarkPosition();
+                isAnimating = false;
+            }, 1000);
+        }
+
+        // Previous Page
+        function previousPage() {
+            if (isAnimating || currentPageIndex <= 0) return;
+            
+            isAnimating = true;
+            playPageTurnSound();
+            
+            const currentPage = pages[currentPageIndex];
+            const previousPage = pages[currentPageIndex - 1];
+            
+            currentPage.style.transition = 'transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            currentPage.style.transform = 'rotateY(-180deg)';
+            
+            previousPage.style.zIndex = CONFIG.totalPages + 1;
+            previousPage.style.transition = 'transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            previousPage.style.transform = 'rotateY(0deg)';
+            
+            // Book tilt animation
+            book.style.transform = 'rotateX(5deg) rotateY(10deg) translateZ(20px)';
+            setTimeout(() => {
+                book.style.transform = 'rotateX(5deg) rotateY(0deg) translateZ(0)';
+            }, 200);
+            
+            setTimeout(() => {
+                previousPage.style.zIndex = CONFIG.totalPages - currentPageIndex + 1;
+                previousPage.style.transition = '';
+                currentPage.style.transition = '';
+                currentPageIndex--;
+                updatePageCounter();
+                updateButtons();
+                updateBookmarkPosition();
+                isAnimating = false;
+            }, 1000);
+        }
+
+        // Update Page Counter
+        function updatePageCounter() {
+            currentPageSpan.textContent = currentPageIndex + 1;
+            pageCounter.style.animation = 'none';
+            setTimeout(() => {
+                pageCounter.style.animation = 'counterFloat 4s ease-in-out infinite';
+            }, 10);
+        }
+
+        // Update Bookmark Position
+        function updateBookmarkPosition() {
+            const position = 100 + (currentPageIndex / (CONFIG.totalPages - 1)) * 100;
+            bookmark.style.top = `${position}px`;
+        }
+
+        // Update Button States
+        function updateButtons() {
+            prevBtn.disabled = currentPageIndex <= 0;
+            nextBtn.disabled = currentPageIndex >= CONFIG.totalPages - 1;
+            
+            if (prevBtn.disabled) {
+                prevBtn.innerHTML = '<i class="fas fa-book"></i><span>FRONT COVER</span>';
+            } else {
+                prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i><span>PREVIOUS PAGE</span>';
+            }
+            
+            if (nextBtn.disabled) {
+                nextBtn.innerHTML = '<span>BACK COVER</span><i class="fas fa-book"></i>';
+            } else {
+                nextBtn.innerHTML = '<span>NEXT PAGE</span><i class="fas fa-arrow-right"></i>';
+            }
+        }
+
+        // Toggle Sound
+        soundToggle.addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                this.innerHTML = '<i class="fas fa-volume-up"></i>';
+                this.title = "Sound: ON";
+                this.style.color = '#d4af37';
+                this.style.borderColor = 'rgba(212, 175, 55, 0.7)';
+            } else {
+                this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                this.title = "Sound: OFF";
+                this.style.color = '#999';
+                this.style.borderColor = 'rgba(153, 153, 153, 0.4)';
+            }
         });
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousPage();
+            }
+        });
+
+        // Touch Swipe Support
+        let touchStartX = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        document.addEventListener('touchend', function(e) {
+            const touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            const swipeThreshold = 50;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && currentPageIndex < CONFIG.totalPages - 1) {
+                    nextPage();
+                } else if (diff < 0 && currentPageIndex > 0) {
+                    previousPage();
+                }
+            }
+        }, false);
+
+        // Initialize Everything
+        function init() {
+            createParticles();
+            initAudio();
+            createPages();
+            updateButtons();
+            updateBookmarkPosition();
+            
+            // Hide loading screen
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    
+                    // Start ambient animations
+                    book.style.animation = 'bookGlow 4s infinite alternate';
+                }, 800);
+            }, 2000);
+            
+            // Add button event listeners
+            prevBtn.addEventListener('click', previousPage);
+            nextBtn.addEventListener('click', nextPage);
+            
+            // Initialize sound toggle
+            soundToggle.title = soundEnabled ? "Sound: ON" : "Sound: OFF";
+            if (!soundEnabled) {
+                soundToggle.style.color = '#999';
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        }
+
+        // Start Initialization
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
