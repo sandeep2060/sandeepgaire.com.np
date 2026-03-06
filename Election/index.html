@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepal Election 2079 – Live Updates</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🗳️ Nepal Election 2079</h1>
+        <p>Live candidate results & updates</p>
+    </header>
+
+    <main>
+        <div class="filters">
+            <select id="provinceFilter">
+                <option value="">All Provinces</option>
+            </select>
+            <select id="districtFilter" disabled>
+                <option value="">All Districts</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="Search candidate...">
+        </div>
+
+        <div id="loading">Loading election data...</div>
+        <div id="error" class="error hidden"></div>
+
+        <div id="candidateGrid" class="candidate-grid"></div>
+    </main>
+
+    <footer>
+        <p>Data source: <a href="https://electionapi.osac.org.np" target="_blank">Nepal Election API</a> (unofficial)</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
