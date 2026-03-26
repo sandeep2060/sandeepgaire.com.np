@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>CodeNexus: C & QBasic Compiler (Ad-Supported)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', monospace;
+      min-height: 100vh;
+      padding: 1.5rem;
+      color: #e2e8f0;
+    }
+
+    /* Main container */
+    .app-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(2px);
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Header */
+    .header {
+      background: #0f172ad9;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+    .logo p {
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 0.75rem;
+      background: #1e293b;
+      padding: 0.35rem;
+      border-radius: 60px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      font-weight: 600;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #cbd5e1;
+      transition: all 0.2s ease;
+      font-family: monospace;
+    }
+
+    .lang-btn.active {
+      background: #3b82f6;
+      color: white;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+    }
+
+    /* Two column layout for larger screens */
+    .workspace {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+
+    .editor-panel {
+      flex: 2;
+      min-width: 280px;
+      background: #0f172a;
+      border-radius: 1.5rem;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .io-panel {
+      flex: 1.2;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .panel-title {
+      background: #111827;
+      padding: 0.8rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-title i {
+      font-style: normal;
+      font-size: 0.7rem;
+      background: #1e293b;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      color: #94a3b8;
+    }
+
+    textarea.code-area {
+      width: 100%;
+      flex: 1;
+      background: #010409;
+      color: #e2e8f0;
+      border: none;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding: 1.2rem;
+      resize: vertical;
+      outline: none;
+      tab-size: 4;
+    }
+
+    textarea.code-area:focus {
+      background: #0a0f1a;
+    }
+
+    .stdin-area {
+      background: #0f172a;
+      border-radius: 1.2rem;
+      border: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      height: 180px;
+    }
+
+    .stdin-area textarea {
+      background: #010409;
+      border: none;
+      font-family: monospace;
+      padding: 0.8rem;
+      color: #cbd5e6;
+      font-size: 0.85rem;
+      flex: 1;
+      resize: vertical;
+      outline: none;
+    }
+
+    .output-area {
+      background: #0f172a;
+      border-radius: 1.2rem;
+      border: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 220px;
+    }
+
+    .output-box {
+      background: #010409;
+      flex: 1;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      padding: 1rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #ccd6f6;
+    }
+
+    .action-bar {
+      padding: 0.8rem 1.2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1e293b;
+      background: #0f172a;
+    }
+
+    button {
+      background: #3b82f6;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      font-family: inherit;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    button:active { transform: scale(0.97); }
+    button.secondary {
+      background: #334155;
+    }
+    button.secondary:hover {
+      background: #475569;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    button:disabled {
+      background: #4b5563;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .status-badge {
+      font-size: 0.7rem;
+      background: #1e293b;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      color: #94a3b8;
+    }
+
+    /* Ad section styling */
+    .ad-section {
+      margin: 0 1.5rem 1.5rem 1.5rem;
+      background: #0f172a;
+      border-radius: 1.2rem;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .ad-header {
+      background: #111827;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ad-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .ad-unit {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      text-align: center;
+      background: #0a0f1a;
+      border-radius: 0.8rem;
+      padding: 0.5rem;
+    }
+
+    .unlock-btn {
+      background: #10b981;
+      padding: 0.5rem 1.2rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .unlock-btn:hover {
+      background: #059669;
+    }
+    .ad-note {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 780px) {
+      body { padding: 0.8rem; }
+      .workspace { flex-direction: column; }
+      .lang-btn { padding: 0.3rem 1rem; }
+      .header { flex-direction: column; align-items: stretch; }
+      .ad-section { margin: 0 1rem 1rem 1rem; }
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <div class="header">
+    <div class="logo">
+      <h1>⚡ CodeNexus</h1>
+      <p>Advanced C & QBasic Runtime · Ad-Supported Edition</p>
+    </div>
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-btn active" data-lang="c">🔧 C (GCC)</button>
+      <button class="lang-btn" data-lang="qbasic">📘 QBasic (Interpreter)</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <div class="editor-panel">
+      <div class="panel-title">
+        <span>📝 Source Code Editor</span>
+        <i>syntax: plain · autosuggest ready</i>
+      </div>
+      <textarea id="codeEditor" class="code-area" spellcheck="false"></textarea>
+      <div class="action-bar">
+        <div>
+          <button id="runBtn" disabled>▶ RUN (Unlock with ad)</button>
+          <button id="resetCodeBtn" class="secondary">↻ Reset Example</button>
+        </div>
+        <span id="execStatus" class="status-badge">🔒 ad lock active</span>
+      </div>
+    </div>
+
+    <div class="io-panel">
+      <div class="stdin-area">
+        <div class="panel-title">
+          <span>⌨️ Standard Input (stdin)</span>
+          <i>for scanf / INPUT</i>
+        </div>
+        <textarea id="stdinInput" placeholder="Provide input here...&#10;Line1&#10;Line2&#10;For QBasic INPUT reads line by line"></textarea>
+      </div>
+
+      <div class="output-area">
+        <div class="panel-title">
+          <span>📟 Execution Output</span>
+          <i>stdout + stderr / errors</i>
+        </div>
+        <div id="outputBox" class="output-box">⏳ Ready to compile and run...\nSelect language, write code, click RUN after unlocking.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad section with unlock requirement -->
+  <div class="ad-section" id="adSection">
+    <div class="ad-header">
+      <span>📢 Support us by viewing this ad (required once)</span>
+      <span>⚡ Unlock Run</span>
+    </div>
+    <div class="ad-content">
+      <!-- First ad unit: fluid layout -->
+      <div class="ad-unit">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="fluid"
+             data-ad-layout-key="-7y+f0-j-59+b8"
+             data-ad-client="ca-pub-1662750642698861"
+             data-ad-slot="8992852362"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <!-- Second ad unit: responsive display -->
+      <div class="ad-unit">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1662750642698861"
+             data-ad-slot="5778464303"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <button id="unlockAdBtn" class="unlock-btn">✅ I have viewed the ad – Unlock Run</button>
+      <div class="ad-note">Please allow ads to load. Click the button above to enable compilation.</div>
+    </div>
+  </div>
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
+     crossorigin="anonymous"></script>
+
+<script>
+  // ---------- DOM elements ----------
+  const codeEditor = document.getElementById('codeEditor');
+  const stdinInput = document.getElementById('stdinInput');
+  const outputBox = document.getElementById('outputBox');
+  const runBtn = document.getElementById('runBtn');
+  const resetCodeBtn = document.getElementById('resetCodeBtn');
+  const execStatusSpan = document.getElementById('execStatus');
+  const unlockBtn = document.getElementById('unlockAdBtn');
+
+  let currentLanguage = 'c';   // 'c' or 'qbasic'
+  let isAdUnlocked = false;     // run button initially disabled
+
+  // ---------- SAMPLE CODE TEMPLATES (advanced examples) ----------
+  const examples = {
+    c: `#include <stdio.h>
+
+int main() {
+    int age;
+    printf("Hello from C compiler!\\n");
+    printf("Enter your age: ");
+    scanf("%d", &age);
+    printf("You are %d years old.\\n", age);
+    printf("Factorial of %d is ", age);
+    int fact = 1;
+    for(int i=1; i<=age; i++) fact *= i;
+    printf("%d\\n", fact);
+    return 0;
+}`,
+    qbasic: `' QBasic Demo: Simple calculator + loops
+PRINT "Welcome to QBasic Interpreter (Advanced)"
+PRINT "----------------------------------------"
+INPUT "Enter your name: ", name$
+PRINT "Hello, "; name$; "!"
+INPUT "Enter a number (1-10): ", n
+PRINT "Multiplication table of "; n; ":"
+FOR i = 1 TO 10
+    PRINT n; " x "; i; " = "; n * i
+NEXT i
+PRINT "Goodbye!"
+END`
+  };
+
+  // load example by language
+  function loadExample(lang) {
+    if (lang === 'c') {
+      codeEditor.value = examples.c;
+    } else {
+      codeEditor.value = examples.qbasic;
+    }
+    outputBox.innerText = `🔄 Switched to ${lang === 'c' ? 'C (GCC via API)' : 'QBasic (JS Interpreter)'}. Ready.`;
+    execStatusSpan.innerText = isAdUnlocked ? `📁 ${lang.toUpperCase()} ready` : `🔒 ${lang.toUpperCase()} locked`;
+  }
+
+  // Language switcher UI
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentLanguage = btn.getAttribute('data-lang');
+      loadExample(currentLanguage);
+    });
+  });
+
+  // Reset button
+  resetCodeBtn.addEventListener('click', () => {
+    loadExample(currentLanguage);
+  });
+
+  // ---------------------------- Ad unlock mechanism ----------------------------
+  unlockBtn.addEventListener('click', () => {
+    // Confirm that user has seen the ads
+    if (!isAdUnlocked) {
+      isAdUnlocked = true;
+      runBtn.disabled = false;
+      execStatusSpan.innerText = `✅ Unlocked – ${currentLanguage.toUpperCase()} ready`;
+      outputBox.innerText = `🔓 Run button enabled. You can now compile and run code.\n${outputBox.innerText}`;
+      // Optional: hide or fade the ad section after unlock (but keep it visible for transparency)
+      // We'll just add a subtle style change and disable further unlock attempts.
+      unlockBtn.disabled = true;
+      unlockBtn.innerText = "✓ Unlocked – Thank you!";
+      unlockBtn.style.background = "#2c6e4f";
+      document.querySelector('.ad-section').style.border = "1px solid #10b981";
+    }
+  });
+
+  // ---------------------------- C EXECUTION via Piston API (public) ----------------------------
+  async function executeC(code, stdinData) {
+    const apiEndpoint = 'https://emkc.org/api/v2/piston/execute';
+    const payload = {
+      language: "c",
+      version: "10.2.0",
+      files: [{ content: code }],
+      stdin: stdinData,
+      args: [],
+      compile_timeout: 10000,
+      run_timeout: 8000
+    };
+    try {
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${errText.slice(0, 150)}`);
+      }
+      const result = await response.json();
+      let output = '';
+      if (result.compile && result.compile.stderr) output += `[COMPILE STDERR]\n${result.compile.stderr}\n`;
+      if (result.run) {
+        if (result.run.stdout) output += result.run.stdout;
+        if (result.run.stderr) output += `\n[STDERR]\n${result.run.stderr}`;
+      }
+      if (!result.run && !result.compile) output = "⚠️ No output from API.";
+      return { success: true, output: output.trim() || "(program produced no output)" };
+    } catch (err) {
+      return { success: false, output: `🔥 C execution error: ${err.message}\nNote: API may require internet connection. Retry later.` };
+    }
+  }
+
+  // ---------------------------- QBasic INTERPRETER (advanced JS engine) ----------------------------
+  class QBInterpreter {
+    constructor(code, stdinRaw) {
+      this.code = code;
+      this.stdinLines = stdinRaw.split(/\r?\n/);
+      this.stdinPointer = 0;
+      this.variables = new Map();
+      this.lines = [];
+      this.labels = new Map();
+      this.currentLine = 0;
+      this.output = [];
+      this.error = null;
+      this.forStack = [];
+    }
+
+    preprocess() {
+      const rawLines = this.code.split(/\r?\n/);
+      for (let idx = 0; idx < rawLines.length; idx++) {
+        let raw = rawLines[idx].trim();
+        if (raw.length === 0) continue;
+        if (raw.toUpperCase().startsWith("REM") || raw.startsWith("'")) continue;
+        let label = null;
+        let statementPart = raw;
+        const labelMatch = raw.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s*:/);
+        if (labelMatch) {
+          label = labelMatch[1];
+          statementPart = raw.substring(labelMatch[0].length).trim();
+          if (statementPart === "") statementPart = "REM";
+        }
+        const numLabelMatch = raw.match(/^(\d+)\s+/);
+        if (!label && numLabelMatch) {
+          label = numLabelMatch[1];
+          statementPart = raw.substring(numLabelMatch[0].length).trim();
+        }
+        this.lines.push({ raw: statementPart, originalIdx: idx, label });
+        if (label) {
+          this.labels.set(label, this.lines.length - 1);
+        }
+      }
+    }
+
+    evaluateExpression(expr, allowStringConcat = true) {
+      if (!expr.trim()) return "";
+      const varPattern = /\b([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
+      let transformed = expr.replace(varPattern, (match, varName) => {
+        const upper = varName.toUpperCase();
+        if (upper === "AND" || upper === "OR" || upper === "NOT" || upper === "MOD" || upper === "XOR") {
+          return match;
+        }
+        let val = this.variables.get(varName);
+        if (val === undefined) val = 0;
+        if (typeof val === 'string') {
+          return JSON.stringify(val);
+        } else {
+          return val;
+        }
+      });
+      if (allowStringConcat) {
+        transformed = transformed.replace(/&/g, '+');
+      }
+      try {
+        const evalFunc = new Function('return (' + transformed + ')');
+        const result = evalFunc();
+        return result;
+      } catch (e) {
+        throw new Error(`Expression error: "${expr}" -> ${e.message}`);
+      }
+    }
+
+    evaluateCondition(condExpr) {
+      const result = this.evaluateExpression(condExpr);
+      return Boolean(result);
+    }
+
+    executeStatement(stmt, lineIdx) {
+      const trimmed = stmt.trim();
+      if (trimmed === "" || trimmed.toUpperCase() === "REM") return true;
+      const upperStmt = trimmed.toUpperCase();
+
+      if (upperStmt === "END") return false;
+
+      if (upperStmt.startsWith("PRINT")) {
+        let rest = trimmed.substring(5).trim();
+        if (rest === "") {
+          this.output.push("");
+          return true;
+        }
+        let toPrint = "";
+        try {
+          const evaluated = this.evaluateExpression(rest);
+          toPrint = String(evaluated);
+        } catch (e) {
+          this.error = `PRINT error: ${e.message}`;
+          return false;
+        }
+        this.output.push(toPrint);
+        return true;
+      }
+
+      if (upperStmt.startsWith("LET") || /^[a-zA-Z_][a-zA-Z0-9_]*\s*=/.test(trimmed)) {
+        let assignExpr = trimmed;
+        if (upperStmt.startsWith("LET")) assignExpr = trimmed.substring(3).trim();
+        const eqIndex = assignExpr.indexOf('=');
+        if (eqIndex === -1) throw new Error("Invalid assignment");
+        let varName = assignExpr.substring(0, eqIndex).trim();
+        let valueExpr = assignExpr.substring(eqIndex + 1).trim();
+        if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(varName)) throw new Error(`Invalid variable name: ${varName}`);
+        let val = this.evaluateExpression(valueExpr);
+        this.variables.set(varName, val);
+        return true;
+      }
+
+      if (upperStmt.startsWith("INPUT")) {
+        let rest = trimmed.substring(5).trim();
+        let varNames = [];
+        if (rest.includes(",")) {
+          varNames = rest.split(",").map(v => v.trim());
+        } else {
+          varNames = [rest];
+        }
+        for (let vname of varNames) {
+          if (this.stdinPointer >= this.stdinLines.length) {
+            this.output.push(`? INPUT requires more data, but stdin exhausted. Using empty string.`);
+            this.variables.set(vname, "");
+          } else {
+            let rawInput = this.stdinLines[this.stdinPointer];
+            this.stdinPointer++;
+            let num = parseFloat(rawInput);
+            if (!isNaN(num) && rawInput.trim() !== "") {
+              this.variables.set(vname, num);
+            } else {
+              this.variables.set(vname, rawInput);
+            }
+          }
+        }
+        return true;
+      }
+
+      if (upperStmt.startsWith("GOTO")) {
+        let label = trimmed.substring(4).trim();
+        if (!this.labels.has(label)) {
+          this.error = `GOTO: label "${label}" not found`;
+          return false;
+        }
+        this.currentLine = this.labels.get(label);
+        return true;
+      }
+
+      if (upperStmt.startsWith("IF")) {
+        let thenIndex = trimmed.toUpperCase().indexOf("THEN");
+        if (thenIndex === -1) throw new Error("Invalid IF: missing THEN");
+        let conditionExpr = trimmed.substring(2, thenIndex).trim();
+        let thenPart = trimmed.substring(thenIndex + 4).trim();
+        const condResult = this.evaluateCondition(conditionExpr);
+        if (condResult) {
+          return this.executeStatement(thenPart, lineIdx);
+        }
+        return true;
+      }
+
+      if (upperStmt.startsWith("FOR")) {
+        let forBody = trimmed.substring(3).trim();
+        let eqIdx = forBody.indexOf('=');
+        let toIdx = forBody.toUpperCase().indexOf(" TO ");
+        if (eqIdx === -1 || toIdx === -1) throw new Error("Invalid FOR syntax");
+        let varName = forBody.substring(0, eqIdx).trim();
+        let startExpr = forBody.substring(eqIdx+1, toIdx).trim();
+        let afterTo = forBody.substring(toIdx+4).trim();
+        let step = 1;
+        let endExpr = afterTo;
+        if (afterTo.toUpperCase().startsWith("STEP")) {
+          let parts = afterTo.split(/\s+/);
+          step = parseFloat(parts[1]);
+          endExpr = afterTo.substring(parts[0].length + parts[1].length).trim();
+        } else {
+          let spaceIdx = afterTo.search(/\s+/);
+          if (spaceIdx !== -1) {
+            endExpr = afterTo.substring(0, spaceIdx);
+          }
+        }
+        let startVal = this.evaluateExpression(startExpr);
+        let endVal = this.evaluateExpression(endExpr);
+        if (typeof startVal !== 'number') startVal = parseFloat(startVal) || 0;
+        if (typeof endVal !== 'number') endVal = parseFloat(endVal) || 0;
+        this.variables.set(varName, startVal);
+        this.forStack.push({
+          var: varName,
+          end: endVal,
+          step: step,
+          startLine: lineIdx,
+          returnLine: lineIdx + 1
+        });
+        return true;
+      }
+
+      if (upperStmt.startsWith("NEXT")) {
+        if (this.forStack.length === 0) throw new Error("NEXT without FOR");
+        let loop = this.forStack[this.forStack.length-1];
+        let currentVal = this.variables.get(loop.var);
+        if (typeof currentVal !== 'number') currentVal = 0;
+        let newVal = currentVal + loop.step;
+        this.variables.set(loop.var, newVal);
+        let cond = false;
+        if (loop.step > 0) cond = newVal <= loop.end;
+        else cond = newVal >= loop.end;
+        if (cond) {
+          this.currentLine = loop.startLine;
+          return true;
+        } else {
+          this.forStack.pop();
+          return true;
+        }
+      }
+
+      throw new Error(`Unsupported statement: ${trimmed}`);
+    }
+
+    run() {
+      this.preprocess();
+      this.currentLine = 0;
+      while (this.currentLine >= 0 && this.currentLine < this.lines.length) {
+        const line = this.lines[this.currentLine];
+        let nextIncrement = true;
+        const prevLine = this.currentLine;
+        try {
+          const keepRunning = this.executeStatement(line.raw, this.currentLine);
+          if (this.error) {
+            this.output.push(`[ERROR] ${this.error}`);
+            break;
+          }
+          if (!keepRunning) break;
+        } catch (err) {
+          this.output.push(`Runtime error at line ${line.originalIdx+1}: ${err.message}`);
+          break;
+        }
+        if (this.currentLine === prevLine && nextIncrement) {
+          this.currentLine++;
+        } else if (this.currentLine !== prevLine) {
+          continue;
+        } else {
+          this.currentLine++;
+        }
+        if (this.currentLine > this.lines.length) break;
+      }
+      return this.output.join('\n');
+    }
+  }
+
+  function executeQBasic(code, stdin) {
+    try {
+      const interpreter = new QBInterpreter(code, stdin);
+      const output = interpreter.run();
+      return { success: true, output: output || "(no output from program)" };
+    } catch (err) {
+      return { success: false, output: `QBasic interpreter error: ${err.message}` };
+    }
+  }
+
+  // ------------- MAIN RUN DISPATCH -------------
+  async function runCode() {
+    if (!isAdUnlocked) {
+      outputBox.innerText = "🔒 Please view the ad and click 'Unlock Run' first.";
+      return;
+    }
+    const code = codeEditor.value;
+    const stdinValue = stdinInput.value;
+    execStatusSpan.innerText = "⚙️ Compiling & running...";
+    outputBox.innerText = "⏳ Processing... please wait (C uses external API, QBasic local)";
+
+    if (currentLanguage === 'c') {
+      const result = await executeC(code, stdinValue);
+      if (result.success) {
+        outputBox.innerText = result.output || "[No output]";
+        execStatusSpan.innerText = "✅ C execution done";
+      } else {
+        outputBox.innerText = `❌ C Execution Failed\n${result.output}`;
+        execStatusSpan.innerText = "⚠️ C error";
+      }
+    } 
+    else if (currentLanguage === 'qbasic') {
+      const result = executeQBasic(code, stdinValue);
+      if (result.success) {
+        outputBox.innerText = result.output;
+        execStatusSpan.innerText = "📘 QBasic finished";
+      } else {
+        outputBox.innerText = `⚠️ QB Error\n${result.output}`;
+        execStatusSpan.innerText = "⚠️ QB runtime error";
+      }
+    }
+  }
+
+  runBtn.addEventListener('click', runCode);
+
+  // initial load C example
+  loadExample('c');
+  stdinInput.value = "7";
+</script>
+</body>
+</html>
