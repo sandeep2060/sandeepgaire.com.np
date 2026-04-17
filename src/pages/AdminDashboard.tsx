@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Users, ThumbsUp, MessageSquare, LayoutDashboard, FileText, Settings, LogOut, Code, Bell, Sun, Moon, Eye, ThumbsDown } from 'lucide-react';
+import { Users, ThumbsUp, MessageSquare, LayoutDashboard, FileText, Settings, LogOut, Code, Bell, Sun, Moon, Eye, ThumbsDown, Edit, Trash2, X } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
-import { getAllStats, type ItemStats } from '../lib/statsManager';
+import { getAllStats } from '../lib/statsManager';
 import { projectsData, blogPosts } from '../data/mockData';
 import styles from './AdminDashboard.module.css';
 
@@ -23,6 +23,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
   const [noticeMediaType, setNoticeMediaType] = useState<'none' | 'image' | 'video'>('none');
   const [noticeIsActive, setNoticeIsActive] = useState(false);
   const [noticeSaved, setNoticeSaved] = useState(false);
+
+  // Projects & Blogs State
+  const [projects, setProjects] = useState(projectsData);
+  const [blogs, setBlogs] = useState(blogPosts);
+  
+  // Edit State
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [editType, setEditType] = useState<'project' | 'blog' | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -60,6 +69,37 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
     navigate('/login');
+  };
+
+  const handleDelete = (id: number, type: 'projects' | 'blogs') => {
+    if (window.confirm(`Are you sure you want to delete this ${type === 'projects' ? 'project' : 'blog post'}?`)) {
+      if (type === 'projects') {
+        setProjects(projects.filter(p => p.id !== id));
+      } else {
+        setBlogs(blogs.filter(b => b.id !== id));
+      }
+    }
+  };
+
+  const openEditModal = (item: any, type: 'project' | 'blog') => {
+    setEditingItem({ ...item });
+    setEditType(type);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editType === 'project') {
+      setProjects(projects.map(p => p.id === editingItem.id ? editingItem : p));
+    } else {
+      setBlogs(blogs.map(b => b.id === editingItem.id ? editingItem : b));
+    }
+    setIsEditModalOpen(false);
+    setEditingItem(null);
+  };
+
+  const handleEditChange = (field: string, value: any) => {
+    setEditingItem((prev: any) => ({ ...prev, [field]: value }));
   };
 
   const navItems = [
@@ -259,23 +299,42 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
                         <th>Title</th>
                         <th><Eye size={16} /> Views</th>
                         <th><ThumbsUp size={16} /> Likes</th>
-                        <th className={styles.dangerText}><ThumbsDown size={16} /> Dislikes</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {(activeTab === 'projects' ? projectsData : blogPosts).map(item => {
-                        const allStats = getAllStats(activeTab);
-                        const itemStats = allStats[item.id] || { likes: 0, dislikes: 0, views: 0 };
-                        return (
-                          <tr key={item.id}>
-                            <td className={styles.itemTitle}>{item.title}</td>
-                            <td>{itemStats.views}</td>
-                            <td className={styles.successText}>{itemStats.likes}</td>
-                            <td className={styles.dangerText}>{itemStats.dislikes}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
+                         <th className={styles.dangerText}><ThumbsDown size={16} /> Dislikes</th>
+                         <th>Actions</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       {(activeTab === 'projects' ? projects : blogs).map(item => {
+                         const allStats = getAllStats(activeTab);
+                         const itemStats = allStats[item.id] || { likes: 0, dislikes: 0, views: 0 };
+                         return (
+                           <tr key={item.id}>
+                             <td className={styles.itemTitle}>{item.title}</td>
+                             <td>{itemStats.views}</td>
+                             <td className={styles.successText}>{itemStats.likes}</td>
+                             <td className={styles.dangerText}>{itemStats.dislikes}</td>
+                             <td>
+                               <div className={styles.actionButtons}>
+                                 <button 
+                                   className={styles.editBtn} 
+                                   onClick={() => openEditModal(item, activeTab === 'projects' ? 'project' : 'blog')}
+                                   title="Edit"
+                                 >
+                                   <Edit size={16} />
+                                 </button>
+                                 <button 
+                                   className={styles.deleteBtn} 
+                                   onClick={() => handleDelete(item.id, activeTab as 'projects' | 'blogs')}
+                                   title="Delete"
+                                 >
+                                   <Trash2 size={16} />
+                                 </button>
+                               </div>
+                             </td>
+                           </tr>
+                         );
+                       })}
+                     </tbody>
                   </table>
                 </div>
               </Card>
@@ -297,6 +356,104 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
           )}
         </div>
       </div>
+
+      {/* Edit Modal */}
+      {isEditModalOpen && (
+        <div className={styles.modalOverlay}>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className={`${styles.modalContent} glass`}
+          >
+            <div className={styles.modalHeader}>
+              <h3>Edit {editType === 'project' ? 'Project' : 'Blog Post'}</h3>
+              <button className={styles.closeBtn} onClick={() => setIsEditModalOpen(false)}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEdit} className={styles.modalForm}>
+              <div className={styles.formGroup}>
+                <label>Title</label>
+                <input 
+                  type="text" 
+                  value={editingItem.title} 
+                  onChange={(e) => handleEditChange('title', e.target.value)}
+                  className={styles.inputField}
+                  required
+                />
+              </div>
+
+              {editType === 'project' ? (
+                <>
+                  <div className={styles.formGroup}>
+                    <label>Description</label>
+                    <textarea 
+                      value={editingItem.description} 
+                      onChange={(e) => handleEditChange('description', e.target.value)}
+                      className={styles.inputField}
+                      rows={3}
+                      required
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Tags (comma separated)</label>
+                    <input 
+                      type="text" 
+                      value={editingItem.tags.join(', ')} 
+                      onChange={(e) => handleEditChange('tags', e.target.value.split(',').map((s: string) => s.trim()))}
+                      className={styles.inputField}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={styles.formGroup}>
+                    <label>Excerpt</label>
+                    <textarea 
+                      value={editingItem.excerpt} 
+                      onChange={(e) => handleEditChange('excerpt', e.target.value)}
+                      className={styles.inputField}
+                      rows={3}
+                      required
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Category</label>
+                    <input 
+                      type="text" 
+                      value={editingItem.category} 
+                      onChange={(e) => handleEditChange('category', e.target.value)}
+                      className={styles.inputField}
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              <div className={styles.formGroup}>
+                <label>Image URL</label>
+                <input 
+                  type="text" 
+                  value={editingItem.image} 
+                  onChange={(e) => handleEditChange('image', e.target.value)}
+                  className={styles.inputField}
+                  required
+                />
+              </div>
+
+              <div className={styles.modalActions}>
+                <Button type="button" variant="secondary" onClick={() => setIsEditModalOpen(false)}>
+                  Cancel
+                </Button>
+                <Button type="submit" variant="primary">
+                  Save Changes
+                </Button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
