@@ -471,4 +471,52 @@
   margin-top: 1rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--glass-border);
-}
+}
+
+/* Database Status Indicator */
+.dbStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: help;
+}
+
+.dbStatus.connected {
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.dbStatus.error {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.dbStatus.checking {
+  color: #f59e0b;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.statusDot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0.5; transform: scale(0.95); }
+}
+

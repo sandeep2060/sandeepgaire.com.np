@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Users, ThumbsUp, MessageSquare, LayoutDashboard, FileText, Settings, LogOut, Code, Bell, Sun, Moon, Eye, ThumbsDown, Edit, Trash2, X } from 'lucide-react';
+import { Users, ThumbsUp, MessageSquare, LayoutDashboard, FileText, Settings, LogOut, Code, Bell, Sun, Moon, Eye, ThumbsDown, Edit, Trash2, X, Database } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import { getAllStats } from '../lib/statsManager';
+import { supabase } from '../lib/supabase';
 import { projectsData, blogPosts } from '../data/mockData';
 import styles from './AdminDashboard.module.css';
 
@@ -33,6 +34,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
   const [editType, setEditType] = useState<'project' | 'blog' | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  // Database Status
+  const [dbStatus, setDbStatus] = useState<'checking' | 'connected' | 'error'>('checking');
+  const [dbError, setDbError] = useState<string | null>(null);
+
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     if (isAuthenticated !== 'true') {
@@ -50,6 +55,37 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
         setNoticeIsActive(parsed.isActive || false);
       } catch (e) {}
     }
+
+    // Check Supabase Connection
+    const checkConnection = async () => {
+      try {
+        const url = import.meta.env.VITE_SUPABASE_URL;
+        if (!url || url.includes('placeholder')) {
+          setDbStatus('error');
+          setDbError('Placeholder credentials in use. Please check your .env file.');
+          return;
+        }
+
+        // Lightweight check
+        const { error } = await supabase.from('projects').select('id').limit(1);
+        if (error) {
+          // If error is 404 (table not found), connection is still technically OK
+          if (error.code === 'PGRST116' || error.message.includes('not found')) {
+            setDbStatus('connected');
+            return;
+          }
+          throw error;
+        }
+        
+        setDbStatus('connected');
+      } catch (err: any) {
+        console.error('Supabase connection error:', err);
+        setDbStatus('error');
+        setDbError(err.message || 'Failed to connect to Supabase');
+      }
+    };
+
+    checkConnection();
   }, [navigate]);
 
   const handleSaveNotice = (e: React.FormEvent) => {
@@ -147,6 +183,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
             {navItems.find(item => item.id === activeTab)?.label}
           </h3>
           <div className={styles.topbarActions}>
+            <div 
+              className={`${styles.dbStatus} ${styles[dbStatus]}`}
+              title={dbStatus === 'error' ? `Database Error: ${dbError}` : `Database: ${dbStatus}`}
+            >
+              <Database size={18} />
+              <div className={styles.statusDot}></div>
+            </div>
+
             {toggleTheme && (
               <button onClick={toggleTheme} className={styles.themeToggleBtn} aria-label="Toggle theme">
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
