@@ -58,7 +58,7 @@ const HomeProjectCard = ({ project }: { project: any }) => {
       </a>
       <div className={styles.projectFooter}>
         <div className={styles.techTags}>
-          {project.tags?.slice(0, 3).map(tag => (
+          {project.tags?.slice(0, 3).map((tag: string) => (
             <span key={tag} className={styles.techBadge}>{tag}</span>
           ))}
         </div>

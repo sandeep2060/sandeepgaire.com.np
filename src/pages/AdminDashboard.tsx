@@ -27,7 +27,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
   // Projects & Blogs State
   const [projects, setProjects] = useState<any[]>([]);
   const [blogs, setBlogs] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   
   // Edit State
   const [editingItem, setEditingItem] = useState<any>(null);
@@ -90,7 +89,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
   }, [navigate]);
 
   const fetchData = async () => {
-    setIsLoading(true);
     try {
       const { data: projectsData, error: projectsError } = await supabase
         .from('projects')
@@ -109,8 +107,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
       else setBlogs(blogsData || []);
     } catch (err) {
       console.error('Data fetch error:', err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
