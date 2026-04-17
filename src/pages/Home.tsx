@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Download, ArrowRight, Code, Palette, Zap, ExternalLink, Calendar, Clock, ThumbsUp, ThumbsDown, Eye } from 'lucide-react';
+import { Download, ArrowRight, Code, Palette, Zap, Calendar, ThumbsUp, ThumbsDown, Eye } from 'lucide-react';
 import Hero3D from '../components/ui/Hero3D';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
-import { projectsData, blogPosts } from '../data/mockData';
+import { supabase } from '../lib/supabase';
 import { getStats, incrementStat, type ItemStats } from '../lib/statsManager';
 import styles from './Home.module.css';
 
@@ -27,7 +27,7 @@ const TypingText = ({ text }: { text: string }) => {
 };
 
 // Mini-component for Home Project Card
-const HomeProjectCard = ({ project }: { project: typeof projectsData[0] }) => {
+const HomeProjectCard = ({ project }: { project: any }) => {
   const [stats, setStats] = useState<ItemStats>({ likes: 0, dislikes: 0, views: 0 });
   const [hasLiked, setHasLiked] = useState(false);
   const [hasDisliked, setHasDisliked] = useState(false);
@@ -77,7 +77,7 @@ const HomeProjectCard = ({ project }: { project: typeof projectsData[0] }) => {
 };
 
 // Mini-component for Home Blog Card
-const HomeBlogCard = ({ post }: { post: typeof blogPosts[0] }) => {
+const HomeBlogCard = ({ post }: { post: any }) => {
   const [stats, setStats] = useState<ItemStats>({ likes: 0, dislikes: 0, views: 0 });
   const [hasLiked, setHasLiked] = useState(false);
   const [hasDisliked, setHasDisliked] = useState(false);
@@ -125,12 +125,41 @@ const HomeBlogCard = ({ post }: { post: typeof blogPosts[0] }) => {
 
 const Home: React.FC = () => {
   const [timeGreeting, setTimeGreeting] = useState('Hello');
+  const [projects, setProjects] = useState<any[]>([]);
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour < 12) setTimeGreeting('Good Morning');
     else if (hour < 18) setTimeGreeting('Good Afternoon');
     else setTimeGreeting('Good Evening');
+
+    const fetchFeatured = async () => {
+      setLoading(true);
+      try {
+        const { data: projectsData } = await supabase
+          .from('projects')
+          .select('*')
+          .limit(3)
+          .order('id', { ascending: false });
+        
+        const { data: blogsData } = await supabase
+          .from('blogs')
+          .select('*')
+          .limit(3)
+          .order('id', { ascending: false });
+
+        setProjects(projectsData || []);
+        setPosts(blogsData || []);
+      } catch (err) {
+        console.error('Error fetching featured content:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeatured();
   }, []);
 
   return (
@@ -292,17 +321,23 @@ const Home: React.FC = () => {
           </div>
           
           <div className={styles.projectsGrid}>
-            {projectsData.slice(0, 3).map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
-                <HomeProjectCard project={project} />
-              </motion.div>
-            ))}
+            {loading ? (
+              [1, 2, 3].map(i => <div key={i} className={styles.skeletonCard}></div>)
+            ) : projects.length === 0 ? (
+              <p className={styles.emptyMsg}>No projects to show yet.</p>
+            ) : (
+              projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                >
+                  <HomeProjectCard project={project} />
+                </motion.div>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -318,17 +353,23 @@ const Home: React.FC = () => {
           </div>
           
           <div className={styles.blogGrid}>
-            {blogPosts.slice(0, 3).map((post, index) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
-                <HomeBlogCard post={post} />
-              </motion.div>
-            ))}
+            {loading ? (
+              [1, 2, 3].map(i => <div key={i} className={styles.skeletonCard}></div>)
+            ) : posts.length === 0 ? (
+              <p className={styles.emptyMsg}>No articles to show yet.</p>
+            ) : (
+              posts.map((post, index) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                >
+                  <HomeBlogCard post={post} />
+                </motion.div>
+              ))
+            )}
           </div>
         </div>
       </section>

@@ -6,7 +6,6 @@ import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import { getAllStats } from '../lib/statsManager';
 import { supabase } from '../lib/supabase';
-import { projectsData, blogPosts } from '../data/mockData';
 import styles from './AdminDashboard.module.css';
 
 interface AdminDashboardProps {
@@ -26,8 +25,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
   const [noticeSaved, setNoticeSaved] = useState(false);
 
   // Projects & Blogs State
-  const [projects, setProjects] = useState(projectsData);
-  const [blogs, setBlogs] = useState(blogPosts);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   
   // Edit State
   const [editingItem, setEditingItem] = useState<any>(null);
@@ -86,7 +86,33 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
     };
 
     checkConnection();
+    fetchData();
   }, [navigate]);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const { data: projectsData, error: projectsError } = await supabase
+        .from('projects')
+        .select('*')
+        .order('id', { ascending: false });
+      
+      const { data: blogsData, error: blogsError } = await supabase
+        .from('blogs')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (projectsError) console.error('Error fetching projects:', projectsError);
+      else setProjects(projectsData || []);
+
+      if (blogsError) console.error('Error fetching blogs:', blogsError);
+      else setBlogs(blogsData || []);
+    } catch (err) {
+      console.error('Data fetch error:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSaveNotice = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,12 +133,19 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
     navigate('/login');
   };
 
-  const handleDelete = (id: number, type: 'projects' | 'blogs') => {
+  const handleDelete = async (id: number, type: 'projects' | 'blogs') => {
     if (window.confirm(`Are you sure you want to delete this ${type === 'projects' ? 'project' : 'blog post'}?`)) {
-      if (type === 'projects') {
-        setProjects(projects.filter(p => p.id !== id));
-      } else {
-        setBlogs(blogs.filter(b => b.id !== id));
+      try {
+        const { error } = await supabase.from(type).delete().eq('id', id);
+        if (error) throw error;
+        
+        if (type === 'projects') {
+          setProjects(projects.filter(p => p.id !== id));
+        } else {
+          setBlogs(blogs.filter(b => b.id !== id));
+        }
+      } catch (err: any) {
+        alert('Error deleting item: ' + err.message);
       }
     }
   };
@@ -123,15 +156,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
     setIsEditModalOpen(true);
   };
 
-  const handleSaveEdit = (e: React.FormEvent) => {
+  const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editType === 'project') {
-      setProjects(projects.map(p => p.id === editingItem.id ? editingItem : p));
-    } else {
-      setBlogs(blogs.map(b => b.id === editingItem.id ? editingItem : b));
+    const table = editType === 'project' ? 'projects' : 'blogs';
+    try {
+      const { error } = await supabase
+        .from(table)
+        .update(editingItem)
+        .eq('id', editingItem.id);
+      
+      if (error) throw error;
+
+      if (editType === 'project') {
+        setProjects(projects.map(p => p.id === editingItem.id ? editingItem : p));
+      } else {
+        setBlogs(blogs.map(b => b.id === editingItem.id ? editingItem : b));
+      }
+      setIsEditModalOpen(false);
+      setEditingItem(null);
+    } catch (err: any) {
+      alert('Error updating item: ' + err.message);
     }
-    setIsEditModalOpen(false);
-    setEditingItem(null);
   };
 
   const handleEditChange = (field: string, value: any) => {

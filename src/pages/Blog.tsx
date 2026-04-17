@@ -2,40 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowRight, ThumbsUp, ThumbsDown, Eye } from 'lucide-react';
 import { getStats, incrementStat, type ItemStats } from '../lib/statsManager';
+import { supabase } from '../lib/supabase';
 import Card from '../components/ui/Card';
 import styles from './Blog.module.css';
 
-const blogPosts = [
-  {
-    id: 1,
-    title: 'The Future of Web Development with React 19',
-    excerpt: 'Exploring the new features in React 19 and how they will change the way we build web applications.',
-    date: 'Oct 15, 2023',
-    readTime: '5 min read',
-    category: 'React',
-    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 2,
-    title: 'Mastering CSS Grid and Flexbox for Modern Layouts',
-    excerpt: 'A comprehensive guide to creating complex responsive layouts using modern CSS techniques without frameworks.',
-    date: 'Sep 28, 2023',
-    readTime: '8 min read',
-    category: 'CSS',
-    image: 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    id: 3,
-    title: 'Why Supabase is the Ultimate Firebase Alternative',
-    excerpt: 'Comparing Supabase and Firebase for your next side project. Performance, pricing, and developer experience analyzed.',
-    date: 'Sep 10, 2023',
-    readTime: '6 min read',
-    category: 'Backend',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
-  }
-];
-
-const BlogCardItem = ({ post }: { post: typeof blogPosts[0] }) => {
+const BlogCardItem = ({ post }: { post: any }) => {
   const [stats, setStats] = useState<ItemStats>({ likes: 0, dislikes: 0, views: 0 });
   const [hasLiked, setHasLiked] = useState(false);
   const [hasDisliked, setHasDisliked] = useState(false);
@@ -108,6 +79,30 @@ const BlogCardItem = ({ post }: { post: typeof blogPosts[0] }) => {
 };
 
 const Blog: React.FC = () => {
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('*')
+          .order('id', { ascending: false });
+        
+        if (error) throw error;
+        setPosts(data || []);
+      } catch (err) {
+        console.error('Error fetching blog posts:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <div className={styles.blogContainer}>
       <div className="container">
@@ -121,19 +116,30 @@ const Blog: React.FC = () => {
           <p className={styles.subtitle}>Thoughts, tutorials, and insights.</p>
         </motion.div>
 
-        <div className={styles.blogGrid}>
-          {blogPosts.map((post, index) => (
-            <motion.div
-              key={post.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-            >
-              <BlogCardItem post={post} />
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className={styles.loaderWrapper}>
+            <div className="loader"></div>
+          </div>
+        ) : posts.length === 0 ? (
+          <div className={styles.emptyState}>
+            <h3>No articles found</h3>
+            <p>Write something in the admin panel to get started.</p>
+          </div>
+        ) : (
+          <div className={styles.blogGrid}>
+            {posts.map((post, index) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15, duration: 0.5 }}
+              >
+                <BlogCardItem post={post} />
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
