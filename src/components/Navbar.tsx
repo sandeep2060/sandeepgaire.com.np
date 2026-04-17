@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     <nav className={`${styles.navbar} glass`}>
       <div className={`container ${styles.navContainer}`}>
         <Link to="/" className={styles.logo}>
-          <span className="text-gradient">SG</span>
+          <span className="text-gradient">Sandeep Gaire</span>
         </Link>
 
         {/* Desktop Menu */}
