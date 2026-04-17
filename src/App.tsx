@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import About from './pages/About';
-import Skills from './pages/Skills';
-import Projects from './pages/Projects';
-import Blog from './pages/Blog';
-import Contact from './pages/Contact';
-import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
 import NoticeModal from './components/ui/NoticeModal';
+import LoadingScreen from './components/ui/LoadingScreen';
+
+// Lazy load pages for performance
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Skills = lazy(() => import('./pages/Skills'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Blog = lazy(() => import('./pages/Blog'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Login = lazy(() => import('./pages/Login'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
 function AppContent() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -31,7 +35,8 @@ function AppContent() {
       {!isAdminRoute && <Navbar theme={theme} toggleTheme={toggleTheme} />}
       {!isAdminRoute && <NoticeModal />}
       <main>
-        <Routes>
+        <Suspense fallback={<LoadingScreen />}>
+          <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/skills" element={<Skills />} />
@@ -41,7 +46,8 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/admin/*" element={<AdminDashboard theme={theme} toggleTheme={toggleTheme} />} />
           </Routes>
-        </main>
+        </Suspense>
+      </main>
         {/* Hide footer on admin routes */}
         <Routes>
           <Route path="/admin/*" element={null} />
@@ -53,9 +59,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </HelmetProvider>
   );
 }
 

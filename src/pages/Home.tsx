@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Download, ArrowRight, Code, Palette, Zap, ExternalLink, Calendar, Clock, ThumbsUp, ThumbsDown, Eye } from 'lucide-react';
 import Hero3D from '../components/ui/Hero3D';
 import Button from '../components/ui/Button';
@@ -134,6 +135,10 @@ const Home: React.FC = () => {
 
   return (
     <div className={styles.homeWrapper}>
+      <Helmet>
+        <title>Sandeep Gaire | Full-Stack Developer & Designer</title>
+        <meta name="description" content="Welcome to my official portfolio. I am a full-stack developer focused on creating premium digital experiences." />
+      </Helmet>
       {/* Hero Section */}
       <section className={styles.heroSection}>
         <Hero3D />
@@ -207,9 +212,12 @@ const Home: React.FC = () => {
               <div className={styles.imageWrapper}>
                 <div className={styles.imageGlow}></div>
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                  alt="Sandeep Gaire" 
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                  alt="Sandeep Gaire - Full Stack Developer Profile" 
                   className={styles.profilePic} 
+                  loading="eager"
+                  width="320"
+                  height="420"
                 />
                 
                 {/* Floating Badges */}
