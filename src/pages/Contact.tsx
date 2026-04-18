@@ -13,6 +13,7 @@ const LinkedinIcon = ({ size = 24 }) => (
 const TwitterIcon = ({ size = 24 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
 );
+import { supabase } from '../lib/supabase';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import styles from './Contact.module.css';
@@ -21,11 +22,13 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -35,16 +38,37 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
     
-    // Simulate API call to Supabase
-    setTimeout(() => {
+    try {
+      const { error } = await supabase
+        .from('messages')
+        .insert([
+          { 
+            name: formData.name, 
+            email: formData.email, 
+            subject: formData.subject || 'No Subject',
+            message: formData.message,
+            created_at: new Date().toISOString()
+          }
+        ]);
+
+      if (error) throw error;
+
       setIsSubmitting(false);
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '' });
       
       setTimeout(() => setSubmitStatus('idle'), 5000);
-    }, 1500);
+    } catch (err: any) {
+      console.error('Error sending message:', err);
+      setIsSubmitting(false);
+      setSubmitStatus('error');
+      setErrorMessage(err.message || 'Failed to send message. Please try again.');
+    }
   };
+
 
   return (
     <div className={styles.contactContainer}>
@@ -141,6 +165,19 @@ const Contact: React.FC = () => {
                     placeholder="john@example.com"
                   />
                 </div>
+
+                <div className={styles.inputGroup}>
+                  <label htmlFor="subject">Subject</label>
+                  <input 
+                    type="text" 
+                    id="subject" 
+                    name="subject" 
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="Inquiry about project"
+                  />
+                </div>
+
                 
                 <div className={styles.inputGroup}>
                   <label htmlFor="message">Your Message</label>

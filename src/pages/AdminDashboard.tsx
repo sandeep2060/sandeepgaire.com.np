@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Users, ThumbsUp, MessageSquare, LayoutDashboard, FileText, Settings, LogOut, Code, Bell, Sun, Moon, Eye, ThumbsDown, Edit, Trash2, X, Database } from 'lucide-react';
+import { Users, ThumbsUp, MessageSquare, LayoutDashboard, FileText, Settings, LogOut, Code, Bell, Sun, Moon, Eye, ThumbsDown, Edit, Trash2, X, Database, Menu } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
-import { getAllStats } from '../lib/statsManager';
+import { getAllStats, getGlobalStats } from '../lib/statsManager';
 import { supabase } from '../lib/supabase';
 import styles from './AdminDashboard.module.css';
 
@@ -16,6 +16,7 @@ interface AdminDashboardProps {
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
+  const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
   
   // Notice State
   const [noticeText, setNoticeText] = useState('');
@@ -24,9 +25,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
   const [noticeIsActive, setNoticeIsActive] = useState(false);
   const [noticeSaved, setNoticeSaved] = useState(false);
 
+  // Stats State
+  const [globalStats, setGlobalStats] = useState({ totalLikes: 0, totalViews: 0, totalMessages: 0 });
+  const [itemStats, setItemStats] = useState<Record<string | number, any>>({});
+
   // Projects & Blogs State
   const [projects, setProjects] = useState<any[]>([]);
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
   
   // Edit State
   const [editingItem, setEditingItem] = useState<any>(null);
@@ -43,44 +49,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
       navigate('/login');
     }
     
-    // Load existing notice
-    const storedNotice = localStorage.getItem('site_notice');
-    if (storedNotice) {
-      try {
-        const parsed = JSON.parse(storedNotice);
-        setNoticeText(parsed.text || '');
-        setNoticeMediaUrl(parsed.mediaUrl || '');
-        setNoticeMediaType(parsed.mediaType || 'none');
-        setNoticeIsActive(parsed.isActive || false);
-      } catch (e) {}
-    }
-
     // Check Supabase Connection
     const checkConnection = async () => {
       try {
-        const url = import.meta.env.VITE_SUPABASE_URL;
-        if (!url || url.includes('placeholder')) {
-          setDbStatus('error');
-          setDbError('Placeholder credentials in use. Please check your .env file.');
-          return;
-        }
-
-        // Lightweight check
         const { error } = await supabase.from('projects').select('id').limit(1);
-        if (error) {
-          // If error is 404 (table not found), connection is still technically OK
-          if (error.code === 'PGRST116' || error.message.includes('not found')) {
-            setDbStatus('connected');
-            return;
-          }
-          throw error;
-        }
-        
+        if (error && error.code !== 'PGRST116') throw error;
         setDbStatus('connected');
       } catch (err: any) {
-        console.error('Supabase connection error:', err);
         setDbStatus('error');
-        setDbError(err.message || 'Failed to connect to Supabase');
+        setDbError(err.message);
       }
     };
 
@@ -90,38 +67,64 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
 
   const fetchData = async () => {
     try {
-      const { data: projectsData, error: projectsError } = await supabase
-        .from('projects')
-        .select('*')
-        .order('id', { ascending: false });
-      
-      const { data: blogsData, error: blogsError } = await supabase
-        .from('blogs')
-        .select('*')
-        .order('id', { ascending: false });
+      // Fetch Content
+      const { data: projectsData } = await supabase.from('projects').select('*').order('id', { ascending: false });
+      const { data: blogsData } = await supabase.from('blogs').select('*').order('id', { ascending: false });
+      const { data: messagesData } = await supabase.from('messages').select('*').order('created_at', { ascending: false });
+      const { data: noticesData } = await supabase.from('notices').select('*').limit(1).single();
 
-      if (projectsError) console.error('Error fetching projects:', projectsError);
-      else setProjects(projectsData || []);
+      setProjects(projectsData || []);
+      setBlogs(blogsData || []);
+      setMessages(messagesData || []);
 
-      if (blogsError) console.error('Error fetching blogs:', blogsError);
-      else setBlogs(blogsData || []);
+      if (noticesData) {
+        setNoticeText(noticesData.text || '');
+        setNoticeMediaUrl(noticesData.media_url || '');
+        setNoticeMediaType(noticesData.media_type || 'none');
+        setNoticeIsActive(noticesData.is_active || false);
+      }
+
+      // Fetch Stats
+      const stats = await getGlobalStats();
+      setGlobalStats(stats);
+
+      const pStats = await getAllStats('projects');
+      const bStats = await getAllStats('blogs');
+      setItemStats({ ...pStats, ...bStats });
+
     } catch (err) {
       console.error('Data fetch error:', err);
     }
   };
 
-  const handleSaveNotice = (e: React.FormEvent) => {
+  const handleSaveNotice = async (e: React.FormEvent) => {
     e.preventDefault();
-    const notice = {
-      id: Date.now().toString(),
-      text: noticeText,
-      mediaUrl: noticeMediaUrl,
-      mediaType: noticeMediaType,
-      isActive: noticeIsActive
-    };
-    localStorage.setItem('site_notice', JSON.stringify(notice));
-    setNoticeSaved(true);
-    setTimeout(() => setNoticeSaved(false), 3000);
+    try {
+      const notice = {
+        text: noticeText,
+        media_url: noticeMediaUrl,
+        media_type: noticeMediaType,
+        is_active: noticeIsActive,
+        updated_at: new Date().toISOString()
+      };
+
+      const { data: existing } = await supabase.from('notices').select('id').limit(1).single();
+      
+      let error;
+      if (existing) {
+        const { error: err } = await supabase.from('notices').update(notice).eq('id', existing.id);
+        error = err;
+      } else {
+        const { error: err } = await supabase.from('notices').insert([notice]);
+        error = err;
+      }
+
+      if (error) throw error;
+      setNoticeSaved(true);
+      setTimeout(() => setNoticeSaved(false), 3000);
+    } catch (err: any) {
+      alert('Error saving notice: ' + err.message);
+    }
   };
 
   const handleLogout = () => {
@@ -134,12 +137,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
       try {
         const { error } = await supabase.from(type).delete().eq('id', id);
         if (error) throw error;
-        
-        if (type === 'projects') {
-          setProjects(projects.filter(p => p.id !== id));
-        } else {
-          setBlogs(blogs.filter(b => b.id !== id));
-        }
+        fetchData();
       } catch (err: any) {
         alert('Error deleting item: ' + err.message);
       }
@@ -162,14 +160,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
         .eq('id', editingItem.id);
       
       if (error) throw error;
-
-      if (editType === 'project') {
-        setProjects(projects.map(p => p.id === editingItem.id ? editingItem : p));
-      } else {
-        setBlogs(blogs.map(b => b.id === editingItem.id ? editingItem : b));
-      }
       setIsEditModalOpen(false);
-      setEditingItem(null);
+      fetchData();
     } catch (err: any) {
       alert('Error updating item: ' + err.message);
     }
@@ -188,10 +180,20 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
     { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
   ];
 
+  const handleTabChange = (id: string) => {
+    setActiveTab(id);
+    setIsMobileMenuActive(false);
+  };
+
   return (
     <div className={styles.adminContainer}>
+      {/* Mobile Backdrop */}
+      {isMobileMenuActive && (
+        <div className={styles.sidebarBackdrop} onClick={() => setIsMobileMenuActive(false)}></div>
+      )}
+
       {/* Sidebar */}
-      <div className={`${styles.sidebar} glass`}>
+      <div className={`${styles.sidebar} ${isMobileMenuActive ? styles.mobileActive : ''} glass`}>
         <div className={styles.sidebarHeader}>
           <h2 className="text-gradient">Admin Panel</h2>
         </div>
@@ -201,7 +203,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
             <button 
               key={item.id}
               className={`${styles.navBtn} ${activeTab === item.id ? styles.active : ''}`}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => handleTabChange(item.id)}
             >
               {item.icon}
               <span>{item.label}</span>
@@ -220,9 +222,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
       {/* Main Content */}
       <div className={styles.mainContent}>
         <div className={styles.topbar}>
-          <h3 className={styles.pageTitle}>
-            {navItems.find(item => item.id === activeTab)?.label}
-          </h3>
+          <div className="flex items-center gap-4">
+            <button 
+              className={styles.mobileMenuBtn}
+              onClick={() => setIsMobileMenuActive(!isMobileMenuActive)}
+            >
+              <Menu size={24} />
+            </button>
+            <h3 className={styles.pageTitle}>
+              {navItems.find(item => item.id === activeTab)?.label}
+            </h3>
+          </div>
+          
           <div className={styles.topbarActions}>
             <div 
               className={`${styles.dbStatus} ${styles[dbStatus]}`}
@@ -239,7 +250,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
             )}
             <div className={styles.userProfile}>
               <div className={styles.avatar}>SG</div>
-              <span>Admin</span>
+              <span className="hidden sm:inline">Admin</span>
             </div>
           </div>
         </div>
@@ -253,11 +264,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
             >
               <Card className={styles.statCard}>
                 <div className={styles.statIcon} style={{ color: '#0ea5e9', background: 'rgba(14, 165, 233, 0.1)' }}>
-                  <Users size={24} />
+                  <Eye size={24} />
                 </div>
                 <div className={styles.statInfo}>
-                  <p>Total Visitors</p>
-                  <h4>12,450</h4>
+                  <p>Total Views</p>
+                  <h4>{globalStats.totalViews.toLocaleString()}</h4>
                 </div>
               </Card>
               
@@ -267,7 +278,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
                 </div>
                 <div className={styles.statInfo}>
                   <p>Total Likes</p>
-                  <h4>3,820</h4>
+                  <h4>{globalStats.totalLikes.toLocaleString()}</h4>
                 </div>
               </Card>
               
@@ -277,17 +288,61 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
                 </div>
                 <div className={styles.statInfo}>
                   <p>Messages</p>
-                  <h4>45</h4>
+                  <h4>{globalStats.totalMessages}</h4>
                 </div>
               </Card>
 
               {/* Recent Messages Preview */}
               <Card className={styles.recentSection}>
                 <h3>Recent Messages</h3>
-                <div className={styles.emptyState}>
-                  <p>Waiting for Supabase integration to load messages...</p>
+                <div className={styles.messagesGrid}>
+                  {messages.slice(0, 4).map(msg => (
+                    <Card key={msg.id} className={styles.messageCard}>
+                      <div className={styles.messageHeader}>
+                        <span className={styles.messageName}>{msg.name}</span>
+                        <span className={styles.messageDate}>
+                          {new Date(msg.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <div className={styles.messageEmail}>{msg.email}</div>
+                      <div className={styles.messageSubject}>{msg.subject}</div>
+                      <p className={styles.messageBody}>{msg.message?.substring(0, 100)}...</p>
+                    </Card>
+                  ))}
+                  {messages.length === 0 && (
+                    <div className={styles.emptyState}>
+                      <p>No messages yet.</p>
+                    </div>
+                  )}
                 </div>
               </Card>
+            </motion.div>
+          )}
+
+          {activeTab === 'messages' && (
+             <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={styles.messagesGrid}
+            >
+              {messages.map(msg => (
+                <Card key={msg.id} className={styles.messageCard}>
+                  <div className={styles.messageHeader}>
+                    <span className={styles.messageName}>{msg.name}</span>
+                    <span className={styles.messageDate}>
+                      {new Date(msg.created_at).toLocaleString()}
+                    </span>
+                  </div>
+                  <div className={styles.messageEmail}>{msg.email}</div>
+                  <div className={styles.messageSubject}>{msg.subject}</div>
+                  <p className={styles.messageBody}>{msg.message}</p>
+                </Card>
+              ))}
+              {messages.length === 0 && (
+                <Card className={styles.emptyStateCard}>
+                  <p>No messages found in the database.</p>
+                </Card>
+              )}
             </motion.div>
           )}
 
@@ -360,7 +415,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
                     <Button type="submit" variant="primary">
                       Save Notice
                     </Button>
-                    {noticeSaved && <span className={styles.successMsg}>Saved successfully!</span>}
+                    {noticeSaved && <span className={styles.successMsg}>Saved successfully to database!</span>}
                   </div>
                 </form>
               </Card>
@@ -390,14 +445,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
                      </thead>
                      <tbody>
                        {(activeTab === 'projects' ? projects : blogs).map(item => {
-                         const allStats = getAllStats(activeTab);
-                         const itemStats = allStats[item.id] || { likes: 0, dislikes: 0, views: 0 };
+                         const stats = itemStats[item.id] || { likes: 0, dislikes: 0, views: 0 };
                          return (
                            <tr key={item.id}>
                              <td className={styles.itemTitle}>{item.title}</td>
-                             <td>{itemStats.views}</td>
-                             <td className={styles.successText}>{itemStats.likes}</td>
-                             <td className={styles.dangerText}>{itemStats.dislikes}</td>
+                             <td>{stats.views}</td>
+                             <td className={styles.successText}>{stats.likes}</td>
+                             <td className={styles.dangerText}>{stats.dislikes}</td>
                              <td>
                                <div className={styles.actionButtons}>
                                  <button 
@@ -426,15 +480,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
             </motion.div>
           )}
 
-          {activeTab !== 'overview' && activeTab !== 'notices' && activeTab !== 'projects' && activeTab !== 'blogs' && (
+          {activeTab === 'settings' && (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className={styles.emptyStateWrapper}
             >
               <Card className={styles.emptyStateCard}>
-                <h3 className="text-gradient">{navItems.find(item => item.id === activeTab)?.label} Management</h3>
-                <p>This module will be fully functional once Supabase is connected.</p>
+                <h3 className="text-gradient">System Settings</h3>
+                <p>Global system configurations and profile management.</p>
                 <div className={styles.placeholderMockup}></div>
               </Card>
             </motion.div>
@@ -485,7 +539,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
                     <label>Tags (comma separated)</label>
                     <input 
                       type="text" 
-                      value={editingItem.tags.join(', ')} 
+                      value={editingItem.tags?.join(', ')} 
                       onChange={(e) => handleEditChange('tags', e.target.value.split(',').map((s: string) => s.trim()))}
                       className={styles.inputField}
                     />
@@ -542,5 +596,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ theme, toggleTheme }) =
     </div>
   );
 };
+
 
 export default AdminDashboard;

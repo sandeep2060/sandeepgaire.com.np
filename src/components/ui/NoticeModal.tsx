@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 import styles from './NoticeModal.module.css';
 
 interface Notice {
   id: string;
   text: string;
-  mediaUrl: string; // can be image or video
-  mediaType: 'image' | 'video' | 'none';
-  isActive: boolean;
+  media_url: string; 
+  media_type: 'image' | 'video' | 'none';
+  is_active: boolean;
 }
 
 const NoticeModal: React.FC = () => {
@@ -20,21 +21,32 @@ const NoticeModal: React.FC = () => {
     const isDismissed = sessionStorage.getItem('notice_dismissed');
     if (isDismissed === 'true') return;
 
-    // Load notice from localStorage (Mocked DB)
-    const storedNoticeStr = localStorage.getItem('site_notice');
-    if (storedNoticeStr) {
+    const fetchNotice = async () => {
       try {
-        const storedNotice = JSON.parse(storedNoticeStr) as Notice;
-        if (storedNotice.isActive && (storedNotice.text || storedNotice.mediaUrl)) {
-          setNotice(storedNotice);
+        const { data, error } = await supabase
+          .from('notices')
+          .select('*')
+          .eq('is_active', true)
+          .limit(1)
+          .single();
+
+        if (error) {
+          if (error.code !== 'PGRST116') console.error("Error fetching notice:", error);
+          return;
+        }
+
+        if (data && (data.text || data.media_url)) {
+          setNotice(data as unknown as Notice);
           // Small delay before showing modal
-          const timer = setTimeout(() => setIsVisible(true), 1500);
+          const timer = setTimeout(() => setIsVisible(true), 2000);
           return () => clearTimeout(timer);
         }
       } catch (e) {
-        console.error("Failed to parse notice", e);
+        console.error("Failed to fetch notice", e);
       }
-    }
+    };
+
+    fetchNotice();
   }, []);
 
   const handleClose = () => {
@@ -64,15 +76,15 @@ const NoticeModal: React.FC = () => {
               
               {notice.text && <p className={styles.noticeText}>{notice.text}</p>}
               
-              {notice.mediaType === 'image' && notice.mediaUrl && (
+              {notice.media_type === 'image' && notice.media_url && (
                 <div className={styles.mediaContainer}>
-                  <img src={notice.mediaUrl} alt="Notice Media" className={styles.mediaItem} />
+                  <img src={notice.media_url} alt="Notice Media" className={styles.mediaItem} />
                 </div>
               )}
               
-              {notice.mediaType === 'video' && notice.mediaUrl && (
+              {notice.media_type === 'video' && notice.media_url && (
                 <div className={styles.mediaContainer}>
-                  <video src={notice.mediaUrl} controls autoPlay muted loop className={styles.mediaItem} />
+                  <video src={notice.media_url} controls autoPlay muted loop className={styles.mediaItem} />
                 </div>
               )}
             </div>
@@ -82,5 +94,6 @@ const NoticeModal: React.FC = () => {
     </AnimatePresence>
   );
 };
+
 
 export default NoticeModal;
