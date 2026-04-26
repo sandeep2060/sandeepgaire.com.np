@@ -4,61 +4,117 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sandeep Gaire | Portfolio</title>
+<title>Sandeep Gaire | Web Developer</title>
 
 <link rel="stylesheet" href="style.css">
-
-<!-- Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 
 </head>
 
 <body>
 
+<!-- PARTICLES -->
 <div id="particles-js"></div>
 
-<header class="navbar">
-  <h2>Sandeep</h2>
+<!-- NAV -->
+<header>
+  <div class="logo">Sandeep.dev</div>
   <nav>
+    <a href="#home">Home</a>
     <a href="#about">About</a>
+    <a href="#services">Services</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<section class="hero">
-  <img src="profile.jpg" class="profile-img">
-  <h1>Sandeep Gaire</h1>
-  <h2 id="typing"></h2>
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-text">
+    <h1>Hi, I'm <span>Sandeep Gaire</span></h1>
+    <p>Computer Teacher | Web Developer | Freelancer</p>
+    <a href="#projects" class="btn">View My Work</a>
+  </div>
 </section>
 
-<section id="about">
-  <h2>About</h2>
-  <p>Computer Teacher & Advanced Web Developer from Nepal.</p>
+<!-- ABOUT -->
+<section id="about" class="section">
+  <h2>About Me</h2>
+  <p>
+    I am a passionate Computer Teacher and Full Stack Developer from Nepal.
+    I create modern, fast, and responsive websites with clean UI and UX.
+  </p>
 </section>
 
-<section id="projects">
-  <h2>Projects (GitHub)</h2>
-  <div id="github-projects"></div>
+<!-- SERVICES (Beeplap Style Upgrade) -->
+<section id="services" class="section">
+  <h2>Services</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Web Development</h3>
+      <p>Modern responsive websites using HTML, CSS, JS, React.</p>
+    </div>
+
+    <div class="card">
+      <h3>UI/UX Design</h3>
+      <p>Clean, modern and user-friendly interface design.</p>
+    </div>
+
+    <div class="card">
+      <h3>Teaching</h3>
+      <p>Computer education with practical learning approach.</p>
+    </div>
+
+    <div class="card">
+      <h3>Freelancing</h3>
+      <p>Complete website solutions for businesses & startups.</p>
+    </div>
+
+  </div>
 </section>
 
-<!-- CONTACT FORM -->
-<section id="contact">
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <h2>My Projects</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>School Management System</h3>
+      <p>Student record & result system</p>
+    </div>
+
+    <div class="card">
+      <h3>Portfolio Website</h3>
+      <p>Advanced developer portfolio design</p>
+    </div>
+
+    <div class="card">
+      <h3>Landing Page Design</h3>
+      <p>Business website UI design</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
   <h2>Contact Me</h2>
 
   <form action="https://formspree.io/f/xzzgqgqd" method="POST">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Your Email" required>
     <textarea name="message" placeholder="Message"></textarea>
-    <button type="submit">Send</button>
+    <button type="submit">Send Message</button>
   </form>
 
-  <p>Email: sandeepgaire8@gmail.com</p>
+  <p class="email">📧 sandeepgaire8@gmail.com</p>
 </section>
 
 <footer>
-  <p>© 2026 Sandeep Gaire</p>
+  <p>© 2026 Sandeep Gaire | Built with passion 💻</p>
 </footer>
 
 <script src="script.js"></script>
