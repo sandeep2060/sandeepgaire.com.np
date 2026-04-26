@@ -1,70 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandeep Gaire | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sandeep Gaire | Portfolio</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
 </head>
+
 <body>
 
-<!-- HERO -->
+<div id="particles-js"></div>
+
+<header class="navbar">
+  <h2>Sandeep</h2>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
 <section class="hero">
-  <div class="hero-content">
-    <img src="profile.jpg" class="profile-img">
-    <h1>Sandeep Gaire</h1>
-    <p>Computer Teacher | Web Developer</p>
-    <a href="#projects" class="btn">View Projects</a>
-  </div>
+  <img src="profile.jpg" class="profile-img">
+  <h1>Sandeep Gaire</h1>
+  <h2 id="typing"></h2>
 </section>
 
-<!-- ABOUT -->
-<section class="about">
-  <h2>About Me</h2>
-  <p>
-    I am a passionate Computer Teacher and Web Developer from Nepal. 
-    I build modern, responsive websites and love teaching technology in a practical way.
-  </p>
+<section id="about">
+  <h2>About</h2>
+  <p>Computer Teacher & Advanced Web Developer from Nepal.</p>
 </section>
 
-<!-- SKILLS -->
-<section class="skills">
-  <h2>Skills</h2>
-  <div class="skill-box">
-    <div class="card">HTML</div>
-    <div class="card">CSS</div>
-    <div class="card">JavaScript</div>
-    <div class="card">React</div>
-    <div class="card">GitHub</div>
-  </div>
+<section id="projects">
+  <h2>Projects (GitHub)</h2>
+  <div id="github-projects"></div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" class="projects">
-  <h2>Projects</h2>
-
-  <div class="project-card">
-    <h3>School Management System</h3>
-    <p>Developed a system for managing student records.</p>
-  </div>
-
-  <div class="project-card">
-    <h3>Portfolio Website</h3>
-    <p>Personal responsive portfolio with modern UI.</p>
-  </div>
-
-</section>
-
-<!-- CONTACT -->
-<section class="contact">
+<!-- CONTACT FORM -->
+<section id="contact">
   <h2>Contact Me</h2>
-  <p>Email: your@email.com</p>
-  <p>Phone: +977-XXXXXXXXXX</p>
+
+  <form action="https://formspree.io/f/xzzgqgqd" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Message"></textarea>
+    <button type="submit">Send</button>
+  </form>
+
+  <p>Email: sandeepgaire8@gmail.com</p>
 </section>
 
 <footer>
   <p>© 2026 Sandeep Gaire</p>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
