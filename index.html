@@ -1,52 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Under Maintenance</title>
-    <style>
-        body {
-            text-align: center;
-            padding: 10%;
-            font: 20px Helvetica, sans-serif;
-            color: #333;
-            background-color: #f9f9f9;
-            margin: 0;
-        }
-        h1 {
-            font-size: 50px;
-            margin: 0;
-            color: #2c3e50;
-        }
-        article {
-            display: block;
-            text-align: left;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-        p {
-            line-height: 1.6;
-        }
-        a {
-            color: #dc8100;
-            text-decoration: none;
-        }
-        a:hover {
-            color: #333;
-            text-decoration: underline;
-        }
-        @media only screen and (max-width : 480px) {
-            body { padding: 5%; }
-            h1 { font-size: 40px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandeep Gaire | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <article>
-        <h1>Site is temporarily unavailable.</h1>
-        <p>Scheduled maintenance is currently in progress. We apologize for any inconvenience.</p>
-        <p>Please check back soon. If you have urgent questions, contact us at <a href="mailto:support@example.com">support@example.com</a>.</p>
-        <p id="signature">— The Team</p>
-    </article>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <img src="profile.jpg" class="profile-img">
+    <h1>Sandeep Gaire</h1>
+    <p>Computer Teacher | Web Developer</p>
+    <a href="#projects" class="btn">View Projects</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <h2>About Me</h2>
+  <p>
+    I am a passionate Computer Teacher and Web Developer from Nepal. 
+    I build modern, responsive websites and love teaching technology in a practical way.
+  </p>
+</section>
+
+<!-- SKILLS -->
+<section class="skills">
+  <h2>Skills</h2>
+  <div class="skill-box">
+    <div class="card">HTML</div>
+    <div class="card">CSS</div>
+    <div class="card">JavaScript</div>
+    <div class="card">React</div>
+    <div class="card">GitHub</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects">
+  <h2>Projects</h2>
+
+  <div class="project-card">
+    <h3>School Management System</h3>
+    <p>Developed a system for managing student records.</p>
+  </div>
+
+  <div class="project-card">
+    <h3>Portfolio Website</h3>
+    <p>Personal responsive portfolio with modern UI.</p>
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <h2>Contact Me</h2>
+  <p>Email: your@email.com</p>
+  <p>Phone: +977-XXXXXXXXXX</p>
+</section>
+
+<footer>
+  <p>© 2026 Sandeep Gaire</p>
+</footer>
+
 </body>
-</html>   
+</html>
