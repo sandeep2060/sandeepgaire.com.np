@@ -1,11 +1,11 @@
 body {
   margin: 0;
-  font-family: sans-serif;
-  color: white;
+  font-family: Arial;
   background: #0f172a;
+  color: white;
 }
 
-/* PARTICLE BACKGROUND */
+/* PARTICLES */
 #particles-js {
   position: fixed;
   width: 100%;
@@ -14,66 +14,84 @@ body {
 }
 
 /* NAV */
-.navbar {
+header {
   position: fixed;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 15px 40px;
+  padding: 20px;
+  background: rgba(0,0,0,0.4);
   backdrop-filter: blur(10px);
+}
+
+nav a {
+  color: white;
+  margin: 10px;
+  text-decoration: none;
 }
 
 /* HERO */
 .hero {
   height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
-/* PROFILE */
-.profile-img {
-  width: 140px;
-  border-radius: 50%;
+.hero span {
+  color: cyan;
 }
 
-/* PROJECTS */
-#github-projects {
+/* SECTIONS */
+.section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* GRID */
+.grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
   justify-content: center;
+  gap: 20px;
 }
 
-.repo {
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.05);
   padding: 20px;
-  background: #1e293b;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 250px;
-  transition: 0.3s;
+  transition: 0.4s;
 }
 
-.repo:hover {
-  transform: scale(1.05);
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 20px cyan;
 }
 
 /* FORM */
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 300px;
   margin: auto;
 }
 
 input, textarea {
+  margin: 5px;
   padding: 10px;
-  border: none;
 }
 
 button {
   padding: 10px;
   background: cyan;
   border: none;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
 }
