@@ -1,0 +1,206 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(45, 212, 191, 0.22), transparent 28rem),
+    linear-gradient(135deg, #f6fcfa 0%, #ecfdf8 44%, #ffffff 100%);
+  overflow: hidden;
+}
+
+.preloader::before,
+.preloader::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.preloader::before {
+  width: min(42rem, 92vw);
+  height: min(42rem, 92vw);
+  border: 1px solid rgba(13, 155, 138, 0.12);
+  animation: preloaderOrbit 7s linear infinite;
+}
+
+.preloader::after {
+  width: min(24rem, 70vw);
+  height: min(24rem, 70vw);
+  border: 1px dashed rgba(13, 155, 138, 0.2);
+  animation: preloaderOrbit 10s linear infinite reverse;
+}
+
+.preloader--leaving {
+  animation: preloaderLeave 0.55s var(--ease) forwards;
+}
+
+.preloader__glow {
+  position: absolute;
+  width: min(34rem, 82vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(from 160deg, rgba(13, 155, 138, 0), rgba(13, 155, 138, 0.16), rgba(45, 212, 191, 0.28), rgba(13, 155, 138, 0));
+  filter: blur(10px);
+  animation: preloaderOrbit 8s linear infinite;
+}
+
+.preloader__panel {
+  position: relative;
+  z-index: 1;
+  width: min(390px, 100%);
+  padding: clamp(1.75rem, 7vw, 2.35rem);
+  border: 1px solid rgba(13, 155, 138, 0.16);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 24px 80px rgba(13, 155, 138, 0.16);
+  backdrop-filter: blur(18px);
+  text-align: center;
+  animation: preloaderPanelIn 0.7s var(--ease) both;
+}
+
+.preloader__mark {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--accent-gradient);
+  color: #fff;
+  font-weight: 900;
+  box-shadow: var(--shadow-btn);
+}
+
+.preloader__portrait {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 1.2rem;
+  padding: 5px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--accent), #2dd4bf, #a7f3d0, var(--accent));
+  box-shadow: 0 16px 45px rgba(13, 155, 138, 0.24);
+  animation: preloaderPulse 1.8s ease-in-out infinite;
+}
+
+.preloader__portrait::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  border: 1px solid rgba(13, 155, 138, 0.18);
+}
+
+.preloader__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 25%;
+  border-radius: inherit;
+  background: #fff;
+}
+
+.preloader__eyebrow {
+  margin-bottom: 0.35rem;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.preloader__name {
+  color: var(--text-primary);
+  font-size: clamp(1.75rem, 7vw, 2.45rem);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.preloader__name span {
+  color: var(--accent);
+}
+
+.preloader__role {
+  margin: 0.7rem auto 1.45rem;
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+}
+
+.preloader__progress {
+  height: 9px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: rgba(13, 155, 138, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(13, 155, 138, 0.08);
+}
+
+.preloader__progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent-gradient);
+  transition: width 0.18s ease;
+  box-shadow: 0 10px 24px rgba(13, 155, 138, 0.28);
+}
+
+.preloader__percent {
+  margin-top: 0.7rem;
+  color: var(--accent-dark);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+@keyframes preloaderOrbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preloaderPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes preloaderPulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.03); }
+}
+
+@keyframes preloaderLeave {
+  to {
+    opacity: 0;
+    transform: scale(1.04);
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .preloader__panel {
+    border-radius: 24px;
+  }
+
+  .preloader__mark {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader,
+  .preloader::before,
+  .preloader::after,
+  .preloader__glow,
+  .preloader__panel,
+  .preloader__portrait {
+    animation: none;
+  }
+}
