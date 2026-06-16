@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from "react";
-import { FaGithub, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
 import { profile } from "../data/profile";
 import { ScrollReveal } from "./ScrollReveal";
 import "./Contact.css";
@@ -64,6 +64,11 @@ export function Contact() {
               {profile.social.facebook && (
                 <a href={profile.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                   <FaFacebookF size={16} />
+                </a>
+              )}
+              {profile.social.instagram && (
+                <a href={profile.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <FaInstagram size={16} />
                 </a>
               )}
             </div>

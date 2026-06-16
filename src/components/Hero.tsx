@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaGithub, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
 import { HiBriefcase, HiSearch } from "react-icons/hi";
 import { profile } from "../data/profile";
 import { PortraitFrame } from "./PortraitFrame";
@@ -12,6 +12,9 @@ const socials = [
   { href: profile.social.linkedin, icon: FaLinkedinIn, label: "LinkedIn" },
   ...(profile.social.facebook
     ? [{ href: profile.social.facebook, icon: FaFacebookF, label: "Facebook" }]
+    : []),
+  ...(profile.social.instagram
+    ? [{ href: profile.social.instagram, icon: FaInstagram, label: "Instagram" }]
     : []),
 ];
 
@@ -87,11 +90,7 @@ export function Hero({ introReady = true }: HeroProps) {
           className="hero__visual"
         >
           <PortraitFrame reveal={introReady} />
-          <div className="hero__dots" aria-hidden>
-            <span className="hero__dot hero__dot--active" />
-            <span className="hero__dot" />
-            <span className="hero__dot" />
-          </div>
+          
         </div>
       </div>
 

@@ -20,6 +20,7 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
     github: "https://github.com/sandeep2060",
     linkedin: "https://linkedin.com/in/sandeepgaire",
     facebook: "https://www.facebook.com/sandeepgaire26/",
+    instagram: "https://www.instagram.com/7sandeep_gaire/",
     twitter: "",
   },
   stats: [
