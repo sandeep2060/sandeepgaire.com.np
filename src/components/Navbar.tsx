@@ -60,7 +60,7 @@ export function Navbar() {
       <div className="container navbar__inner">
         <a href="#home" className="navbar__brand" onClick={() => setMenuOpen(false)}>
           <span className="navbar__brand-mark">S</span>
-          <span>Sandeep Gaire</span>
+          {FirstName}<span>{lastName}</span>
         </a>
 
         <nav className="navbar__links" aria-label="Main navigation">
