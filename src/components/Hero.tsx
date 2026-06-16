@@ -75,7 +75,7 @@ export function Hero({ introReady = true }: HeroProps) {
 
           <div className="hero__proof">
             <div className="hero__avatars" aria-hidden>
-              {["S", "G", "W", "D"].map((l) => (
+              {["S", "A", "N", "D", "E", "E", "P"].map((l) => (
                 <span key={l}>{l}</span>
               ))}
             </div>
