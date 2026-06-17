@@ -47,7 +47,7 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
       period: "Present",
       description:
         "Managed IT infrastructure, provided technical support, maintained network and system security, resolved hardware/software issues, and ensured reliable operation of digital services and information systems.",
-      highlights: ["Dynamic Software", "EMIS Software", "+2 Science", "+Management","BBS"],
+      highlights: ["Dynamic Software", "EMIS Software", "+2 Science", "+2 Management","BBS"],
     },
     {
       role: "Freelance Web Developer",
