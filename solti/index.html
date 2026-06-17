@@ -1,89 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Site Under Maintenance</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Under Maintenance | Solti Restaurant</title>
     <style>
-      :root {
-        color-scheme: dark;
-        color: #f8fafc;
-        background: #020617;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-      * {
-        box-sizing: border-box;
-      }
+        body {
+            background-color: #f7f5f0; /* Warm, inviting background */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-      body {
-        min-height: 100vh;
-        margin: 0;
-        display: grid;
-        place-items: center;
-        padding: 2rem;
-      }
+        .maintenance-container {
+            background-color: #ffffff;
+            max-width: 600px;
+            width: 100%;
+            padding: 50px 30px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-top: 8px solid #c8102e; /* Classic red/burgundy representing a Solti aesthetic */
+        }
 
-      .maintenance {
-        max-width: 520px;
-        width: 100%;
-        text-align: center;
-        padding: 3rem 2rem;
-        border: 1px solid rgba(148, 163, 184, 0.18);
-        border-radius: 24px;
-        background: rgba(15, 23, 42, 0.9);
-        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.3);
-      }
+        .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
 
-      .maintenance__emoji {
-        display: block;
-        font-size: 3rem;
-        margin-bottom: 1rem;
-      }
+        h1 {
+            color: #c8102e;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
 
-      .maintenance__title {
-        margin: 0;
-        font-size: clamp(2rem, 4vw, 3rem);
-        letter-spacing: -0.05rem;
-      }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #555;
+        }
 
-      .maintenance__subtitle {
-        margin: 1rem 0 1.5rem;
-        color: #94a3b8;
-        line-height: 1.7;
-        font-size: 1rem;
-      }
+        .contact-box {
+            background-color: #fdfaf6;
+            border: 1px solid #e0dcd3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
 
-      .maintenance__note {
-        border-top: 1px solid rgba(148, 163, 184, 0.18);
-        padding-top: 1rem;
-        color: #cbd5e1;
-        font-size: 0.95rem;
-      }
+        .contact-box h3 {
+            color: #222;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
 
-      a {
-        color: #7dd3fc;
-        text-decoration: none;
-      }
+        .contact-box p {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
 
-      a:hover {
-        text-decoration: underline;
-      }
+        .contact-box strong {
+            color: #c8102e;
+        }
     </style>
-  </head>
-  <body>
-    <main class="maintenance">
-      <span class="maintenance__emoji" aria-hidden="true">🛠️</span>
-      <h1 class="maintenance__title">We'll be back soon</h1>
-      <p class="maintenance__subtitle">
-        The page at <strong>/solti</strong> is currently under maintenance.
-        Thanks for your patience while we make improvements.
-      </p>
-      <p class="maintenance__note">
-        In the meantime, you can head back to the main site at
-        <a href="/">sandeepgaire.com.np</a>.
-      </p>
-    </main>
-  </body>
+</head>
+<body>
+
+    <div class="maintenance-container">
+        <div class="icon">🍳</div>
+        <h1>We're Sprucing Up Our Menu!</h1>
+        <p>Our kitchen is currently crafting new, delicious items for you. The Solti Restaurant menu page is undergoing a quick update and will be back shortly.</p>
+        
+        <div class="contact-box">
+            <h3>Hungry now? We're here for you!</h3>
+            <p>To place an order or reserve a table at our **Butwal** location, please contact us:</p>
+            <p>📍 <strong>Location:</strong> Traffic Chowk, Butwal</p>
+            <p>📞 <strong>Phone:</strong> +977 71-XXXXXX</p>
+        </div>
+    </div>
+
+</body>
 </html>

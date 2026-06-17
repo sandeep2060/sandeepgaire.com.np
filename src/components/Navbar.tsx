@@ -53,6 +53,7 @@ export function Navbar() {
   }, [menuOpen]);
 
   const firstName = profile.name.split(" ")[0];
+  const lastName = profile.name.split(" ").slice(1).join(" ");
 
   return (
     <>
@@ -60,7 +61,7 @@ export function Navbar() {
       <div className="container navbar__inner">
         <a href="#home" className="navbar__brand" onClick={() => setMenuOpen(false)}>
           <span className="navbar__brand-mark">S</span>
-          <span>{firstName}</span>
+          {firstName}<span>{lastName}</span>
         </a>
 
         <nav className="navbar__links" aria-label="Main navigation">
