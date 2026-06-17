@@ -1,95 +1,1146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
+     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Under Maintenance | Solti Restaurant</title>
+    <title>Solti Restaurant | Premium Digital Menu by Sandeep Gaire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #f7f5f0; /* Warm, inviting background */
-            color: #333;
+            background: linear-gradient(135deg, #0c0a06 0%, #1a1308 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Scrollable Container */
+        .scroll-container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .restaurant-name {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #d4af37, #ffd700, #f8de7e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-info {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 10px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .phone-number {
+            font-size: 1.4rem;
+            color: #ffd700;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* A4 Book Container */
+        .book-a4-container {
+            width: 520px; /* A4 width in pixels */
+            height: 750px; /* A4 height in pixels */
+            position: relative;
+            perspective: 2000px;
+            transform: scale(0.85);
+            transform-origin: top center;
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 900px) {
+            .book-a4-container {
+                transform: scale(0.7);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .book-a4-container {
+                transform: scale(0.6);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .book-a4-container {
+                transform: scale(0.5);
+            }
+        }
+
+        /* Book */
+        .book-a4 {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Cover */
+        .cover-a4 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #5a2d0c, #8b4513, #5a2d0c);
+            border-radius: 10px 5px 5px 10px;
+            transform-style: preserve-3d;
+            box-shadow: 
+                inset 0 0 50px rgba(0, 0, 0, 0.5),
+                0 30px 100px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        /* Spine */
+        .spine-a4 {
+            position: absolute;
+            left: 1px;
+            top: 20px;
+            width: 60px;
+            height: calc(100% - 40px);
+            background: linear-gradient(to right, #3d1f08, #5a2d0c, #8b4513, #5a2d0c, #3d1f08);
+            transform: rotateY(-90deg);
+            transform-origin: right center;
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset -5px 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 18;
+        }
+
+        /* Pages Stack */
+        .pages-a4-stack {
+            position: absolute;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            left: 10px;
+            top: 10px;
+            transform-style: preserve-3d;
+            z-index: 10;
+        }
+
+        /* Page */
+        .page-a4 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            will-change: transform;
+        }
+
+        .page-content-a4 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: #f8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-image-a4 {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: white;
+            pointer-events: none;
+        }
+
+        /* Page Corner */
+        .page-corner-a4 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%);
+            cursor: pointer;
+            z-index: 15;
+            transition: all 0.3s ease;
+        }
+
+        .page-corner-a4:hover {
+            background: linear-gradient(135deg, transparent 50%, rgba(212, 175, 55, 0.4) 50%);
+        }
+
+        /* Page Number */
+        .page-number-a4 {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(139, 69, 19, 0.1);
+            color: #8b4513;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(139, 69, 19, 0.3);
+        }
+
+        /* Bookmark */
+        .bookmark-a4 {
+            position: absolute;
+            right: -20px;
+            top: 150px;
+            width: 30px;
+            height: 200px;
+            background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 30;
+            border-radius: 3px 0 0 3px;
+            transition: top 0.5s ease;
+        }
+
+        /* Controls */
+        .controls-a4 {
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .maintenance-container {
-            background-color: #ffffff;
-            max-width: 600px;
+            gap: 20px;
+            margin-top: 30px;
             width: 100%;
-            padding: 50px 30px;
-            text-align: center;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-top: 8px solid #c8102e; /* Classic red/burgundy representing a Solti aesthetic */
         }
 
-        .icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        h1 {
-            color: #c8102e;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-
-        p {
+        .control-btn-a4 {
+            background: linear-gradient(145deg, #8b4513, #a0522d);
+            color: white;
+            border: none;
+            padding: 15px 30px;
             font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            color: #555;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .contact-box {
-            background-color: #fdfaf6;
-            border: 1px solid #e0dcd3;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
+        .control-btn-a4:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(145deg, #a0522d, #8b4513);
         }
 
-        .contact-box h3 {
-            color: #222;
-            margin-bottom: 10px;
+        .control-btn-a4:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.6;
+        }
+
+.call-toggle-a4 {
+position: fixed;
+            float: left;
+            top: 20px;
+            left: 20px;
+            background: #d4af37;
+            color: black;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+justify-content: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(100px);
+}
+.call-toggle-a4:hover {
+            transform: rotate(15deg) scale(1.1);
+            border-color: rgba(212, 175, 55, 0.7);
+        }
+
+        /* Sound Toggle */
+        .sound-toggle-a4 {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #d4af37;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .sound-toggle-a4:hover {
+            transform: rotate(15deg) scale(1.1);
+            border-color: rgba(212, 175, 55, 0.7);
+        }
+
+        /* Page Counter */
+        .page-counter-a4 {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #e6d5b8;
             font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            min-width: 150px;
+            text-align: center;
         }
 
-        .contact-box p {
-            font-size: 1rem;
-            margin-bottom: 5px;
+        /* Loading Screen */
+        .loading-screen-a4 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0c0a06;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
         }
 
-        .contact-box strong {
-            color: #c8102e;
+        .loading-spinner-a4 {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            border-top-color: #d4af37;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Instructions */
+        .instructions-a4 {
+            text-align: center;
+            color: #b8a98a;
+            font-size: 0.9rem;
+            max-width: 800px;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.1);
+            margin-top: 40px;
+        }
+
+        /* Error Display */
+        .image-error-a4 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+            background: #f8f5e9;
+        }
+
+        /* Responsive */
+        @media (max-width: 850px) {
+            .book-a4-container {
+                transform: scale(0.7);
+            }
+            .restaurant-name {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .book-a4-container {
+                transform: scale(0.6);
+            }
+            .controls-a4 {
+                flex-direction: column;
+                align-items: center;
+            }
+            .control-btn-a4 {
+                width: 250px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-height: 900px) {
+            .book-a4-container {
+                transform: scale(0.75);
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Performance Optimizations */
+        .page-a4 {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .page-image-a4 {
+            transform: translateZ(0);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        /* Prevent Flash */
+        .page-content-a4 {
+            transform: translate3d(0,0,0);
         }
     </style>
 </head>
 <body>
 
-    <div class="maintenance-container">
-        <div class="icon">🍳</div>
-        <h1>We're Sprucing Up Our Menu!</h1>
-        <p>Our kitchen is currently crafting new, delicious items for you. The Solti Restaurant menu page is undergoing a quick update and will be back shortly.</p>
+<button class="call-toggle-a4">
+       <a href="tel:+9779763661500">
+ <i class="fas fa-phone" style="color:rgba(0, 0, 0, 0.7);"></i></a>
+    </button>
+
+    <!-- Sound Toggle -->
+    <button class="sound-toggle-a4" id="soundToggle">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <!-- Scroll Container -->
+    <div class="scroll-container">
+        <!-- Header -->
+      <center> <img src="Animation.gif" width="95%"> </center>
         
-        <div class="contact-box">
-            <h3>Hungry now? We're here for you!</h3>
-            <p>To place an order or reserve a table at our **Butwal** location, please contact us:</p>
-            <p>📍 <strong>Location:</strong> Traffic Chowk, Butwal</p>
-            <p>📞 <strong>Phone:</strong> +977 71-XXXXXX</p>
+
+        <!-- Loading Screen -->
+        <div class="loading-screen-a4" id="loadingScreen">
+            <div class="loading-spinner-a4"></div>
+            <div style="color: #d4af37; font-size: 1.2rem;">Loading Menu...</div>
+        </div>
+
+        <!-- A4 Book Container -->
+        <div class="book-a4-container">
+            <div class="book-a4" id="book">
+                <!-- Spine -->
+                <div class="spine-a4"></div>
+                
+                <!-- Cover -->
+                
+                
+                <!-- Pages Stack -->
+                <div class="pages-a4-stack" id="pagesStack">
+                    <!-- Pages will be dynamically created here -->
+                </div>
+                
+                <!-- Bookmark -->
+                <div class="bookmark-a4" id="bookmark"></div>
+            </div>
+            
+            <!-- Page Counter -->
+            <div class="page-counter-a4" id="pageCounter">
+                Page: <span id="currentPage">1</span> / <span id="totalPages">10</span>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-a4">
+            <button class="control-btn-a4" id="prevBtn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Previous Page</span>
+            </button>
+            <button class="control-btn-a4" id="nextBtn">
+                <span>Next Page</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861"
+     crossorigin="anonymous"></script>
+<!-- goo4movie_sidebar1_AdSense2_1x1_as -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1662750642698861"
+     data-ad-slot="3722622502"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <!-- Instructions -->
+        <div class="instructions-a4">
+            <p><i class="fas fa-hand-pointer"></i> Drag page corner to turn | Click book edges | Use arrow keys</p>
+            <p><i class="fas fa-mobile-alt"></i> Swipe on touch devices | Toggle sound top-right</p>
+            <hr>
+            <p><i class="fas fa-mobile-alt"></i> <b></b>Develop By: <a href="https://sandeepgaire.com.np/">Sandeep Gaire</a> | Feel free To contact.</b></p>
         </div>
     </div>
 
+    <!-- Audio for Page Flip Sound -->
+    <audio id="pageFlipSound" preload="auto">
+        <source src="page-flip.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            totalPages: 10,
+            pageOrder: [
+                { type: 'cover', image: 'Main.png', title: 'Front Cover', number: null },
+                { type: 'content', image: 'A1.png', title: 'Menu Page 1', number: 1 },
+                { type: 'content', image: '1_2.png', title: 'Menu Page 2', number: 2 },
+                { type: 'content', image: 'A2.png', title: 'Menu Page 3', number: 3 },
+                { type: 'content', image: '1_3.png', title: 'Menu Page 4', number: 4 },
+                { type: 'content', image: '1_4.png', title: 'Menu Page 5', number: 5 },
+                { type: 'content', image: '1_5.png', title: 'Menu Page 6', number: 6 },
+                { type: 'content', image: '1_6.png', title: 'Menu Page 7', number: 7 },
+                { type: 'content', image: '1_7.png', title: 'Menu Page 8', number: 8 },
+                { type: 'cover', image: null, title: 'Back Cover', number: null }
+            ],
+            soundEnabled: true
+        };
+
+        // Global Variables
+        let currentPageIndex = 0;
+        let isAnimating = false;
+        let soundEnabled = CONFIG.soundEnabled;
+        let pages = [];
+        let isDragging = false;
+        let dragStartX = 0;
+        let currentRotation = 0;
+        let pageFlipAudio;
+        let audioContext;
+        let audioInitialized = false;
+
+        // DOM Elements
+        const loadingScreen = document.getElementById('loadingScreen');
+        const pagesStack = document.getElementById('pagesStack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const soundToggle = document.getElementById('soundToggle');
+        const pageCounter = document.getElementById('pageCounter');
+        const currentPageSpan = document.getElementById('currentPage');
+        const totalPagesSpan = document.getElementById('totalPages');
+        const bookmark = document.getElementById('bookmark');
+
+        // Initialize Audio with Proper User Interaction
+        function initAudio() {
+            // Create audio element
+            pageFlipAudio = document.getElementById('pageFlipSound');
+            
+            // Set up audio context for better control
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Create media element source
+                const source = audioContext.createMediaElementSource(pageFlipAudio);
+                source.connect(audioContext.destination);
+                
+                // Resume audio context on user interaction
+                const resumeAudio = () => {
+                    if (audioContext.state === 'suspended') {
+                        audioContext.resume();
+                    }
+                    audioInitialized = true;
+                    
+                    // Remove event listeners after first interaction
+                    document.removeEventListener('click', resumeAudio);
+                    document.removeEventListener('touchstart', resumeAudio);
+                    document.removeEventListener('keydown', resumeAudio);
+                };
+                
+                // Add multiple interaction listeners
+                document.addEventListener('click', resumeAudio);
+                document.addEventListener('touchstart', resumeAudio);
+                document.addEventListener('keydown', resumeAudio);
+                
+            } catch (e) {
+                console.log("Audio context not supported, using basic audio");
+            }
+            
+            // Preload audio
+            pageFlipAudio.load();
+            pageFlipAudio.volume = 0.5;
+        }
+
+        // Play Page Turn Sound - FIXED VERSION
+        function playPageTurnSound() {
+            if (!soundEnabled || !pageFlipAudio) return;
+            
+            // Create a new audio instance for each play to allow overlapping
+            const audio = new Audio();
+            audio.src = 'page-flip.mp3';
+            audio.volume = 0.7;
+            audio.preload = 'auto';
+            
+            // Play with error handling
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Auto-play was prevented, try with user interaction
+                    if (error.name === 'NotAllowedError') {
+                        console.log('Audio autoplay prevented, waiting for user interaction');
+                        
+                        // Add one-time click listener
+                        const playOnInteraction = () => {
+                            audio.play().catch(e => console.log('Still cannot play:', e));
+                            document.removeEventListener('click', playOnInteraction);
+                        };
+                        document.addEventListener('click', playOnInteraction);
+                    }
+                });
+            }
+            
+            // Clean up after playing
+            audio.onended = () => {
+                audio.remove();
+            };
+        }
+
+        // Create Pages
+        function createPages() {
+            pagesStack.innerHTML = '';
+            pages = [];
+            
+            // Preload images
+            const imagePromises = [];
+            
+            CONFIG.pageOrder.forEach((pageConfig, index) => {
+                const page = document.createElement('div');
+                page.className = 'page-a4';
+                page.id = `page-${index}`;
+                
+                const pageContent = document.createElement('div');
+                pageContent.className = 'page-content-a4';
+                
+                if (pageConfig.type === 'cover' && index === 0 && pageConfig.image) {
+                    // Front cover
+                    const img = document.createElement('img');
+                    img.className = 'page-image-a4';
+                    img.src = pageConfig.image;
+                    img.alt = pageConfig.title;
+                    img.loading = 'eager';
+                    
+                    const promise = new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = () => {
+                            handleImageError(img);
+                            resolve();
+                        };
+                    });
+                    imagePromises.push(promise);
+                    
+                    pageContent.appendChild(img);
+                } else if (pageConfig.type === 'content' && pageConfig.image) {
+                    // Content pages
+                    const img = document.createElement('img');
+                    img.className = 'page-image-a4';
+                    img.src = pageConfig.image;
+                    img.alt = pageConfig.title;
+                    img.loading = 'lazy';
+                    
+                    const promise = new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = () => {
+                            handleImageError(img);
+                            resolve();
+                        };
+                    });
+                    imagePromises.push(promise);
+                    
+                    pageContent.appendChild(img);
+                    
+                    // Add page corner for dragging
+                    const pageCorner = document.createElement('div');
+                    pageCorner.className = 'page-corner-a4';
+                    pageCorner.addEventListener('mousedown', startDrag);
+                    pageCorner.addEventListener('touchstart', startDragTouch);
+                    pageContent.appendChild(pageCorner);
+                    
+                    // Add page number
+                    const pageNumber = document.createElement('div');
+                    pageNumber.className = 'page-number-a4';
+                    pageNumber.textContent = pageConfig.number;
+                    pageContent.appendChild(pageNumber);
+                } else if (index === CONFIG.pageOrder.length - 1) {
+                    // Back cover
+                    pageContent.innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 4rem; color: #8b4513; margin-bottom: 30px; opacity: 0.7;">
+                                <i class="fas fa-utensil-spoon"></i>
+                            </div>
+                            <h2 style="font-size: 2.5rem; color: #8b4513; margin-bottom: 20px;">Thank You</h2>
+                            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px; max-width: 500px; line-height: 1.6;">
+                                Thank you for dining with us at Solti Restaurant.
+                            </p>
+                            <div style="background: rgba(139, 69, 19, 0.1); padding: 20px; border-radius: 10px; 
+                                 border: 1px solid rgba(139, 69, 19, 0.2); margin-top: 40px;">
+                                <h3 style="color: #8b4513; margin-bottom: 15px;">Contact Information</h3>
+                                <p><i class="fas fa-map-marker-alt" style="color: #8b4513;"></i> Butwal, Rupandehi, Nepal</p>
+                                <p><i class="fas fa-phone" style="color: #8b4513;"></i> +977 976-3661500</p>
+                                <p><i class="fas fa-clock" style="color: #8b4513;"></i> Open Daily: 7:00 AM - 10:00 PM</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                page.appendChild(pageContent);
+                pagesStack.appendChild(page);
+                pages.push(page);
+                
+                // Set initial positions
+                if (index === 0) {
+                    page.style.transform = 'rotateY(0deg)';
+                    page.style.zIndex = CONFIG.totalPages;
+                } else {
+                    page.style.transform = 'rotateY(-180deg)';
+                    page.style.zIndex = CONFIG.totalPages - index;
+                }
+            });
+            
+            totalPagesSpan.textContent = CONFIG.totalPages;
+            updatePageCounter();
+            
+            // Wait for images to load
+            return Promise.all(imagePromises);
+        }
+
+        // Handle Image Error
+        function handleImageError(img) {
+            img.style.display = 'none';
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'image-error-a4';
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #8b4513; margin-bottom: 20px;"></i>
+                <h3 style="color: #8b4513; margin-bottom: 15px; font-size: 1.5rem;">Menu Image</h3>
+                <p style="color: #666; max-width: 400px; line-height: 1.6;">
+                    Image loading delayed. Contact us for complete menu.
+                </p>
+                <p style="margin-top: 20px; font-weight: bold; color: #8b4513;">
+                    <i class="fas fa-phone"></i> +977 976-3661500
+                </p>
+            `;
+            img.parentNode.appendChild(errorDiv);
+        }
+
+        // Start Drag
+        function startDrag(e) {
+            if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+            
+            e.preventDefault();
+            isDragging = true;
+            dragStartX = e.clientX;
+            currentRotation = 0;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transition = 'none';
+            
+            document.addEventListener('mousemove', dragPage);
+            document.addEventListener('mouseup', endDrag);
+        }
+
+        // Start Drag Touch
+        function startDragTouch(e) {
+            if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+            
+            e.preventDefault();
+            isDragging = true;
+            const touch = e.touches[0];
+            dragStartX = touch.clientX;
+            currentRotation = 0;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transition = 'none';
+            
+            document.addEventListener('touchmove', dragPageTouch);
+            document.addEventListener('touchend', endDrag);
+        }
+
+        // Drag Page
+        function dragPage(e) {
+            if (!isDragging) return;
+            
+            const dragX = e.clientX;
+            const dragDistance = Math.max(0, (dragStartX - dragX));
+            const rotation = Math.min(180, dragDistance * 0.2);
+            
+            currentRotation = -rotation;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transform = `rotateY(${currentRotation}deg)`;
+            
+            const nextPage = pages[currentPageIndex + 1];
+            if (nextPage) {
+                const nextRotation = Math.max(-180, -180 + rotation * 0.7);
+                nextPage.style.zIndex = CONFIG.totalPages + 1;
+                nextPage.style.transform = `rotateY(${nextRotation}deg)`;
+            }
+        }
+
+        // Drag Page Touch
+        function dragPageTouch(e) {
+            if (!isDragging) return;
+            
+            const touch = e.touches[0];
+            const dragX = touch.clientX;
+            const dragDistance = Math.max(0, (dragStartX - dragX));
+            const rotation = Math.min(180, dragDistance * 0.2);
+            
+            currentRotation = -rotation;
+            
+            const currentPage = pages[currentPageIndex];
+            currentPage.style.transform = `rotateY(${currentRotation}deg)`;
+            
+            const nextPage = pages[currentPageIndex + 1];
+            if (nextPage) {
+                const nextRotation = Math.max(-180, -180 + rotation * 0.7);
+                nextPage.style.zIndex = CONFIG.totalPages + 1;
+                nextPage.style.transform = `rotateY(${nextRotation}deg)`;
+            }
+        }
+
+        // End Drag
+        function endDrag() {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            const currentPage = pages[currentPageIndex];
+            
+            document.removeEventListener('mousemove', dragPage);
+            document.removeEventListener('touchmove', dragPageTouch);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchend', endDrag);
+            
+            if (currentRotation < -90) {
+                completePageTurn();
+            } else {
+                revertPageTurn();
+            }
+        }
+
+        // Complete Page Turn
+        function completePageTurn() {
+            isAnimating = true;
+            playPageTurnSound();
+            
+            const currentPage = pages[currentPageIndex];
+            const nextPage = pages[currentPageIndex + 1];
+            
+            currentPage.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+            currentPage.style.transform = 'rotateY(-180deg)';
+            
+            if (nextPage) {
+                nextPage.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+                nextPage.style.transform = 'rotateY(0deg)';
+            }
+            
+            setTimeout(() => {
+                if (nextPage) {
+                    nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
+                    nextPage.style.transition = '';
+                }
+                currentPage.style.transition = '';
+                currentPageIndex++;
+                updatePageCounter();
+                updateButtons();
+                updateBookmarkPosition();
+                isAnimating = false;
+            }, 600);
+        }
+
+        // Revert Page Turn
+        function revertPageTurn() {
+            isAnimating = true;
+            
+            const currentPage = pages[currentPageIndex];
+            const nextPage = pages[currentPageIndex + 1];
+            
+            currentPage.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+            currentPage.style.transform = 'rotateY(0deg)';
+            
+            if (nextPage) {
+                nextPage.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+                nextPage.style.transform = 'rotateY(-180deg)';
+            }
+            
+            setTimeout(() => {
+                if (nextPage) {
+                    nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 2;
+                    nextPage.style.transition = '';
+                }
+                currentPage.style.transition = '';
+                isAnimating = false;
+            }, 400);
+        }
+
+        // Next Page
+        function nextPage() {
+            if (isAnimating || currentPageIndex >= CONFIG.totalPages - 1) return;
+            
+            isAnimating = true;
+            playPageTurnSound();
+            
+            const currentPage = pages[currentPageIndex];
+            const nextPage = pages[currentPageIndex + 1];
+            
+            currentPage.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+            currentPage.style.transform = 'rotateY(-180deg)';
+            
+            if (nextPage) {
+                nextPage.style.zIndex = CONFIG.totalPages + 1;
+                nextPage.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+                nextPage.style.transform = 'rotateY(0deg)';
+            }
+            
+            setTimeout(() => {
+                if (nextPage) {
+                    nextPage.style.zIndex = CONFIG.totalPages - currentPageIndex - 1;
+                    nextPage.style.transition = '';
+                }
+                currentPage.style.transition = '';
+                currentPageIndex++;
+                updatePageCounter();
+                updateButtons();
+                updateBookmarkPosition();
+                isAnimating = false;
+            }, 600);
+        }
+
+        // Previous Page
+        function previousPage() {
+            if (isAnimating || currentPageIndex <= 0) return;
+            
+            isAnimating = true;
+            playPageTurnSound();
+            
+            const currentPage = pages[currentPageIndex];
+            const previousPage = pages[currentPageIndex - 1];
+            
+            currentPage.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+            currentPage.style.transform = 'rotateY(-180deg)';
+            
+            previousPage.style.zIndex = CONFIG.totalPages + 1;
+            previousPage.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+            previousPage.style.transform = 'rotateY(0deg)';
+            
+            setTimeout(() => {
+                previousPage.style.zIndex = CONFIG.totalPages - currentPageIndex + 1;
+                previousPage.style.transition = '';
+                currentPage.style.transition = '';
+                currentPageIndex--;
+                updatePageCounter();
+                updateButtons();
+                updateBookmarkPosition();
+                isAnimating = false;
+            }, 600);
+        }
+
+        // Update Page Counter
+        function updatePageCounter() {
+            currentPageSpan.textContent = currentPageIndex + 1;
+        }
+
+        // Update Bookmark Position
+        function updateBookmarkPosition() {
+            const position = 150 + (currentPageIndex / (CONFIG.totalPages - 1)) * 100;
+            bookmark.style.top = `${position}px`;
+        }
+
+        // Update Buttons
+        function updateButtons() {
+            prevBtn.disabled = currentPageIndex <= 0;
+            nextBtn.disabled = currentPageIndex >= CONFIG.totalPages - 1;
+            
+            if (prevBtn.disabled) {
+                prevBtn.innerHTML = '<i class="fas fa-book"></i><span>Front Cover</span>';
+            } else {
+                prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i><span>Previous Page</span>';
+            }
+            
+            if (nextBtn.disabled) {
+                nextBtn.innerHTML = '<span>Back Cover</span><i class="fas fa-book"></i>';
+            } else {
+                nextBtn.innerHTML = '<span>Next Page</span><i class="fas fa-arrow-right"></i>';
+            }
+        }
+
+        // Toggle Sound
+        soundToggle.addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                this.innerHTML = '<i class="fas fa-volume-up"></i>';
+                this.style.color = '#d4af37';
+                this.style.borderColor = 'rgba(212, 175, 55, 0.7)';
+                
+                // Play test sound
+                playPageTurnSound();
+            } else {
+                this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                this.style.color = '#999';
+                this.style.borderColor = 'rgba(153, 153, 153, 0.4)';
+            }
+        });
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                previousPage();
+            }
+        });
+
+        // Touch Swipe Support
+        let touchStartX = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        document.addEventListener('touchend', function(e) {
+            const touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            const swipeThreshold = 50;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && currentPageIndex < CONFIG.totalPages - 1) {
+                    nextPage();
+                } else if (diff < 0 && currentPageIndex > 0) {
+                    previousPage();
+                }
+            }
+        }, { passive: true });
+
+        // Click Book Edges
+        document.addEventListener('click', function(e) {
+            if (isAnimating || isDragging) return;
+            
+            const bookContainer = document.querySelector('.book-a4-container');
+            const rect = bookContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const width = rect.width;
+            
+            // Click on right 30% of book
+            if (x > width * 0.7 && currentPageIndex < CONFIG.totalPages - 1) {
+                nextPage();
+            }
+            // Click on left 30% of book
+            else if (x < width * 0.3 && currentPageIndex > 0) {
+                previousPage();
+            }
+        });
+
+        // Initialize
+        async function init() {
+            // Initialize audio first
+            initAudio();
+            
+            // Create pages
+            await createPages();
+            
+            // Update UI
+            updateButtons();
+            updateBookmarkPosition();
+            
+            // Hide loading screen
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000);
+            
+            // Add button listeners
+            prevBtn.addEventListener('click', previousPage);
+            nextBtn.addEventListener('click', nextPage);
+            
+            // Initialize sound toggle
+            soundToggle.style.color = soundEnabled ? '#d4af37' : '#999';
+            if (!soundEnabled) {
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+            
+            // Force a test sound after user interaction
+            document.addEventListener('click', function testSound() {
+                if (soundEnabled) {
+                    playPageTurnSound();
+                }
+                document.removeEventListener('click', testSound);
+            }, { once: true });
+        }
+
+        // Start
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
