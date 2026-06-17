@@ -102,7 +102,7 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
       description:
         "School attendance tracking system for recording and managing student attendance records efficiently.",
       image:
-        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+        "https://sgp1.digitaloceanspaces.com/woco/assets/website/Attendance/heroImage.png",
       tags: ["JavaScript", "School System", "Vercel"],
       liveUrl: "https://attendence-management-system-one.vercel.app",
       githubUrl: "https://github.com/sandeep2060/Attendence-Management-System",
