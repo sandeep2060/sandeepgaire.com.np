@@ -30,9 +30,9 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
     { label: "Technologies", value: "12+" },
   ],
   skills: [
-    { name: "HTML & CSS", level: 92, category: "Frontend" },
+    { name: "HTML & CSS", level: 97, category: "Frontend" },
     { name: "JavaScript", level: 88, category: "Frontend" },
-    { name: "React.js", level: 85, category: "Frontend" },
+    { name: "React.js", level: 86, category: "Frontend" },
     { name: "TypeScript", level: 78, category: "Frontend" },
     { name: "Responsive Design", level: 90, category: "Frontend" },
     { name: "Node.js", level: 75, category: "Backend" },
@@ -41,7 +41,14 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
     { name: "Git & GitHub", level: 88, category: "DevOps" },
     { name: "Vercel Deployment", level: 85, category: "DevOps" },
   ],
-  experience: [
+  experience: [{
+      role: "IT Officer",
+      company: "Manimukunda S.S./ College, Butwal",
+      period: "Present",
+      description:
+        "Managed IT infrastructure, provided technical support, maintained network and system security, resolved hardware/software issues, and ensured reliable operation of digital services and information systems.",
+      highlights: ["Dynamic Software", "EMIS Software", "+2 Science", "+Management","BBS"],
+    },
     {
       role: "Freelance Web Developer",
       company: "Self-employed",
@@ -53,7 +60,7 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
     {
       role: "Computer Teacher",
       company: "Education Sector, Nepal",
-      period: "Present",
+      period: "2025",
       description:
         "Teaching computer education with a practical, project-based learning approach - helping students develop real-world digital skills.",
       highlights: ["Teaching", "HTML/CSS", "Programming", "Mentoring"],
