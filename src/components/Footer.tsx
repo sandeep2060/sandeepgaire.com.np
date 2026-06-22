@@ -20,7 +20,7 @@ export function Footer() {
         </div>
         <div className="footer__bottom">
           <p>&copy; {year} {profile.name}</p>
-          <p className="footer__built">Designed & built by Sandeep</p>
+          <p className="footer__built">Designed & built by <a href="https:sandeepgaire.com.np">Sandeep Gaire</a></p>
         </div>
       </div>
     </footer>
