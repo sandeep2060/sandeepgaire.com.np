@@ -1,1 +1,0 @@
-.back-to-top{position:fixed;bottom:3.75rem;right:1.01rem;z-index:90;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--accent-gradient);color:#fff;box-shadow:var(--shadow-btn);transition:transform var(--transition)}.back-to-top:hover{transform:translateY(-3px)}
