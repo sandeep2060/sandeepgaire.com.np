@@ -135,7 +135,7 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
       description:
         "Student record and result management system designed for educational institutions in Nepal.",
       image:
-        "https://images.unsplash.com/photo-1503676260728-1c00da280a25?w=800&q=80",
+        "https://systemintegration.in/wp-content/uploads/2023/10/slider-1-school-management-dashboard-portfolio-bmv-system-integration.webp",
       tags: ["Web App", "Education", "Management"],
       liveUrl: "https://sandeepgaire.com.np",
       githubUrl: "https://github.com/sandeep2060",
