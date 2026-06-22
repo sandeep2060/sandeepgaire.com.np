@@ -1,6 +1,6 @@
 export const profile = {
   name: "Sandeep Gaire",
-  title: "Web Developer & Computer Teacher",
+  title: "Web Developer",
   tagline:
     "I build modern, fast, and responsive websites with clean UI and UX - from Nepal to the world.",
   location: "Nepal",
