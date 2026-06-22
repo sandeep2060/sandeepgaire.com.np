@@ -4,7 +4,7 @@ import { ScrollProgress } from "./components/ScrollProgress";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { Preloader } from "./components/Preloader";
-import { CTA } from "./components/CTS";
+import { CTA } from "./components/CTA";
 const TechMarquee = lazy(() =>
   import("./components/TechMarquee").then((module) => ({ default: module.TechMarquee })),
 );
