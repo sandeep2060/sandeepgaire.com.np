@@ -4,12 +4,15 @@ import { ScrollProgress } from "./components/ScrollProgress";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { Preloader } from "./components/Preloader";
-
+import { CTA } from "./components/CTS";
 const TechMarquee = lazy(() =>
   import("./components/TechMarquee").then((module) => ({ default: module.TechMarquee })),
 );
 const About = lazy(() =>
   import("./components/About").then((module) => ({ default: module.About })),
+);
+const CTA = lazy(() =>
+  import("./components/CTA").then((module) => ({ default: module.CTA })),
 );
 const WhyWorkWithMe = lazy(() =>
   import("./components/WhyWorkWithMe").then((module) => ({ default: module.WhyWorkWithMe })),
@@ -52,6 +55,7 @@ export default function App() {
           <Suspense fallback={null}>
             <TechMarquee />
             <About />
+            <CTA />
             <div className="section-divider" />
             <WhyWorkWithMe />
             <Skills />
