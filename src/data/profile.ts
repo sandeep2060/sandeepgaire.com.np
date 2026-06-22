@@ -28,6 +28,7 @@ When I'm not coding, I'm teaching computer education with a hands-on, practical 
     { label: "Live Projects", value: "5+" },
     { label: "Years Coding", value: "4+" },
     { label: "Technologies", value: "12+" },
+    { label: "Youtube Subscribers", value: "2.5k+" },
   ],
   skills: [
     { name: "HTML & CSS", level: 97, category: "Frontend" },
