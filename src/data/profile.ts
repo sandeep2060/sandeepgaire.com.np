@@ -5,7 +5,7 @@ export const profile = {
     "I build modern, fast, and responsive websites with clean UI and UX - from Nepal to the world.",
   location: "Nepal",
   email: "sandeepgaire8@gmail.com",
-  phone: "+977 9861639050",
+  phone: "+977 98616390500",
   website: "https://sandeepgaire.com.np",
   avatarUrl: "https://avatars.githubusercontent.com/u/103778388?v=4",
   portraitUrl: "/images/profile.png",
