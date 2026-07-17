@@ -1,0 +1,1 @@
+const g=document.getElementById('grid');function render(list){g.innerHTML='';list.forEach(m=>g.innerHTML+=`<div class="card"><img src="${m.poster}"><h3>${m.title}</h3><a href="${m.video}" target="_blank">Watch</a></div>`)}render(movies);search.oninput=e=>{const q=e.target.value.toLowerCase();render(movies.filter(m=>m.title.toLowerCase().includes(q)));};
