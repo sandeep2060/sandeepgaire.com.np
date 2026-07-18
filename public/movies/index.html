@@ -1,16 +1,34 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset='utf-8'>
-<title>Movies</title>
-<link rel='stylesheet' href='style.css'></head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MovieFlix</title>
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
-<h1>Watch Latest Movies</h1>
-<input id='search' placeholder='Search movie...'><div id='grid'>
+<header class="navbar">
+<div class="logo">SANDEEP<span>FLIX</span></div>
+<nav>
+<a href="#">Home</a><a href="#">Movies</a><a href="#">Trending</a><a href="#">Categories</a>
+</nav>
+<input type="search" placeholder="Search movies...">
+</header>
+<section class="hero">
+<h1>Unlimited Movies</h1>
+<p>Premium streaming template.</p>
+<button>Watch Now</button>
+</section>
+<section id="trending">
+<h2>Trending</h2>
+<div id="movie-grid" class="grid">
+<div class="card skeleton"></div>
+<div class="card skeleton"></div>
+<div class="card skeleton"></div>
+<div class="card skeleton"></div>
 </div>
-<script src='movies.js'>
-</script>
-<script src='script.js'>
-</script>
+</section>
+<footer>© 2026 SandeepFlix</footer>
+<script src="script.js"></script>
 </body>
 </html>
