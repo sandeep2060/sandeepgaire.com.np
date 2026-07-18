@@ -27,7 +27,7 @@ const moviesData = [
     duration: "2h 56m",
     director: "Matt Reeves",
     cast: ["Robert Pattinson", "Zoë Kravitz", "Paul Dano"],
-    trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    trailerUrl: "https://mega.nz/file/m7AXWBgI#i8qSF3q9r0xgTiibF1bqp2q5i4BPzpQ77P34UZU_CDk",
     categories: ["trending", "popular", "newReleases"],
     tags: ["action", "crime"]
   },
