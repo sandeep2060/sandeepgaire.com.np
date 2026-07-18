@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Minimal player-specific styles */
     .player-page { background: #000; }
     .player-nav {
       position: sticky;
@@ -82,7 +81,7 @@
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-    .btn-back {
+    .btn-back, .btn-retry {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -90,19 +89,28 @@
       background: rgba(255,255,255,0.1);
       padding: 0.5rem 1.2rem;
       border-radius: 8px;
+      margin-right: 0.5rem;
       margin-bottom: 1rem;
       transition: background 0.3s;
       width: fit-content;
       text-decoration: none;
       font-weight: 500;
+      border: none;
+      cursor: pointer;
     }
-    .btn-back:hover { background: rgba(255,255,255,0.2); }
+    .btn-back:hover, .btn-retry:hover { background: rgba(255,255,255,0.2); }
     .error-msg {
       color: #ff4d4d;
       font-size: 1.2rem;
       text-align: center;
       padding: 2rem;
     }
+    .error-details {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .hidden { display: none; }
     @media (max-width: 768px) {
       .player-movie-title { font-size: 1.5rem; }
       .player-container { padding: 0.75rem; }
@@ -127,9 +135,17 @@
 
   <main class="player-container">
     <div class="video-wrapper">
-      <video id="videoPlayer" controls autoplay muted playsinline>
-        Your browser does not support the video tag.
-      </video>
+      <video id="videoPlayer" controls autoplay muted playsinline></video>
+    </div>
+
+    <!-- Error message (hidden by default) -->
+    <div id="errorBox" class="hidden" style="text-align: center; padding: 2rem;">
+      <p class="error-msg">⚠️ Unable to play this video.</p>
+      <p class="error-details">
+        The video may be blocked by your network or browser settings.<br>
+        <a id="directLink" href="#" target="_blank" style="color: #06B6D4;">Download / Open directly</a>
+      </p>
+      <button class="btn-retry" id="retryBtn"><i class="fas fa-redo"></i> Retry</button>
     </div>
 
     <div class="player-info-panel" id="playerInfo">
@@ -148,37 +164,34 @@
     </div>
   </footer>
 
-  <!-- Inline movie data (no external movies.js needed if you already have it, but keeping it self-contained) -->
-  <script>
-    // Replace this with your full moviesData array if you prefer, but for safety we load externally.
-    // We'll load movies.js and then proceed.
-  </script>
   <script src="movies.js"></script>
   <script>
     (function() {
       const urlParams = new URLSearchParams(window.location.search);
       const movieId = urlParams.get('id');
       const video = document.getElementById('videoPlayer');
+      const errorBox = document.getElementById('errorBox');
+      const directLink = document.getElementById('directLink');
+      const retryBtn = document.getElementById('retryBtn');
       const titleEl = document.getElementById('playerMovieTitle');
       const metaEl = document.getElementById('playerMeta');
       const nowPlaying = document.getElementById('nowPlayingTitle');
       const favBtn = document.getElementById('playerFav');
       const wlBtn = document.getElementById('playerWl');
 
-      if (!movieId) {
-        titleEl.textContent = 'No movie selected';
-        return;
-      }
-
-      // Wait for moviesData to be available (it might not be loaded synchronously)
       function loadMovie() {
-        const movie = window.moviesData.find(m => m.id == movieId);
+        const movie = window.moviesData ? window.moviesData.find(m => m.id == movieId) : null;
+
+        if (!movieId) {
+          titleEl.textContent = 'No movie selected';
+          return;
+        }
         if (!movie) {
           titleEl.textContent = 'Movie not found';
           return;
         }
 
-        // Update UI
+        // Update info
         titleEl.textContent = movie.title;
         nowPlaying.textContent = movie.title;
         metaEl.innerHTML = `
@@ -188,15 +201,26 @@
           <span>${movie.genre}</span>
         `;
 
-        // Set video source directly (most reliable)
+        // Set direct download link (use the video URL itself)
+        directLink.href = movie.trailerUrl;
+
+        // Attach error listener BEFORE setting src
+        video.addEventListener('error', function onError() {
+          video.classList.add('hidden');
+          errorBox.classList.remove('hidden');
+        }, { once: true }); // only trigger once
+
+        // Actually set the source
         video.src = movie.trailerUrl;
         video.load();
-        // Add error handling
-        video.addEventListener('error', function() {
-          titleEl.innerHTML = '<span class="error-msg">⚠️ Unable to play this video. The link might be broken or unsupported.</span>';
+
+        // If video can play, hide any previous error
+        video.addEventListener('canplay', function() {
+          errorBox.classList.add('hidden');
+          video.classList.remove('hidden');
         });
 
-        // Save to Continue Watching
+        // Continue watching storage
         try {
           let list = JSON.parse(localStorage.getItem('continueWatching') || '[]');
           if (!list.includes(movie.id)) {
@@ -205,51 +229,52 @@
           }
         } catch(e) {}
 
-        // Favourite / Watch Later logic
+        // Favourite / Watch Later
         function updateButton(btn, storageKey) {
           try {
             const arr = JSON.parse(localStorage.getItem(storageKey) || '[]');
-            if (arr.includes(movie.id)) btn.classList.add('active');
-            else btn.classList.remove('active');
+            btn.classList.toggle('active', arr.includes(movie.id));
           } catch(e) {}
         }
         updateButton(favBtn, 'favorites');
         updateButton(wlBtn, 'watchLater');
 
-        favBtn.addEventListener('click', function() {
+        favBtn.onclick = () => {
           try {
             let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-            if (favs.includes(movie.id)) {
-              favs = favs.filter(id => id !== movie.id);
-              favBtn.classList.remove('active');
-            } else {
-              favs.push(movie.id);
-              favBtn.classList.add('active');
-            }
+            if (favs.includes(movie.id)) favs = favs.filter(id => id !== movie.id);
+            else favs.push(movie.id);
             localStorage.setItem('favorites', JSON.stringify(favs));
+            favBtn.classList.toggle('active');
           } catch(e) {}
-        });
+        };
 
-        wlBtn.addEventListener('click', function() {
+        wlBtn.onclick = () => {
           try {
             let wl = JSON.parse(localStorage.getItem('watchLater') || '[]');
-            if (wl.includes(movie.id)) {
-              wl = wl.filter(id => id !== movie.id);
-              wlBtn.classList.remove('active');
-            } else {
-              wl.push(movie.id);
-              wlBtn.classList.add('active');
-            }
+            if (wl.includes(movie.id)) wl = wl.filter(id => id !== movie.id);
+            else wl.push(movie.id);
             localStorage.setItem('watchLater', JSON.stringify(wl));
+            wlBtn.classList.toggle('active');
           } catch(e) {}
-        });
+        };
       }
 
-      // If moviesData already exists, load immediately; else wait for script to load
+      // Retry button
+      retryBtn.addEventListener('click', function() {
+        errorBox.classList.add('hidden');
+        video.classList.remove('hidden');
+        const currentMovie = window.moviesData.find(m => m.id == movieId);
+        if (currentMovie) {
+          video.src = currentMovie.trailerUrl;
+          video.load();
+        }
+      });
+
+      // Ensure moviesData is loaded, then run
       if (window.moviesData) {
         loadMovie();
       } else {
-        // Wait for the external script to load
         window.addEventListener('load', function() {
           if (window.moviesData) loadMovie();
           else titleEl.textContent = 'Movie data could not be loaded.';
