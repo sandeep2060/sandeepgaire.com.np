@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details – SandeepFlix</title>
+    <meta name="description" content="View movie details and watch on SandeepFlix.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --purple: #7C3AED;
+            --cyan: #06B6D4;
+            --dark-bg: #0a0a0a;
+            --surface-bg: #121212;
+            --glass-bg: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.18);
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --font-primary: 'Inter', sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+            --border-radius: 16px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: var(--font-primary);
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        a { text-decoration: none; color: inherit; }
+        /* Navbar */
+        .navbar {
+            position: sticky; top:0; z-index:10;
+            background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0.75rem 1rem;
+        }
+        .nav-container {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-left { display: flex; align-items: center; gap: 1.5rem; }
+        .logo-text {
+            font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .accent { color: var(--cyan); -webkit-text-fill-color: var(--cyan); }
+        .btn-back {
+            color: white; background: var(--glass-bg);
+            padding: 0.5rem 1.2rem; border-radius: 8px;
+            font-size: 0.9rem; transition: background 0.3s;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-back:hover { background: rgba(255,255,255,0.2); }
+
+        /* Detail container */
+        .detail-container {
+            max-width: 1100px; margin: 2rem auto; padding: 0 1rem;
+            display: flex; gap: 2rem; flex-wrap: wrap;
+        }
+        .poster-section {
+            flex: 0 0 300px;
+        }
+        .poster-img {
+            width: 100%; border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 1px solid var(--glass-border);
+        }
+        .info-section {
+            flex: 1; min-width: 280px;
+        }
+        .movie-title {
+            font-family: var(--font-heading); font-size: 2.2rem;
+            font-weight: 700; margin-bottom: 0.5rem;
+        }
+        .movie-meta {
+            display: flex; flex-wrap: wrap; gap: 1rem;
+            color: var(--text-secondary); margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .movie-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        .rating-star { color: var(--cyan); }
+        .description {
+            font-size: 1rem; line-height: 1.6; color: #d1d1d1;
+            margin-bottom: 1.5rem;
+        }
+        .detail-list {
+            margin-bottom: 1.5rem;
+        }
+        .detail-item {
+            margin-bottom: 0.6rem;
+        }
+        .detail-item strong { color: var(--text-secondary); margin-right: 0.5rem; }
+        .cast-chips {
+            display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem;
+        }
+        .cast-chip {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 0.25rem 0.8rem; border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .action-buttons {
+            display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem;
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.7rem 1.5rem; border-radius: 8px;
+            font-weight: 600; font-size: 0.95rem; cursor: pointer;
+            transition: all 0.3s; border: none;
+        }
+        .btn-play {
+            background: var(--purple); color: white;
+            box-shadow: 0 4px 15px rgba(124,58,237,0.4);
+        }
+        .btn-play:hover { background: #6D28D9; transform: translateY(-2px); }
+        .btn-favorite, .btn-watchlater {
+            background: var(--glass-bg); color: white;
+            border: 1px solid var(--glass-border);
+        }
+        .btn-favorite.active { background: var(--purple); border-color: var(--purple); }
+        .btn-watchlater.active { background: var(--cyan); border-color: var(--cyan); }
+        .btn-favorite:hover, .btn-watchlater:hover {
+            background: rgba(255,255,255,0.2); transform: translateY(-2px);
+        }
+
+        /* Skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+            background-size: 200% 100%; animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+        .skeleton-poster { width: 300px; height: 450px; }
+        .skeleton-title { height: 2rem; width: 60%; margin-bottom: 0.8rem; }
+        .skeleton-meta { height: 1rem; width: 40%; margin-bottom: 1rem; }
+        .skeleton-text { height: 1rem; width: 100%; margin-bottom: 0.6rem; }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center; padding: 2rem;
+            color: var(--text-secondary); font-size: 0.85rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .detail-container { flex-direction: column; }
+            .poster-section { flex: 0 0 auto; max-width: 250px; margin: 0 auto; }
+            .movie-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">Sandeep<span class="accent">Flix</span></span>
+                </a>
+                <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="detail-container" id="detailContainer">
+        <!-- Skeleton loading (will be replaced by real data) -->
+        <div class="poster-section" id="posterSection">
+            <div class="skeleton skeleton-poster"></div>
+        </div>
+        <div class="info-section" id="infoSection">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-meta"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text" style="width:80%"></div>
+            <div class="skeleton skeleton-text" style="width:90%"></div>
+            <div class="skeleton skeleton-meta" style="width:30%"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 SandeepFlix. All rights reserved.</p>
+    </footer>
+
+    <!-- Inline movie data (same array we use elsewhere) -->
+    <script>
+        const moviesData = [
+            {
+                id: 1,
+                title: "Pritam and Pedro",
+                year: 2026,
+                genre: "cybercrime comedy-thriller and buddy-cop drama",
+                rating: 7.8,
+                poster: "https://img1.hotstarext.com/image/upload/f_auto/sources/r1/cms/prod/380/1782998630380-h",
+                backdrop: "https://picsum.photos/seed/dune-back/1280/720",
+                description: "A noble family becomes embroiled in a war for control over the galaxy's most valuable asset.",
+                duration: "2h 35m",
+                director: "Denis Villeneuve",
+                cast: ["Timothée Chalamet", "Rebecca Ferguson", "Oscar Isaac"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["trending", "popular", "topRated", "recommended"],
+                tags: ["sci-fi", "adventure"]
+            },
+            {
+                id: 2,
+                title: "The Batman",
+                year: 2022,
+                genre: "Action",
+                rating: 7.8,
+                poster: "https://picsum.photos/seed/batman/300/450",
+                backdrop: "https://picsum.photos/seed/batman-back/1280/720",
+                description: "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate.",
+                duration: "2h 56m",
+                director: "Matt Reeves",
+                cast: ["Robert Pattinson", "Zoë Kravitz", "Paul Dano"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["trending", "popular", "newReleases"],
+                tags: ["action", "crime"]
+            },
+            {
+                id: 3,
+                title: "Interstellar",
+                year: 2014,
+                genre: "Sci-Fi",
+                rating: 8.7,
+                poster: "https://picsum.photos/seed/interstellar/300/450",
+                backdrop: "https://picsum.photos/seed/interstellar-back/1280/720",
+                description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+                duration: "2h 49m",
+                director: "Christopher Nolan",
+                cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["topRated", "popular", "recommended"],
+                tags: ["sci-fi", "drama"]
+            },
+            {
+                id: 4,
+                title: "Joker",
+                year: 2019,
+                genre: "Drama",
+                rating: 8.4,
+                poster: "https://picsum.photos/seed/joker/300/450",
+                backdrop: "https://picsum.photos/seed/joker-back/1280/720",
+                description: "In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society.",
+                duration: "2h 2m",
+                director: "Todd Phillips",
+                cast: ["Joaquin Phoenix", "Robert De Niro", "Zazie Beetz"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["popular", "recommended"],
+                tags: ["drama", "thriller"]
+            },
+            {
+                id: 5,
+                title: "Spider-Man: No Way Home",
+                year: 2021,
+                genre: "Action",
+                rating: 8.3,
+                poster: "https://picsum.photos/seed/spiderman/300/450",
+                backdrop: "https://picsum.photos/seed/spiderman-back/1280/720",
+                description: "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help.",
+                duration: "2h 28m",
+                director: "Jon Watts",
+                cast: ["Tom Holland", "Zendaya", "Benedict Cumberbatch"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["trending", "newReleases", "popular"],
+                tags: ["action", "adventure"]
+            },
+            {
+                id: 6,
+                title: "Parasite",
+                year: 2019,
+                genre: "Thriller",
+                rating: 8.5,
+                poster: "https://picsum.photos/seed/parasite/300/450",
+                backdrop: "https://picsum.photos/seed/parasite-back/1280/720",
+                description: "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+                duration: "2h 12m",
+                director: "Bong Joon-ho",
+                cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["topRated", "recommended"],
+                tags: ["thriller", "drama"]
+            },
+            {
+                id: 7,
+                title: "Tenet",
+                year: 2020,
+                genre: "Sci-Fi",
+                rating: 7.3,
+                poster: "https://picsum.photos/seed/tenet/300/450",
+                backdrop: "https://picsum.photos/seed/tenet-back/1280/720",
+                description: "Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage.",
+                duration: "2h 30m",
+                director: "Christopher Nolan",
+                cast: ["John David Washington", "Robert Pattinson", "Elizabeth Debicki"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["newReleases", "popular"],
+                tags: ["sci-fi", "action"]
+            },
+            {
+                id: 8,
+                title: "Avatar: The Way of Water",
+                year: 2022,
+                genre: "Sci-Fi",
+                rating: 7.6,
+                poster: "https://picsum.photos/seed/avatar2/300/450",
+                backdrop: "https://picsum.photos/seed/avatar2-back/1280/720",
+                description: "Jake Sully lives with his newfound family formed on the extrasolar moon Pandora.",
+                duration: "3h 12m",
+                director: "James Cameron",
+                cast: ["Sam Worthington", "Zoe Saldaña", "Sigourney Weaver"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["trending", "newReleases"],
+                tags: ["sci-fi", "adventure"]
+            },
+            {
+                id: 9,
+                title: "Oppenheimer",
+                year: 2023,
+                genre: "Biography",
+                rating: 8.9,
+                poster: "https://picsum.photos/seed/oppenheimer/300/450",
+                backdrop: "https://picsum.photos/seed/oppenheimer-back/1280/720",
+                description: "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
+                duration: "3h 0m",
+                director: "Christopher Nolan",
+                cast: ["Cillian Murphy", "Emily Blunt", "Matt Damon"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["trending", "topRated", "popular"],
+                tags: ["biography", "drama"]
+            },
+            {
+                id: 10,
+                title: "Inception",
+                year: 2010,
+                genre: "Sci-Fi",
+                rating: 8.8,
+                poster: "https://picsum.photos/seed/inception/300/450",
+                backdrop: "https://picsum.photos/seed/inception-back/1280/720",
+                description: "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+                duration: "2h 28m",
+                director: "Christopher Nolan",
+                cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"],
+                trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                categories: ["topRated", "popular", "recommended"],
+                tags: ["sci-fi", "action"]
+            }
+        ];
+    </script>
+
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = parseInt(urlParams.get('id'));
+            const movie = moviesData.find(m => m.id === movieId);
+
+            const detailContainer = document.getElementById('detailContainer');
+
+            if (!movieId || !movie) {
+                detailContainer.innerHTML = '<p style="text-align:center; padding:3rem; font-size:1.5rem;">Movie not found.</p>';
+                return;
+            }
+
+            // Build real content
+            const posterSection = document.getElementById('posterSection');
+            const infoSection = document.getElementById('infoSection');
+
+            // Poster
+            posterSection.innerHTML = `<img src="${movie.poster}" alt="${movie.title}" class="poster-img" onerror="this.src='https://via.placeholder.com/300x450/1a1a1a/ffffff?text=No+Image'">`;
+
+            // Info
+            const castChips = movie.cast.map(c => `<span class="cast-chip">${c}</span>`).join('');
+            infoSection.innerHTML = `
+                <h1 class="movie-title">${movie.title}</h1>
+                <div class="movie-meta">
+                    <span>${movie.year}</span>
+                    <span>${movie.duration}</span>
+                    <span><i class="fas fa-star rating-star"></i> ${movie.rating}</span>
+                    <span>${movie.genre}</span>
+                </div>
+                <p class="description">${movie.description}</p>
+                <div class="detail-list">
+                    <div class="detail-item"><strong>Director:</strong> ${movie.director}</div>
+                    <div class="detail-item">
+                        <strong>Cast:</strong>
+                        <div class="cast-chips">${castChips}</div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <a href="player.html?id=${movie.id}" class="btn btn-play">
+                        <i class="fas fa-play"></i> Play Trailer
+                    </a>
+                    <button class="btn btn-favorite" id="detailFav">
+                        <i class="far fa-heart"></i> Favorite
+                    </button>
+                    <button class="btn btn-watchlater" id="detailWl">
+                        <i class="far fa-clock"></i> Watch Later
+                    </button>
+                </div>
+            `;
+
+            // Handle favourite / watch later buttons
+            const favBtn = document.getElementById('detailFav');
+            const wlBtn = document.getElementById('detailWl');
+
+            function updateButtons() {
+                try {
+                    const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+                    const wl = JSON.parse(localStorage.getItem('watchLater') || '[]');
+                    favBtn.classList.toggle('active', favs.includes(movie.id));
+                    wlBtn.classList.toggle('active', wl.includes(movie.id));
+                } catch(e) {}
+            }
+
+            favBtn.addEventListener('click', () => {
+                try {
+                    let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+                    if (favs.includes(movie.id)) favs = favs.filter(id => id !== movie.id);
+                    else favs.push(movie.id);
+                    localStorage.setItem('favorites', JSON.stringify(favs));
+                    favBtn.classList.toggle('active');
+                } catch(e) {}
+            });
+
+            wlBtn.addEventListener('click', () => {
+                try {
+                    let wl = JSON.parse(localStorage.getItem('watchLater') || '[]');
+                    if (wl.includes(movie.id)) wl = wl.filter(id => id !== movie.id);
+                    else wl.push(movie.id);
+                    localStorage.setItem('watchLater', JSON.stringify(wl));
+                    wlBtn.classList.toggle('active');
+                } catch(e) {}
+            });
+
+            updateButtons();
+        })();
+    </script>
+</body>
+</html>
