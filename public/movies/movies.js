@@ -4,8 +4,8 @@ const moviesData = [
     title: "Pritam and Pedro",
     year: 2026,
     genre: "cybercrime comedy-thriller and buddy-cop drama",
-    rating: 7.8,               // Fixed: previously invalid syntax
-    poster: "",
+    rating: 7.8,        
+    poster: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p33507139_b_v8_aa.jpg",
     backdrop: "https://img1.hotstarext.com/image/upload/f_auto/sources/r1/cms/prod/380/1782998630380-h",
     description: "A noble family becomes embroiled in a war for control over the galaxy's most valuable asset.",
     duration: "2h 35m",
