@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch Movie – SandeepFlix</title>
+  <meta name="description" content="Watch movies online on SandeepFlix.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="player-page">
+  <nav class="navbar player-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="logo">
+          <span class="logo-text">Sandeep<span class="accent">Flix</span></span>
+        </a>
+        <button class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i> Back</button>
+      </div>
+      <div class="nav-right">
+        <span class="now-playing-title" id="nowPlayingTitle"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="player-container">
+    <video id="videoPlayer" controls autoplay class="video-element">
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="player-info" id="playerInfo">
+      <!-- movie title, actions -->
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="copyright">© 2026 SandeepFlix. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="movies.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
