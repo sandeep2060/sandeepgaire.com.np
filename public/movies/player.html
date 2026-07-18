@@ -4,18 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Watch Now – SandeepFlix</title>
-  <meta name="description" content="Stream your favourite movies and shows in high quality on SandeepFlix.">
+  <meta name="description" content="Stream movies instantly on SandeepFlix.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Extra player-specific styles (kept inline for clarity, or could be in style.css) */
-    .player-page {
-      background: #000;
-    }
-
+    /* Minimal player-specific styles */
+    .player-page { background: #000; }
     .player-nav {
       position: sticky;
       top: 0;
@@ -24,13 +21,11 @@
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-
     .player-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 1rem;
     }
-
     .video-wrapper {
       width: 100%;
       background: #000;
@@ -39,13 +34,11 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
       margin-bottom: 1.5rem;
     }
-
     video {
       width: 100%;
       display: block;
       outline: none;
     }
-
     .player-info-panel {
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(15px);
@@ -54,14 +47,12 @@
       padding: 1.5rem;
       margin-bottom: 2rem;
     }
-
     .player-movie-title {
       font-family: 'Poppins', sans-serif;
       font-size: 1.8rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
-
     .player-meta {
       display: flex;
       flex-wrap: wrap;
@@ -70,46 +61,27 @@
       font-size: 0.9rem;
       margin-bottom: 1.25rem;
     }
-
     .player-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-      margin-top: 0.5rem;
     }
-
-    .player-actions .btn {
-      padding: 0.6rem 1.4rem;
-    }
-
-    .btn-favorite,
-    .btn-watchlater {
+    .btn-favorite, .btn-watchlater {
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.18);
       color: white;
       padding: 0.6rem 1.4rem;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: 500;
       transition: all 0.3s;
+      font-size: 0.95rem;
     }
-
-    .btn-favorite.active {
-      background: var(--purple);
-      border-color: var(--purple);
-    }
-
-    .btn-watchlater.active {
-      background: var(--cyan);
-      border-color: var(--cyan);
-    }
-
-    .btn-favorite:hover,
-    .btn-watchlater:hover {
+    .btn-favorite.active { background: #7C3AED; border-color: #7C3AED; }
+    .btn-watchlater.active { background: #06B6D4; border-color: #06B6D4; }
+    .btn-favorite:hover, .btn-watchlater:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-
     .btn-back {
       display: inline-flex;
       align-items: center;
@@ -121,58 +93,45 @@
       margin-bottom: 1rem;
       transition: background 0.3s;
       width: fit-content;
+      text-decoration: none;
+      font-weight: 500;
     }
-
-    .btn-back:hover {
-      background: rgba(255,255,255,0.2);
+    .btn-back:hover { background: rgba(255,255,255,0.2); }
+    .error-msg {
+      color: #ff4d4d;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 2rem;
     }
-
     @media (max-width: 768px) {
-      .player-movie-title {
-        font-size: 1.5rem;
-      }
-      .player-container {
-        padding: 0.75rem;
-      }
-      .player-info-panel {
-        padding: 1rem;
-      }
+      .player-movie-title { font-size: 1.5rem; }
+      .player-container { padding: 0.75rem; }
+      .player-info-panel { padding: 1rem; }
     }
   </style>
 </head>
 <body class="player-page">
-  <!-- Sticky Player Navbar -->
   <nav class="navbar player-nav">
     <div class="nav-container">
       <div class="nav-left">
         <a href="index.html" class="logo">
           <span class="logo-text">Sandeep<span class="accent">Flix</span></span>
         </a>
-        <button class="btn-back" onclick="history.back()">
-          <i class="fas fa-arrow-left"></i> Back
-        </button>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
       </div>
       <div class="nav-right">
-        <span class="now-playing-title" id="nowPlayingTitle"></span>
+        <span id="nowPlayingTitle" class="now-playing-title"></span>
       </div>
     </div>
   </nav>
 
-  <!-- Main Player Area -->
   <main class="player-container">
-    <!-- Back button (alternative for mobile) -->
-    <button class="btn-back mobile-only" onclick="history.back()" style="display: none;">
-      <i class="fas fa-arrow-left"></i> Back
-    </button>
-
     <div class="video-wrapper">
-      <video id="videoPlayer" controls autoplay playsinline>
-        <source src="" type="video/mp4">
+      <video id="videoPlayer" controls autoplay muted playsinline>
         Your browser does not support the video tag.
       </video>
     </div>
 
-    <!-- Movie Info & Actions -->
     <div class="player-info-panel" id="playerInfo">
       <h2 class="player-movie-title" id="playerMovieTitle">Loading...</h2>
       <div class="player-meta" id="playerMeta"></div>
@@ -183,96 +142,120 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
       <p class="copyright">© 2026 SandeepFlix. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="movies.js"></script>
-  <script src="script.js"></script>
+  <!-- Inline movie data (no external movies.js needed if you already have it, but keeping it self-contained) -->
   <script>
-    // Additional inline script to ensure proper player initialisation
-    document.addEventListener('DOMContentLoaded', function() {
+    // Replace this with your full moviesData array if you prefer, but for safety we load externally.
+    // We'll load movies.js and then proceed.
+  </script>
+  <script src="movies.js"></script>
+  <script>
+    (function() {
       const urlParams = new URLSearchParams(window.location.search);
       const movieId = urlParams.get('id');
-      if (!movieId) {
-        document.getElementById('playerMovieTitle').textContent = 'No movie selected';
-        return;
-      }
-
-      const movie = window.moviesData.find(m => m.id == movieId);
-      if (!movie) {
-        document.getElementById('playerMovieTitle').textContent = 'Movie not found';
-        return;
-      }
-
-      // Set title
-      document.getElementById('playerMovieTitle').textContent = movie.title;
-      document.getElementById('nowPlayingTitle').textContent = movie.title;
-
-      // Meta info
-      document.getElementById('playerMeta').innerHTML = `
-        <span>${movie.year}</span>
-        <span>${movie.duration}</span>
-        <span><i class="fas fa-star" style="color:var(--cyan)"></i> ${movie.rating}</span>
-        <span>${movie.genre}</span>
-      `;
-
-      // Set video source
       const video = document.getElementById('videoPlayer');
-      video.querySelector('source').src = movie.trailerUrl;
-      video.load();
-
-      // Continue watching
-      let continueList = JSON.parse(localStorage.getItem('continueWatching') || '[]');
-      if (!continueList.includes(movie.id)) {
-        continueList.unshift(movie.id);
-        localStorage.setItem('continueWatching', JSON.stringify(continueList));
-      }
-
-      // Favorite / Watch Later buttons
+      const titleEl = document.getElementById('playerMovieTitle');
+      const metaEl = document.getElementById('playerMeta');
+      const nowPlaying = document.getElementById('nowPlayingTitle');
       const favBtn = document.getElementById('playerFav');
       const wlBtn = document.getElementById('playerWl');
 
-      function updateButtonState(btn, storageKey, activeClass) {
-        const list = JSON.parse(localStorage.getItem(storageKey) || '[]');
-        if (list.includes(movie.id)) {
-          btn.classList.add(activeClass);
-        } else {
-          btn.classList.remove(activeClass);
-        }
+      if (!movieId) {
+        titleEl.textContent = 'No movie selected';
+        return;
       }
 
-      updateButtonState(favBtn, 'favorites', 'active');
-      updateButtonState(wlBtn, 'watchLater', 'active');
-
-      favBtn.addEventListener('click', function() {
-        let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-        if (favs.includes(movie.id)) {
-          favs = favs.filter(id => id !== movie.id);
-          favBtn.classList.remove('active');
-        } else {
-          favs.push(movie.id);
-          favBtn.classList.add('active');
+      // Wait for moviesData to be available (it might not be loaded synchronously)
+      function loadMovie() {
+        const movie = window.moviesData.find(m => m.id == movieId);
+        if (!movie) {
+          titleEl.textContent = 'Movie not found';
+          return;
         }
-        localStorage.setItem('favorites', JSON.stringify(favs));
-      });
 
-      wlBtn.addEventListener('click', function() {
-        let wl = JSON.parse(localStorage.getItem('watchLater') || '[]');
-        if (wl.includes(movie.id)) {
-          wl = wl.filter(id => id !== movie.id);
-          wlBtn.classList.remove('active');
-        } else {
-          wl.push(movie.id);
-          wlBtn.classList.add('active');
+        // Update UI
+        titleEl.textContent = movie.title;
+        nowPlaying.textContent = movie.title;
+        metaEl.innerHTML = `
+          <span>${movie.year}</span>
+          <span>${movie.duration}</span>
+          <span><i class="fas fa-star" style="color:#06B6D4"></i> ${movie.rating}</span>
+          <span>${movie.genre}</span>
+        `;
+
+        // Set video source directly (most reliable)
+        video.src = movie.trailerUrl;
+        video.load();
+        // Add error handling
+        video.addEventListener('error', function() {
+          titleEl.innerHTML = '<span class="error-msg">⚠️ Unable to play this video. The link might be broken or unsupported.</span>';
+        });
+
+        // Save to Continue Watching
+        try {
+          let list = JSON.parse(localStorage.getItem('continueWatching') || '[]');
+          if (!list.includes(movie.id)) {
+            list.unshift(movie.id);
+            localStorage.setItem('continueWatching', JSON.stringify(list));
+          }
+        } catch(e) {}
+
+        // Favourite / Watch Later logic
+        function updateButton(btn, storageKey) {
+          try {
+            const arr = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            if (arr.includes(movie.id)) btn.classList.add('active');
+            else btn.classList.remove('active');
+          } catch(e) {}
         }
-        localStorage.setItem('watchLater', JSON.stringify(wl));
-      });
-    });
+        updateButton(favBtn, 'favorites');
+        updateButton(wlBtn, 'watchLater');
+
+        favBtn.addEventListener('click', function() {
+          try {
+            let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            if (favs.includes(movie.id)) {
+              favs = favs.filter(id => id !== movie.id);
+              favBtn.classList.remove('active');
+            } else {
+              favs.push(movie.id);
+              favBtn.classList.add('active');
+            }
+            localStorage.setItem('favorites', JSON.stringify(favs));
+          } catch(e) {}
+        });
+
+        wlBtn.addEventListener('click', function() {
+          try {
+            let wl = JSON.parse(localStorage.getItem('watchLater') || '[]');
+            if (wl.includes(movie.id)) {
+              wl = wl.filter(id => id !== movie.id);
+              wlBtn.classList.remove('active');
+            } else {
+              wl.push(movie.id);
+              wlBtn.classList.add('active');
+            }
+            localStorage.setItem('watchLater', JSON.stringify(wl));
+          } catch(e) {}
+        });
+      }
+
+      // If moviesData already exists, load immediately; else wait for script to load
+      if (window.moviesData) {
+        loadMovie();
+      } else {
+        // Wait for the external script to load
+        window.addEventListener('load', function() {
+          if (window.moviesData) loadMovie();
+          else titleEl.textContent = 'Movie data could not be loaded.';
+        });
+      }
+    })();
   </script>
 </body>
 </html>
