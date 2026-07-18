@@ -11,7 +11,7 @@ const moviesData = [
     duration: "2h 35m",
     director: "Denis Villeneuve",
     cast: ["Timothée Chalamet", "Rebecca Ferguson", "Oscar Isaac"],
-    trailerUrl: "https://mega.nz/file/m7AXWBgI#i8qSF3q9r0xgTiibF1bqp2q5i4BPzpQ77P34UZU_CDk",
+    trailerUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     categories: ["trending", "popular", "topRated", "recommended"],
     tags: ["sci-fi", "adventure"]
   },
