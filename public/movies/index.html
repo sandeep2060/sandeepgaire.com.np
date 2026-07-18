@@ -1,34 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MovieFlix</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SandeepFlix – Watch Movies & TV Shows Online</title>
+  <meta name="description" content="SandeepFlix is a premium streaming platform with thousands of movies and TV shows. Watch anywhere, anytime.">
+  <meta name="keywords" content="SandeepFlix, movies, tv shows, streaming, online, free">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="navbar">
-<div class="logo">SANDEEP<span>FLIX</span></div>
-<nav>
-<a href="#">Home</a><a href="#">Movies</a><a href="#">Trending</a><a href="#">Categories</a>
-</nav>
-<input type="search" placeholder="Search movies...">
-</header>
-<section class="hero">
-<h1>Unlimited Movies</h1>
-<p>Premium streaming template.</p>
-<button>Watch Now</button>
-</section>
-<section id="trending">
-<h2>Trending</h2>
-<div id="movie-grid" class="grid">
-<div class="card skeleton"></div>
-<div class="card skeleton"></div>
-<div class="card skeleton"></div>
-<div class="card skeleton"></div>
-</div>
-</section>
-<footer>© 2026 SandeepFlix</footer>
-<script src="script.js"></script>
+  <!-- Sticky Glass Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="logo">
+          <span class="logo-text">Sandeep<span class="accent">Flix</span></span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="#movies">Movies</a></li>
+          <li><a href="#tv-shows">TV Shows</a></li>
+          <li><a href="#my-list">My List</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off">
+          <i class="fas fa-search search-icon"></i>
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <div class="nav-actions">
+          <button class="icon-btn" aria-label="Notifications"><i class="fas fa-bell"></i></button>
+          <div class="user-avatar">
+            <img src="https://picsum.photos/seed/user/32/32" alt="User">
+          </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#movies">Movies</a></li>
+      <li><a href="#tv-shows">TV Shows</a></li>
+      <li><a href="#my-list">My List</a></li>
+      <li><a href="#search">Search</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero Slider -->
+  <section class="hero-slider" id="heroSlider">
+    <div class="slides" id="heroSlides"></div>
+    <div class="hero-controls">
+      <button class="hero-arrow prev" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
+      <button class="hero-arrow next" id="heroNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Continue Watching (localStorage) -->
+    <section class="movie-row" id="continueWatchingRow" style="display: none;">
+      <div class="row-header">
+        <h2 class="row-title">Continue Watching</h2>
+        <div class="row-controls">
+          <button class="scroll-btn left" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
+          <button class="scroll-btn right" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="row-container" id="continueWatchingContainer"></div>
+    </section>
+
+    <!-- Trending -->
+    <section class="movie-row" id="trendingRow">
+      <div class="row-header">
+        <h2 class="row-title">Trending Now</h2>
+        <div class="row-controls">
+          <button class="scroll-btn left" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
+          <button class="scroll-btn right" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="row-container" id="trendingContainer"></div>
+    </section>
+
+    <!-- Popular Movies -->
+    <section class="movie-row" id="popularRow">
+      <div class="row-header">
+        <h2 class="row-title">Popular Movies</h2>
+        <div class="row-controls">
+          <button class="scroll-btn left" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
+          <button class="scroll-btn right" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="row-container" id="popularContainer"></div>
+    </section>
+
+    <!-- Top Rated -->
+    <section class="movie-row" id="topRatedRow">
+      <div class="row-header">
+        <h2 class="row-title">Top Rated</h2>
+        <div class="row-controls">
+          <button class="scroll-btn left" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
+          <button class="scroll-btn right" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="row-container" id="topRatedContainer"></div>
+    </section>
+
+    <!-- New Releases -->
+    <section class="movie-row" id="newReleasesRow">
+      <div class="row-header">
+        <h2 class="row-title">New Releases</h2>
+        <div class="row-controls">
+          <button class="scroll-btn left" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
+          <button class="scroll-btn right" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="row-container" id="newReleasesContainer"></div>
+    </section>
+
+    <!-- Recommended -->
+    <section class="movie-row" id="recommendedRow">
+      <div class="row-header">
+        <h2 class="row-title">Recommended For You</h2>
+        <div class="row-controls">
+          <button class="scroll-btn left" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
+          <button class="scroll-btn right" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="row-container" id="recommendedContainer"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <p class="copyright">© 2026 SandeepFlix. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Skeleton loading template (hidden) -->
+  <template id="skeletonCard">
+    <div class="movie-card skeleton">
+      <div class="poster skeleton-poster"></div>
+      <div class="card-info">
+        <div class="skeleton-line title"></div>
+        <div class="skeleton-line meta"></div>
+      </div>
+    </div>
+  </template>
+
+  <script src="movies.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
