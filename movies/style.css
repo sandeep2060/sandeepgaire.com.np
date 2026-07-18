@@ -15,7 +15,7 @@
   --font-primary: 'Inter', sans-serif;
   --font-heading: 'Poppins', sans-serif;
   --border-radius: 16px;
-  --transition: 0.3s ease;
+  --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.2);
 }
 
 /* ===== Reset & Base (Mobile First) ===== */
@@ -60,11 +60,12 @@ img {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(10, 10, 10, 0.9);
+  background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
   padding: 0.75rem 1rem;
+  transition: background 0.3s;
 }
 
 .nav-container {
@@ -98,7 +99,7 @@ img {
 }
 
 .nav-links {
-  display: none; /* hidden on mobile, shown via overlay */
+  display: none; /* hidden on mobile */
 }
 
 .nav-right {
@@ -107,18 +108,55 @@ img {
   gap: 0.75rem;
 }
 
+/* Mobile Search Toggle Button */
+.search-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: block; /* visible on mobile */
+  transition: color var(--transition);
+}
+
+.search-toggle-btn:hover {
+  color: var(--cyan);
+}
+
+/* Search Container (hidden on mobile by default) */
 .search-container {
+  display: none;
   position: relative;
-  display: none; /* hidden on very small screens, shown at breakpoint */
+}
+
+/* When navbar has .search-open, expand search bar */
+.navbar.search-open .search-container {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: var(--surface-bg);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .search-container input {
   background: var(--card-bg);
   border: 1px solid var(--glass-border);
   border-radius: 8px;
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  padding: 0.6rem 2.5rem 0.6rem 1rem;
   color: var(--text-primary);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   width: 100%;
   transition: border-color var(--transition);
 }
@@ -130,7 +168,7 @@ img {
 
 .search-icon {
   position: absolute;
-  right: 12px;
+  right: 1.2rem;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-secondary);
@@ -139,7 +177,7 @@ img {
 
 .search-results {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 8px);
   left: 0;
   width: 100%;
   background: var(--surface-bg);
@@ -149,6 +187,7 @@ img {
   overflow-y: auto;
   display: none;
   z-index: 100;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
 
 .search-results.active {
@@ -196,6 +235,7 @@ img {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid var(--glass-border);
 }
 
 .mobile-menu-btn {
@@ -205,6 +245,7 @@ img {
   color: var(--text-primary);
   font-size: 1.5rem;
   cursor: pointer;
+  transition: color var(--transition);
 }
 
 /* Mobile Menu Overlay */
@@ -214,8 +255,8 @@ img {
   right: -100%;
   width: 280px;
   height: 100vh;
-  background: var(--surface-bg);
-  backdrop-filter: blur(20px);
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(30px);
   padding: 5rem 2rem;
   transition: right 0.3s ease;
   z-index: 999;
@@ -236,15 +277,22 @@ img {
   font-size: 1.2rem;
   font-weight: 500;
   display: block;
+  transition: color var(--transition);
+}
+
+.mobile-menu a:hover {
+  color: var(--cyan);
 }
 
 /* ===== Hero Slider (Mobile First) ===== */
 .hero-slider {
   position: relative;
-  height: 50vh;
-  min-height: 300px;
+  height: 55vh;
+  min-height: 320px;
   overflow: hidden;
   margin-bottom: 1.5rem;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .slides {
@@ -285,7 +333,7 @@ img {
 
 .hero-info h1 {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
@@ -293,8 +341,8 @@ img {
 }
 
 .hero-info p {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -312,18 +360,20 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.25rem;
+  padding: 0.7rem 1.4rem;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: background var(--transition), transform 0.2s;
   border: none;
+  letter-spacing: 0.3px;
 }
 
 .btn-play {
   background: var(--purple);
   color: white;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
 }
 
 .btn-play:hover {
@@ -358,23 +408,24 @@ img {
   border: 1px solid var(--glass-border);
   color: white;
   font-size: 1.2rem;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background var(--transition);
+  transition: background var(--transition), transform 0.2s;
 }
 
 .hero-arrow:hover {
   background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
 }
 
 .hero-dots {
   position: absolute;
-  bottom: 5%;
+  bottom: 6%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -388,14 +439,15 @@ img {
   border-radius: 50%;
   background: rgba(255,255,255,0.4);
   cursor: pointer;
-  transition: background var(--transition);
+  transition: background var(--transition), transform 0.2s;
 }
 
 .dot.active {
   background: var(--cyan);
+  transform: scale(1.3);
 }
 
-/* ===== Main Content & Movie Rows (Mobile First) ===== */
+/* ===== Main Content & Movie Rows ===== */
 .main-content {
   padding: 1rem 1rem 2rem;
   max-width: 1400px;
@@ -410,12 +462,12 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .row-title {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
   position: relative;
   padding-left: 0.75rem;
@@ -428,7 +480,7 @@ img {
   top: 50%;
   transform: translateY(-50%);
   width: 4px;
-  height: 20px;
+  height: 22px;
   background: linear-gradient(var(--purple), var(--cyan));
   border-radius: 4px;
 }
@@ -442,24 +494,25 @@ img {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   color: white;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background var(--transition);
+  transition: background var(--transition), transform 0.2s;
   font-size: 0.9rem;
 }
 
 .scroll-btn:hover {
   background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
 }
 
 .row-container {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.8rem;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding-bottom: 0.5rem;
@@ -471,11 +524,11 @@ img {
   display: none;
 }
 
-/* ===== Movie Card (Mobile First) ===== */
+/* ===== Movie Card ===== */
 .movie-card {
-  min-width: 150px;
-  max-width: 150px;
-  border-radius: 12px;
+  min-width: 155px;
+  max-width: 155px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--card-bg);
   backdrop-filter: blur(10px);
@@ -487,26 +540,26 @@ img {
 }
 
 .movie-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.35);
 }
 
 .poster {
   width: 100%;
-  height: 225px;
+  height: 230px;
   object-fit: cover;
-  transition: opacity 0.3s;
   background: #1a1a1a;
+  transition: opacity 0.3s;
 }
 
 .card-info {
-  padding: 0.6rem;
+  padding: 0.7rem;
 }
 
 .card-title {
   font-weight: 600;
-  font-size: 0.85rem;
-  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -522,29 +575,30 @@ img {
 
 .rating {
   color: var(--cyan);
+  font-weight: 500;
 }
 
 .card-actions {
   position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
+  bottom: 0.6rem;
+  right: 0.6rem;
   display: flex;
   gap: 0.4rem;
 }
 
 .card-actions button {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.65);
   backdrop-filter: blur(4px);
   border: none;
   color: white;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   transition: background var(--transition), color var(--transition);
 }
 
@@ -562,7 +616,7 @@ img {
   background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-  height: 225px;
+  height: 230px;
 }
 
 .skeleton-line {
@@ -571,7 +625,7 @@ img {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 4px;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .skeleton-line.title {
@@ -591,7 +645,7 @@ img {
 .footer {
   background: var(--surface-bg);
   border-top: 1px solid var(--glass-border);
-  padding: 1.5rem 1rem;
+  padding: 2rem 1rem;
   text-align: center;
 }
 
@@ -599,7 +653,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem 1.5rem;
+  gap: 1.2rem 1.8rem;
   margin-bottom: 1rem;
 }
 
@@ -626,14 +680,14 @@ img {
   background: var(--purple);
   color: white;
   border: none;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.5);
   transition: transform 0.3s, background 0.3s, opacity 0.3s, visibility 0.3s;
   z-index: 1000;
   opacity: 0;
@@ -648,153 +702,18 @@ img {
 
 .back-to-top:hover {
   background: var(--purple-hover);
-  transform: translateY(-4px);
-}
-
-/* ===== Movie Details Page (Mobile) ===== */
-.movie-page .movie-details {
-  padding: 1.5rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.detail-hero {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.detail-poster {
-  width: 70%;
-  max-width: 250px;
-  margin: 0 auto;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--glass-shadow);
-}
-
-.detail-poster img {
-  width: 100%;
-  height: auto;
-}
-
-.detail-info h1 {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.detail-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  color: var(--text-secondary);
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-
-.detail-description {
-  margin-bottom: 1.25rem;
-  font-size: 0.95rem;
-  color: #ccc;
-}
-
-.detail-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-.btn-favorite,
-.btn-watchlater {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background var(--transition);
-  font-size: 0.9rem;
-}
-
-.btn-favorite.active {
-  background: var(--purple);
-}
-
-.btn-watchlater.active {
-  background: var(--cyan);
-}
-
-.cast-list {
-  margin-top: 1rem;
-}
-
-.cast-list span {
-  display: inline-block;
-  background: var(--card-bg);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  margin-right: 0.4rem;
-  margin-bottom: 0.4rem;
-  font-size: 0.8rem;
-}
-
-/* ===== Player Page (Mobile) ===== */
-.player-page {
-  background: #000;
-}
-
-.player-nav {
-  background: rgba(0,0,0,0.8);
-}
-
-.player-container {
-  max-width: 1000px;
-  margin: 1rem auto;
-  padding: 0 0.5rem;
-}
-
-.video-element {
-  width: 100%;
-  border-radius: 8px;
-  background: #000;
-  outline: none;
-}
-
-.player-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  gap: 0.5rem;
-}
-
-.player-info h2 {
-  font-size: 1.2rem;
-}
-
-.now-playing-title {
-  font-weight: 600;
-  font-size: 1rem;
+  transform: translateY(-5px);
 }
 
 /* ===== Responsive Breakpoints ===== */
 
-/* Small phones (portrait) - already covered as base */
-
 /* Medium phones / landscape (min-width: 480px) */
 @media (min-width: 480px) {
   .hero-slider {
-    height: 55vh;
+    height: 60vh;
   }
   .hero-info h1 {
-    font-size: 2rem;
-  }
-  .hero-info p {
-    font-size: 1rem;
+    font-size: 2.2rem;
   }
   .movie-card {
     min-width: 170px;
@@ -820,7 +739,7 @@ img {
 
   .nav-links {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.8rem;
   }
 
   .nav-links a {
@@ -845,8 +764,27 @@ img {
     background: var(--cyan);
   }
 
+  /* Hide mobile search toggle button, show search bar inline */
+  .search-toggle-btn {
+    display: none;
+  }
+
   .search-container {
     display: block;
+    position: relative;
+  }
+
+  /* Reset the absolute expanded styles when not toggled */
+  .navbar.search-open .search-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    background: transparent;
+    padding: 0;
+    border-bottom: none;
+    backdrop-filter: none;
+    animation: none;
   }
 
   .search-container input {
@@ -866,17 +804,18 @@ img {
   }
 
   .hero-slider {
-    height: 70vh;
+    height: 75vh;
+    border-radius: 0 0 30px 30px;
   }
 
   .hero-info {
     max-width: 500px;
-    left: 5%;
+    left: 6%;
     right: auto;
   }
 
   .hero-info h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 
   .hero-info p {
@@ -909,25 +848,6 @@ img {
   .skeleton-poster {
     height: 285px;
   }
-
-  .detail-hero {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .detail-poster {
-    width: 280px;
-    max-width: none;
-    margin: 0;
-  }
-
-  .detail-info h1 {
-    font-size: 2.2rem;
-  }
-
-  .player-container {
-    padding: 0 1rem;
-  }
 }
 
 /* Desktops (min-width: 1024px) */
@@ -948,11 +868,11 @@ img {
   }
 
   .hero-info h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
   }
 
   .main-content {
-    padding: 1rem 3rem 3rem;
+    padding: 1.5rem 3rem 3rem;
   }
 
   .movie-card {
@@ -973,13 +893,6 @@ img {
   .card-meta {
     font-size: 0.8rem;
   }
-
-  .detail-info h1 {
-    font-size: 2.5rem;
-  }
-  .detail-poster {
-    width: 300px;
-  }
 }
 
 /* Large screens (min-width: 1400px) */
@@ -989,13 +902,13 @@ img {
   }
 
   .movie-card {
-    min-width: 210px;
-    max-width: 210px;
+    min-width: 215px;
+    max-width: 215px;
   }
   .poster {
-    height: 315px;
+    height: 320px;
   }
   .skeleton-poster {
-    height: 315px;
+    height: 320px;
   }
 }
