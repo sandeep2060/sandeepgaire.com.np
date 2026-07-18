@@ -8,7 +8,7 @@
   <meta name="keywords" content="SandeepFlix, movies, tv shows, streaming, online, free">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -28,11 +28,18 @@
         </ul>
       </div>
       <div class="nav-right">
-        <div class="search-container">
+        <!-- Mobile Search Toggle Button -->
+        <button class="search-toggle-btn" id="searchToggleBtn" aria-label="Toggle search">
+          <i class="fas fa-search"></i>
+        </button>
+
+        <!-- Search Container (hidden on mobile, toggled by button) -->
+        <div class="search-container" id="searchContainer">
           <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off">
           <i class="fas fa-search search-icon"></i>
           <div class="search-results" id="searchResults"></div>
         </div>
+
         <div class="nav-actions">
           <button class="icon-btn" aria-label="Notifications"><i class="fas fa-bell"></i></button>
           <div class="user-avatar">
@@ -169,7 +176,33 @@
     </div>
   </template>
 
+  <!-- Scripts -->
   <script src="movies.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Inline script to handle mobile search toggle (ensures it works even before script.js loads)
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchToggleBtn = document.getElementById('searchToggleBtn');
+      const navbar = document.getElementById('navbar');
+      const searchInput = document.getElementById('searchInput');
+
+      if (searchToggleBtn && navbar) {
+        searchToggleBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          navbar.classList.toggle('search-open');
+          if (navbar.classList.contains('search-open')) {
+            setTimeout(() => searchInput?.focus(), 100);
+          }
+        });
+
+        // Close mobile search when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!navbar.contains(e.target) && navbar.classList.contains('search-open')) {
+            navbar.classList.remove('search-open');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
