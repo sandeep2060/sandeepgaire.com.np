@@ -1,99 +1,524 @@
+"use strict";
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const $ = (selector) => document.querySelector(selector);
+
+const envelope = $("#envelope");
+const openLetterButton = $("#openLetter");
+const envelopeWrapper = $("#envelopeWrapper");
+const letterSection = $("#letterSection");
+
+const yesButton = $("#yesButton");
+const noButton = $("#noButton");
+
+const responseSection = $("#responseSection");
+const responseIcon = $("#responseIcon");
+const responseTitle = $("#responseTitle");
+const responseText = $("#responseText");
+
+const responseMessage = $("#responseMessage");
+const sendResponse = $("#sendResponse");
+const responseSuccess = $("#responseSuccess");
+
+const characterCount = $("#characterCount");
+
+const progress = $("#progress");
+
+const toast = $("#toast");
+
+let currentAnswer = null;
+let musicStarted = false;
+
+
+/* =========================================================
+   CHECK DATA
+========================================================= */
+
+if (typeof LOVE_DATA === "undefined") {
+
+    console.error(
+        "LOVE_DATA is missing. Make sure data.js loads before script.js."
+    );
+
+} else {
+
+    initializePage();
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+function initializePage() {
+
+    populateData();
+
+    setupLetterOpening();
+
+    setupProposal();
+
+    setupResponse();
+
+    setupParticles();
+
+    setupScrollProgress();
+
+    setupKeyboardSupport();
+
+    setupMusic();
+
+}
+
+
+/* =========================================================
+   POPULATE DATA
+========================================================= */
+
+function populateData() {
+
+    $("#openingEyebrow").textContent =
+        LOVE_DATA.opening.eyebrow;
+
+    $("#openingTitle").innerHTML =
+        `${escapeHTML(LOVE_DATA.opening.title)}
+        <span>✨</span>`;
+
+    $("#openingSubtitle").textContent =
+        LOVE_DATA.opening.subtitle;
+
+
+    /* Letter */
+
+    $("#letterGreeting").textContent =
+        LOVE_DATA.letter.greeting;
+
+    const body = $("#letterBody");
+
+    body.innerHTML = "";
+
+    LOVE_DATA.letter.paragraphs.forEach(text => {
+
+        const p = document.createElement("p");
+
+        p.textContent = text;
+
+        body.appendChild(p);
+
+    });
+
+    $("#letterHighlight").textContent =
+        LOVE_DATA.letter.highlight;
+
+    $("#letterClosing").textContent =
+        LOVE_DATA.letter.closing;
+
+    $("#letterSignature").textContent =
+        LOVE_DATA.letter.signature;
+
+    $("#letterSender").textContent =
+        LOVE_DATA.letter.sender;
+
+
+    /* Proposal */
+
+    $("#proposalTitle").textContent =
+        LOVE_DATA.proposal.title;
+
+    $("#proposalQuestion").textContent =
+        LOVE_DATA.proposal.question;
+
+    yesButton.innerHTML =
+        `${escapeHTML(LOVE_DATA.proposal.yesButton)}
+        <span>❤️</span>`;
+
+    noButton.innerHTML =
+        `${escapeHTML(LOVE_DATA.proposal.noButton)}
+        <span>🌷</span>`;
+
+
+    /* Response */
+
+    $("#messagePrompt").textContent =
+        LOVE_DATA.response.prompt;
+
+    $("#messageOptional").textContent =
+        LOVE_DATA.response.optional;
+
+    responseMessage.placeholder =
+        LOVE_DATA.response.placeholder;
+
+    sendResponse.textContent =
+        LOVE_DATA.response.send;
+
+
+    /* Date */
+
+    const today = new Date();
+
+    $("#letterDate").textContent =
+        today.toLocaleDateString(
+            undefined,
+            {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   SAFE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    const div = document.createElement("div");
+
+    div.textContent = value;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   OPEN LETTER
+========================================================= */
+
+function setupLetterOpening() {
+
+    if (!envelope) {
+
+        console.error("Envelope element not found.");
+
+        return;
+    }
+
+
+    /*
+        IMPORTANT:
+
+        The event listener is attached directly to
+        the envelope.
+
+        This means the letter works even if the
+        user taps the envelope itself.
+    */
+
+    envelope.addEventListener(
+        "click",
+        openLetter
+    );
+
+
+    openLetterButton.addEventListener(
+        "click",
+        openLetter
+    );
+
+
+    envelope.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+
+                event.preventDefault();
+
+                openLetter();
+
+            }
+
+        }
+    );
+
+}
+
+
+function openLetter() {
+
+    /*
+        Prevent opening repeatedly.
+    */
+
+    if (
+        envelope.classList.contains("open")
+    ) {
+
+        scrollToLetter();
+
+        return;
+
+    }
+
+
+    envelope.classList.add("open");
+
+    envelopeWrapper.classList.add("opened");
+
+
+    const hint = $("#openHint");
+
+    if (hint) {
+
+        hint.textContent =
+            "A little something from my heart...";
+
+        hint.style.opacity = ".7";
+
+    }
+
+
+    openLetterButton.textContent =
+        "Read my letter ↓";
+
+
+    createHeartBurst();
+
+    startMusic();
+
+    trackAction("letter_opened");
+
+
+    /*
+        Give the envelope animation time to play
+        before moving down.
+    */
+
+    setTimeout(() => {
+
+        scrollToLetter();
+
+    }, 900);
+
+}
+
+
+function scrollToLetter() {
+
+    if (!letterSection) return;
+
+    letterSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+/* =========================================================
+   PROPOSAL
+========================================================= */
+
+function setupProposal() {
+
+    yesButton.addEventListener(
+        "click",
+        () => {
+
+            currentAnswer = "yes";
+
+            showResponse("yes");
+
+            trackAction("proposal_accepted");
+
+            createMassiveHeartBurst();
+
+        }
+    );
+
+
+    noButton.addEventListener(
+        "click",
+        () => {
+
+            currentAnswer = "no";
+
+            showResponse("no");
+
+            trackAction("proposal_rejected");
+
+        }
+    );
+
+}
+
+
+function showResponse(answer) {
+
+    const proposalSection =
+        $("#proposalSection");
+
+    if (proposalSection) {
+
+        proposalSection.style.display =
+            "none";
+
+    }
+
+
+    responseSection.classList.add("active");
+
+
+    if (answer === "yes") {
+
+        responseIcon.textContent = "❤️";
+
+        responseTitle.textContent =
+            LOVE_DATA.proposal.yesTitle;
+
+        responseText.textContent =
+            LOVE_DATA.proposal.yesText;
+
+    } else {
+
+        responseIcon.textContent = "🌷";
+
+        responseTitle.textContent =
+            LOVE_DATA.proposal.noTitle;
+
+        responseText.textContent =
+            LOVE_DATA.proposal.noText;
+
+    }
+
+
+    setTimeout(() => {
+
+        responseSection.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }, 100);
+
+}
+
+
+/* =========================================================
+   RESPONSE MESSAGE
+========================================================= */
+
+function setupResponse() {
+
+    responseMessage.addEventListener(
+        "input",
+        () => {
+
+            characterCount.textContent =
+                responseMessage.value.length;
+
+        }
+    );
+
+
+    sendResponse.addEventListener(
+        "click",
+        async () => {
+
+            const message =
+                responseMessage.value.trim();
+
+
+            /*
+                Message is OPTIONAL.
+            */
+
+            await saveResponse(
+                currentAnswer,
+                message
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
 /*
-|--------------------------------------------------------------------------
-| SUPABASE CONFIGURATION
-|--------------------------------------------------------------------------
-|
-| IMPORTANT:
-|
-| Keep the quotes.
-|
-| Example:
-|
-| const SUPABASE_URL";
-|
-| const SUPABASE_ANON_KEY =
-A";
-|
-|--------------------------------------------------------------------------
+    Put your Supabase credentials here
+    ONLY if you are using Supabase.
+
+    Keep the quotation marks.
+
+    Example:
+
+    const SUPABASE_URL =
+        "https://xxxxx.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOi...";
+
 */
 
-const SUPABASE_URL = "https://adpqejcqolrwkruquxvs.supabase.co/rest/v1/";
+const SUPABASE_URL =
+    "YOUR_SUPABASE_URL";
 
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkcHFlamNxb2xyd2tydXF1eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxOTcwNjYsImV4cCI6MjEwMTc3MzA2Nn0.Y-EFdMFiNRExzhRoH1oZWzXLx0qGsxXmWC6a1QpSOpA";
+const SUPABASE_ANON_KEY =
+    "YOUR_SUPABASE_ANON_KEY";
 
-
-/*
-|--------------------------------------------------------------------------
-| APP
-|--------------------------------------------------------------------------
-*/
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    initPersonalData();
-
-    initOpening();
-
-    initStars();
-
-    initScrollReveal();
-
-    initProgress();
-
-    initProposal();
-
-    initMessage();
-
-    initMusic();
-
-    initTracking();
-
-    initLocation();
-
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| SUPABASE
-|--------------------------------------------------------------------------
-*/
 
 let supabaseClient = null;
 
-function initSupabase() {
+
+/*
+    Load Supabase safely.
+
+    The page will STILL work if Supabase
+    isn't configured.
+*/
+
+async function initializeSupabase() {
+
+    if (
+        SUPABASE_URL === "YOUR_SUPABASE_URL" ||
+        SUPABASE_ANON_KEY === "YOUR_SUPABASE_ANON_KEY"
+    ) {
+
+        console.warn(
+            "Supabase is not configured."
+        );
+
+        return null;
+
+    }
+
 
     if (
         typeof window.supabase === "undefined"
     ) {
 
         console.warn(
-            "Supabase library unavailable."
+            "Supabase library is not loaded."
         );
 
         return null;
 
     }
 
-    if (
-        SUPABASE_URL.includes("YOUR_") ||
-        SUPABASE_ANON_KEY.includes("YOUR_")
-    ) {
-
-        console.warn(
-            "Supabase credentials are not configured."
-        );
-
-        return null;
-
-    }
 
     try {
 
-        return window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+        return supabaseClient;
 
     } catch (error) {
 
@@ -108,79 +533,275 @@ function initSupabase() {
 
 }
 
-supabaseClient = initSupabase();
+
+async function saveResponse(
+    answer,
+    message
+) {
+
+    sendResponse.disabled = true;
+
+    sendResponse.textContent =
+        "Saving...";
 
 
-/*
-|--------------------------------------------------------------------------
-| SESSION
-|--------------------------------------------------------------------------
-*/
+    /*
+        If Supabase isn't configured,
+        don't break the website.
+    */
 
-let sessionId =
-    localStorage.getItem(
-        "love_letter_session"
-    );
+    if (!supabaseClient) {
 
-if (!sessionId) {
+        await initializeSupabase();
 
-    sessionId =
-        crypto.randomUUID
-            ? crypto.randomUUID()
-            : (
-                Date.now() +
-                "-" +
-                Math.random()
-                    .toString(36)
-                    .substring(2)
+    }
+
+
+    if (!supabaseClient) {
+
+        /*
+            Demo mode.
+
+            The UI still works.
+        */
+
+        showSavedMessage();
+
+        trackAction(
+            "response_saved_demo",
+            {
+                answer,
+                message
+            }
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const location =
+            await getLocation();
+
+
+        const payload = {
+
+            answer: answer,
+
+            message:
+                message || null,
+
+            location_lat:
+                location?.latitude ?? null,
+
+            location_lng:
+                location?.longitude ?? null,
+
+            user_agent:
+                navigator.userAgent,
+
+            screen_width:
+                window.innerWidth,
+
+            screen_height:
+                window.innerHeight,
+
+            page_url:
+                window.location.href
+
+        };
+
+
+        const { error } =
+            await supabaseClient
+                .from("proposal_responses")
+                .insert([payload]);
+
+
+        if (error) {
+
+            console.error(
+                "Supabase save failed:",
+                error
             );
 
-    localStorage.setItem(
-        "love_letter_session",
-        sessionId
-    );
+            showToast(
+                "Your answer couldn't be saved, but it still matters. ❤️"
+            );
+
+        } else {
+
+            showSavedMessage();
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Response error:",
+            error
+        );
+
+        showSavedMessage();
+
+    }
 
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| TRACK EVENT
-|--------------------------------------------------------------------------
-*/
+function showSavedMessage() {
 
-async function trackEvent(
+    responseSuccess.style.display =
+        "block";
+
+    sendResponse.textContent =
+        "Saved ✓";
+
+    responseMessage.disabled =
+        true;
+
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+function getLocation() {
+
+    return new Promise(resolve => {
+
+        if (
+            !navigator.geolocation
+        ) {
+
+            resolve(null);
+
+            return;
+
+        }
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            position => {
+
+                resolve({
+
+                    latitude:
+                        position.coords.latitude,
+
+                    longitude:
+                        position.coords.longitude
+
+                });
+
+            },
+
+            error => {
+
+                console.warn(
+                    "Location unavailable:",
+                    error.message
+                );
+
+                resolve(null);
+
+            },
+
+            {
+                enableHighAccuracy: false,
+
+                timeout: 7000,
+
+                maximumAge: 300000
+
+            }
+
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   ACTION TRACKING
+========================================================= */
+
+async function trackAction(
     eventType,
     metadata = {}
 ) {
 
     console.log(
-        "[TRACK]",
+        "Action:",
         eventType,
         metadata
     );
 
-    if (!supabaseClient) return;
+
+    if (!supabaseClient) {
+
+        await initializeSupabase();
+
+    }
+
+
+    if (!supabaseClient) {
+
+        return;
+
+    }
+
 
     try {
 
+        const location =
+            await getLocation();
+
+
         await supabaseClient
-            .from("proposal_events")
-            .insert({
+            .from("proposal_actions")
+            .insert([
 
-                session_id: sessionId,
+                {
 
-                event_type: eventType,
+                    event_type:
+                        eventType,
 
-                metadata: metadata
+                    metadata:
+                        metadata,
 
-            });
+                    location_lat:
+                        location?.latitude ?? null,
+
+                    location_lng:
+                        location?.longitude ?? null,
+
+                    page_url:
+                        window.location.href,
+
+                    user_agent:
+                        navigator.userAgent,
+
+                    screen_width:
+                        window.innerWidth,
+
+                    screen_height:
+                        window.innerHeight
+
+                }
+
+            ]);
 
     } catch (error) {
 
         console.warn(
-            "Tracking failed:",
-            error.message
+            "Action tracking failed:",
+            error
         );
 
     }
@@ -188,349 +809,287 @@ async function trackEvent(
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| PERSONAL DATA
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   PARTICLES
+========================================================= */
 
-function initPersonalData() {
+function setupParticles() {
 
-    const d = PROPOSAL_DATA;
+    const canvas =
+        document.getElementById("particles");
 
-    document.title =
-        `For ${d.person.firstName} ❤️`;
-
-    document.getElementById(
-        "openingSmall"
-    ).textContent =
-        d.opening.smallText;
-
-    document.getElementById(
-        "openingTitle"
-    ).textContent =
-        d.opening.title;
-
-    document.getElementById(
-        "openingSubtitle"
-    ).textContent =
-        d.opening.subtitle;
-
-    document.getElementById(
-        "heroTitle"
-    ).textContent =
-        `For ${d.person.firstName}.`;
-
-    document.getElementById(
-        "heroSubtitle"
-    ).textContent =
-        d.opening.subtitle;
-
-    document.getElementById(
-        "letterName"
-    ).textContent =
-        d.person.firstName;
-
-    document.getElementById(
-        "signature"
-    ).textContent =
-        d.sender.name;
-
-    document.getElementById(
-        "finalSignature"
-    ).textContent =
-        d.sender.name;
-
-    document.getElementById(
-        "footerText"
-    ).textContent =
-        d.footer.text;
-
-    document.getElementById(
-        "proposalHeading"
-    ).textContent =
-        d.proposal.heading;
-
-    document.getElementById(
-        "proposalQuestion"
-    ).textContent =
-        d.proposal.question;
-
-    document.getElementById(
-        "yesText"
-    ).textContent =
-        d.proposal.yesButton;
-
-    document.getElementById(
-        "noText"
-    ).textContent =
-        d.proposal.noButton;
+    if (!canvas) return;
 
 
-    /*
-    | PHOTO
-    */
+    const ctx =
+        canvas.getContext("2d");
 
-    const image =
-        document.getElementById(
-            "personPhoto"
+
+    let particles = [];
+
+
+    function resize() {
+
+        canvas.width =
+            window.innerWidth *
+            devicePixelRatio;
+
+        canvas.height =
+            window.innerHeight *
+            devicePixelRatio;
+
+        canvas.style.width =
+            window.innerWidth + "px";
+
+        canvas.style.height =
+            window.innerHeight + "px";
+
+        ctx.scale(
+            devicePixelRatio,
+            devicePixelRatio
         );
 
-    const fallback =
-        document.getElementById(
-            "photoFallback"
-        );
 
-    if (d.person.photo) {
-
-        image.src =
-            d.person.photo;
-
-        image.alt =
-            d.person.firstName;
-
-        image.onload = () => {
-
-            document
-                .querySelector(".photo-frame")
-                .classList
-                .add("has-image");
-
-            fallback.style.display =
-                "none";
-
-        };
-
-        image.onerror = () => {
-
-            console.warn(
-                "Photo not found:",
-                d.person.photo
+        particles =
+            Array.from(
+                {
+                    length:
+                        window.innerWidth < 600
+                            ? 55
+                            : 100
+                },
+                createParticle
             );
+
+    }
+
+
+    function createParticle() {
+
+        return {
+
+            x:
+                Math.random() *
+                window.innerWidth,
+
+            y:
+                Math.random() *
+                window.innerHeight,
+
+            r:
+                Math.random() *
+                    1.5 +
+                .3,
+
+            speed:
+                Math.random() *
+                    .35 +
+                .05,
+
+            alpha:
+                Math.random() *
+                    .7 +
+                .2
 
         };
 
     }
 
 
-    /*
-    | LETTER
-    */
+    function animate() {
 
-    const letter =
-        document.getElementById(
-            "letterContent"
+        ctx.clearRect(
+            0,
+            0,
+            window.innerWidth,
+            window.innerHeight
         );
 
-    letter.innerHTML = "";
 
-    d.letter.forEach(
-        paragraph => {
+        particles.forEach(p => {
 
-            const p =
-                document.createElement("p");
+            p.y -= p.speed;
 
-            p.textContent =
-                paragraph;
 
-            letter.appendChild(p);
+            if (p.y < -5) {
 
-        }
+                p.y =
+                    window.innerHeight + 5;
+
+                p.x =
+                    Math.random() *
+                    window.innerWidth;
+
+            }
+
+
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.r,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle =
+                `rgba(255,190,220,${p.alpha})`;
+
+            ctx.fill();
+
+        });
+
+
+        requestAnimationFrame(
+            animate
+        );
+
+    }
+
+
+    window.addEventListener(
+        "resize",
+        resize
     );
 
 
-    /*
-    | REASONS
-    */
+    resize();
 
-    const grid =
-        document.getElementById(
-            "reasonsGrid"
-        );
-
-    grid.innerHTML = "";
-
-    d.reasons.forEach(
-        (reason, index) => {
-
-            const card =
-                document.createElement("article");
-
-            card.className =
-                "reason-card reveal";
-
-            card.innerHTML = `
-
-                <div class="reason-icon">
-                    ${reason.icon}
-                </div>
-
-                <h3>
-                    ${escapeHTML(reason.title)}
-                </h3>
-
-                <p>
-                    ${escapeHTML(reason.text)}
-                </p>
-
-            `;
-
-            grid.appendChild(card);
-
-            setTimeout(() => {
-
-                observeReveal(
-                    card
-                );
-
-            }, index * 80);
-
-        }
-    );
+    animate();
 
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| OPENING
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   HEART EFFECT
+========================================================= */
 
-function initOpening() {
+function createHeartBurst() {
 
-    const opening =
-        document.getElementById(
-            "opening"
+    const hearts = [
+        "❤️",
+        "💗",
+        "💕",
+        "✨",
+        "🌸"
+    ];
+
+
+    for (
+        let i = 0;
+        i < 18;
+        i++
+    ) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.textContent =
+            hearts[
+                Math.floor(
+                    Math.random() *
+                    hearts.length
+                )
+            ];
+
+
+        heart.style.position =
+            "fixed";
+
+        heart.style.left =
+            "50%";
+
+        heart.style.top =
+            "50%";
+
+        heart.style.zIndex =
+            "999";
+
+        heart.style.pointerEvents =
+            "none";
+
+        heart.style.fontSize =
+            `${12 + Math.random() * 18}px`;
+
+
+        document.body.appendChild(
+            heart
         );
 
-    const begin =
-        document.getElementById(
-            "beginButton"
-        );
 
-    setTimeout(() => {
+        const angle =
+            Math.random() *
+            Math.PI * 2;
 
-        trackEvent(
-            "page_opened"
-        );
-
-    }, 300);
+        const distance =
+            80 +
+            Math.random() *
+            220;
 
 
-    begin.addEventListener(
-        "click",
-        () => {
+        const x =
+            Math.cos(angle) *
+            distance;
 
-            opening.classList.add(
-                "hide"
-            );
-
-            document
-                .getElementById("main")
-                .classList
-                .remove("hidden");
-
-            trackEvent(
-                "letter_opened"
-            );
-
-            setTimeout(() => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }, 100);
-
-        }
-    );
-
-}
+        const y =
+            Math.sin(angle) *
+            distance;
 
 
-/*
-|--------------------------------------------------------------------------
-| REVEAL
-|--------------------------------------------------------------------------
-*/
+        heart.animate(
 
-let revealObserver;
+            [
 
-function initScrollReveal() {
+                {
+                    transform:
+                        "translate(-50%,-50%) scale(.3)",
 
-    revealObserver =
-        new IntersectionObserver(
-            entries => {
+                    opacity: 0
 
-                entries.forEach(
-                    entry => {
+                },
 
-                        if (
-                            entry.isIntersecting
-                        ) {
+                {
 
-                            entry.target
-                                .classList
-                                .add("visible");
+                    transform:
+                        "translate(-50%,-50%) scale(1)",
 
-                            const id =
-                                entry.target
-                                    .closest("section")
-                                    ?.id;
+                    opacity: 1
 
-                            if (id) {
+                },
 
-                                trackEvent(
-                                    "section_view",
-                                    {
-                                        section: id
-                                    }
-                                );
+                {
 
-                            }
+                    transform:
+                        `translate(
+                            calc(-50% + ${x}px),
+                            calc(-50% + ${y}px)
+                        )
+                        scale(.5)`,
 
-                            revealObserver
-                                .unobserve(
-                                    entry.target
-                                );
+                    opacity: 0
 
-                        }
+                }
 
-                    }
-                );
+            ],
 
-            },
             {
-                threshold: .15,
-                rootMargin:
-                    "0px 0px -60px 0px"
+
+                duration:
+                    1200 +
+                    Math.random() * 700,
+
+                easing:
+                    "cubic-bezier(.2,.8,.2,1)"
+
             }
+
         );
 
 
-    document
-        .querySelectorAll(".reveal")
-        .forEach(
-            element => {
-
-                revealObserver.observe(
-                    element
-                );
-
-            }
-        );
-
-}
-
-
-function observeReveal(element) {
-
-    if (revealObserver) {
-
-        revealObserver.observe(
-            element
+        setTimeout(
+            () => heart.remove(),
+            2000
         );
 
     }
@@ -538,24 +1097,55 @@ function observeReveal(element) {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| PROGRESS
-|--------------------------------------------------------------------------
-*/
+function createMassiveHeartBurst() {
 
-function initProgress() {
+    createHeartBurst();
 
-    const progress =
-        document.getElementById(
-            "progress"
-        );
+    createHeartBurst();
+
+
+    if (
+        typeof confetti !==
+        "undefined"
+    ) {
+
+        confetti({
+
+            particleCount: 180,
+
+            spread: 100,
+
+            startVelocity: 35,
+
+            origin: {
+                y: .55
+            },
+
+            colors: [
+                "#ff4f91",
+                "#ff9fc4",
+                "#ffffff",
+                "#a855f7"
+            ]
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+function setupScrollProgress() {
 
     window.addEventListener(
         "scroll",
         () => {
 
-            const top =
+            const scrollTop =
                 window.scrollY;
 
             const height =
@@ -563,16 +1153,15 @@ function initProgress() {
                     .scrollHeight -
                 window.innerHeight;
 
+
             const percent =
                 height > 0
-                    ? (top / height) * 100
+                    ? (scrollTop / height) * 100
                     : 0;
 
+
             progress.style.width =
-                `${Math.min(
-                    100,
-                    percent
-                )}%`;
+                `${percent}%`;
 
         },
         {
@@ -583,60 +1172,23 @@ function initProgress() {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| PROPOSAL
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
-let selectedAnswer = null;
+function setupKeyboardSupport() {
 
-function initProposal() {
+    document.addEventListener(
+        "keydown",
+        event => {
 
-    const yes =
-        document.getElementById(
-            "yesButton"
-        );
+            if (
+                event.key === "Escape"
+            ) {
 
-    const no =
-        document.getElementById(
-            "noButton"
-        );
+                envelope.blur();
 
-
-    yes.addEventListener(
-        "click",
-        () => {
-
-            selectedAnswer = "yes";
-
-            trackEvent(
-                "proposal_yes_clicked"
-            );
-
-            celebrate();
-
-            showResponse(
-                "yes"
-            );
-
-        }
-    );
-
-
-    no.addEventListener(
-        "click",
-        () => {
-
-            selectedAnswer = "no";
-
-            trackEvent(
-                "proposal_no_clicked"
-            );
-
-            showResponse(
-                "no"
-            );
+            }
 
         }
     );
@@ -644,601 +1196,49 @@ function initProposal() {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| RESPONSE
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   MUSIC
+========================================================= */
 
-function showResponse(answer) {
-
-    const proposal =
-        document.getElementById(
-            "proposalSection"
-        );
-
-    const response =
-        document.getElementById(
-            "responseSection"
-        );
-
-    const title =
-        document.getElementById(
-            "responseTitle"
-        );
-
-    const text =
-        document.getElementById(
-            "responseText"
-        );
-
-    const icon =
-        document.getElementById(
-            "responseIcon"
-        );
+let audioContext = null;
+let masterGain = null;
+let oscillators = [];
 
 
-    proposal.style.display =
-        "none";
-
-    response.classList.add(
-        "show"
-    );
-
-
-    if (answer === "yes") {
-
-        title.textContent =
-            PROPOSAL_DATA.response.yesTitle;
-
-        text.textContent =
-            PROPOSAL_DATA.response.yesText;
-
-        icon.textContent =
-            "♥";
-
-        document.getElementById(
-            "sendButton"
-        ).textContent =
-            PROPOSAL_DATA
-                .optionalMessage
-                .yesButton;
-
-    } else {
-
-        title.textContent =
-            PROPOSAL_DATA.response.noTitle;
-
-        text.textContent =
-            PROPOSAL_DATA.response.noText;
-
-        icon.textContent =
-            "🌷";
-
-        document.getElementById(
-            "sendButton"
-        ).textContent =
-            PROPOSAL_DATA
-                .optionalMessage
-                .noButton;
-
-    }
-
-
-    response.scrollIntoView({
-        behavior: "smooth"
-    });
-
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| MESSAGE
-|--------------------------------------------------------------------------
-*/
-
-function initMessage() {
-
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
-
-    const count =
-        document.getElementById(
-            "characterCount"
-        );
+function setupMusic() {
 
     const button =
-        document.getElementById(
-            "sendButton"
-        );
+        $("#musicButton");
 
-
-    input.addEventListener(
-        "input",
-        () => {
-
-            count.textContent =
-                input.value.length;
-
-        }
-    );
+    if (!button) return;
 
 
     button.addEventListener(
         "click",
-        async () => {
+        () => {
 
-            await submitResponse();
+            if (!musicStarted) {
 
-        }
-    );
-
-}
-
-
-async function submitResponse() {
-
-    const button =
-        document.getElementById(
-            "sendButton"
-        );
-
-    const message =
-        document.getElementById(
-            "messageInput"
-        ).value.trim();
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Saving...";
-
-
-    const payload = {
-
-        session_id:
-            sessionId,
-
-        answer:
-            selectedAnswer,
-
-        message:
-            message || null
-
-    };
-
-
-    let success = false;
-
-
-    if (supabaseClient) {
-
-        try {
-
-            const {
-                error
-            } =
-                await supabaseClient
-                    .from(
-                        "proposal_responses"
-                    )
-                    .insert(
-                        payload
-                    );
-
-            if (error) {
-
-                console.error(
-                    error
-                );
+                startMusic();
 
             } else {
 
-                success = true;
+                stopMusic();
 
             }
-
-        } catch (error) {
-
-            console.error(
-                error
-            );
 
         }
-
-    } else {
-
-        /*
-        | Demo mode.
-        |
-        | If Supabase is not configured,
-        | the website still works.
-        */
-
-        success = true;
-
-        console.warn(
-            "Demo mode: response not saved to database."
-        );
-
-    }
-
-
-    if (success) {
-
-        trackEvent(
-            "response_submitted",
-            {
-                answer:
-                    selectedAnswer,
-
-                message_length:
-                    message.length
-            }
-        );
-
-
-        document.getElementById(
-            "messageArea"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "responseDone"
-        ).style.display =
-            "block";
-
-
-        celebrate();
-
-    } else {
-
-        button.disabled = false;
-
-        button.textContent =
-            selectedAnswer === "yes"
-                ? "Send my message ✨"
-                : "Send message 🌷";
-
-        alert(
-            "Something went wrong while saving your message. Please try again."
-        );
-
-    }
-
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| STARS
-|--------------------------------------------------------------------------
-*/
-
-function initStars() {
-
-    const canvas =
-        document.getElementById(
-            "stars"
-        );
-
-    const ctx =
-        canvas.getContext("2d");
-
-    let stars = [];
-
-    function resize() {
-
-        canvas.width =
-            window.innerWidth;
-
-        canvas.height =
-            window.innerHeight;
-
-        stars =
-            Array.from(
-                {
-                    length:
-                        Math.min(
-                            180,
-                            Math.floor(
-                                window.innerWidth /
-                                6
-                            )
-                        )
-                },
-                () => ({
-
-                    x:
-                        Math.random() *
-                        canvas.width,
-
-                    y:
-                        Math.random() *
-                        canvas.height,
-
-                    radius:
-                        Math.random() *
-                        1.5 + .2,
-
-                    speed:
-                        Math.random() *
-                        .25 + .05,
-
-                    alpha:
-                        Math.random() *
-                        .7 + .2
-
-                })
-            );
-
-    }
-
-
-    resize();
-
-    window.addEventListener(
-        "resize",
-        resize
-    );
-
-
-    function animate() {
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        stars.forEach(
-            star => {
-
-                star.y -=
-                    star.speed;
-
-
-                if (
-                    star.y < 0
-                ) {
-
-                    star.y =
-                        canvas.height;
-
-                }
-
-
-                ctx.beginPath();
-
-                ctx.arc(
-                    star.x,
-                    star.y,
-                    star.radius,
-                    0,
-                    Math.PI * 2
-                );
-
-
-                ctx.fillStyle =
-                    `rgba(
-                        255,
-                        225,
-                        240,
-                        ${star.alpha}
-                    )`;
-
-                ctx.fill();
-
-            }
-        );
-
-
-        requestAnimationFrame(
-            animate
-        );
-
-    }
-
-
-    animate();
-
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| CONFETTI
-|--------------------------------------------------------------------------
-*/
-
-function celebrate() {
-
-    const canvas =
-        document.getElementById(
-            "confetti"
-        );
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-
-    const pieces =
-        [];
-
-
-    for (
-        let i = 0;
-        i < 120;
-        i++
-    ) {
-
-        pieces.push({
-
-            x:
-                canvas.width / 2,
-
-            y:
-                canvas.height * .45,
-
-            vx:
-                (Math.random() - .5) * 12,
-
-            vy:
-                Math.random() * -12 - 4,
-
-            size:
-                Math.random() * 6 + 3,
-
-            life:
-                1,
-
-            rotation:
-                Math.random() * 6
-
-        });
-
-    }
-
-
-    function frame() {
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        let alive = false;
-
-
-        pieces.forEach(
-            p => {
-
-                p.x += p.vx;
-
-                p.y += p.vy;
-
-                p.vy += .25;
-
-                p.rotation += .1;
-
-                p.life -= .008;
-
-
-                if (p.life > 0) {
-
-                    alive = true;
-
-                    ctx.save();
-
-                    ctx.translate(
-                        p.x,
-                        p.y
-                    );
-
-                    ctx.rotate(
-                        p.rotation
-                    );
-
-                    ctx.fillStyle =
-                        [
-                            "#ff4f91",
-                            "#ffb5d1",
-                            "#a855f7",
-                            "#ffffff"
-                        ][
-                            Math.floor(
-                                Math.random() * 4
-                            )
-                        ];
-
-                    ctx.fillRect(
-                        -p.size / 2,
-                        -p.size / 2,
-                        p.size,
-                        p.size * 1.8
-                    );
-
-                    ctx.restore();
-
-                }
-
-            }
-        );
-
-
-        if (alive) {
-
-            requestAnimationFrame(
-                frame
-            );
-
-        } else {
-
-            ctx.clearRect(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
-
-        }
-
-    }
-
-
-    frame();
-
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| MUSIC
-|--------------------------------------------------------------------------
-*/
-
-let audioContext = null;
-
-let musicPlaying = false;
-
-let musicNodes = [];
-
-
-function initMusic() {
-
-    const button =
-        document.getElementById(
-            "musicButton"
-        );
-
-    button.addEventListener(
-        "click",
-        toggleMusic
     );
 
 }
 
 
-function toggleMusic() {
+function startMusic() {
 
-    if (!audioContext) {
+    if (musicStarted) return;
+
+
+    try {
 
         audioContext =
             new (
@@ -1246,36 +1246,21 @@ function toggleMusic() {
                 window.webkitAudioContext
             )();
 
-    }
+
+        masterGain =
+            audioContext.createGain();
 
 
-    if (
-        audioContext.state ===
-        "suspended"
-    ) {
-
-        audioContext.resume();
-
-    }
+        masterGain.gain.value =
+            0.025;
 
 
-    if (musicPlaying) {
-
-        stopMusic();
-
-    } else {
-
-        startMusic();
-
-    }
-
-}
+        masterGain.connect(
+            audioContext.destination
+        );
 
 
-function startMusic() {
-
-    const frequencies =
-        [
+        const notes = [
             174,
             220,
             261.63,
@@ -1283,292 +1268,129 @@ function startMusic() {
         ];
 
 
-    const gain =
-        audioContext.createGain();
+        notes.forEach(
+            (frequency, index) => {
 
-    gain.gain.value =
-        .025;
+                const oscillator =
+                    audioContext.createOscillator();
 
-    gain.connect(
-        audioContext.destination
-    );
-
-
-    frequencies.forEach(
-        (frequency, index) => {
-
-            const oscillator =
-                audioContext
-                    .createOscillator();
-
-            oscillator.type =
-                "sine";
-
-            oscillator.frequency.value =
-                frequency;
-
-            oscillator.detune.value =
-                index * 3;
-
-            oscillator.connect(
-                gain
-            );
-
-            oscillator.start();
-
-            musicNodes.push(
-                oscillator
-            );
-
-        }
-    );
+                const gain =
+                    audioContext.createGain();
 
 
-    musicNodes.push(
-        gain
-    );
+                oscillator.type =
+                    "sine";
+
+                oscillator.frequency.value =
+                    frequency;
 
 
-    musicPlaying = true;
+                gain.gain.value =
+                    0.025;
 
 
-    document
-        .getElementById(
-            "musicButton"
-        )
-        .classList
-        .add("playing");
+                oscillator.connect(gain);
 
-    document
-        .getElementById(
-            "musicIcon"
-        )
-        .textContent =
-        "♫";
+                gain.connect(
+                    masterGain
+                );
 
 
-    trackEvent(
-        "music_started"
-    );
+                oscillator.detune.value =
+                    index * 3;
+
+
+                oscillator.start();
+
+
+                oscillators.push(
+                    oscillator
+                );
+
+            }
+        );
+
+
+        musicStarted = true;
+
+        $("#musicButton")
+            .classList.add("playing");
+
+    } catch (error) {
+
+        console.warn(
+            "Music unavailable:",
+            error
+        );
+
+    }
 
 }
 
 
 function stopMusic() {
 
-    musicNodes.forEach(
-        node => {
-
-            try {
-
-                node.stop
-                    ? node.stop()
-                    : node.disconnect();
-
-            } catch (_) {}
-
-        }
-    );
+    if (!audioContext) return;
 
 
-    musicNodes = [];
+    try {
 
-    musicPlaying = false;
+        oscillators.forEach(
+            oscillator => {
 
+                oscillator.stop();
 
-    document
-        .getElementById(
-            "musicButton"
-        )
-        .classList
-        .remove("playing");
-
-    document
-        .getElementById(
-            "musicIcon"
-        )
-        .textContent =
-        "♪";
-
-
-    trackEvent(
-        "music_stopped"
-    );
-
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| OPTIONAL LOCATION
-|--------------------------------------------------------------------------
-*/
-
-function initLocation() {
-
-    const modal =
-        document.getElementById(
-            "locationModal"
+            }
         );
 
-    const allow =
-        document.getElementById(
-            "allowLocation"
+        oscillators = [];
+
+        audioContext.close();
+
+        audioContext = null;
+
+        masterGain = null;
+
+        musicStarted = false;
+
+        $("#musicButton")
+            .classList.remove("playing");
+
+    } catch (error) {
+
+        console.warn(
+            error
         );
-
-    const deny =
-        document.getElementById(
-            "denyLocation"
-        );
-
-
-    /*
-    | Don't automatically ask for location.
-    |
-    | Show the option after she submits a response.
-    */
-
-    const originalDone =
-        document.getElementById(
-            "responseDone"
-        );
-
-
-    /*
-    | We don't force location.
-    | This function is available if you
-    | later want an explicit opt-in.
-    */
-
-    allow.addEventListener(
-        "click",
-        () => {
-
-            requestLocation();
-
-            modal.classList.remove(
-                "show"
-            );
-
-        }
-    );
-
-
-    deny.addEventListener(
-        "click",
-        () => {
-
-            trackEvent(
-                "location_declined"
-            );
-
-            modal.classList.remove(
-                "show"
-            );
-
-        }
-    );
-
-}
-
-
-function requestLocation() {
-
-    if (
-        !navigator.geolocation
-    ) {
-
-        trackEvent(
-            "location_unavailable"
-        );
-
-        return;
 
     }
 
-
-    navigator.geolocation.getCurrentPosition(
-
-        position => {
-
-            const latitude =
-                position.coords.latitude;
-
-            const longitude =
-                position.coords.longitude;
-
-
-            trackEvent(
-                "location_shared",
-                {
-                    latitude:
-                        Number(
-                            latitude.toFixed(4)
-                        ),
-
-                    longitude:
-                        Number(
-                            longitude.toFixed(4)
-                        )
-                }
-            );
-
-        },
-
-        error => {
-
-            trackEvent(
-                "location_error",
-                {
-                    code:
-                        error.code
-                }
-            );
-
-        },
-
-        {
-            enableHighAccuracy: false,
-
-            timeout: 10000,
-
-            maximumAge: 300000
-
-        }
-
-    );
-
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| HTML ESCAPE
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   TOAST
+========================================================= */
 
-function escapeHTML(value) {
+function showToast(message) {
 
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    const text =
+        toast.querySelector("p");
+
+    text.textContent =
+        message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        3500
+    );
 
 }
