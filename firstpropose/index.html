@@ -1,2012 +1,590 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07030d">
-<meta name="description" content="A little message from Sandeep to Aarjana.">
-<title>For Aarjana Pandey ❤️</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="UTF-8">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <meta
+        name="theme-color"
+        content="#090510"
+    >
 
-<style>
-:root{
-    --bg:#05030a;
-    --bg2:#0b0613;
-    --pink:#ff4f91;
-    --pink2:#ff9ec5;
-    --purple:#a855f7;
-    --violet:#6d5dfc;
-    --white:#fff8fc;
-    --text:#eee3ed;
-    --muted:#a99aaa;
-    --glass:rgba(255,255,255,.055);
-    --border:rgba(255,255,255,.11);
-    --shadow:0 25px 80px rgba(0,0,0,.45);
-}
+    <meta
+        name="description"
+        content="A little letter from the heart."
+    >
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    <title>A Little Letter ❤️</title>
 
-html{
-    scroll-behavior:smooth;
-}
+    <!-- Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-body{
-    background:
-        radial-gradient(circle at 15% 15%,rgba(255,79,145,.10),transparent 30%),
-        radial-gradient(circle at 85% 80%,rgba(168,85,247,.10),transparent 30%),
-        var(--bg);
-    color:var(--white);
-    font-family:'Inter',sans-serif;
-    overflow-x:hidden;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-}
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-button,
-textarea{
-    font:inherit;
-}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+        rel="stylesheet"
+    >
 
-button{
-    -webkit-tap-highlight-color:transparent;
-}
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-/* ================= BACKGROUND ================= */
+    <link rel="stylesheet" href="style.css">
 
-.background{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:-3;
-}
-
-.orb{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(80px);
-    opacity:.20;
-}
-
-.orb.one{
-    width:55vw;
-    height:55vw;
-    left:-20vw;
-    top:-20vw;
-    background:#ff3f83;
-    animation:orb1 18s ease-in-out infinite;
-}
-
-.orb.two{
-    width:45vw;
-    height:45vw;
-    right:-15vw;
-    bottom:-15vw;
-    background:#8b35f5;
-    animation:orb2 20s ease-in-out infinite;
-}
-
-.orb.three{
-    width:35vw;
-    height:35vw;
-    left:40%;
-    top:35%;
-    background:#5148ff;
-    opacity:.10;
-    animation:orb3 25s ease-in-out infinite;
-}
-
-@keyframes orb1{
-    50%{transform:translate(8vw,7vh) scale(1.12)}
-}
-
-@keyframes orb2{
-    50%{transform:translate(-8vw,-8vh) scale(1.15)}
-}
-
-@keyframes orb3{
-    50%{transform:translate(5vw,-5vh) scale(.85)}
-}
-
-#stars{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:-2;
-    pointer-events:none;
-}
-
-.cursor-glow{
-    position:fixed;
-    width:250px;
-    height:250px;
-    border-radius:50%;
-    background:radial-gradient(circle,rgba(255,79,145,.08),transparent 65%);
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-    z-index:-1;
-}
-
-/* ================= OPENING ================= */
-
-#opening{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    background:
-        radial-gradient(circle at center,rgba(255,79,145,.08),transparent 35%),
-        #05030a;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    transition:opacity 1.2s ease,visibility 1.2s ease;
-}
-
-#opening.hide{
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-}
-
-.opening-inner{
-    width:min(720px,90%);
-}
-
-.opening-small{
-    font-size:.75rem;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    color:var(--pink2);
-    margin-bottom:25px;
-}
-
-.typing{
-    min-height:2.2em;
-    font-family:'Cormorant Garamond',serif;
-    font-size:clamp(1.8rem,5vw,3rem);
-    line-height:1.3;
-    color:#fff;
-}
-
-.cursor{
-    display:inline-block;
-    width:2px;
-    height:1em;
-    background:var(--pink);
-    margin-left:5px;
-    animation:blink .7s infinite;
-}
-
-@keyframes blink{
-    50%{opacity:0}
-}
-
-.begin{
-    margin-top:35px;
-    padding:15px 34px;
-    border-radius:999px;
-    border:1px solid rgba(255,79,145,.5);
-    background:rgba(255,79,145,.06);
-    color:#fff;
-    cursor:pointer;
-    opacity:0;
-    transform:translateY(15px);
-    transition:.5s;
-}
-
-.begin.show{
-    opacity:1;
-    transform:none;
-}
-
-.begin:hover{
-    background:rgba(255,79,145,.15);
-    box-shadow:0 0 40px rgba(255,79,145,.3);
-    transform:translateY(-3px);
-}
-
-/* ================= MUSIC ================= */
-
-.music{
-    position:fixed;
-    right:18px;
-    bottom:18px;
-    z-index:500;
-    border:1px solid var(--border);
-    background:rgba(10,6,16,.65);
-    backdrop-filter:blur(18px);
-    color:#fff;
-    border-radius:999px;
-    padding:10px 16px;
-    cursor:pointer;
-    box-shadow:0 10px 35px rgba(0,0,0,.35);
-}
-
-.music.playing{
-    border-color:rgba(255,79,145,.5);
-}
-
-/* ================= MAIN ================= */
-
-#main{
-    opacity:0;
-    transition:opacity 1s ease;
-}
-
-#main.visible{
-    opacity:1;
-}
-
-.section{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:90px 20px;
-    position:relative;
-}
-
-.inner{
-    width:min(760px,100%);
-    text-align:center;
-}
-
-.reveal{
-    opacity:0;
-    transform:translateY(45px);
-    transition:
-        opacity 1s cubic-bezier(.22,.61,.36,1),
-        transform 1s cubic-bezier(.22,.61,.36,1);
-}
-
-.reveal.show{
-    opacity:1;
-    transform:none;
-}
-
-.delay1{transition-delay:.15s}
-.delay2{transition-delay:.3s}
-.delay3{transition-delay:.45s}
-.delay4{transition-delay:.6s}
-
-/* ================= INTRO ================= */
-
-.feeling{
-    font-family:'Cormorant Garamond',serif;
-    color:var(--text);
-    font-size:clamp(1.35rem,3vw,1.75rem);
-    line-height:1.8;
-    margin-bottom:22px;
-}
-
-.highlight{
-    color:var(--pink);
-    font-style:italic;
-}
-
-/* ================= NAME ================= */
-
-.name{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(3rem,10vw,7rem);
-    font-weight:700;
-    letter-spacing:.18em;
-    background:linear-gradient(
-        120deg,
-        #ff4f91,
-        #ffd0e1,
-        #b05cff,
-        #ff4f91
-    );
-    background-size:300% 300%;
-    -webkit-background-clip:text;
-    color:transparent;
-    animation:gradient 7s ease infinite;
-}
-
-@keyframes gradient{
-    50%{background-position:100% 50%}
-}
-
-.lastname{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.7rem,5vw,3rem);
-    letter-spacing:.25em;
-    color:#ffeaf3;
-}
-
-.subtitle{
-    margin-top:25px;
-    color:var(--muted);
-    font-family:'Cormorant Garamond',serif;
-    font-style:italic;
-    font-size:1.2rem;
-}
-
-/* ================= PHOTO ================= */
-
-.photo-wrap{
-    width:min(390px,85vw);
-    margin:auto;
-}
-
-.photo{
-    position:relative;
-    aspect-ratio:4/5;
-    border-radius:35px;
-    padding:7px;
-    background:linear-gradient(
-        135deg,
-        rgba(255,79,145,.8),
-        rgba(168,85,247,.7),
-        transparent
-    );
-    box-shadow:
-        0 30px 90px rgba(0,0,0,.6),
-        0 0 80px rgba(255,79,145,.12);
-    transform:rotate(-2deg);
-    transition:.6s;
-}
-
-.photo:hover{
-    transform:rotate(0) scale(1.02);
-}
-
-.photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:29px;
-    display:block;
-    background:#120914;
-}
-
-.photo-glow{
-    position:absolute;
-    inset:-20px;
-    border-radius:40px;
-    background:radial-gradient(circle,rgba(255,79,145,.18),transparent 65%);
-    z-index:-1;
-}
-
-.photo-caption{
-    margin-top:28px;
-    color:var(--muted);
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.15rem;
-    font-style:italic;
-}
-
-/* ================= GLASS CARD ================= */
-
-.card{
-    width:min(650px,100%);
-    margin:auto;
-    padding:clamp(28px,6vw,50px);
-    border-radius:30px;
-    border:1px solid var(--border);
-    background:linear-gradient(
-        145deg,
-        rgba(255,255,255,.07),
-        rgba(255,255,255,.025)
-    );
-    backdrop-filter:blur(25px);
-    box-shadow:var(--shadow);
-    text-align:left;
-}
-
-.card h2{
-    font-family:'Playfair Display',serif;
-    text-align:center;
-    margin-bottom:25px;
-    font-size:clamp(1.5rem,4vw,2rem);
-}
-
-.confession{
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.2rem;
-    color:var(--text);
-    line-height:2;
-}
-
-.confession p{
-    margin-bottom:17px;
-}
-
-.bold-love{
-    color:var(--pink);
-    font-style:italic;
-    font-weight:600;
-    font-size:1.35em;
-}
-
-/* ================= WHY ================= */
-
-.why-title{
-    font-family:'Playfair Display',serif;
-    font-size:2rem;
-    margin-bottom:35px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:17px;
-}
-
-.love-card{
-    padding:27px 20px;
-    border-radius:22px;
-    background:var(--glass);
-    border:1px solid var(--border);
-    backdrop-filter:blur(18px);
-    transition:.5s;
-}
-
-.love-card:hover{
-    transform:translateY(-8px);
-    border-color:rgba(255,79,145,.35);
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
-}
-
-.icon{
-    font-size:2rem;
-    margin-bottom:10px;
-}
-
-.love-card h3{
-    font-family:'Playfair Display',serif;
-    margin-bottom:8px;
-}
-
-.love-card p{
-    color:var(--muted);
-    font-size:.9rem;
-}
-
-/* ================= HEART ================= */
-
-.heart{
-    font-size:clamp(6rem,18vw,10rem);
-    display:inline-block;
-    filter:drop-shadow(0 0 40px rgba(255,79,145,.55));
-    animation:heartbeat 1.5s infinite;
-}
-
-@keyframes heartbeat{
-    0%,100%{transform:scale(1)}
-    15%{transform:scale(1.13)}
-    30%{transform:scale(1)}
-    45%{transform:scale(1.08)}
-}
-
-.heart-text{
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.3rem;
-    color:var(--muted);
-    margin-top:10px;
-}
-
-.truth{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.5rem,4vw,2.3rem);
-    margin-top:25px;
-}
-
-/* ================= LOVE SECTION ================= */
-
-.love-section{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:80px 20px;
-    overflow:hidden;
-}
-
-.love-title{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(2.4rem,8vw,5rem);
-    background:linear-gradient(135deg,#ff4f91,#ffd2e2,#a855f7);
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.roses{
-    display:flex;
-    justify-content:center;
-    gap:7px;
-    font-size:clamp(2.8rem,8vw,5rem);
-    margin:22px 0;
-}
-
-.roses span{
-    display:inline-block;
-    animation:rose 2.5s ease-in-out infinite;
-}
-
-.roses span:nth-child(2){animation-delay:.2s}
-.roses span:nth-child(3){animation-delay:.4s}
-.roses span:nth-child(4){animation-delay:.6s}
-.roses span:nth-child(5){animation-delay:.8s}
-
-@keyframes rose{
-    50%{transform:translateY(-10px) rotate(3deg)}
-}
-
-.chocolate{
-    font-size:4.5rem;
-    animation:bounce 2.5s infinite;
-}
-
-@keyframes bounce{
-    50%{transform:translateY(-10px)}
-}
-
-.love-description{
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.35rem;
-    color:var(--text);
-    font-style:italic;
-}
-
-.pink{
-    color:var(--pink);
-}
-
-/* ================= PROPOSAL ================= */
-
-.proposal-box{
-    padding:clamp(30px,7vw,55px);
-    border-radius:32px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,79,145,.10),
-            rgba(168,85,247,.06)
-        );
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:var(--shadow);
-}
-
-.proposal-box h2{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.7rem,5vw,2.5rem);
-}
-
-.question{
-    font-family:'Cormorant Garamond',serif;
-    color:var(--muted);
-    font-size:1.3rem;
-    font-style:italic;
-    margin:18px 0 35px;
-}
-
-.buttons{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.yes,
-.no{
-    min-width:190px;
-    padding:16px 25px;
-    border-radius:999px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.4s;
-}
-
-.yes{
-    border:0;
-    color:#fff;
-    background:linear-gradient(135deg,#ff4f91,#a855f7);
-    box-shadow:0 15px 40px rgba(255,79,145,.3);
-}
-
-.yes:hover{
-    transform:translateY(-4px) scale(1.03);
-    box-shadow:0 20px 55px rgba(255,79,145,.45);
-}
-
-.no{
-    background:transparent;
-    color:var(--muted);
-    border:1px solid rgba(255,255,255,.18);
-}
-
-.no:hover{
-    border-color:rgba(255,255,255,.35);
-}
-
-/* ================= RESPONSE ================= */
-
-.response{
-    display:none;
-    min-height:80vh;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:60px 20px;
-}
-
-.response.active{
-    display:flex;
-    animation:responseIn 1s ease;
-}
-
-@keyframes responseIn{
-    from{
-        opacity:0;
-        transform:translateY(35px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-.response h2{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(2rem,6vw,3rem);
-    margin-bottom:20px;
-}
-
-.response p{
-    max-width:600px;
-    margin:auto;
-    color:var(--muted);
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.3rem;
-}
-
-.message-box{
-    margin-top:30px;
-}
-
-.message-box p{
-    font-family:'Inter',sans-serif;
-    font-size:.9rem;
-    margin-bottom:12px;
-}
-
-textarea{
-    width:min(430px,100%);
-    min-height:100px;
-    resize:none;
-    border-radius:18px;
-    padding:15px;
-    color:#fff;
-    background:rgba(255,255,255,.05);
-    border:1px solid var(--border);
-    outline:none;
-}
-
-textarea:focus{
-    border-color:rgba(255,79,145,.5);
-    box-shadow:0 0 25px rgba(255,79,145,.1);
-}
-
-.send{
-    display:block;
-    margin:15px auto 0;
-    padding:13px 25px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.2);
-    background:rgba(255,255,255,.04);
-    color:#fff;
-    cursor:pointer;
-}
-
-.confirm{
-    display:none;
-    margin-top:25px;
-    color:var(--pink);
-}
-
-/* ================= SECRET ================= */
-
-.secret{
-    min-height:55vh;
-}
-
-.secret-trigger{
-    color:#8e7c91;
-    font-family:'Cormorant Garamond',serif;
-    font-style:italic;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.secret-trigger:hover{
-    color:var(--pink);
-}
-
-.secret-message{
-    display:none;
-    max-width:600px;
-    margin:25px auto 0;
-    color:var(--muted);
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.25rem;
-    line-height:1.9;
-}
-
-.secret-message.show{
-    display:block;
-    animation:responseIn .8s ease;
-}
-
-.signature{
-    color:var(--pink);
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    text-align:center;
-    padding:40px 20px 70px;
-    color:#716477;
-    font-size:.8rem;
-}
-
-/* ================= PETALS ================= */
-
-#petals{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:600px){
-
-    .section{
-        padding:75px 17px;
-    }
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .name{
-        letter-spacing:.1em;
-        font-size:clamp(2.7rem,14vw,5rem);
-    }
-
-    .lastname{
-        letter-spacing:.16em;
-    }
-
-    .card{
-        padding:27px 21px;
-    }
-
-    .music{
-        bottom:14px;
-        right:14px;
-        font-size:.8rem;
-    }
-
-    .yes,
-    .no{
-        width:100%;
-    }
-}
-
-@media(prefers-reduced-motion:reduce){
-    *,
-    *::before,
-    *::after{
-        animation-duration:.01ms!important;
-        animation-iteration-count:1!important;
-        scroll-behavior:auto!important;
-        transition-duration:.01ms!important;
-    }
-}
-</style>
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
-<div class="background">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-</div>
+    <!-- Background -->
+    <div class="background">
 
-<canvas id="stars"></canvas>
-<div class="cursor-glow" id="cursorGlow"></div>
+        <div class="aurora aurora-one"></div>
+        <div class="aurora aurora-two"></div>
+        <div class="aurora aurora-three"></div>
 
-<!-- OPENING -->
-<div id="opening">
-    <div class="opening-inner">
-
-        <div class="opening-small">
-            A little something for you
-        </div>
-
-        <div class="typing" id="typing"></div>
-
-        <button class="begin" id="begin">
-            Begin the journey ✨
-        </button>
+        <canvas id="stars"></canvas>
 
     </div>
-</div>
 
-<!-- MUSIC -->
-<button class="music" id="music">
-    🎵 <span id="musicText">Music</span>
-</button>
 
-<!-- MAIN -->
-<main id="main">
+    <!-- Progress -->
+    <div class="progress-bar">
+        <div id="progress"></div>
+    </div>
 
-    <!-- INTRO -->
-    <section class="section">
-        <div class="inner">
 
-            <p class="feeling reveal">
-                Sometimes, someone simply
-                <span class="highlight">stands out.</span>
-            </p>
+    <!-- Music -->
+    <button
+        id="musicButton"
+        class="floating-control"
+        aria-label="Toggle ambient music"
+    >
+        <span id="musicIcon">♪</span>
+    </button>
 
-            <p class="feeling reveal delay1">
-                Among all the ordinary moments,
-                there are a few people who somehow
-                make you <span class="highlight">pause.</span>
-            </p>
 
-            <p class="feeling reveal delay2">
-                For me, you became
-                <span class="highlight">one of those people.</span>
-            </p>
+    <!-- Opening -->
+    <div id="opening" class="opening">
 
-        </div>
-    </section>
+        <div class="opening-glow"></div>
 
-    <!-- NAME -->
-    <section class="section">
-        <div class="inner">
+        <div class="opening-content">
 
-            <div class="name reveal">
-                AARJANA
+            <div class="opening-symbol">
+                ♡
             </div>
 
-            <div class="lastname reveal delay1">
-                PANDEY
-            </div>
+            <p
+                id="openingSmall"
+                class="opening-small"
+            ></p>
 
-            <p class="subtitle reveal delay2">
-                "A name that somehow became one of my favorite thoughts."
-            </p>
+            <h1
+                id="openingTitle"
+                class="opening-title"
+            ></h1>
+
+            <p
+                id="openingSubtitle"
+                class="opening-subtitle"
+            ></p>
+
+            <button
+                id="beginButton"
+                class="primary-button opening-button"
+            >
+                Open the letter
+                <span>→</span>
+            </button>
 
         </div>
-    </section>
 
-    <!-- PHOTO -->
-    <section class="section">
-        <div class="inner">
+    </div>
 
-            <div class="photo-wrap reveal">
 
-                <div class="photo-glow"></div>
+    <!-- Main -->
+    <main id="main" class="hidden">
 
-                <div class="photo">
 
-                    <!-- CHANGE THIS IMAGE URL -->
-                    <img
-                        src="aarjana.jpg"
-                        alt="Aarjana"
-                        loading="lazy"
+        <!-- HERO -->
+        <section class="hero section">
+
+            <div class="container">
+
+                <div class="eyebrow reveal">
+                    A LETTER I COULDN'T KEEP UNSENT
+                </div>
+
+                <h1
+                    id="heroTitle"
+                    class="hero-title reveal"
+                ></h1>
+
+                <p
+                    id="heroSubtitle"
+                    class="hero-subtitle reveal"
+                ></p>
+
+                <div class="scroll-hint reveal">
+                    <span></span>
+                    Scroll slowly
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PHOTO -->
+        <section
+            id="photoSection"
+            class="section photo-section"
+        >
+
+            <div class="container">
+
+                <div class="photo-wrapper reveal">
+
+                    <div class="photo-glow"></div>
+
+                    <div class="photo-frame">
+
+                        <img
+                            id="personPhoto"
+                            src=""
+                            alt=""
+                        >
+
+                        <div
+                            id="photoFallback"
+                            class="photo-fallback"
+                        >
+                            <span>♡</span>
+                            <small>A beautiful thought</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p
+                    id="photoCaption"
+                    class="photo-caption reveal"
+                >
+                    Some people simply stay in your thoughts.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- LETTER -->
+        <section
+            id="letterSection"
+            class="section letter-section"
+        >
+
+            <div class="container narrow">
+
+                <div class="letter-paper reveal">
+
+                    <div class="letter-decoration top">
+                        ✦
+                    </div>
+
+                    <p class="letter-date">
+                        A little honesty...
+                    </p>
+
+                    <h2>
+                        Dear
+                        <span id="letterName"></span>,
+                    </h2>
+
+                    <div
+                        id="letterContent"
+                        class="letter-content"
+                    ></div>
+
+                    <div class="letter-signature">
+
+                        <span>With honesty,</span>
+
+                        <strong id="signature"></strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- REASONS -->
+        <section
+            id="reasonsSection"
+            class="section"
+        >
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <span>THE LITTLE THINGS</span>
+
+                    <h2>
+                        Maybe it's these...
+                    </h2>
+
+                </div>
+
+                <div
+                    id="reasonsGrid"
+                    class="reasons-grid"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HEART -->
+        <section class="section heart-section">
+
+            <div class="container">
+
+                <div class="heart-stage reveal">
+
+                    <div class="heart-ring ring-one"></div>
+                    <div class="heart-ring ring-two"></div>
+
+                    <div class="big-heart">
+                        ♥
+                    </div>
+
+                    <div class="heart-particles">
+                        <span>✦</span>
+                        <span>♡</span>
+                        <span>✧</span>
+                        <span>·</span>
+                        <span>♡</span>
+                    </div>
+
+                </div>
+
+                <p class="heart-text reveal">
+                    And after thinking about it
+                    more times than I can count...
+                </p>
+
+                <h2 class="truth reveal">
+                    I like you.
+                </h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROSES -->
+        <section class="section roses-section">
+
+            <div class="container">
+
+                <div class="rose-field reveal">
+
+                    <div class="rose rose-1">🌹</div>
+                    <div class="rose rose-2">🌹</div>
+                    <div class="rose rose-3">🌹</div>
+                    <div class="rose rose-4">🌹</div>
+                    <div class="rose rose-5">🌹</div>
+
+                </div>
+
+                <p class="rose-text reveal">
+                    If feelings were flowers,
+                    I'd probably send you a garden.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROPOSAL -->
+        <section
+            id="proposalSection"
+            class="section proposal-section"
+        >
+
+            <div class="container narrow">
+
+                <div class="proposal-card reveal">
+
+                    <div class="proposal-heart">
+                        ♡
+                    </div>
+
+                    <div class="eyebrow">
+                        ONE LITTLE QUESTION
+                    </div>
+
+                    <h2
+                        id="proposalHeading"
+                    ></h2>
+
+                    <p
+                        id="proposalQuestion"
+                    ></p>
+
+                    <div class="proposal-buttons">
+
+                        <button
+                            id="yesButton"
+                            class="yes-button"
+                        >
+                            <span>♡</span>
+                            <span id="yesText"></span>
+                        </button>
+
+                        <button
+                            id="noButton"
+                            class="no-button"
+                        >
+                            <span id="noText"></span>
+                        </button>
+
+                    </div>
+
+                    <p class="choice-note">
+                        Whatever your answer,
+                        I will respect it.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESPONSE -->
+        <section
+            id="responseSection"
+            class="section response-section"
+        >
+
+            <div class="container narrow">
+
+                <div
+                    id="responseCard"
+                    class="response-card"
+                >
+
+                    <div
+                        id="responseIcon"
+                        class="response-icon"
+                    >
+                        ♥
+                    </div>
+
+                    <h2
+                        id="responseTitle"
+                    ></h2>
+
+                    <p
+                        id="responseText"
+                    ></p>
+
+
+                    <div
+                        id="messageArea"
+                        class="message-area"
                     >
 
-                </div>
+                        <label for="messageInput">
+                            If you'd like, leave me
+                            a little message.
+                            <span>Optional</span>
+                        </label>
 
-            </div>
+                        <textarea
+                            id="messageInput"
+                            maxlength="500"
+                            rows="5"
+                        ></textarea>
 
-            <p class="photo-caption reveal delay2">
-                The person who inspired every star on this page. ✨
-            </p>
+                        <div class="message-bottom">
 
-        </div>
-    </section>
+                            <small>
+                                <span id="characterCount">
+                                    0
+                                </span>
+                                / 500
+                            </small>
 
-    <!-- CONFESSION -->
-    <section class="section">
-        <div class="inner">
+                            <button
+                                id="sendButton"
+                                class="primary-button"
+                            >
+                                Send message ✨
+                            </button>
 
-            <div class="card reveal">
+                        </div>
 
-                <h2>
-                    Okay… I'll finally say it.
-                </h2>
+                    </div>
 
-                <div class="confession">
 
-                    <p>
-                        Aarjana, I don't know exactly when it happened.
-                    </p>
+                    <div
+                        id="responseDone"
+                        class="response-done"
+                    >
 
-                    <p>
-                        Maybe it was a moment.<br>
-                        Maybe it was your smile.<br>
-                        Maybe it was simply the way you carry yourself.
-                    </p>
+                        <div>
+                            ✓
+                        </div>
 
-                    <p>
-                        But somewhere along the way,
-                        I started noticing you differently.
-                    </p>
+                        <p>
+                            Your response has been received.
+                        </p>
 
-                    <p>
-                        I started looking forward to seeing you.
-                        I started smiling at thoughts of you.
-                        And eventually, I realized that what I was
-                        feeling wasn't just admiration.
-                    </p>
-
-                    <p class="bold-love">
-                        I like you.
-                    </p>
-
-                    <p class="bold-love">
-                        Honestly.<br>
-                        Sincerely.<br>
-                        And more than I expected.
-                    </p>
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
-    </section>
+        </section>
 
-    <!-- WHY -->
-    <section class="section">
-        <div class="inner">
 
-            <h2 class="why-title reveal">
-                Why you?
-            </h2>
+        <!-- FINAL -->
+        <section class="section final-section">
 
-            <div class="grid">
+            <div class="container narrow">
 
-                <div class="love-card reveal">
-                    <div class="icon">✨</div>
-                    <h3>Your Smile</h3>
+                <div class="final-content reveal">
+
+                    <div class="final-stars">
+                        ✦　✧　♡　✧　✦
+                    </div>
+
                     <p>
-                        There's something about it that makes an ordinary
-                        moment feel lighter.
+                        One last thing...
                     </p>
-                </div>
 
-                <div class="love-card reveal delay1">
-                    <div class="icon">🌙</div>
-                    <h3>Your Presence</h3>
-                    <p>
-                        You have a way of standing out without even trying.
-                    </p>
-                </div>
+                    <h2>
+                        I didn't make this
+                        expecting anything.
+                    </h2>
 
-                <div class="love-card reveal delay2">
-                    <div class="icon">💫</div>
-                    <h3>Your Personality</h3>
-                    <p>
-                        There's something about you that keeps my attention.
-                    </p>
-                </div>
+                    <div class="final-letter">
 
-                <div class="love-card reveal delay3">
-                    <div class="icon">🕊️</div>
-                    <h3>Simply You</h3>
-                    <p>
-                        And honestly, I don't think I need a complicated reason.
-                    </p>
-                </div>
+                        <p>
+                            I made it because some feelings
+                            are too beautiful to keep
+                            completely silent.
+                        </p>
 
-            </div>
+                        <p>
+                            Whatever your answer is,
+                            thank you for taking the time
+                            to read my little letter.
+                        </p>
 
-        </div>
-    </section>
+                    </div>
 
-    <!-- HEART -->
-    <section class="section">
-        <div class="inner">
-
-            <div class="heart reveal">
-                ❤️
-            </div>
-
-            <div class="heart-text reveal delay1">
-                lub ❤️ dub
-            </div>
-
-            <div class="truth reveal delay2">
-                So here's the truth…
-            </div>
-
-            <div class="truth reveal delay3">
-                I have a crush on you, Aarjana.
-            </div>
-
-            <div class="truth reveal delay4">
-                And I wanted you to know.
-            </div>
-
-        </div>
-    </section>
-
-    <!-- LOVE -->
-    <section class="love-section" id="loveSection">
-
-        <canvas id="petals"></canvas>
-
-        <div class="inner">
-
-            <div class="love-title reveal">
-                Love you, Aarjana
-            </div>
-
-            <div class="roses reveal delay1">
-                <span>🌹</span>
-                <span>🌹</span>
-                <span>🌹</span>
-                <span>🌹</span>
-                <span>🌹</span>
-            </div>
-
-            <div class="chocolate reveal delay2">
-                🍫
-            </div>
-
-            <p class="love-description reveal delay3">
-                You deserve
-                <span class="pink">every rose</span>
-                and
-                <span class="pink">every chocolate</span>
-                in the world.
-                <br><br>
-                Because you are sweeter than chocolate
-                and more beautiful than a rose.
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- PROPOSAL -->
-    <section class="section" id="proposal">
-
-        <div class="inner">
-
-            <div class="proposal-box reveal">
-
-                <h2>
-                    Aarjana, I have a question for you…
-                </h2>
-
-                <div class="question">
-                    Would you like to give us a chance
-                    to know each other better?
-                </div>
-
-                <div class="buttons">
-
-                    <button class="yes" id="yes">
-                        ❤️ YES, I'D LIKE THAT
-                    </button>
-
-                    <button class="no" id="no">
-                        🌷 I'D RATHER NOT
-                    </button>
+                    <div class="final-signature">
+                        <span>—</span>
+                        <strong id="finalSignature"></strong>
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
 
-    <!-- YES -->
-    <section class="response" id="yesResponse">
+        <!-- FOOTER -->
+        <footer>
 
-        <div>
+            <p id="footerText"></p>
 
-            <h2 style="color:#ff4f91;">
-                You just made my day. ❤️
-            </h2>
+            <div class="footer-heart">
+                ♡
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- Celebration -->
+    <canvas id="confetti"></canvas>
+
+
+    <!-- Location permission modal -->
+    <div
+        id="locationModal"
+        class="modal"
+        aria-hidden="true"
+    >
+
+        <div class="modal-card">
+
+            <div class="modal-icon">
+                ♡
+            </div>
+
+            <h3>
+                One optional thing
+            </h3>
 
             <p>
-                Thank you for giving this a chance.
-                <br><br>
-                Let's take it slowly, genuinely,
-                and see where this beautiful story goes.
+                Would you like to share your approximate
+                location with me? This is completely optional.
             </p>
 
-            <div class="message-box" id="yesBox">
+            <div class="modal-buttons">
 
-                <p>
-                    Leave a short message (optional):
-                </p>
+                <button
+                    id="allowLocation"
+                    class="yes-button"
+                >
+                    Share location
+                </button>
 
-                <textarea
-                    id="yesMessage"
-                    placeholder="Write something sweet…"
-                ></textarea>
-
-                <button class="send" id="yesSend">
-                    Send & Continue ✨
+                <button
+                    id="denyLocation"
+                    class="no-button"
+                >
+                    No, thanks
                 </button>
 
             </div>
 
-            <div class="confirm" id="yesConfirm">
-                ✓ Your message has been saved with love. ❤️
-            </div>
-
         </div>
 
-    </section>
+    </div>
 
-    <!-- NO -->
-    <section class="response" id="noResponse">
 
-        <div>
-
-            <h2>
-                Thank you for being honest. 🌷
-            </h2>
-
-            <p>
-                Seriously.
-                <br><br>
-                You never owe me a yes.
-                <br><br>
-                I just wanted to be honest,
-                and I'm grateful you listened.
-                <br><br>
-                I will always respect your choice.
-            </p>
-
-            <div class="message-box" id="noBox">
-
-                <p>
-                    If you'd like, you can leave a short note:
-                </p>
-
-                <textarea
-                    id="noMessage"
-                    placeholder="Totally optional…"
-                ></textarea>
-
-                <button class="send" id="noSend">
-                    Send & Close 🌷
-                </button>
-
-            </div>
-
-            <div class="confirm" id="noConfirm">
-                ✓ Message saved. Thank you for your honesty. 🌷
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- SECRET -->
-    <section class="section secret">
-
-        <div class="inner">
-
-            <div
-                class="secret-trigger reveal"
-                id="secretTrigger"
-            >
-                One last thing…
-            </div>
-
-            <div
-                class="secret-message"
-                id="secretMessage"
-            >
-                I didn't make this because I expected anything from you.
-                <br><br>
-
-                I made it because sometimes feelings are too beautiful
-                to keep completely silent.
-                <br><br>
-
-                Whatever your answer is, thank you for being someone
-                worth writing all of this for.
-                <br><br>
-
-                — <span class="signature">Sandeep ❤️</span>
-            </div>
-
-        </div>
-
-    </section>
-
-    <footer>
-        Made with stardust, courage & a little bit of code. 🌙
-    </footer>
-
-</main>
-
-<script>
-
-/* =========================================================
-   SUPABASE
-========================================================= */
-
-const SUPABASE_URL = "https://adpqejcqolrwkruquxvs.supabase.co/rest/v1/";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkcHFlamNxb2xyd2tydXF1eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxOTcwNjYsImV4cCI6MjEwMTc3MzA2Nn0.Y-EFdMFiNRExzhRoH1oZWzXLx0qGsxXmWC6a1QpSOpA";
-
-let supabaseClient = null;
-
-if(
-    window.supabase &&
-    SUPABASE_URL !== "YOUR_SUPABASE_URL" &&
-    SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY"
-){
-    supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
-}
-
-async function submitResponse(answer,message){
-
-    if(!supabaseClient){
-        console.warn("Supabase is not configured.");
-        return true;
-    }
-
-    try{
-
-        const {error} = await supabaseClient
-            .from("proposal_responses")
-            .insert([
-                {
-                    answer,
-                    message
-                }
-            ]);
-
-        if(error){
-            console.error(error);
-            return false;
-        }
-
-        return true;
-
-    }catch(error){
-
-        console.error(error);
-        return false;
-
-    }
-}
-
-async function logClick(type){
-
-    if(!supabaseClient) return;
-
-    try{
-
-        await supabaseClient
-            .from("click_log")
-            .insert([
-                {
-                    event_type:type
-                }
-            ]);
-
-    }catch(error){
-
-        console.warn("Click logging failed:",error);
-
-    }
-}
-
-
-/* =========================================================
-   OPENING TYPING
-========================================================= */
-
-const typing = document.getElementById("typing");
-const begin = document.getElementById("begin");
-
-const openingLines = [
-    "Hey, Aarjana…",
-    "There is something I've been wanting to tell you.",
-    "Will you take a little journey with me?"
-];
-
-let lineIndex = 0;
-
-function typeLine(text){
-
-    return new Promise(resolve=>{
-
-        typing.innerHTML = "";
-
-        const cursor = document.createElement("span");
-        cursor.className = "cursor";
-
-        typing.appendChild(cursor);
-
-        let i = 0;
-
-        function write(){
-
-            if(i < text.length){
-
-                cursor.before(
-                    document.createTextNode(text[i])
-                );
-
-                i++;
-
-                setTimeout(
-                    write,
-                    35 + Math.random()*35
-                );
-
-            }else{
-
-                cursor.remove();
-
-                setTimeout(resolve,700);
-
-            }
-        }
-
-        write();
-
-    });
-
-}
-
-async function openingSequence(){
-
-    for(const line of openingLines){
-
-        await typeLine(line);
-
-        if(line !== openingLines[openingLines.length-1]){
-            await new Promise(r=>setTimeout(r,250));
-        }
-
-    }
-
-    begin.classList.add("show");
-
-}
-
-setTimeout(openingSequence,700);
-
-
-/* =========================================================
-   START WEBSITE
-========================================================= */
-
-const opening = document.getElementById("opening");
-const main = document.getElementById("main");
-
-begin.addEventListener("click",()=>{
-
-    opening.classList.add("hide");
-    main.classList.add("visible");
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-});
-
-
-/* =========================================================
-   REVEAL ANIMATIONS
-========================================================= */
-
-const revealObserver = new IntersectionObserver(
-    entries=>{
-
-        entries.forEach(entry=>{
-
-            if(entry.isIntersecting){
-
-                entry.target.classList.add("show");
-
-                revealObserver.unobserve(entry.target);
-
-            }
-
-        });
-
-    },
-    {
-        threshold:.15,
-        rootMargin:"0px 0px -50px 0px"
-    }
-);
-
-document
-    .querySelectorAll(".reveal")
-    .forEach(el=>revealObserver.observe(el));
-
-
-/* =========================================================
-   CURSOR GLOW
-========================================================= */
-
-const cursorGlow = document.getElementById("cursorGlow");
-
-if(window.matchMedia("(pointer:fine)").matches){
-
-    window.addEventListener("pointermove",e=>{
-
-        cursorGlow.style.left = e.clientX + "px";
-        cursorGlow.style.top = e.clientY + "px";
-
-    });
-
-}else{
-
-    cursorGlow.style.display = "none";
-
-}
-
-
-/* =========================================================
-   STARFIELD
-========================================================= */
-
-const starCanvas = document.getElementById("stars");
-const starCtx = starCanvas.getContext("2d");
-
-let stars = [];
-
-function resizeStars(){
-
-    const dpr = Math.min(window.devicePixelRatio || 1,2);
-
-    starCanvas.width = innerWidth*dpr;
-    starCanvas.height = innerHeight*dpr;
-
-    starCanvas.style.width = innerWidth+"px";
-    starCanvas.style.height = innerHeight+"px";
-
-    starCtx.setTransform(dpr,0,0,dpr,0,0);
-
-}
-
-function createStars(){
-
-    const amount = Math.min(
-        180,
-        Math.floor(innerWidth*innerHeight/7000)
-    );
-
-    stars = [];
-
-    for(let i=0;i<amount;i++){
-
-        stars.push({
-
-            x:Math.random()*innerWidth,
-            y:Math.random()*innerHeight,
-            r:Math.random()*1.5+.2,
-            speed:Math.random()*.25+.05,
-            alpha:Math.random()*.7+.2,
-            twinkle:Math.random()*Math.PI*2
-
-        });
-
-    }
-
-}
-
-function drawStars(){
-
-    starCtx.clearRect(
-        0,
-        0,
-        innerWidth,
-        innerHeight
-    );
-
-    stars.forEach(star=>{
-
-        star.y -= star.speed;
-
-        if(star.y < -5){
-
-            star.y = innerHeight+5;
-            star.x = Math.random()*innerWidth;
-
-        }
-
-        star.twinkle += .02;
-
-        const alpha =
-            star.alpha +
-            Math.sin(star.twinkle)*.15;
-
-        starCtx.beginPath();
-
-        starCtx.arc(
-            star.x,
-            star.y,
-            star.r,
-            0,
-            Math.PI*2
-        );
-
-        starCtx.fillStyle =
-            `rgba(255,240,250,${Math.max(.05,alpha)})`;
-
-        starCtx.fill();
-
-    });
-
-    requestAnimationFrame(drawStars);
-
-}
-
-resizeStars();
-createStars();
-drawStars();
-
-window.addEventListener("resize",()=>{
-    resizeStars();
-    createStars();
-});
-
-
-/* =========================================================
-   ROSE PETALS
-========================================================= */
-
-const loveSection = document.getElementById("loveSection");
-const petalCanvas = document.getElementById("petals");
-const petalCtx = petalCanvas.getContext("2d");
-
-let petals = [];
-let petalsRunning = false;
-
-function resizePetals(){
-
-    petalCanvas.width = loveSection.clientWidth;
-    petalCanvas.height = loveSection.clientHeight;
-
-}
-
-function createPetals(){
-
-    petals = [];
-
-    for(let i=0;i<35;i++){
-
-        petals.push({
-
-            x:Math.random()*petalCanvas.width,
-            y:Math.random()*petalCanvas.height,
-            size:Math.random()*5+2,
-            speed:Math.random()*.8+.3,
-            drift:Math.random()*.7-.35,
-            rotation:Math.random()*Math.PI*2,
-            alpha:Math.random()*.5+.15
-
-        });
-
-    }
-
-}
-
-function animatePetals(){
-
-    if(!petalsRunning) return;
-
-    petalCtx.clearRect(
-        0,
-        0,
-        petalCanvas.width,
-        petalCanvas.height
-    );
-
-    petals.forEach(p=>{
-
-        p.y += p.speed;
-        p.x += p.drift;
-        p.rotation += .01;
-
-        if(p.y > petalCanvas.height+20){
-
-            p.y = -20;
-            p.x = Math.random()*petalCanvas.width;
-
-        }
-
-        petalCtx.save();
-
-        petalCtx.translate(p.x,p.y);
-        petalCtx.rotate(p.rotation);
-
-        petalCtx.fillStyle =
-            `rgba(255,79,145,${p.alpha})`;
-
-        petalCtx.beginPath();
-
-        petalCtx.ellipse(
-            0,
-            0,
-            p.size,
-            p.size*.55,
-            0,
-            0,
-            Math.PI*2
-        );
-
-        petalCtx.fill();
-
-        petalCtx.restore();
-
-    });
-
-    requestAnimationFrame(animatePetals);
-
-}
-
-const petalObserver = new IntersectionObserver(
-    entries=>{
-
-        if(entries[0].isIntersecting){
-
-            resizePetals();
-            createPetals();
-
-            if(!petalsRunning){
-
-                petalsRunning = true;
-                animatePetals();
-
-            }
-
-        }else{
-
-            petalsRunning = false;
-
-        }
-
-    },
-    {threshold:.1}
-);
-
-petalObserver.observe(loveSection);
-
-window.addEventListener("resize",resizePetals);
-
-
-/* =========================================================
-   MUSIC
-========================================================= */
-
-let audioCtx = null;
-let musicGain = null;
-let oscillators = [];
-let playing = false;
-
-const musicButton = document.getElementById("music");
-const musicText = document.getElementById("musicText");
-
-function createMusic(){
-
-    audioCtx =
-        new (window.AudioContext ||
-        window.webkitAudioContext)();
-
-    musicGain = audioCtx.createGain();
-
-    musicGain.gain.value = 0;
-
-    musicGain.connect(audioCtx.destination);
-
-    const frequencies = [
-        174,
-        220,
-        261.63,
-        329.63
-    ];
-
-    frequencies.forEach((frequency,index)=>{
-
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = "sine";
-        osc.frequency.value = frequency;
-
-        gain.gain.value = .015;
-
-        osc.connect(gain);
-        gain.connect(musicGain);
-
-        osc.detune.value =
-            (index-1.5)*3;
-
-        osc.start();
-
-        oscillators.push(osc);
-
-    });
-
-}
-
-musicButton.addEventListener("click",async()=>{
-
-    if(!audioCtx){
-        createMusic();
-    }
-
-    if(audioCtx.state === "suspended"){
-        await audioCtx.resume();
-    }
-
-    if(!playing){
-
-        musicGain.gain.cancelScheduledValues(
-            audioCtx.currentTime
-        );
-
-        musicGain.gain.linearRampToValueAtTime(
-            .08,
-            audioCtx.currentTime+1.2
-        );
-
-        playing = true;
-
-        musicButton.classList.add("playing");
-        musicText.textContent = "Playing";
-
-    }else{
-
-        musicGain.gain.cancelScheduledValues(
-            audioCtx.currentTime
-        );
-
-        musicGain.gain.linearRampToValueAtTime(
-            0,
-            audioCtx.currentTime+1
-        );
-
-        playing = false;
-
-        musicButton.classList.remove("playing");
-        musicText.textContent = "Music";
-
-    }
-
-});
-
-
-/* =========================================================
-   PROPOSAL
-========================================================= */
-
-const proposal = document.getElementById("proposal");
-
-const yesButton = document.getElementById("yes");
-const noButton = document.getElementById("no");
-
-const yesResponse =
-    document.getElementById("yesResponse");
-
-const noResponse =
-    document.getElementById("noResponse");
-
-yesButton.addEventListener("click",()=>{
-
-    logClick("yes_click");
-
-    proposal.style.display = "none";
-
-    yesResponse.classList.add("active");
-
-    yesResponse.scrollIntoView({
-        behavior:"smooth"
-    });
-
-    if(typeof confetti === "function"){
-
-        confetti({
-            particleCount:150,
-            spread:100,
-            startVelocity:35,
-            origin:{
-                y:.65
-            },
-            colors:[
-                "#ff4f91",
-                "#a855f7",
-                "#ffffff",
-                "#ffd1e2"
-            ]
-        });
-
-    }
-
-});
-
-
-noButton.addEventListener("click",()=>{
-
-    logClick("no_click");
-
-    proposal.style.display = "none";
-
-    noResponse.classList.add("active");
-
-    noResponse.scrollIntoView({
-        behavior:"smooth"
-    });
-
-});
-
-
-/* =========================================================
-   YES RESPONSE
-========================================================= */
-
-const yesSend =
-    document.getElementById("yesSend");
-
-const yesMessage =
-    document.getElementById("yesMessage");
-
-const yesBox =
-    document.getElementById("yesBox");
-
-const yesConfirm =
-    document.getElementById("yesConfirm");
-
-yesSend.addEventListener("click",async()=>{
-
-    const message =
-        yesMessage.value.trim() ||
-        "(no message)";
-
-    yesSend.disabled = true;
-    yesSend.textContent = "Saving…";
-
-    const success =
-        await submitResponse(
-            "yes",
-            message
-        );
-
-    if(success){
-
-        yesBox.style.display = "none";
-        yesConfirm.style.display = "block";
-
-        if(typeof confetti === "function"){
-
-            confetti({
-                particleCount:100,
-                spread:80,
-                origin:{y:.65}
-            });
-
-        }
-
-    }else{
-
-        alert(
-            "Something went wrong while saving your message. Please try again. ❤️"
-        );
-
-        yesSend.disabled = false;
-        yesSend.textContent = "Send & Continue ✨";
-
-    }
-
-});
-
-
-/* =========================================================
-   NO RESPONSE
-========================================================= */
-
-const noSend =
-    document.getElementById("noSend");
-
-const noMessage =
-    document.getElementById("noMessage");
-
-const noBox =
-    document.getElementById("noBox");
-
-const noConfirm =
-    document.getElementById("noConfirm");
-
-noSend.addEventListener("click",async()=>{
-
-    const message =
-        noMessage.value.trim() ||
-        "(no message)";
-
-    noSend.disabled = true;
-    noSend.textContent = "Saving…";
-
-    const success =
-        await submitResponse(
-            "no",
-            message
-        );
-
-    if(success){
-
-        noBox.style.display = "none";
-        noConfirm.style.display = "block";
-
-    }else{
-
-        alert(
-            "Something went wrong while saving your message."
-        );
-
-        noSend.disabled = false;
-        noSend.textContent = "Send & Close 🌷";
-
-    }
-
-});
-
-
-/* =========================================================
-   SECRET MESSAGE
-========================================================= */
-
-document
-    .getElementById("secretTrigger")
-    .addEventListener("click",()=>{
-
-        document
-            .getElementById("secretMessage")
-            .classList.add("show");
-
-    });
-
-</script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 
 </body>
 </html>
