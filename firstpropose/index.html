@@ -271,6 +271,14 @@
         .secret-message { display:none; font-family:'Cormorant Garamond',serif; color:var(--text-secondary); line-height:1.8; margin-top:16px; }
         .secret-message.revealed { display:block; animation:fadeInUp 0.6s ease; }
         .site-footer { text-align:center; padding:40px 20px 50px; color:var(--text-muted); font-size:0.8rem; }
+
+        .loading-spinner {
+            display: inline-block; width: 20px; height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%; border-top-color: #fff;
+            animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -408,7 +416,7 @@
                 <button class="response-btn" id="yesSendBtn">Send & Continue ✨</button>
             </div>
             <div class="secret-message" id="yesFinalMessage" style="display:none;">« No promises about where the story ends.<br>Just a promise to make the journey meaningful. »</div>
-            <div class="confirmation" id="yesConfirmation">✓ Sent with love!</div>
+            <div class="confirmation" id="yesConfirmation">✓ Sent with love! Redirecting...</div>
         </div>
 
         <!-- NO Response -->
@@ -420,7 +428,7 @@
                 <textarea id="noMessageInput" placeholder="Totally optional..."></textarea>
                 <button class="response-btn" id="noSendBtn">Send & Close 🌷</button>
             </div>
-            <div class="confirmation" id="noConfirmation">✓ Message saved.</div>
+            <div class="confirmation" id="noConfirmation">✓ Message saved. Redirecting...</div>
         </div>
 
         <!-- Secret Message -->
@@ -440,20 +448,47 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
     <script>
-        // =============== SUPABASE CONFIGURATION ===============
+        // =====================================================
+        // 🔴 REPLACE WITH YOUR REAL SUPABASE CREDENTIALS
+        // =====================================================
         const SUPABASE_URL = 'https://adpqejcqolrwkruquxvs.supabase.co/rest/v1/';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkcHFlamNxb2xyd2tydXF1eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxOTcwNjYsImV4cCI6MjEwMTc3MzA2Nn0.Y-EFdMFiNRExzhRoH1oZWzXLx0qGsxXmWC6a1QpSOpA';
+        // =====================================================
+
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // =============== SUPABASE FUNCTIONS ===============
         async function submitResponse(answer, message) {
-            const { error } = await supabaseClient
-                .from('proposal_responses')
-                .insert([{ answer, message }]);
-            return error ? false : true;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('proposal_responses')
+                    .insert([{ answer, message }]);
+                
+                if (error) {
+                    console.error('Supabase error:', error);
+                    return false;
+                }
+                console.log('Data saved successfully:', data);
+                return true;
+            } catch (err) {
+                console.error('Submission error:', err);
+                return false;
+            }
         }
 
         async function logClick(eventType) {
-            await supabaseClient.from('click_log').insert([{ event_type: eventType }]);
+            try {
+                await supabaseClient.from('click_log').insert([{ event_type: eventType }]);
+            } catch (err) {
+                console.error('Click log error:', err);
+            }
+        }
+
+        // =============== REDIRECT FUNCTION ===============
+        function redirectToWebsite() {
+            setTimeout(() => {
+                window.location.href = 'https://sandeepgaire.com.np';
+            }, 2000);
         }
 
         // =============== STARFIELD ===============
@@ -632,7 +667,7 @@
             }
         });
 
-        // =============== PROPOSAL LOGIC + SUPABASE ===============
+        // =============== PROPOSAL LOGIC ===============
         const proposalSection = document.getElementById('proposalSection');
         const yesResponse = document.getElementById('yesResponse');
         const noResponse = document.getElementById('noResponse');
@@ -641,7 +676,10 @@
         const yesFinalMessage = document.getElementById('yesFinalMessage');
         const yesConfirmation = document.getElementById('yesConfirmation');
         const noConfirmation = document.getElementById('noConfirmation');
+        const yesMessageInput = document.getElementById('yesMessageInput');
+        const noMessageInput = document.getElementById('noMessageInput');
 
+        // YES button
         document.getElementById('btnYes').addEventListener('click', async () => {
             proposalSection.style.display = 'none';
             noResponse.style.display = 'none';
@@ -652,6 +690,7 @@
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d8d','#c026d3','#fff'] });
         });
 
+        // NO button
         document.getElementById('btnNo').addEventListener('click', async () => {
             proposalSection.style.display = 'none';
             yesResponse.style.display = 'none';
@@ -661,25 +700,65 @@
             logClick('no_click');
         });
 
+        // YES Send button
         document.getElementById('yesSendBtn').addEventListener('click', async () => {
-            const message = document.getElementById('yesMessageInput').value.trim() || '(no message)';
+            const message = yesMessageInput.value.trim() || '(no message)';
+            
+            // Show loading state
+            yesSendBtn.innerHTML = '<span class="loading-spinner"></span>Sending...';
+            yesSendBtn.disabled = true;
+            
             const success = await submitResponse('yes', message);
+            
             if (success) {
+                // Clear textarea
+                yesMessageInput.value = '';
+                
+                // Hide message box, show confirmation
                 yesMessageBox.style.display = 'none';
                 yesFinalMessage.style.display = 'block';
                 yesConfirmation.style.display = 'block';
+                
+                // Extra confetti burst
+                confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#ff4d8d','#ffb3d0','#fff'] });
+                
+                // Redirect to sandeepgaire.com.np
+                redirectToWebsite();
+            } else {
+                alert('Oops! Something went wrong. But your answer still matters to me! ❤️');
+                yesSendBtn.innerHTML = 'Send & Continue ✨';
+                yesSendBtn.disabled = false;
             }
         });
 
+        // NO Send button
         document.getElementById('noSendBtn').addEventListener('click', async () => {
-            const message = document.getElementById('noMessageInput').value.trim() || '(no message)';
+            const message = noMessageInput.value.trim() || '(no message)';
+            
+            // Show loading state
+            noSendBtn.innerHTML = '<span class="loading-spinner"></span>Sending...';
+            noSendBtn.disabled = true;
+            
             const success = await submitResponse('no', message);
+            
             if (success) {
+                // Clear textarea
+                noMessageInput.value = '';
+                
+                // Hide message box, show confirmation
                 noMessageBox.style.display = 'none';
                 noConfirmation.style.display = 'block';
+                
+                // Redirect to sandeepgaire.com.np
+                redirectToWebsite();
+            } else {
+                alert('Oops! Something went wrong. But thank you for your honesty! 🌷');
+                noSendBtn.innerHTML = 'Send & Close 🌷';
+                noSendBtn.disabled = false;
             }
         });
 
+        // Secret message
         document.getElementById('secretTrigger').addEventListener('click', ()=>{
             document.getElementById('secretMessage').classList.add('revealed');
         });
