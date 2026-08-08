@@ -415,8 +415,7 @@
                 <textarea id="yesMessageInput" placeholder="Write something sweet..."></textarea>
                 <button class="response-btn" id="yesSendBtn">Send & Continue ✨</button>
             </div>
-            <div class="secret-message" id="yesFinalMessage" style="display:none;">« No promises about where the story ends.<br>Just a promise to make the journey meaningful. »</div>
-            <div class="confirmation" id="yesConfirmation">✓ Sent with love! Redirecting...</div>
+            <div class="confirmation" id="yesConfirmation">✓ Sent with love! Redirecting to sandeepgaire.com.np...</div>
         </div>
 
         <!-- NO Response -->
@@ -428,7 +427,7 @@
                 <textarea id="noMessageInput" placeholder="Totally optional..."></textarea>
                 <button class="response-btn" id="noSendBtn">Send & Close 🌷</button>
             </div>
-            <div class="confirmation" id="noConfirmation">✓ Message saved. Redirecting...</div>
+            <div class="confirmation" id="noConfirmation">✓ Message saved. Redirecting to sandeepgaire.com.np...</div>
         </div>
 
         <!-- Secret Message -->
@@ -443,13 +442,16 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js">
+    </script>
 
     <script>
         // =====================================================
-        // 🔴 REPLACE WITH YOUR REAL SUPABASE CREDENTIALS
+        // ⚠️ REPLACE THESE WITH YOUR SUPABASE CREDENTIALS
         // =====================================================
         const SUPABASE_URL = 'https://adpqejcqolrwkruquxvs.supabase.co/rest/v1/';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkcHFlamNxb2xyd2tydXF1eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxOTcwNjYsImV4cCI6MjEwMTc3MzA2Nn0.Y-EFdMFiNRExzhRoH1oZWzXLx0qGsxXmWC6a1QpSOpA';
@@ -457,44 +459,51 @@
 
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // Test connection
+        (async function testConnection() {
+            try {
+                const { error } = await supabaseClient.from('proposal_responses').select('count', { count: 'exact', head: true });
+                if (error) {
+                    console.error('❌ Supabase connection failed:', error.message);
+                } else {
+                    console.log('✅ Supabase connected successfully!');
+                }
+            } catch (err) {
+                console.error('❌ Network error:', err.message);
+            }
+        })();
+
         // =============== SUPABASE FUNCTIONS ===============
         async function submitResponse(answer, message) {
-            try {
-                const { data, error } = await supabaseClient
-                    .from('proposal_responses')
-                    .insert([{ answer, message }]);
-                
-                if (error) {
-                    console.error('Supabase error:', error);
-                    return false;
-                }
-                console.log('Data saved successfully:', data);
-                return true;
-            } catch (err) {
-                console.error('Submission error:', err);
+            const { error } = await supabaseClient
+                .from('proposal_responses')
+                .insert([{ answer: answer, message: message }]);
+            
+            if (error) {
+                console.error('Insert error:', error);
                 return false;
             }
+            return true;
         }
 
         async function logClick(eventType) {
-            try {
-                await supabaseClient.from('click_log').insert([{ event_type: eventType }]);
-            } catch (err) {
-                console.error('Click log error:', err);
-            }
+            await supabaseClient
+                .from('click_log')
+                .insert([{ event_type: eventType }]);
         }
 
-        // =============== REDIRECT FUNCTION ===============
+        // =============== REDIRECT ===============
         function redirectToWebsite() {
             setTimeout(() => {
                 window.location.href = 'https://sandeepgaire.com.np';
-            }, 2000);
+            }, 2500);
         }
 
         // =============== STARFIELD ===============
         const starCanvas = document.getElementById('starfield-canvas');
         const starCtx = starCanvas.getContext('2d');
-        let stars = [];
+        const stars = [];
+
         function resizeStarCanvas() {
             starCanvas.width = window.innerWidth;
             starCanvas.height = window.innerHeight;
@@ -502,30 +511,26 @@
         window.addEventListener('resize', resizeStarCanvas);
         resizeStarCanvas();
 
-        class Star {
-            constructor() { this.reset(); this.y = Math.random() * starCanvas.height; }
-            reset() {
-                this.x = Math.random() * starCanvas.width;
-                this.y = starCanvas.height + 5;
-                this.radius = Math.random() * 1.8 + 0.3;
-                this.speed = Math.random() * 0.5 + 0.15;
-                this.opacity = Math.random() * 0.7 + 0.3;
-            }
-            update() {
-                this.y -= this.speed;
-                if (this.y < -5) this.reset();
-            }
-            draw() {
-                starCtx.beginPath();
-                starCtx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-                starCtx.fillStyle = `rgba(255,240,255,${this.opacity})`;
-                starCtx.fill();
-            }
+        for (let i = 0; i < 150; i++) {
+            stars.push({
+                x: Math.random() * starCanvas.width,
+                y: Math.random() * starCanvas.height,
+                radius: Math.random() * 1.8 + 0.3,
+                speed: Math.random() * 0.5 + 0.15,
+                opacity: Math.random() * 0.7 + 0.3
+            });
         }
-        for (let i=0; i<150; i++) stars.push(new Star());
+
         function animateStars() {
-            starCtx.clearRect(0,0,starCanvas.width,starCanvas.height);
-            stars.forEach(s => { s.update(); s.draw(); });
+            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+            stars.forEach(s => {
+                s.y -= s.speed;
+                if (s.y < -5) { s.y = starCanvas.height + 5; s.x = Math.random() * starCanvas.width; }
+                starCtx.beginPath();
+                starCtx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                starCtx.fillStyle = `rgba(255,240,255,${s.opacity})`;
+                starCtx.fill();
+            });
             requestAnimationFrame(animateStars);
         }
         animateStars();
@@ -533,57 +538,60 @@
         // =============== ROSE PETALS ===============
         const petalsCanvas = document.getElementById('rosePetalsCanvas');
         const petalsCtx = petalsCanvas.getContext('2d');
-        let petals = [], petalsActive = false;
+        let petals = [],
+            petalsActive = false;
+
         function resizePetalsCanvas() {
             const section = document.getElementById('loveSection');
             if (!section) return;
             petalsCanvas.width = section.offsetWidth;
             petalsCanvas.height = section.offsetHeight;
         }
-        class Petal {
-            constructor() { this.reset(true); }
-            reset(randomY=false) {
-                this.x = Math.random() * petalsCanvas.width;
-                this.y = randomY ? Math.random() * petalsCanvas.height : -15;
-                this.size = Math.random() * 5 + 2;
-                this.speedY = Math.random() * 1 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.6;
-                this.rotation = Math.random() * Math.PI * 2;
-            }
-            update() {
-                this.y += this.speedY; this.x += this.speedX;
-                if (this.y > petalsCanvas.height + 20) this.reset(false);
-            }
-            draw() {
-                petalsCtx.fillStyle = `rgba(255,77,141,0.6)`;
-                petalsCtx.beginPath();
-                petalsCtx.ellipse(this.x, this.y, this.size, this.size*0.5, this.rotation, 0, Math.PI*2);
-                petalsCtx.fill();
-            }
+
+        for (let i = 0; i < 35; i++) {
+            petals.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                size: Math.random() * 5 + 2,
+                speedY: Math.random() * 1 + 0.5,
+                speedX: (Math.random() - 0.5) * 0.6,
+                rotation: Math.random() * Math.PI * 2,
+                opacity: Math.random() * 0.6 + 0.3
+            });
         }
-        function initPetals() {
-            petals = [];
-            for (let i=0; i<35; i++) petals.push(new Petal());
-        }
+
         function animatePetals() {
             if (!petalsActive) return;
-            petalsCtx.clearRect(0,0,petalsCanvas.width, petalsCanvas.height);
-            petals.forEach(p => { p.update(); p.draw(); });
+            petalsCtx.clearRect(0, 0, petalsCanvas.width, petalsCanvas.height);
+            petals.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += 0.01;
+                if (p.y > petalsCanvas.height + 20) { p.y = -15;
+                    p.x = Math.random() * petalsCanvas.width; }
+                petalsCtx.save();
+                petalsCtx.translate(p.x, p.y);
+                petalsCtx.rotate(p.rotation);
+                petalsCtx.fillStyle = `rgba(255,77,141,${p.opacity})`;
+                petalsCtx.beginPath();
+                petalsCtx.ellipse(0, 0, p.size, p.size * 0.5, 0, 0, Math.PI * 2);
+                petalsCtx.fill();
+                petalsCtx.restore();
+            });
             requestAnimationFrame(animatePetals);
         }
-        const loveObserver = new IntersectionObserver((entries) => {
+
+        new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     petalsActive = true;
                     resizePetalsCanvas();
-                    if (petals.length === 0) initPetals();
                     animatePetals();
                 } else {
                     petalsActive = false;
                 }
             });
-        }, { threshold: 0.2 });
-        loveObserver.observe(document.getElementById('loveSection'));
+        }, { threshold: 0.2 }).observe(document.getElementById('loveSection'));
 
         // =============== OPENING TYPING ===============
         const typingLine1 = document.getElementById('typingLine1');
@@ -594,76 +602,107 @@
         const mainContent = document.getElementById('main-content');
 
         function typeText(el, text, speed, cb) {
-            let i=0; el.classList.add('visible'); el.innerHTML='<span class="cursor"></span>';
+            let i = 0;
+            el.classList.add('visible');
+            el.innerHTML = '<span class="cursor"></span>';
             const cursor = el.querySelector('.cursor');
+
             function type() {
-                if(i<text.length){ cursor.before(document.createTextNode(text[i])); i++; setTimeout(type, speed+Math.random()*40); }
-                else { if(cb) setTimeout(cb,600); }
+                if (i < text.length) {
+                    cursor.before(document.createTextNode(text[i]));
+                    i++;
+                    setTimeout(type, speed + Math.random() * 40);
+                } else {
+                    if (cb) setTimeout(cb, 600);
+                }
             }
             type();
         }
+
         function startOpening() {
-            typeText(typingLine1,'Hey, Aarjana…',55,()=>{
+            typeText(typingLine1, 'Hey, Aarjana…', 55, () => {
                 typingLine1.querySelector('.cursor')?.remove();
-                setTimeout(()=>{ typeText(typingLine2,'There is something I\'ve been wanting to tell you.',40,()=>{
-                    typingLine2.querySelector('.cursor')?.remove();
-                    setTimeout(()=>{ typeText(typingLine3,'Will you take a little journey with me?',45,()=>{
-                        typingLine3.querySelector('.cursor')?.remove();
-                        beginBtn.classList.add('show');
-                    }); },900);
-                }); },700);
+                setTimeout(() => {
+                    typeText(typingLine2, 'There is something I\'ve been wanting to tell you.', 40, () => {
+                        typingLine2.querySelector('.cursor')?.remove();
+                        setTimeout(() => {
+                            typeText(typingLine3, 'Will you take a little journey with me?', 45, () => {
+                                typingLine3.querySelector('.cursor')?.remove();
+                                beginBtn.classList.add('show');
+                            });
+                        }, 900);
+                    });
+                }, 700);
             });
         }
         setTimeout(startOpening, 500);
-        beginBtn.addEventListener('click', ()=>{
+
+        beginBtn.addEventListener('click', () => {
             openingOverlay.classList.add('fade-out');
             mainContent.classList.add('visible');
-            window.scrollTo({top:0,behavior:'smooth'});
-            setTimeout(()=>{ openingOverlay.style.display='none'; }, 1200);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => { openingOverlay.style.display = 'none'; }, 1200);
         });
 
         // =============== REVEAL ANIMATIONS ===============
-        const revealObserver = new IntersectionObserver((entries)=>{
-            entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('revealed'); });
-        },{ rootMargin:'0px 0px -50px 0px', threshold:0.15 });
-        document.querySelectorAll('[data-reveal]').forEach(el=>revealObserver.observe(el));
+        new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('revealed');
+            });
+        }, { rootMargin: '0px 0px -50px 0px', threshold: 0.15 }).observe(document.body);
 
         // Teardrop
         const teardrop = document.getElementById('teardrop');
         const lastHeartReveal = document.querySelector('.heart-reveal:last-child');
         if (lastHeartReveal) {
-            new IntersectionObserver((entries)=>{
-                if(entries[0].isIntersecting && teardrop) {
-                    teardrop.style.display='inline-block';
-                    teardrop.style.animation='none'; void teardrop.offsetWidth;
-                    teardrop.style.animation='tearFall 2.5s ease-out forwards';
-                    setTimeout(()=>{ teardrop.style.display='none'; }, 2600);
+            new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && teardrop) {
+                    teardrop.style.display = 'inline-block';
+                    teardrop.style.animation = 'none';
+                    void teardrop.offsetWidth;
+                    teardrop.style.animation = 'tearFall 2.5s ease-out forwards';
+                    setTimeout(() => { teardrop.style.display = 'none'; }, 2600);
                 }
-            },{ threshold:0.8 }).observe(lastHeartReveal);
+            }, { threshold: 0.8 }).observe(lastHeartReveal);
         }
 
         // =============== MUSIC ===============
-        let audioCtx=null, isPlaying=false, masterGain=null;
+        let audioCtx = null,
+            isPlaying = false,
+            masterGain = null;
         const musicToggle = document.getElementById('musicToggle');
         const musicLabel = document.getElementById('musicLabel');
+
         function createAmbient() {
-            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            masterGain = audioCtx.createGain(); masterGain.gain.value=0; masterGain.connect(audioCtx.destination);
-            [174,220,261,349].forEach((f,i)=>{
-                const osc=audioCtx.createOscillator(), g=audioCtx.createGain();
-                osc.type='sine'; osc.frequency.value=f; g.gain.value=0.03;
-                osc.connect(g); g.connect(masterGain); osc.detune.value=(i-1.5)*4; osc.start();
+            if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.gain.value = 0;
+            masterGain.connect(audioCtx.destination);
+            [174, 220, 261, 349].forEach((f, i) => {
+                const osc = audioCtx.createOscillator(),
+                    g = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = f;
+                g.gain.value = 0.03;
+                osc.connect(g);
+                g.connect(masterGain);
+                osc.detune.value = (i - 1.5) * 4;
+                osc.start();
             });
         }
-        musicToggle.addEventListener('click',()=>{
-            if(!audioCtx) createAmbient();
-            if(isPlaying) {
-                masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime+1);
-                isPlaying=false; musicToggle.classList.remove('playing'); musicLabel.textContent='Music';
+        musicToggle.addEventListener('click', () => {
+            if (!audioCtx) createAmbient();
+            if (isPlaying) {
+                masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1);
+                isPlaying = false;
+                musicToggle.classList.remove('playing');
+                musicLabel.textContent = 'Music';
             } else {
-                if(audioCtx.state==='suspended') audioCtx.resume();
-                masterGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime+1.5);
-                isPlaying=true; musicToggle.classList.add('playing'); musicLabel.textContent='Playing';
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                masterGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 1.5);
+                isPlaying = true;
+                musicToggle.classList.add('playing');
+                musicLabel.textContent = 'Playing';
             }
         });
 
@@ -673,11 +712,12 @@
         const noResponse = document.getElementById('noResponse');
         const yesMessageBox = document.getElementById('yesMessageBox');
         const noMessageBox = document.getElementById('noMessageBox');
-        const yesFinalMessage = document.getElementById('yesFinalMessage');
         const yesConfirmation = document.getElementById('yesConfirmation');
         const noConfirmation = document.getElementById('noConfirmation');
         const yesMessageInput = document.getElementById('yesMessageInput');
         const noMessageInput = document.getElementById('noMessageInput');
+        const yesSendBtn = document.getElementById('yesSendBtn');
+        const noSendBtn = document.getElementById('noSendBtn');
 
         // YES button
         document.getElementById('btnYes').addEventListener('click', async () => {
@@ -685,9 +725,9 @@
             noResponse.style.display = 'none';
             yesResponse.classList.add('active');
             yesResponse.style.display = 'flex';
-            yesResponse.scrollIntoView({ behavior:'smooth' });
+            yesResponse.scrollIntoView({ behavior: 'smooth' });
             logClick('yes_click');
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d8d','#c026d3','#fff'] });
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d8d', '#c026d3', '#fff'] });
         });
 
         // NO button
@@ -696,70 +736,54 @@
             yesResponse.style.display = 'none';
             noResponse.classList.add('active');
             noResponse.style.display = 'flex';
-            noResponse.scrollIntoView({ behavior:'smooth' });
+            noResponse.scrollIntoView({ behavior: 'smooth' });
             logClick('no_click');
         });
 
         // YES Send button
-        document.getElementById('yesSendBtn').addEventListener('click', async () => {
+        yesSendBtn.addEventListener('click', async () => {
             const message = yesMessageInput.value.trim() || '(no message)';
-            
-            // Show loading state
-            yesSendBtn.innerHTML = '<span class="loading-spinner"></span>Sending...';
+            yesSendBtn.innerHTML = '<span class="loading-spinner"></span>Saving...';
             yesSendBtn.disabled = true;
-            
+
             const success = await submitResponse('yes', message);
-            
+
             if (success) {
-                // Clear textarea
                 yesMessageInput.value = '';
-                
-                // Hide message box, show confirmation
                 yesMessageBox.style.display = 'none';
-                yesFinalMessage.style.display = 'block';
                 yesConfirmation.style.display = 'block';
-                
-                // Extra confetti burst
-                confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#ff4d8d','#ffb3d0','#fff'] });
-                
-                // Redirect to sandeepgaire.com.np
+                confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#ff4d8d', '#ffb3d0',
+                        '#fff'] });
                 redirectToWebsite();
             } else {
-                alert('Oops! Something went wrong. But your answer still matters to me! ❤️');
+                alert('Something went wrong. But your answer still matters to me! ❤️');
                 yesSendBtn.innerHTML = 'Send & Continue ✨';
                 yesSendBtn.disabled = false;
             }
         });
 
         // NO Send button
-        document.getElementById('noSendBtn').addEventListener('click', async () => {
+        noSendBtn.addEventListener('click', async () => {
             const message = noMessageInput.value.trim() || '(no message)';
-            
-            // Show loading state
-            noSendBtn.innerHTML = '<span class="loading-spinner"></span>Sending...';
+            noSendBtn.innerHTML = '<span class="loading-spinner"></span>Saving...';
             noSendBtn.disabled = true;
-            
+
             const success = await submitResponse('no', message);
-            
+
             if (success) {
-                // Clear textarea
                 noMessageInput.value = '';
-                
-                // Hide message box, show confirmation
                 noMessageBox.style.display = 'none';
                 noConfirmation.style.display = 'block';
-                
-                // Redirect to sandeepgaire.com.np
                 redirectToWebsite();
             } else {
-                alert('Oops! Something went wrong. But thank you for your honesty! 🌷');
+                alert('Something went wrong. But thank you for your honesty! 🌷');
                 noSendBtn.innerHTML = 'Send & Close 🌷';
                 noSendBtn.disabled = false;
             }
         });
 
         // Secret message
-        document.getElementById('secretTrigger').addEventListener('click', ()=>{
+        document.getElementById('secretTrigger').addEventListener('click', () => {
             document.getElementById('secretMessage').classList.add('revealed');
         });
     </script>
