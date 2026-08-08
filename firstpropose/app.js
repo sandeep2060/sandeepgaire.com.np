@@ -9,10 +9,10 @@
 |
 | Example:
 |
-| const SUPABASE_URL = "https://abcdefgh.supabase.co";
+| const SUPABASE_URL = "https://adpqejcqolrwkruquxvs.supabase.co/rest/v1/";
 |
 | const SUPABASE_ANON_KEY =
-| "eyJhbGciOiJIUzI1NiIs...";
+| "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkcHFlamNxb2xyd2tydXF1eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxOTcwNjYsImV4cCI6MjEwMTc3MzA2Nn0.Y-EFdMFiNRExzhRoH1oZWzXLx0qGsxXmWC6a1QpSOpA";
 |
 |--------------------------------------------------------------------------
 */
