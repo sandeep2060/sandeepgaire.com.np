@@ -43,7 +43,7 @@
             user-select: none;
         }
 
-        /* ===== COSMIC ORBS ===== */
+        /* Cosmic orbs */
         .cosmic-orb {
             position: fixed; border-radius: 50%; filter: blur(70px);
             opacity: 0.18; pointer-events: none; z-index:0;
@@ -78,13 +78,13 @@
             75%{ transform: translate(-5vw, 3vh) scale(0.92); }
         }
 
-        /* ===== STARFIELD CANVAS ===== */
+        /* Starfield canvas */
         #starfield-canvas {
             position: fixed; top:0; left:0; width:100%; height:100%;
             pointer-events: none; z-index:0;
         }
 
-        /* ===== MUSIC TOGGLE ===== */
+        /* Music toggle */
         .music-toggle {
             position:fixed; bottom:24px; right:20px; z-index:1000;
             background: rgba(15,10,25,0.65); backdrop-filter: blur(20px);
@@ -102,7 +102,7 @@
         .music-toggle.playing .music-icon { animation: musicPulse 1.2s ease-in-out infinite; }
         @keyframes musicPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.25);} }
 
-        /* ===== OPENING OVERLAY ===== */
+        /* Opening overlay */
         #opening-overlay {
             position:fixed; top:0; left:0; width:100%; height:100%; z-index:5000;
             background: #050510; display: flex; align-items: center; justify-content: center;
@@ -135,7 +135,7 @@
             box-shadow:0 0 35px rgba(255,77,141,0.4); color:#fff;
         }
 
-        /* ===== MAIN CONTENT ===== */
+        /* Main content */
         #main-content { position:relative; z-index:1; opacity:0; transition:opacity 1s ease 0.3s; }
         #main-content.visible { opacity:1; }
 
@@ -275,14 +275,16 @@
 </head>
 <body>
 
+    <!-- Cosmic orbs -->
     <div class="cosmic-orb orb-1"></div>
     <div class="cosmic-orb orb-2"></div>
     <div class="cosmic-orb orb-3"></div>
     <canvas id="starfield-canvas"></canvas>
 
+    <!-- Music toggle -->
     <button class="music-toggle" id="musicToggle">♪ <span id="musicLabel">Music</span></button>
 
-    <!-- Opening Overlay -->
+    <!-- Opening overlay -->
     <div id="opening-overlay">
         <div class="opening-content">
             <div class="typing-line" id="typingLine1"></div>
@@ -292,8 +294,9 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main content -->
     <div id="main-content">
+
         <!-- First Feeling -->
         <section class="section">
             <div class="section-inner">
@@ -440,17 +443,17 @@
         // =============== SUPABASE CONFIGURATION ===============
         const SUPABASE_URL = 'https://adpqejcqolrwkruquxvs.supabase.co/rest/v1/';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkcHFlamNxb2xyd2tydXF1eHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYxOTcwNjYsImV4cCI6MjEwMTc3MzA2Nn0.Y-EFdMFiNRExzhRoH1oZWzXLx0qGsxXmWC6a1QpSOpA';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         async function submitResponse(answer, message) {
-            const { error } = await supabase
+            const { error } = await supabaseClient
                 .from('proposal_responses')
                 .insert([{ answer, message }]);
             return error ? false : true;
         }
 
         async function logClick(eventType) {
-            await supabase.from('click_log').insert([{ event_type: eventType }]);
+            await supabaseClient.from('click_log').insert([{ event_type: eventType }]);
         }
 
         // =============== STARFIELD ===============
