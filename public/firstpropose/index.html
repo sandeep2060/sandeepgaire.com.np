@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -10,316 +8,158 @@
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <meta
-        name="theme-color"
-        content="#090510"
-    >
+    <meta name="theme-color" content="#09030b">
 
-    <meta
-        name="description"
-        content="A little letter from the heart."
-    >
+    <title>For You ✨</title>
 
-    <title>A Little Letter ❤️</title>
-
-    <!-- Fonts -->
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <link rel="stylesheet" href="https://sandeepgaire.com.np/firstpropose/style.css">
-
 </head>
 
 <body>
 
     <!-- Background -->
-    <div class="background">
+    <canvas id="particles"></canvas>
 
-        <div class="aurora aurora-one"></div>
-        <div class="aurora aurora-two"></div>
-        <div class="aurora aurora-three"></div>
+    <div class="aurora aurora-one"></div>
+    <div class="aurora aurora-two"></div>
+    <div class="aurora aurora-three"></div>
 
-        <canvas id="stars"></canvas>
-
-    </div>
-
+    <!-- Music -->
+    <button
+        class="floating-control"
+        id="musicButton"
+        type="button"
+        aria-label="Toggle music"
+    >
+        ♫
+    </button>
 
     <!-- Progress -->
     <div class="progress-bar">
         <div id="progress"></div>
     </div>
 
-
-    <!-- Music -->
-    <button
-        id="musicButton"
-        class="floating-control"
-        aria-label="Toggle ambient music"
-    >
-        <span id="musicIcon">♪</span>
-    </button>
-
-
-    <!-- Opening -->
-    <div id="opening" class="opening">
-
-        <div class="opening-glow"></div>
-
-        <div class="opening-content">
-
-            <div class="opening-symbol">
-                ♡
-            </div>
-
-            <p
-                id="openingSmall"
-                class="opening-small"
-            ></p>
-
-            <h1
-                id="openingTitle"
-                class="opening-title"
-            ></h1>
-
-            <p
-                id="openingSubtitle"
-                class="opening-subtitle"
-            ></p>
-
-            <button
-                id="beginButton"
-                class="primary-button opening-button"
-            >
-                Open the letter
-                <span>→</span>
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- Main -->
-    <main id="main" class="hidden">
-
+    <main>
 
         <!-- HERO -->
-        <section class="hero section">
+        <section class="hero" id="hero">
 
-            <div class="container">
+            <div class="hero-content">
 
-                <div class="eyebrow reveal">
-                    A LETTER I COULDN'T KEEP UNSENT
+                <div class="eyebrow" id="openingEyebrow">
+                    A little letter from my heart
                 </div>
 
-                <h1
-                    id="heroTitle"
-                    class="hero-title reveal"
-                ></h1>
+                <h1 id="openingTitle">
+                    For someone special
+                    <span>✨</span>
+                </h1>
 
-                <p
-                    id="heroSubtitle"
-                    class="hero-subtitle reveal"
-                ></p>
+                <p id="openingSubtitle">
+                    There is something I've wanted to say...
+                </p>
 
-                <div class="scroll-hint reveal">
-                    <span></span>
-                    Scroll slowly
-                </div>
+                <!-- ENVELOPE -->
+                <div class="envelope-wrapper" id="envelopeWrapper">
 
-            </div>
+                    <div
+                        class="envelope"
+                        id="envelope"
+                        role="button"
+                        tabindex="0"
+                        aria-label="Open love letter"
+                    >
 
-        </section>
+                        <div class="envelope-back"></div>
 
+                        <div class="letter-paper" id="letterPreview">
+                            <div class="mini-heart">♥</div>
+                        </div>
 
-        <!-- PHOTO -->
-        <section
-            id="photoSection"
-            class="section photo-section"
-        >
+                        <div class="envelope-front"></div>
 
-            <div class="container">
+                        <div class="envelope-flap"></div>
 
-                <div class="photo-wrapper reveal">
-
-                    <div class="photo-glow"></div>
-
-                    <div class="photo-frame">
-
-                        <img
-                            id="personPhoto"
-                            src=""
-                            alt=""
-                        >
-
-                        <div
-                            id="photoFallback"
-                            class="photo-fallback"
-                        >
-                            <span>♡</span>
-                            <small>A beautiful thought</small>
+                        <div class="seal">
+                            <span>♥</span>
                         </div>
 
                     </div>
 
+                    <p class="open-hint" id="openHint">
+                        Tap the letter to open
+                    </p>
+
                 </div>
 
-                <p
-                    id="photoCaption"
-                    class="photo-caption reveal"
+                <button
+                    class="open-button"
+                    id="openLetter"
+                    type="button"
                 >
-                    Some people simply stay in your thoughts.
-                </p>
+                    Open my letter
+                    <span>→</span>
+                </button>
 
+            </div>
+
+            <div class="scroll-indicator">
+                <span></span>
             </div>
 
         </section>
 
 
         <!-- LETTER -->
-        <section
-            id="letterSection"
-            class="section letter-section"
-        >
+        <section class="letter-section" id="letterSection">
 
-            <div class="container narrow">
+            <div class="letter-container">
 
-                <div class="letter-paper reveal">
+                <div class="letter-decoration top-left">✦</div>
+                <div class="letter-decoration top-right">✦</div>
 
-                    <div class="letter-decoration top">
-                        ✦
-                    </div>
+                <div class="letter-header">
+                    <span class="small-line"></span>
+                    <span>FROM THE HEART</span>
+                    <span class="small-line"></span>
+                </div>
 
-                    <p class="letter-date">
-                        A little honesty...
-                    </p>
+                <article class="love-letter">
 
-                    <h2>
-                        Dear
-                        <span id="letterName"></span>,
+                    <div class="letter-date" id="letterDate"></div>
+
+                    <h2 id="letterGreeting">
+                        Dear You,
                     </h2>
 
-                    <div
-                        id="letterContent"
-                        class="letter-content"
-                    ></div>
+                    <div id="letterBody"></div>
 
-                    <div class="letter-signature">
+                    <div class="letter-highlight" id="letterHighlight"></div>
 
-                        <span>With honesty,</span>
+                    <p id="letterClosing"></p>
 
-                        <strong id="signature"></strong>
+                    <div class="signature">
+
+                        <span id="letterSignature"></span>
+
+                        <strong id="letterSender">
+                            ❤️
+                        </strong>
 
                     </div>
 
-                </div>
+                </article>
 
-            </div>
-
-        </section>
-
-
-        <!-- REASONS -->
-        <section
-            id="reasonsSection"
-            class="section"
-        >
-
-            <div class="container">
-
-                <div class="section-heading reveal">
-
-                    <span>THE LITTLE THINGS</span>
-
-                    <h2>
-                        Maybe it's these...
-                    </h2>
-
-                </div>
-
-                <div
-                    id="reasonsGrid"
-                    class="reasons-grid"
-                ></div>
-
-            </div>
-
-        </section>
-
-
-        <!-- HEART -->
-        <section class="section heart-section">
-
-            <div class="container">
-
-                <div class="heart-stage reveal">
-
-                    <div class="heart-ring ring-one"></div>
-                    <div class="heart-ring ring-two"></div>
-
-                    <div class="big-heart">
-                        ♥
-                    </div>
-
-                    <div class="heart-particles">
-                        <span>✦</span>
-                        <span>♡</span>
-                        <span>✧</span>
-                        <span>·</span>
-                        <span>♡</span>
-                    </div>
-
-                </div>
-
-                <p class="heart-text reveal">
-                    And after thinking about it
-                    more times than I can count...
-                </p>
-
-                <h2 class="truth reveal">
-                    I like you.
-                </h2>
-
-            </div>
-
-        </section>
-
-
-        <!-- ROSES -->
-        <section class="section roses-section">
-
-            <div class="container">
-
-                <div class="rose-field reveal">
-
-                    <div class="rose rose-1">🌹</div>
-                    <div class="rose rose-2">🌹</div>
-                    <div class="rose rose-3">🌹</div>
-                    <div class="rose rose-4">🌹</div>
-                    <div class="rose rose-5">🌹</div>
-
-                </div>
-
-                <p class="rose-text reveal">
-                    If feelings were flowers,
-                    I'd probably send you a garden.
-                </p>
+                <div class="letter-decoration bottom-left">✦</div>
+                <div class="letter-decoration bottom-right">✦</div>
 
             </div>
 
@@ -327,56 +167,54 @@
 
 
         <!-- PROPOSAL -->
-        <section
-            id="proposalSection"
-            class="section proposal-section"
-        >
+        <section class="proposal-section" id="proposalSection">
 
-            <div class="container narrow">
+            <div class="proposal-content">
 
-                <div class="proposal-card reveal">
+                <div class="proposal-symbol">
+                    ♡
+                </div>
 
-                    <div class="proposal-heart">
-                        ♡
-                    </div>
+                <p class="proposal-eyebrow">
+                    ONE LITTLE QUESTION
+                </p>
 
-                    <div class="eyebrow">
-                        ONE LITTLE QUESTION
-                    </div>
+                <h2 id="proposalTitle">
+                    One little question...
+                </h2>
 
-                    <h2
-                        id="proposalHeading"
-                    ></h2>
+                <p
+                    class="proposal-question"
+                    id="proposalQuestion"
+                >
+                    Would you like to give us a chance to know each other better?
+                </p>
 
-                    <p
-                        id="proposalQuestion"
-                    ></p>
+                <div class="proposal-buttons">
 
-                    <div class="proposal-buttons">
+                    <button
+                        id="yesButton"
+                        class="yes-button"
+                        type="button"
+                    >
+                        Yes, I'd like that
+                        <span>❤️</span>
+                    </button>
 
-                        <button
-                            id="yesButton"
-                            class="yes-button"
-                        >
-                            <span>♡</span>
-                            <span id="yesText"></span>
-                        </button>
-
-                        <button
-                            id="noButton"
-                            class="no-button"
-                        >
-                            <span id="noText"></span>
-                        </button>
-
-                    </div>
-
-                    <p class="choice-note">
-                        Whatever your answer,
-                        I will respect it.
-                    </p>
+                    <button
+                        id="noButton"
+                        class="no-button"
+                        type="button"
+                    >
+                        I'd rather not
+                        <span>🌷</span>
+                    </button>
 
                 </div>
+
+                <p class="choice-note">
+                    There is no pressure. Your honest answer is enough.
+                </p>
 
             </div>
 
@@ -385,86 +223,61 @@
 
         <!-- RESPONSE -->
         <section
+            class="response-section"
             id="responseSection"
-            class="section response-section"
         >
 
-            <div class="container narrow">
+            <div class="response-card">
 
                 <div
-                    id="responseCard"
-                    class="response-card"
+                    class="response-icon"
+                    id="responseIcon"
                 >
+                    ❤️
+                </div>
 
-                    <div
-                        id="responseIcon"
-                        class="response-icon"
-                    >
-                        ♥
+                <h2 id="responseTitle"></h2>
+
+                <p id="responseText"></p>
+
+                <div class="message-area">
+
+                    <label for="responseMessage">
+                        <span id="messagePrompt">
+                            If you would like, leave me a little message...
+                        </span>
+
+                        <small id="messageOptional">
+                            This is completely optional.
+                        </small>
+                    </label>
+
+                    <textarea
+                        id="responseMessage"
+                        maxlength="500"
+                        placeholder="Write something you'd like me to know..."
+                    ></textarea>
+
+                    <div class="character-count">
+                        <span id="characterCount">0</span>/500
                     </div>
 
-                    <h2
-                        id="responseTitle"
-                    ></h2>
-
-                    <p
-                        id="responseText"
-                    ></p>
-
-
-                    <div
-                        id="messageArea"
-                        class="message-area"
+                    <button
+                        id="sendResponse"
+                        class="send-button"
+                        type="button"
                     >
+                        Send my message ✨
+                    </button>
 
-                        <label for="messageInput">
-                            If you'd like, leave me
-                            a little message.
-                            <span>Optional</span>
-                        </label>
+                </div>
 
-                        <textarea
-                            id="messageInput"
-                            maxlength="500"
-                            rows="5"
-                        ></textarea>
-
-                        <div class="message-bottom">
-
-                            <small>
-                                <span id="characterCount">
-                                    0
-                                </span>
-                                / 500
-                            </small>
-
-                            <button
-                                id="sendButton"
-                                class="primary-button"
-                            >
-                                Send message ✨
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        id="responseDone"
-                        class="response-done"
-                    >
-
-                        <div>
-                            ✓
-                        </div>
-
-                        <p>
-                            Your response has been received.
-                        </p>
-
-                    </div>
-
+                <div
+                    class="response-success"
+                    id="responseSuccess"
+                >
+                    <span>✓</span>
+                    <p>Your message has been saved.</p>
                 </div>
 
             </div>
@@ -473,118 +286,51 @@
 
 
         <!-- FINAL -->
-        <section class="section final-section">
+        <section class="final-section">
 
-            <div class="container narrow">
+            <div class="final-content">
 
-                <div class="final-content reveal">
-
-                    <div class="final-stars">
-                        ✦　✧　♡　✧　✦
-                    </div>
-
-                    <p>
-                        One last thing...
-                    </p>
-
-                    <h2>
-                        I didn't make this
-                        expecting anything.
-                    </h2>
-
-                    <div class="final-letter">
-
-                        <p>
-                            I made it because some feelings
-                            are too beautiful to keep
-                            completely silent.
-                        </p>
-
-                        <p>
-                            Whatever your answer is,
-                            thank you for taking the time
-                            to read my little letter.
-                        </p>
-
-                    </div>
-
-                    <div class="final-signature">
-                        <span>—</span>
-                        <strong id="finalSignature"></strong>
-                    </div>
-
+                <div class="final-stars">
+                    ✦　✧　♥　✧　✦
                 </div>
+
+                <p>
+                    Some feelings don't need a perfect ending.
+                </p>
+
+                <h2>
+                    They simply deserve to be expressed.
+                </h2>
+
+                <div class="final-heart">
+                    ♥
+                </div>
+
+                <footer>
+                    Made with courage, sincerity & a little bit of code.
+                </footer>
 
             </div>
 
         </section>
 
-
-        <!-- FOOTER -->
-        <footer>
-
-            <p id="footerText"></p>
-
-            <div class="footer-heart">
-                ♡
-            </div>
-
-        </footer>
-
     </main>
 
-
-    <!-- Celebration -->
-    <canvas id="confetti"></canvas>
-
-
-    <!-- Location permission modal -->
-    <div
-        id="locationModal"
-        class="modal"
-        aria-hidden="true"
-    >
-
-        <div class="modal-card">
-
-            <div class="modal-icon">
-                ♡
-            </div>
-
-            <h3>
-                One optional thing
-            </h3>
-
-            <p>
-                Would you like to share your approximate
-                location with me? This is completely optional.
-            </p>
-
-            <div class="modal-buttons">
-
-                <button
-                    id="allowLocation"
-                    class="yes-button"
-                >
-                    Share location
-                </button>
-
-                <button
-                    id="denyLocation"
-                    class="no-button"
-                >
-                    No, thanks
-                </button>
-
-            </div>
-
-        </div>
-
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <span>♥</span>
+        <p></p>
     </div>
 
 
+    <!-- Confetti library -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"
+    ></script>
+
+    <!-- IMPORTANT: data first, script second -->
     <script src="https://sandeepgaire.com.np/firstpropose/data.js"></script>
-    <script src="https://sandeepgaire.com.np/firstpropose/app.js"></script>
+    <script src="https://sandeepgaire.com.np/firstpropose/script.js"></script>
 
 </body>
 </html>
