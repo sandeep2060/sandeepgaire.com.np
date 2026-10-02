@@ -14,12 +14,12 @@
 <meta name="theme-color" content="#6d28d9">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>अ</text></svg>">
 
-<!-- SPEED: Preconnect to ad servers for faster load -->
+<!-- AdSense: preconnect for speed -->
 <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
 <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 
-<!-- ✅ AdSense script — URL corrected -->
+<!-- ✅ AdSense loader — loaded ONCE here, nowhere else -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861" crossorigin="anonymous"></script>
 
 <style>
@@ -50,7 +50,46 @@ button,textarea,input{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 a{color:inherit;text-decoration:none}
 
-/* HEADER */
+/* ==================== PRE-LOADER ==================== */
+#preloader{
+  position:fixed;inset:0;z-index:99999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--bg);
+  transition:opacity .35s ease,visibility .35s ease;
+}
+#preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-logo{
+  width:64px;height:64px;display:grid;place-items:center;
+  border-radius:18px;color:#fff;font-weight:900;font-size:26px;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  box-shadow:0 12px 32px rgba(109,40,217,.35);
+  animation:loaderPulse 1.4s ease-in-out infinite;
+  margin-bottom:18px;
+}
+@keyframes loaderPulse{
+  0%,100%{transform:scale(1);box-shadow:0 12px 32px rgba(109,40,217,.35)}
+  50%{transform:scale(1.06);box-shadow:0 16px 40px rgba(109,40,217,.55)}
+}
+.loader-text{
+  font-size:14px;font-weight:600;color:var(--text-2);
+  letter-spacing:.3px;margin-bottom:14px;
+}
+.loader-bar{
+  width:180px;height:4px;border-radius:99px;
+  background:var(--surface-2);overflow:hidden;position:relative;
+}
+.loader-bar::after{
+  content:"";position:absolute;left:0;top:0;height:100%;width:40%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#7c3aed,#4f46e5,#06b6d4);
+  animation:loaderSlide 1.1s ease-in-out infinite;
+}
+@keyframes loaderSlide{
+  0%{left:-40%}
+  100%{left:100%}
+}
+
+/* ==================== HEADER ==================== */
 header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surface) 88%,transparent);
   border-bottom:1px solid var(--border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .header-inner{width:min(1200px,calc(100% - 32px));margin:auto;min-height:64px;
@@ -67,7 +106,7 @@ header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surf
   border-radius:12px;background:var(--surface);transition:var(--transition);font-size:18px}
 .icon-btn:hover{background:var(--surface-2);transform:translateY(-1px);border-color:var(--primary)}
 
-/* HERO */
+/* ==================== HERO ==================== */
 .hero{width:min(1000px,calc(100% - 32px));margin:auto;padding:36px 0 24px;text-align:center;position:relative}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;
   background:radial-gradient(circle at 50% 20%,rgba(124,58,237,.14),transparent 55%);pointer-events:none}
@@ -89,26 +128,29 @@ header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surf
 
 .container{width:min(1200px,calc(100% - 32px));margin:auto}
 
-/* ADS — collapse when empty */
+/* ==================== ADS ==================== */
+/* IMPORTANT: No display:none on ad container — AdSense won't fill hidden containers */
 .ad-slot{
-  display:none;
-  margin:14px auto;
-  min-height:0;
-  overflow:hidden;
-  text-align:center;
+  margin:16px auto;
   width:100%;
+  min-height:0;
+  text-align:center;
+  overflow:hidden;
+  position:relative;
 }
-.ad-slot.loaded{display:block}
 .ad-slot ins{display:block;width:100%}
-.ad-slot .adsbygoogle[data-ad-status="unfilled"]{display:none !important}
 .ad-label{
   font-size:9.5px;color:var(--text-2);opacity:.5;
   text-transform:uppercase;letter-spacing:1.2px;
   margin-bottom:4px;font-weight:600;display:block;
 }
-.ad-slot:not(.loaded) .ad-label{display:none}
+/* Subtle fade-in when ad fills */
+.ad-slot ins[data-ad-status="filled"]{
+  animation:adFadeIn .5s ease;
+}
+@keyframes adFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* CONVERTER */
+/* ==================== CONVERTER ==================== */
 .converter-card{background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;position:relative;overflow:hidden}
 .converter-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
@@ -280,7 +322,7 @@ footer a:hover{color:var(--primary)}
   .font-tabs{grid-template-columns:1fr 1fr}
   .font-tab{padding:9px 8px;font-size:12px}
   .font-tab small{font-size:9.5px}
-  .ad-slot{margin:10px auto}
+  .ad-slot{margin:12px auto}
 }
 @media (max-width:400px){
   .stats{grid-template-columns:1fr}
@@ -307,6 +349,13 @@ footer a:hover{color:var(--primary)}
 </head>
 
 <body>
+
+<!-- ==================== PRE-LOADER ==================== -->
+<div id="preloader" aria-hidden="true">
+  <div class="loader-logo">अ</div>
+  <div class="loader-text">Loading converter…</div>
+  <div class="loader-bar"></div>
+</div>
 
 <header>
   <div class="header-inner">
@@ -357,19 +406,21 @@ footer a:hover{color:var(--primary)}
 
 <div class="container">
 
-  <!-- AD #1 -->
-  <div class="ad-slot" id="adTop">
+  <!-- ==================== AD #1: Nagarik_Top ==================== -->
+  <div class="ad-slot">
     <span class="ad-label">Advertisement</span>
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-1662750642698861"
-         data-ad-slot="3238345264"
+         data-ad-slot="6933872687"
          data-ad-format="auto"
-         data-full-width-responsive="true"
-         data-ad-status="unfilled"></ins>
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
-  <!-- CONVERTER -->
+  <!-- ==================== CONVERTER ==================== -->
   <section class="converter-card" aria-label="Unicode to legacy font converter">
 
     <div class="converter-heading">
@@ -482,19 +533,21 @@ footer a:hover{color:var(--primary)}
 
   </section>
 
-  <!-- AD #2 -->
-  <div class="ad-slot" id="adBottom">
+  <!-- ==================== AD #2: Nagarik_Bottom ==================== -->
+  <div class="ad-slot">
     <span class="ad-label">Advertisement</span>
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-1662750642698861"
          data-ad-slot="3238345264"
          data-ad-format="auto"
-         data-full-width-responsive="true"
-         data-ad-status="unfilled"></ins>
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
-  <!-- CONTENT -->
+  <!-- ==================== CONTENT ==================== -->
   <section class="content-section">
     <h2>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
@@ -528,6 +581,7 @@ footer a:hover{color:var(--primary)}
     <p>Despite Unicode being the modern standard, many Nepali government offices, courts, DTP shops, and newspapers still rely on Preeti, Kantipur, or PCS Nepali. Their Word macros, PageMaker files, and pre-press workflows were built around these fonts years ago. This converter lets you bridge the gap — moving modern Unicode text into legacy formats without retyping.</p>
   </section>
 
+  <!-- ==================== FAQ ==================== -->
   <section class="faq">
     <h2>Frequently Asked Questions</h2>
 
@@ -587,6 +641,26 @@ footer a:hover{color:var(--primary)}
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
+/* ============================================================
+   PRE-LOADER — hide after short delay or when page ready
+============================================================ */
+(function() {
+  const preloader = document.getElementById("preloader");
+  if (!preloader) return;
+
+  function hidePreloader() {
+    preloader.classList.add("hidden");
+    setTimeout(() => { preloader.style.display = "none"; }, 400);
+  }
+
+  // Hide after page load OR after 900ms max (whichever comes first)
+  const maxTimeout = setTimeout(hidePreloader, 900);
+  window.addEventListener("load", () => {
+    clearTimeout(maxTimeout);
+    setTimeout(hidePreloader, 250);
+  });
+})();
+
 /* ============================================================
    FONT DEFINITIONS
 ============================================================ */
@@ -946,43 +1020,17 @@ themeToggle.addEventListener("click", () => {
 document.getElementById("year").textContent = new Date().getFullYear();
 
 /* ============================================================
-   ADSENSE — FAST LOAD + SMART COLLAPSE
+   AD SMOOTH FADE-IN (fires when AdSense fills a slot)
 ============================================================ */
-function initAd(slotId) {
-  const slot = document.getElementById(slotId);
-  if (!slot) return;
-  const ins = slot.querySelector(".adsbygoogle");
+document.querySelectorAll(".ad-slot ins").forEach(ins => {
   if (!ins) return;
-
-  try {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  } catch (e) { console.warn("Ad push failed", e); }
-
-  const check = () => {
-    const status = ins.getAttribute("data-ad-status");
-    if (status === "filled") {
-      slot.classList.add("loaded");
-    } else if (status === "unfilled") {
-      slot.classList.remove("loaded");
+  const observer = new MutationObserver(() => {
+    if (ins.getAttribute("data-ad-status") === "filled") {
+      ins.style.animation = "adFadeIn .5s ease";
     }
-  };
-
-  const observer = new MutationObserver(check);
-  observer.observe(ins, { attributes: true, attributeFilter: ["data-ad-status"] });
-
-  setTimeout(check, 1500);
-  setTimeout(check, 3500);
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => {
-    initAd("adTop");
-    initAd("adBottom");
   });
-} else {
-  initAd("adTop");
-  initAd("adBottom");
-}
+  observer.observe(ins, { attributes: true, attributeFilter: ["data-ad-status"] });
+});
 
 updateCounts();
 </script>
