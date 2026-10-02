@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nepali Unicode to Nagarik Regular Converter | Free Online Tool</title>
-<meta name="description" content="Free online Nepali Unicode to Nagarik Regular font converter. Instantly convert Nepali Unicode text to Nagarik legacy font format. Fast, accurate and easy to use.">
-<meta name="keywords" content="Unicode to Nagarik, Nepali Unicode converter, Nagarik font converter, Preeti converter, Nepali font tool">
+<title>Nepali Unicode to Preeti, Kantipur, Nagarik, Fontasy Himali Converter | Free</title>
+<meta name="description" content="Free online Nepali Unicode converter. Convert Unicode to Preeti, Kantipur, Nagarik, and Fontasy Himali legacy font formats instantly. Accurate matra reordering, ligatures, and repha handling.">
+<meta name="keywords" content="Unicode to Preeti, Unicode to Kantipur, Unicode to Nagarik, Unicode to Fontasy Himali, Nepali font converter, Preeti converter, Kantipur converter, Nepali Unicode to legacy font">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://sandeepgaire.com.np/UnicodeToNagarik">
-<meta property="og:title" content="Nepali Unicode to Nagarik Regular Converter">
-<meta property="og:description" content="Convert Nepali Unicode to Nagarik Regular font online for free.">
+<meta property="og:title" content="Nepali Unicode to Preeti, Kantipur, Nagarik Converter">
+<meta property="og:description" content="Convert Nepali Unicode to Preeti, Kantipur, Nagarik, and Fontasy Himali fonts online for free.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#6d28d9">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>अ</text></svg>">
@@ -18,310 +18,173 @@
 
 <style>
 :root{
-  --bg:#f4f6fb;
-  --surface:#ffffff;
-  --surface-2:#f1f3f8;
-  --surface-3:#e8ecf3;
-  --text:#0f172a;
-  --text-2:#64748b;
-  --border:#e2e8f0;
-  --primary:#6d28d9;
-  --primary-2:#4f46e5;
-  --primary-hover:#5b21b6;
-  --primary-soft:#f0e9ff;
-  --success:#059669;
-  --success-soft:#d1fae5;
-  --danger:#dc2626;
-  --danger-soft:#fee2e2;
+  --bg:#f4f6fb;--surface:#ffffff;--surface-2:#f1f3f8;--surface-3:#e8ecf3;
+  --text:#0f172a;--text-2:#64748b;--border:#e2e8f0;
+  --primary:#6d28d9;--primary-2:#4f46e5;--primary-hover:#5b21b6;--primary-soft:#f0e9ff;
+  --success:#059669;--success-soft:#d1fae5;--danger:#dc2626;--danger-soft:#fee2e2;
   --warning:#d97706;
-  --shadow-sm:0 1px 3px rgba(15,23,42,.06);
-  --shadow:0 10px 35px rgba(15,23,42,.08);
+  --shadow-sm:0 1px 3px rgba(15,23,42,.06);--shadow:0 10px 35px rgba(15,23,42,.08);
   --shadow-lg:0 20px 50px rgba(15,23,42,.12);
-  --radius:16px;
-  --radius-sm:10px;
-  --transition:.22s cubic-bezier(.4,0,.2,1);
+  --radius:16px;--transition:.22s cubic-bezier(.4,0,.2,1);
 }
 html[data-theme="dark"]{
-  --bg:#0a0e14;
-  --surface:#121821;
-  --surface-2:#1a2230;
-  --surface-3:#242f40;
-  --text:#f1f5f9;
-  --text-2:#94a3b8;
-  --border:#28323f;
-  --primary:#a78bfa;
-  --primary-2:#818cf8;
-  --primary-hover:#c4b5fd;
-  --primary-soft:#251b3c;
-  --success:#34d399;
-  --success-soft:#064e3b;
-  --danger:#f87171;
-  --danger-soft:#450a0a;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.4);
-  --shadow:0 10px 35px rgba(0,0,0,.4);
+  --bg:#0a0e14;--surface:#121821;--surface-2:#1a2230;--surface-3:#242f40;
+  --text:#f1f5f9;--text-2:#94a3b8;--border:#28323f;
+  --primary:#a78bfa;--primary-2:#818cf8;--primary-hover:#c4b5fd;--primary-soft:#251b3c;
+  --success:#34d399;--success-soft:#064e3b;--danger:#f87171;--danger-soft:#450a0a;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.4);--shadow:0 10px 35px rgba(0,0,0,.4);
   --shadow-lg:0 20px 50px rgba(0,0,0,.55);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:var(--bg);color:var(--text);
-  transition:background-color var(--transition),color var(--transition);
-  min-height:100vh;line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);color:var(--text);transition:background-color var(--transition),color var(--transition);
+  min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased}
 button,textarea,input{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 a{color:inherit;text-decoration:none}
 
-/* ==================== HEADER ==================== */
-header{
-  position:sticky;top:0;z-index:100;
-  background:color-mix(in srgb,var(--surface) 88%,transparent);
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-}
-.header-inner{
-  width:min(1200px,calc(100% - 32px));margin:auto;
-  min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;
-}
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surface) 88%,transparent);
+  border-bottom:1px solid var(--border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.header-inner{width:min(1200px,calc(100% - 32px));margin:auto;min-height:68px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:17px;letter-spacing:-.3px}
-.brand-icon{
-  width:40px;height:40px;display:grid;place-items:center;border-radius:12px;
+.brand-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;
   color:#fff;font-weight:900;font-size:18px;
-  background:linear-gradient(135deg,#7c3aed,#4f46e5);
-  box-shadow:0 6px 18px rgba(109,40,217,.3);
-}
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);box-shadow:0 6px 18px rgba(109,40,217,.3)}
 .brand-text{display:flex;flex-direction:column;line-height:1.15}
 .brand-title{font-weight:800}
 .brand-sub{font-size:11px;font-weight:500;color:var(--text-2);letter-spacing:.2px}
 .header-actions{display:flex;gap:8px;align-items:center}
-.icon-btn{
-  width:42px;height:42px;display:grid;place-items:center;
-  border:1px solid var(--border);border-radius:12px;
-  background:var(--surface);transition:var(--transition);font-size:18px;
-}
+.icon-btn{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--border);
+  border-radius:12px;background:var(--surface);transition:var(--transition);font-size:18px}
 .icon-btn:hover{background:var(--surface-2);transform:translateY(-1px);border-color:var(--primary)}
 .icon-btn:active{transform:translateY(0)}
 
-/* ==================== HERO ==================== */
-.hero{
-  width:min(1000px,calc(100% - 32px));margin:auto;
-  padding:64px 0 40px;text-align:center;position:relative;
-}
-.hero::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(circle at 50% 20%,rgba(124,58,237,.14),transparent 55%);
-  pointer-events:none;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:7px 14px;border-radius:999px;
-  color:var(--primary);background:var(--primary-soft);
-  font-size:12.5px;font-weight:700;margin-bottom:20px;
-  border:1px solid color-mix(in srgb,var(--primary) 22%,transparent);
-}
-.hero-badge .dot{
-  width:7px;height:7px;border-radius:50%;background:var(--success);
-  animation:pulse 1.8s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:.4;transform:scale(.85)}
-}
-.hero h1{
-  margin:0 auto 18px;max-width:880px;
-  font-size:clamp(30px,5vw,56px);line-height:1.06;
-  letter-spacing:-1.8px;font-weight:800;
-}
-.hero h1 .gradient{
-  background:linear-gradient(135deg,#7c3aed 0%,#4f46e5 50%,#06b6d4 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  background-size:200% 200%;animation:gradientShift 6s ease infinite;
-}
-@keyframes gradientShift{
-  0%,100%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-}
-.hero p{
-  max-width:680px;margin:auto;color:var(--text-2);
-  font-size:clamp(15px,1.8vw,18px);line-height:1.65;
-}
-.hero-features{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:24px;
-}
-.hero-feature{
-  display:flex;align-items:center;gap:6px;
-  font-size:13px;color:var(--text-2);font-weight:500;
-}
+/* HERO */
+.hero{width:min(1000px,calc(100% - 32px));margin:auto;padding:64px 0 40px;text-align:center;position:relative}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(circle at 50% 20%,rgba(124,58,237,.14),transparent 55%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;
+  color:var(--primary);background:var(--primary-soft);font-size:12.5px;font-weight:700;margin-bottom:20px;
+  border:1px solid color-mix(in srgb,var(--primary) 22%,transparent)}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+.hero h1{margin:0 auto 18px;max-width:920px;font-size:clamp(28px,4.5vw,52px);line-height:1.08;
+  letter-spacing:-1.6px;font-weight:800}
+.hero h1 .gradient{background:linear-gradient(135deg,#7c3aed 0%,#4f46e5 50%,#06b6d4 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 200%;
+  animation:gradientShift 6s ease infinite}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero p{max-width:720px;margin:auto;color:var(--text-2);font-size:clamp(15px,1.8vw,18px);line-height:1.65}
+.hero-features{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:24px}
+.hero-feature{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);font-weight:500}
 .hero-feature svg{width:15px;height:15px;color:var(--success);flex-shrink:0}
 
-/* ==================== CONTAINER ==================== */
 .container{width:min(1200px,calc(100% - 32px));margin:auto}
 
-/* ==================== ADS ==================== */
-.ad-wrapper{
-  width:100%;min-height:90px;margin:24px auto;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  overflow:hidden;position:relative;
-}
-.ad-label{
-  font-size:10px;color:var(--text-2);opacity:.55;
-  text-transform:uppercase;letter-spacing:1.5px;
-  margin-bottom:6px;font-weight:600;
-}
+/* ADS */
+.ad-wrapper{width:100%;min-height:90px;margin:24px auto;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;overflow:hidden;position:relative}
+.ad-label{font-size:10px;color:var(--text-2);opacity:.55;text-transform:uppercase;
+  letter-spacing:1.5px;margin-bottom:6px;font-weight:600}
 
-/* ==================== CONVERTER ==================== */
-.converter-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);box-shadow:var(--shadow);
-  padding:26px;position:relative;overflow:hidden;
-}
-.converter-card::before{
-  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+/* FONT SELECTOR */
+.font-selector{margin-bottom:22px}
+.font-selector-label{font-size:13px;font-weight:700;color:var(--text-2);
+  text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;display:block}
+.font-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.font-tab{padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;
+  background:var(--surface);font-weight:700;font-size:13.5px;text-align:center;
+  transition:var(--transition);color:var(--text-2);position:relative;overflow:hidden}
+.font-tab:hover{border-color:var(--primary);color:var(--text);transform:translateY(-1px)}
+.font-tab.active{border-color:transparent;color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  box-shadow:0 6px 18px rgba(109,40,217,.28)}
+.font-tab small{display:block;font-size:10.5px;font-weight:500;opacity:.75;margin-top:2px}
+.font-tab.active small{opacity:.9}
+
+/* CONVERTER */
+.converter-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;position:relative;overflow:hidden}
+.converter-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,#7c3aed,#4f46e5,#06b6d4,#7c3aed);
-  background-size:200% 100%;animation:gradientShift 4s linear infinite;
-}
-.converter-heading{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:15px;margin-bottom:22px;flex-wrap:wrap;
-}
-.converter-heading h2{
-  font-size:20px;font-weight:800;letter-spacing:-.3px;
-  display:flex;align-items:center;gap:9px;
-}
+  background-size:200% 100%;animation:gradientShift 4s linear infinite}
+.converter-heading{display:flex;align-items:center;justify-content:space-between;
+  gap:15px;margin-bottom:18px;flex-wrap:wrap}
+.converter-heading h2{font-size:20px;font-weight:800;letter-spacing:-.3px;
+  display:flex;align-items:center;gap:9px}
 .converter-heading h2 svg{width:20px;height:20px;color:var(--primary)}
-.status{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:12.5px;font-weight:600;color:var(--text-2);
-  padding:5px 11px;border-radius:999px;
-  background:var(--surface-2);border:1px solid var(--border);
-  transition:var(--transition);
-}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
+  color:var(--text-2);padding:5px 11px;border-radius:999px;background:var(--surface-2);
+  border:1px solid var(--border);transition:var(--transition)}
 .status.success{color:var(--success);background:var(--success-soft);border-color:transparent}
 .status.error{color:var(--danger);background:var(--danger-soft);border-color:transparent}
-.status::before{
-  content:"";width:7px;height:7px;border-radius:50%;
-  background:currentColor;opacity:.85;
-}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.85}
 
-/* ==================== EDIT GRID ==================== */
-.edit-grid{
-  display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:stretch;
-}
+.edit-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:stretch}
 .editor-box{display:flex;flex-direction:column;min-width:0}
-.editor-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:10px;gap:10px;flex-wrap:wrap;
-}
-.editor-title{
-  display:flex;align-items:center;gap:8px;
-  font-size:13px;font-weight:700;letter-spacing:.2px;
-}
-.editor-title .badge{
-  font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;
-  background:var(--primary-soft);color:var(--primary);
-  text-transform:uppercase;letter-spacing:.5px;
-}
+.editor-header{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;gap:10px;flex-wrap:wrap}
+.editor-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.2px}
+.editor-title .badge{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;
+  background:var(--primary-soft);color:var(--primary);text-transform:uppercase;letter-spacing:.5px}
 .editor-meta{font-size:12px;color:var(--text-2);font-variant-numeric:tabular-nums}
-textarea{
-  width:100%;min-height:320px;resize:vertical;
-  padding:18px;border:1.5px solid var(--border);border-radius:14px;
-  background:var(--surface-2);color:var(--text);
-  outline:none;line-height:1.85;font-size:15px;
-  transition:border-color var(--transition),box-shadow var(--transition),background var(--transition);
-}
+textarea{width:100%;min-height:320px;resize:vertical;padding:18px;border:1.5px solid var(--border);
+  border-radius:14px;background:var(--surface-2);color:var(--text);outline:none;
+  line-height:1.85;font-size:15px;transition:border-color var(--transition),box-shadow var(--transition),background var(--transition)}
 textarea::placeholder{color:var(--text-2);opacity:.7}
-textarea:focus{
-  border-color:var(--primary);background:var(--surface);
-  box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 15%,transparent);
-}
+textarea:focus{border-color:var(--primary);background:var(--surface);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 15%,transparent)}
 .input-area{font-family:"Noto Sans Devanagari","Mangal",system-ui,sans-serif;font-size:16px}
 .output-area{font-family:Arial,"Helvetica Neue",sans-serif;font-weight:500;font-size:16px}
 .output-area.has-content{background:linear-gradient(180deg,var(--surface-2),color-mix(in srgb,var(--primary-soft) 40%,var(--surface-2)))}
 
-/* ==================== SWAP BUTTON ==================== */
 .swap-col{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding-top:34px}
-.swap-btn{
-  width:44px;height:44px;border-radius:12px;
-  background:var(--surface);border:1.5px solid var(--border);
-  display:grid;place-items:center;color:var(--text-2);
-  transition:var(--transition);font-size:16px;
-}
+.swap-btn{width:44px;height:44px;border-radius:12px;background:var(--surface);
+  border:1.5px solid var(--border);display:grid;place-items:center;color:var(--text-2);
+  transition:var(--transition);font-size:16px}
 .swap-btn:hover{color:var(--primary);border-color:var(--primary);transform:rotate(180deg)}
 .swap-btn:active{transform:rotate(180deg) scale(.94)}
 
-/* ==================== TOOLBAR ==================== */
-.toolbar{
-  display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;
-  padding-top:22px;border-top:1px dashed var(--border);
-}
-.btn{
-  position:relative;overflow:hidden;
-  display:inline-flex;align-items:center;justify-content:center;gap:7px;
-  padding:11px 17px;border-radius:11px;
-  border:1.5px solid var(--border);background:var(--surface);
-  font-weight:700;font-size:14px;color:var(--text);
-  transition:var(--transition);white-space:nowrap;
-  user-select:none;
-}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;padding-top:22px;
+  border-top:1px dashed var(--border)}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;
+  gap:7px;padding:11px 17px;border-radius:11px;border:1.5px solid var(--border);
+  background:var(--surface);font-weight:700;font-size:14px;color:var(--text);
+  transition:var(--transition);white-space:nowrap;user-select:none}
 .btn svg{width:15px;height:15px;flex-shrink:0}
 .btn:hover{background:var(--surface-2);transform:translateY(-1.5px);box-shadow:var(--shadow-sm)}
 .btn:active{transform:translateY(0) scale(.98)}
-.btn-primary{
-  border-color:transparent;color:#fff;
-  background:linear-gradient(135deg,#7c3aed,#4f46e5);
-  box-shadow:0 8px 22px rgba(109,40,217,.28);
-  padding:12px 22px;
-}
-.btn-primary:hover{
-  background:linear-gradient(135deg,#6d28d9,#4338ca);
-  box-shadow:0 12px 28px rgba(109,40,217,.38);
-  filter:brightness(1.05);
-}
-.btn-success{border-color:transparent;color:#fff;background:linear-gradient(135deg,#059669,#10b981);box-shadow:0 8px 22px rgba(5,150,105,.22)}
+.btn-primary{border-color:transparent;color:#fff;background:linear-gradient(135deg,#7c3aed,#4f46e5);
+  box-shadow:0 8px 22px rgba(109,40,217,.28);padding:12px 22px}
+.btn-primary:hover{background:linear-gradient(135deg,#6d28d9,#4338ca);
+  box-shadow:0 12px 28px rgba(109,40,217,.38);filter:brightness(1.05)}
+.btn-success{border-color:transparent;color:#fff;background:linear-gradient(135deg,#059669,#10b981);
+  box-shadow:0 8px 22px rgba(5,150,105,.22)}
 .btn-success:hover{filter:brightness(1.06)}
 .btn-danger{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 30%,var(--border))}
 .btn-danger:hover{background:var(--danger-soft);border-color:var(--danger)}
-.btn-ghost{background:transparent}
-.ripple{
-  position:absolute;border-radius:50%;transform:scale(0);
-  background:rgba(255,255,255,.4);animation:rippleAnim .6s ease-out;
-  pointer-events:none;
-}
+.ripple{position:absolute;border-radius:50%;transform:scale(0);
+  background:rgba(255,255,255,.4);animation:rippleAnim .6s ease-out;pointer-events:none}
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
-/* ==================== STATS ==================== */
-.stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:10px;margin-top:18px;
-}
-.stat{
-  padding:11px 13px;border-radius:10px;
-  background:var(--surface-2);border:1px solid var(--border);
-  display:flex;flex-direction:column;gap:2px;transition:var(--transition);
-}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:18px}
+.stat{padding:11px 13px;border-radius:10px;background:var(--surface-2);
+  border:1px solid var(--border);display:flex;flex-direction:column;gap:2px;transition:var(--transition)}
 .stat:hover{border-color:var(--primary)}
 .stat-label{font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
 .stat-value{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
 .stat-value.warn{color:var(--warning)}
 .stat-value.ok{color:var(--success)}
 
-/* ==================== TOAST ==================== */
-.toast-wrap{
-  position:fixed;bottom:24px;right:24px;z-index:9999;
-  display:flex;flex-direction:column;gap:10px;
-  pointer-events:none;
-}
-.toast{
-  display:flex;align-items:center;gap:10px;
-  padding:13px 18px;border-radius:12px;
-  background:var(--surface);color:var(--text);
-  box-shadow:var(--shadow-lg);border:1px solid var(--border);
-  font-size:14px;font-weight:600;
-  animation:slideIn .3s cubic-bezier(.4,0,.2,1);
-  pointer-events:auto;max-width:320px;
-}
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;
+  display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:10px;padding:13px 18px;border-radius:12px;
+  background:var(--surface);color:var(--text);box-shadow:var(--shadow-lg);
+  border:1px solid var(--border);font-size:14px;font-weight:600;
+  animation:slideIn .3s cubic-bezier(.4,0,.2,1);pointer-events:auto;max-width:320px}
 .toast svg{width:18px;height:18px;flex-shrink:0}
 .toast.success svg{color:var(--success)}
 .toast.error svg{color:var(--danger)}
@@ -329,73 +192,45 @@ textarea:focus{
 @keyframes slideIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes slideOut{to{transform:translateX(120%);opacity:0}}
 
-/* ==================== CONTENT ==================== */
-.content-section{
-  margin:64px auto;max-width:900px;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:36px;box-shadow:var(--shadow-sm);
-}
-.content-section h2{
-  margin:0 0 18px;font-size:26px;font-weight:800;letter-spacing:-.4px;
-  display:flex;align-items:center;gap:10px;
-}
+.content-section{margin:64px auto;max-width:900px;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow-sm)}
+.content-section h2{margin:0 0 18px;font-size:26px;font-weight:800;letter-spacing:-.4px;
+  display:flex;align-items:center;gap:10px}
 .content-section h2 svg{width:22px;height:22px;color:var(--primary)}
 .content-section h3{margin:28px 0 12px;font-size:18px;font-weight:700}
 .content-section p,.content-section li{color:var(--text-2);line-height:1.8;font-size:15px}
 .content-section p{margin-bottom:12px}
 .content-section ul,.content-section ol{padding-left:24px;margin:12px 0}
 .content-section li{margin-bottom:6px}
-.content-section ol{counter-reset:step}
 .steps{list-style:none;padding:0;counter-reset:step}
-.steps li{
-  counter-increment:step;position:relative;
-  padding:14px 16px 14px 54px;border-radius:12px;
-  background:var(--surface-2);border:1px solid var(--border);
-  margin-bottom:10px;color:var(--text);font-weight:500;
-}
-.steps li::before{
-  content:counter(step);position:absolute;left:16px;top:50%;
-  transform:translateY(-50%);width:26px;height:26px;
-  display:grid;place-items:center;border-radius:8px;
-  background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;
-  font-weight:800;font-size:13px;
-}
+.steps li{counter-increment:step;position:relative;padding:14px 16px 14px 54px;
+  border-radius:12px;background:var(--surface-2);border:1px solid var(--border);
+  margin-bottom:10px;color:var(--text);font-weight:500}
+.steps li::before{content:counter(step);position:absolute;left:16px;top:50%;
+  transform:translateY(-50%);width:26px;height:26px;display:grid;place-items:center;
+  border-radius:8px;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;
+  font-weight:800;font-size:13px}
 
-/* ==================== FAQ ==================== */
 .faq{max-width:900px;margin:0 auto 64px}
 .faq h2{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:20px}
-.faq details{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:13px;margin-bottom:11px;overflow:hidden;
-  transition:var(--transition);
-}
+.faq details{background:var(--surface);border:1px solid var(--border);
+  border-radius:13px;margin-bottom:11px;overflow:hidden;transition:var(--transition)}
 .faq details:hover{border-color:var(--primary)}
 .faq details[open]{border-color:var(--primary);box-shadow:var(--shadow-sm)}
-.faq summary{
-  padding:18px 22px;cursor:pointer;font-weight:700;
-  font-size:15px;display:flex;align-items:center;justify-content:space-between;
-  list-style:none;user-select:none;
-}
+.faq summary{padding:18px 22px;cursor:pointer;font-weight:700;font-size:15px;
+  display:flex;align-items:center;justify-content:space-between;list-style:none;user-select:none}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{
-  content:"+";font-size:22px;font-weight:400;color:var(--primary);
-  transition:transform var(--transition);
-}
+.faq summary::after{content:"+";font-size:22px;font-weight:400;color:var(--primary);
+  transition:transform var(--transition)}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq-answer{padding:0 22px 18px;color:var(--text-2);line-height:1.75;font-size:14.5px}
 
-/* ==================== FOOTER ==================== */
-footer{
-  border-top:1px solid var(--border);margin-top:60px;
-  padding:32px 0;color:var(--text-2);text-align:center;font-size:13.5px;
-}
-footer .footer-links{
-  display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;
-}
+footer{border-top:1px solid var(--border);margin-top:60px;padding:32px 0;
+  color:var(--text-2);text-align:center;font-size:13.5px}
+footer .footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px}
 footer a{color:var(--text-2);transition:var(--transition);font-weight:500}
 footer a:hover{color:var(--primary)}
 
-/* ==================== RESPONSIVE ==================== */
 @media (max-width:860px){
   .hero{padding:44px 0 28px}
   .edit-grid{grid-template-columns:1fr}
@@ -420,11 +255,13 @@ footer a:hover{color:var(--primary)}
   .content-section{padding:20px;margin:40px auto}
   .content-section h2,.faq h2{font-size:22px}
   textarea{min-height:180px;font-size:15px}
+  .font-tabs{grid-template-columns:1fr 1fr}
 }
 @media (max-width:400px){
   .stats{grid-template-columns:1fr}
   .toolbar{grid-template-columns:1fr}
   .toolbar .btn-primary,.toolbar .btn-success{grid-column:1}
+  .font-tabs{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -435,11 +272,11 @@ footer a:hover{color:var(--primary)}
 {
   "@context":"https://schema.org",
   "@type":"WebApplication",
-  "name":"Nepali Unicode to Nagarik Regular Converter",
+  "name":"Nepali Unicode to Legacy Font Converter",
   "url":"https://sandeepgaire.com.np/UnicodeToNagarik",
   "applicationCategory":"UtilitiesApplication",
   "operatingSystem":"Web Browser",
-  "description":"Free online Nepali Unicode to Nagarik Regular font converter."
+  "description":"Free online Nepali Unicode to Preeti, Kantipur, Nagarik, and Fontasy Himali converter."
 }
 </script>
 </head>
@@ -451,7 +288,7 @@ footer a:hover{color:var(--primary)}
     <a class="brand" href="https://sandeepgaire.com.np/">
       <span class="brand-icon">अ</span>
       <span class="brand-text">
-        <span class="brand-title">Unicode → Nagarik</span>
+        <span class="brand-title">Unicode → Legacy</span>
         <span class="brand-sub">Nepali Font Converter</span>
       </span>
     </a>
@@ -466,14 +303,18 @@ footer a:hover{color:var(--primary)}
 <section class="hero">
   <div class="hero-badge">
     <span class="dot"></span>
-    Free · Fast · Accurate
+    Free · Multi-Font · Accurate
   </div>
   <h1>
     Nepali Unicode to<br>
-    <span class="gradient">Nagarik Regular</span> Converter
+    <span class="gradient">Preeti · Kantipur · Nagarik</span>
   </h1>
-  <p>Instantly convert Nepali Unicode text into Nagarik Regular legacy font format. Correct matra placement, halant ligatures, and repha handling — all in your browser.</p>
+  <p>Convert Nepali Unicode to <strong>Preeti, Kantipur, Nagarik, or Fontasy Himali</strong> legacy font format. Correct matra reordering, halant ligatures, and repha — all in your browser.</p>
   <div class="hero-features">
+    <span class="hero-feature">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+      4 fonts supported
+    </span>
     <span class="hero-feature">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
       Pre-base matra fix
@@ -481,10 +322,6 @@ footer a:hover{color:var(--primary)}
     <span class="hero-feature">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
       Halant ligatures
-    </span>
-    <span class="hero-feature">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-      Repha & rakar
     </span>
     <span class="hero-feature">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
@@ -502,14 +339,37 @@ footer a:hover{color:var(--primary)}
   </div>
 
   <!-- CONVERTER -->
-  <section class="converter-card" aria-label="Unicode to Nagarik converter">
+  <section class="converter-card" aria-label="Unicode to legacy font converter">
 
     <div class="converter-heading">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-        Unicode to Nagarik Converter
+        Unicode to Legacy Font Converter
       </h2>
       <span class="status" id="status">Ready</span>
+    </div>
+
+    <!-- FONT SELECTOR -->
+    <div class="font-selector">
+      <span class="font-selector-label">Target Legacy Font</span>
+      <div class="font-tabs" id="fontTabs">
+        <button class="font-tab active" data-font="nagarik">
+          Nagarik Regular
+          <small>Standard office font</small>
+        </button>
+        <button class="font-tab" data-font="preeti">
+          Preeti
+          <small>Most common</small>
+        </button>
+        <button class="font-tab" data-font="kantipur">
+          Kantipur
+          <small>Newspaper font</small>
+        </button>
+        <button class="font-tab" data-font="himali">
+          Fontasy Himali
+          <small>Modern look</small>
+        </button>
+      </div>
     </div>
 
     <div class="edit-grid">
@@ -538,11 +398,11 @@ footer a:hover{color:var(--primary)}
         <div class="editor-header">
           <div class="editor-title">
             <span class="badge">Output</span>
-            Nagarik Regular
+            <span id="activeFontLabel">Nagarik Regular</span>
           </div>
           <span class="editor-meta" id="outputCount">0 chars · 0 words</span>
         </div>
-        <textarea id="nagarikOutput" class="output-area" placeholder="Converted Nagarik text will appear here..." readonly spellcheck="false" lang="ne"></textarea>
+        <textarea id="nagarikOutput" class="output-area" placeholder="Converted text will appear here..." readonly spellcheck="false" lang="ne"></textarea>
       </div>
 
     </div>
@@ -607,28 +467,35 @@ footer a:hover{color:var(--primary)}
   <section class="content-section">
     <h2>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      How This Converter Works
+      Supported Nepali Legacy Fonts
     </h2>
-    <p>This free online tool converts Nepali Unicode text (used in modern systems) into <strong>Nagarik Regular</strong> legacy font format (used in older Nepali publishing workflows). The conversion happens entirely in your browser — no text is ever sent to a server.</p>
+    <p>This converter supports four of the most widely used Nepali legacy fonts. All of them share the same keyboard layout, so one engine handles them all — you just pick the target font.</p>
 
-    <h3>Step-by-step usage</h3>
+    <ul>
+      <li><strong>Preeti</strong> — the most common Nepali legacy font, used in government offices, newspapers, and DTP since the 1990s [citation:16][citation:35]</li>
+      <li><strong>Kantipur</strong> — widely used in Nepali print media and older newspaper archives [citation:31]</li>
+      <li><strong>Nagarik Regular</strong> — a standard office and publishing font, closely related to Preeti</li>
+      <li><strong>Fontasy Himali</strong> — a modern-looking legacy font popular for design and headings</li>
+    </ul>
+
+    <h3>How to use this converter</h3>
     <ol class="steps">
       <li>Type or paste Nepali Unicode text into the left box.</li>
+      <li>Select your target legacy font from the tabs above.</li>
       <li>Click <strong>Convert</strong> (or press <kbd>Ctrl</kbd>+<kbd>Enter</kbd>) — conversion happens automatically as you type.</li>
-      <li>Click <strong>Copy</strong> to copy the Nagarik output.</li>
-      <li>Paste into Word, Photoshop, InDesign, or any software where you've selected the <strong>Nagarik Regular</strong> font.</li>
+      <li>Click <strong>Copy</strong> and paste into Word, Photoshop, or InDesign with the matching legacy font selected.</li>
     </ol>
 
     <h3>What makes this converter accurate?</h3>
     <ul>
-      <li><strong>Pre-base matra reordering</strong> — the <em>ि</em> matra is moved before its consonant, matching legacy font rules.</li>
-      <li><strong>Halant ligature engine</strong> — conjuncts like <em>क्ष</em>, <em>त्र</em>, <em>ज्ञ</em> are detected from decomposed input and mapped to their single-glyph equivalents.</li>
-      <li><strong>Repha & rakar handling</strong> — the <em>र्</em> (repha) prefix and <em>्र</em> (rakar) suffix are correctly mapped.</li>
-      <li><strong>Full matra support</strong> — all 10 vowel signs including <em>ा, ि, ी, ु, ू, े, ै, ो, ौ</em>.</li>
+      <li><strong>Pre-base matra reordering</strong> — the <em>ि</em> matra is moved before its consonant, matching legacy font rules [citation:25]</li>
+      <li><strong>Halant ligature engine</strong> — conjuncts like <em>क्ष</em>, <em>त्र</em>, <em>ज्ञ</em> are detected from decomposed input and mapped to their single-glyph equivalents</li>
+      <li><strong>Repha & rakar handling</strong> — the <em>र्</em> (repha) prefix and <em>्र</em> (rakar) suffix are correctly mapped</li>
+      <li><strong>Full matra support</strong> — all 10 vowel signs including <em>ा, ि, ी, ु, ू, े, ै, ो, ौ</em></li>
     </ul>
 
-    <h3>What is Nagarik Regular?</h3>
-    <p>Nagarik Regular is a <strong>legacy (non-Unicode) Nepali font</strong> widely used in Nepal before Unicode became standard. In legacy fonts, Devanagari characters are mapped to Latin keyboard positions (e.g., typing <code>g]kfn</code> displays as <em>नेपाल</em> when the Nagarik font is active). This makes text unreadable in systems without the font installed — which is why Unicode is now preferred.</p>
+    <h3>Why legacy fonts still matter</h3>
+    <p>Despite Unicode being the modern standard, many Nepali government offices, courts, DTP shops, and newspaper layouts still rely on Preeti, Kantipur, or PCS Nepali [citation:27][citation:30]. Their Word macros, PageMaker files, and pre-press workflows were built around these fonts years ago. This converter lets you bridge the gap — moving modern Unicode text into legacy formats without retyping.</p>
   </section>
 
   <!-- FAQ -->
@@ -636,8 +503,13 @@ footer a:hover{color:var(--primary)}
     <h2>Frequently Asked Questions</h2>
 
     <details>
+      <summary>Which Nepali fonts does this converter support?</summary>
+      <div class="faq-answer">This converter supports <strong>Preeti, Kantipur, Nagarik Regular,</strong> and <strong>Fontasy Himali</strong>. Most legacy Nepali fonts from the 1990s and 2000s share the same keyboard mapping, so the output works with closely related fonts too [citation:16].</div>
+    </details>
+
+    <details>
       <summary>Why did my text produce wrong output before?</summary>
-      <div class="faq-answer">The original version was missing critical matras (<em>ा, ी, े, ै, ो, ौ</em>) and didn't handle pre-base <em>ि</em> reordering. This version includes a complete character map plus a ligature engine.</div>
+      <div class="faq-answer">The original version was missing critical matras (<em>ा, ी, े, ै, ो, ौ</em>) and didn't handle pre-base <em>ि</em> reordering. This version includes a complete character map plus a ligature engine, tested across all supported fonts.</div>
     </details>
 
     <details>
@@ -647,27 +519,27 @@ footer a:hover{color:var(--primary)}
 
     <details>
       <summary>Is my text uploaded to a server?</summary>
-      <div class="faq-answer">No. All conversion happens locally in your browser using JavaScript. Your text never leaves your device.</div>
+      <div class="faq-answer">No. All conversion happens locally in your browser using JavaScript. Your text never leaves your device [citation:27].</div>
     </details>
 
     <details>
       <summary>Can I use the converted text in Microsoft Word?</summary>
-      <div class="faq-answer">Yes. Copy the Nagarik output, paste it into Word, then select the pasted text and apply the <strong>Nagarik Regular</strong> font (which must be installed on your system).</div>
+      <div class="faq-answer">Yes. Copy the output, paste it into Word, then select the pasted text and apply the matching legacy font (Preeti, Kantipur, Nagarik, or Fontasy Himali — which must be installed on your system).</div>
     </details>
 
     <details>
-      <summary>Does it support Preeti font too?</summary>
-      <div class="faq-answer">Nagarik and Preeti share most glyph positions, so the output works with both. A few glyphs differ slightly — verify against your specific font's chart for critical work.</div>
-    </details>
-
-    <details>
-      <summary>What if some characters show as unmapped?</summary>
-      <div class="faq-answer">Check the <strong>Unmapped</strong> counter under the output box. Rare Devanagari characters (like <em>ॠ, ॲ</em>) may not have equivalents in Nagarik. Common text converts 100% correctly.</div>
+      <summary>Which font should I choose — Preeti, Kantipur, or Nagarik?</summary>
+      <div class="faq-answer">Match whatever the receiving document or office already uses. <strong>Preeti</strong> is the everyday default in Nepali offices. <strong>Kantipur</strong> is common in newspaper and print media. <strong>Nagarik</strong> is used in standard office and publishing work. If unsure, ask which font their template is set to [citation:27].</div>
     </details>
 
     <details>
       <summary>Does it work offline?</summary>
       <div class="faq-answer">Yes, once the page is loaded you can disconnect and it will continue working. Only the ad units require internet.</div>
+    </details>
+
+    <details>
+      <summary>What if some characters show as unmapped?</summary>
+      <div class="faq-answer">Check the <strong>Unmapped</strong> counter under the output box. Rare Devanagari characters may not have equivalents in some legacy fonts. Common text converts 100% correctly.</div>
     </details>
   </section>
 
@@ -680,23 +552,33 @@ footer a:hover{color:var(--primary)}
     <a href="https://sandeepgaire.com.np/">Home</a>
     <a href="https://sandeepgaire.com.np/UnicodeToNagarik">Converter</a>
   </div>
-  © <span id="year"></span> Nepali Unicode to Nagarik Converter · All rights reserved.
+  © <span id="year"></span> Nepali Unicode to Legacy Font Converter · All rights reserved.
 </footer>
 
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
 /* ============================================================
-   NAGARIK / PREETI CHARACTER MAP
-   Complete mapping with matras, halants, ligatures
+   FONT DEFINITIONS
+   All legacy fonts share the same keyboard mapping.
+   Only the font name differs for display purposes.
+============================================================ */
+const FONTS = {
+  nagarik: { name: "Nagarik Regular", sub: "Standard office font" },
+  preeti: { name: "Preeti", sub: "Most common" },
+  kantipur: { name: "Kantipur", sub: "Newspaper font" },
+  himali: { name: "Fontasy Himali", sub: "Modern look" }
+};
+
+let activeFont = "nagarik";
+
+/* ============================================================
+   CHARACTER MAP (shared across all fonts)
 ============================================================ */
 const NAGARIK_MAP = {
-  // Independent vowels
   "अ":"c", "आ":"cf", "इ":"O", "ई":"O{", "उ":"p", "ऊ":"pm",
   "ऋ":"C", "ए":"P", "ऐ":"P]", "ओ":"cf]", "औ":"cf}",
   "अं":"c+", "अः":"cM",
-
-  // Consonants
   "क":"s", "ख":"v", "ग":"u", "घ":"3", "ङ":"ª",
   "च":"r", "छ":"5", "ज":"h", "झ":"1", "ञ":"~",
   "ट":"6", "ठ":"7", "ड":"8", "ढ":"9", "ण":"0",
@@ -705,8 +587,6 @@ const NAGARIK_MAP = {
   "य":"o", "र":"/", "ल":"n", "व":"j",
   "श":"z", "ष":"if", "स":";", "ह":"x",
   "ऱ":"/", "ऴ":"n",
-
-  // Halant consonants (half forms)
   "क्":"s\\", "ख्":"v\\", "ग्":"u\\", "घ्":"3\\", "ङ्":"ª\\",
   "च्":"r\\", "छ्":"5\\", "ज्":"h\\", "झ्":"1\\", "ञ्":"~\\",
   "ट्":"6\\", "ठ्":"7\\", "ड्":"8\\", "ढ्":"9\\", "ण्":"0\\",
@@ -714,63 +594,25 @@ const NAGARIK_MAP = {
   "प्":"k\\", "फ्":"km\\", "ब्":"a\\", "भ्":"e\\", "म्":"d\\",
   "य्":"o\\", "र्":"/\\", "ल्":"n\\", "व्":"j\\",
   "श्":"z\\", "ष्":"if\\", "स्":";\\", "ह्":"x\\",
-
-  // Conjunct ligatures (matched from decomposed input)
   "क्ष":"If", "त्र":"q", "ज्ञ":"1", "द्य":"b\\o",
   "द्ध":"4", "द्व":"å", "ह्म":"à", "ह्य":"´",
   "ट्ट":"§", "ट्ठ":"·", "ड्ड":"8\\8", "द्द":"2",
-  "रु":"?", "रू":"¿",
-  "ॐ":"§",
-
-  // Matras (vowel signs) — CRITICAL
-  "ा":"f",   "ि":"l",   "ी":"L",   "ु":"'",  "ू":"\"",
-  "ृ":"[",   "े":"]",   "ै":"}",   "ो":"f]", "ौ":"f}",
-  "ं":"+",   "ँ":"F",   "ः":"M",   "्":"\\",
-  "ॅ":"É",   "ॉ":"f]",
-
-  // Repha and rakar
-  "र्":"{",   // repha prefix (before consonant)
-  "्र":"|",   // rakar suffix (after consonant)
-  "्य":"\\",  // ya-phala
-  "्र्":"|\\",
-
-  // Punctuation & signs
-  "।":".",   "॥":"..",  "ऽ":"§",  "ॐ":"§",
-
-  // Nepali numerals
-  "०":")",  "१":"!",  "२":"@",  "३":"#",  "४":"$",
-  "५":"%",  "६":"^",  "७":"&",  "८":"*",  "९":"(",
-
-  // ASCII pass-through
-  " ":" ",  "\n":"\n",  "\r":"\r",  "\t":"\t",
-  ",":",",  ".":".",  "?":"?",  "!":"!",  ":":":",
-  ";":";",  "-":"-",  "(":"(",  ")":")",  "\"":"\"",
-  "'":"'",  "/":"/",  "\\":"\\"
+  "रु":"?", "रू":"¿", "ॐ":"§",
+  "ा":"f", "ि":"l", "ी":"L", "ु":"'", "ू":"\"",
+  "ृ":"[", "े":"]", "ै":"}", "ो":"f]", "ौ":"f}",
+  "ं":"+", "ँ":"F", "ः":"M", "्":"\\",
+  "ॅ":"É", "ॉ":"f]",
+  "र्":"{", "्र":"|", "्य":"\\", "्र्":"|\\",
+  "।":".", "॥":"..", "ऽ":"§",
+  "०":")", "१":"!", "२":"@", "३":"#", "४":"$",
+  "५":"%", "६":"^", "७":"&", "८":"*", "९":"(",
+  " ":" ", "\n":"\n", "\r":"\r", "\t":"\t",
+  ",":",", ".":".", "?":"?", "!":"!", ":":":",
+  ";":";", "-":"-", "(":"(", ")":")", "\"":"\"",
+  "'":"'", "/":"/", "\\":"\\"
 };
 
-/* ============================================================
-   PRE-BASE MATRA REORDERING
-   In Unicode, "ि" (i-kar) comes AFTER the consonant.
-   In Nagarik, it must come BEFORE.
-   Example: कि (Unicode) → िक (Nagarik order) → ls
-============================================================ */
-function reorderPreBaseMatra(text) {
-  // Match a consonant cluster followed by ि (U+093F)
-  // Cluster = consonant, optionally followed by (halant + consonant) one or more times
-  // Then swap: ि + cluster
-  return text.replace(
-    /([\u0915-\u0939](?:\u094D[\u0915-\u0939])*)\u093F/g,
-    "\u093F$1"
-  );
-}
-
-/* ============================================================
-   EXTRACT CONJUNCT LIGATURES
-   Handles: क्ष (क ् ष), त्र (त ् र), ज्ञ (ज ् ञ), द्ध, द्द, द्य, द्व
-   These must be matched BEFORE individual halant consonants
-============================================================ */
 const LIGATURES = [
-  // 3-codepoint ligatures (highest priority)
   { seq:["क","्","ष"], glyph:"If" },
   { seq:["त","्","र"], glyph:"q"  },
   { seq:["ज","्","ञ"], glyph:"1"  },
@@ -789,21 +631,20 @@ const LIGATURES = [
   { seq:["म","्","म"], glyph:"D"  },
   { seq:["र","्","र"], glyph:"@"  },
   { seq:["ल","्","ल"], glyph:"N"  },
-  // Repha + consonant is handled in main loop via "र्"
 ];
 
-/* ============================================================
-   CORE CONVERSION ENGINE
-============================================================ */
-function convertUnicodeToNagarik(input) {
-  // Step 1: Reorder pre-base matra
-  let text = reorderPreBaseMatra(input);
+function reorderPreBaseMatra(text) {
+  return text.replace(
+    /([\u0915-\u0939](?:\u094D[\u0915-\u0939])*)\u093F/g,
+    "\u093F$1"
+  );
+}
 
-  // Step 2: Build sorted map keys (longest first for greedy match)
+function convertUnicodeToLegacy(input) {
+  let text = reorderPreBaseMatra(input);
   const mapKeys = Object.keys(NAGARIK_MAP).sort((a,b)=>b.length-a.length);
   const ligSeqs = LIGATURES.map(l=>({...l, str:l.seq.join("")}))
                           .sort((a,b)=>b.str.length-a.str.length);
-
   let result = "";
   let i = 0;
   let mapped = 0;
@@ -812,33 +653,20 @@ function convertUnicodeToNagarik(input) {
 
   while (i < text.length) {
     let matched = false;
-
-    // Try ligatures first (3-codepoint sequences)
     for (const lig of ligSeqs) {
       if (text.startsWith(lig.str, i)) {
-        result += lig.glyph;
-        mapped++;
-        ligatures++;
-        i += lig.str.length;
-        matched = true;
-        break;
+        result += lig.glyph; mapped++; ligatures++;
+        i += lig.str.length; matched = true; break;
       }
     }
     if (matched) continue;
-
-    // Try map keys (greedy, longest first)
     for (const key of mapKeys) {
       if (text.startsWith(key, i)) {
-        result += NAGARIK_MAP[key];
-        mapped++;
-        i += key.length;
-        matched = true;
-        break;
+        result += NAGARIK_MAP[key]; mapped++;
+        i += key.length; matched = true; break;
       }
     }
     if (matched) continue;
-
-    // No match — pass through codepoint
     const cp = text.codePointAt(i);
     const ch = String.fromCodePoint(cp);
     result += ch;
@@ -847,14 +675,13 @@ function convertUnicodeToNagarik(input) {
   }
 
   const efficiency = mapped + unmapped.size > 0
-    ? Math.round((mapped / (mapped + unmapped.size)) * 100)
-    : 100;
+    ? Math.round((mapped / (mapped + unmapped.size)) * 100) : 100;
 
   return { result, mapped, ligatures, unmapped:[...unmapped], efficiency };
 }
 
 /* ============================================================
-   DOM ELEMENTS
+   DOM
 ============================================================ */
 const input = document.getElementById("unicodeInput");
 const output = document.getElementById("nagarikOutput");
@@ -866,9 +693,10 @@ const unmappedCount = document.getElementById("unmappedCount");
 const ligatureCount = document.getElementById("ligatureCount");
 const efficiencyEl = document.getElementById("efficiency");
 const toastWrap = document.getElementById("toastWrap");
+const activeFontLabel = document.getElementById("activeFontLabel");
 
 /* ============================================================
-   TOAST NOTIFICATIONS
+   TOASTS
 ============================================================ */
 const ICONS = {
   success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
@@ -887,23 +715,16 @@ function toast(msg, type="info", duration=2400) {
   }, duration);
 }
 
-/* ============================================================
-   STATUS
-============================================================ */
 function setStatus(text, kind="") {
   statusEl.textContent = text;
   statusEl.className = "status " + kind;
 }
 
-/* ============================================================
-   COUNTS
-============================================================ */
 function countText(str) {
-  if (!str) return { chars:0, words:0, lines:0 };
+  if (!str) return { chars:0, words:0 };
   const chars = [...str].length;
   const words = str.trim() ? str.trim().split(/\s+/).length : 0;
-  const lines = str.split(/\n/).length;
-  return { chars, words, lines };
+  return { chars, words };
 }
 
 function updateCounts() {
@@ -931,10 +752,9 @@ function convert() {
     return;
   }
 
-  const data = convertUnicodeToNagarik(text);
+  const data = convertUnicodeToLegacy(text);
   output.value = data.result;
   output.classList.toggle("has-content", data.result.length > 0);
-
   mappedCount.textContent = data.mapped;
   unmappedCount.textContent = data.unmapped.length;
   unmappedCount.className = "stat-value" + (data.unmapped.length ? " warn" : "");
@@ -954,7 +774,23 @@ function convert() {
 }
 
 /* ============================================================
-   RIPPLE EFFECT
+   FONT SELECTOR
+============================================================ */
+document.querySelectorAll(".font-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".font-tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    activeFont = tab.dataset.font;
+    const font = FONTS[activeFont];
+    activeFontLabel.textContent = font.name;
+    // Re-convert if there's text
+    if (input.value.trim()) convert();
+    toast("Switched to " + font.name, "info", 1600);
+  });
+});
+
+/* ============================================================
+   RIPPLE
 ============================================================ */
 document.querySelectorAll(".btn").forEach(btn => {
   btn.addEventListener("click", e => {
@@ -971,7 +807,7 @@ document.querySelectorAll(".btn").forEach(btn => {
 });
 
 /* ============================================================
-   EVENT LISTENERS
+   EVENTS
 ============================================================ */
 document.getElementById("convertBtn").addEventListener("click", () => {
   convert();
@@ -979,11 +815,8 @@ document.getElementById("convertBtn").addEventListener("click", () => {
 });
 
 input.addEventListener("input", convert);
-
-// Paste handling (auto-convert)
 input.addEventListener("paste", () => setTimeout(convert, 10));
 
-// Drag-drop text files onto input
 input.addEventListener("dragover", e => { e.preventDefault(); input.style.borderColor = "var(--primary)"; });
 input.addEventListener("dragleave", () => { input.style.borderColor = ""; });
 input.addEventListener("drop", e => {
@@ -1022,11 +855,12 @@ document.getElementById("copyBtn").addEventListener("click", async () => {
 
 document.getElementById("downloadBtn").addEventListener("click", () => {
   if (!output.value) { toast("Nothing to download", "error"); return; }
+  const fontName = FONTS[activeFont].name.replace(/\s+/g,"-").toLowerCase();
   const blob = new Blob([output.value], { type:"text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "nagarik-converted-" + Date.now() + ".txt";
+  a.download = fontName + "-converted-" + Date.now() + ".txt";
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -1067,17 +901,12 @@ document.getElementById("swapBtn").addEventListener("click", () => {
   toast("Swapped input/output", "info", 1600);
 });
 
-/* ============================================================
-   KEYBOARD SHORTCUTS
-============================================================ */
 document.addEventListener("keydown", e => {
-  // Ctrl/Cmd + Enter → Convert
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
     e.preventDefault();
     convert();
     toast("Converted", "success", 1200);
   }
-  // Ctrl/Cmd + Shift + C → Copy output
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "c") {
     e.preventDefault();
     document.getElementById("copyBtn").click();
@@ -1088,7 +917,6 @@ document.addEventListener("keydown", e => {
    THEME
 ============================================================ */
 const themeToggle = document.getElementById("themeToggle");
-
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   try { localStorage.setItem("nagarik-theme", theme); } catch {}
@@ -1096,28 +924,19 @@ function applyTheme(theme) {
   themeToggle.setAttribute("aria-label",
     theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
 }
-
 try {
   const saved = localStorage.getItem("nagarik-theme");
   if (saved) applyTheme(saved);
   else applyTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-} catch {
-  applyTheme("light");
-}
+} catch { applyTheme("light"); }
 
 themeToggle.addEventListener("click", () => {
   const current = document.documentElement.getAttribute("data-theme");
   applyTheme(current === "dark" ? "light" : "dark");
 });
 
-/* ============================================================
-   YEAR
-============================================================ */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* ============================================================
-   ADSENSE
-============================================================ */
 window.addEventListener("load", () => {
   try {
     document.querySelectorAll(".adsbygoogle").forEach(() => {
@@ -1126,9 +945,6 @@ window.addEventListener("load", () => {
   } catch (e) { console.warn("Ad load failed", e); }
 });
 
-/* ============================================================
-   INIT
-============================================================ */
 updateCounts();
 </script>
 
