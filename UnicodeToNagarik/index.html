@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 
-<!-- AdSense loaded with async + high priority for fast fill -->
+<!-- ✅ AdSense script — URL corrected -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1662750642698861" crossorigin="anonymous"></script>
 
 <style>
@@ -67,7 +67,7 @@ header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surf
   border-radius:12px;background:var(--surface);transition:var(--transition);font-size:18px}
 .icon-btn:hover{background:var(--surface-2);transform:translateY(-1px);border-color:var(--primary)}
 
-/* HERO — tightened spacing */
+/* HERO */
 .hero{width:min(1000px,calc(100% - 32px));margin:auto;padding:36px 0 24px;text-align:center;position:relative}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;
   background:radial-gradient(circle at 50% 20%,rgba(124,58,237,.14),transparent 55%);pointer-events:none}
@@ -89,36 +89,18 @@ header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--surf
 
 .container{width:min(1200px,calc(100% - 32px));margin:auto}
 
-/* ============================================================
-   ADS — SMART PLACEMENT
-   - Container collapses when no ad loads (no blank gap!)
-   - Only becomes visible when AdSense fills it
-   - Minimal margins for high CTR without clutter
-============================================================ */
+/* ADS — collapse when empty */
 .ad-slot{
-  display:none;                 /* hidden by default */
+  display:none;
   margin:14px auto;
   min-height:0;
   overflow:hidden;
   text-align:center;
   width:100%;
 }
-.ad-slot.loaded{
-  display:block;
-  min-height:auto;
-}
-.ad-slot ins{
-  display:block;
-  width:100%;
-}
-/* Fallback: if AdSense never fills, container stays 0 height */
-.ad-slot .adsbygoogle[data-ad-status="unfilled"]{
-  display:none !important;
-}
-.ad-slot .adsbygoogle[data-ad-status="unfilled"] + .ad-slot {
-  display:none;
-}
-/* Label only shown when ad is present */
+.ad-slot.loaded{display:block}
+.ad-slot ins{display:block;width:100%}
+.ad-slot .adsbygoogle[data-ad-status="unfilled"]{display:none !important}
 .ad-label{
   font-size:9.5px;color:var(--text-2);opacity:.5;
   text-transform:uppercase;letter-spacing:1.2px;
@@ -298,7 +280,6 @@ footer a:hover{color:var(--primary)}
   .font-tabs{grid-template-columns:1fr 1fr}
   .font-tab{padding:9px 8px;font-size:12px}
   .font-tab small{font-size:9.5px}
-  /* Ads on mobile: smaller, tighter */
   .ad-slot{margin:10px auto}
 }
 @media (max-width:400px){
@@ -376,7 +357,7 @@ footer a:hover{color:var(--primary)}
 
 <div class="container">
 
-  <!-- AD #1 — Top of converter, high visibility, no reserved gap -->
+  <!-- AD #1 -->
   <div class="ad-slot" id="adTop">
     <span class="ad-label">Advertisement</span>
     <ins class="adsbygoogle"
@@ -399,7 +380,6 @@ footer a:hover{color:var(--primary)}
       <span class="status" id="status">Ready</span>
     </div>
 
-    <!-- FONT SELECTOR -->
     <div class="font-selector">
       <span class="font-selector-label">Target Legacy Font</span>
       <div class="font-tabs" id="fontTabs">
@@ -502,7 +482,7 @@ footer a:hover{color:var(--primary)}
 
   </section>
 
-  <!-- AD #2 — After converter, natural break before content (high CTR location) -->
+  <!-- AD #2 -->
   <div class="ad-slot" id="adBottom">
     <span class="ad-label">Advertisement</span>
     <ins class="adsbygoogle"
@@ -967,9 +947,6 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 /* ============================================================
    ADSENSE — FAST LOAD + SMART COLLAPSE
-   - Push immediately (not waiting for load event)
-   - Detect fill / unfill via data-ad-status attribute
-   - Only show container when ad actually fills
 ============================================================ */
 function initAd(slotId) {
   const slot = document.getElementById(slotId);
@@ -977,12 +954,10 @@ function initAd(slotId) {
   const ins = slot.querySelector(".adsbygoogle");
   if (!ins) return;
 
-  // Push ad request immediately for fastest fill
   try {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   } catch (e) { console.warn("Ad push failed", e); }
 
-  // Watch for fill status changes
   const check = () => {
     const status = ins.getAttribute("data-ad-status");
     if (status === "filled") {
@@ -992,16 +967,13 @@ function initAd(slotId) {
     }
   };
 
-  // Observe attribute changes
   const observer = new MutationObserver(check);
   observer.observe(ins, { attributes: true, attributeFilter: ["data-ad-status"] });
 
-  // Fallback: check after 1.5s in case mutation observer misses
   setTimeout(check, 1500);
   setTimeout(check, 3500);
 }
 
-// Kick off ad loading as soon as DOM is ready — not waiting for window.load
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
     initAd("adTop");
